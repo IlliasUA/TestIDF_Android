@@ -1,0 +1,39 @@
+# Android Studio
+.idea/
+*.iml
+.gradle/
+local.properties
+.idea/workspace.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/gradle.xml
+.idea/runConfigurations.xml
+
+# Build output
+build/
+app/build/
+*.apk
+*.aab
+*.ap_
+*.arr
+
+# Generated files
+captures/
+*.log
+
+# Dependency directories
+.externalNativeBuild/
+.cxx/
+externalNativeBuild/
+
+# Local configuration
+*.keystore
+*.jks
+*.cer
+
+# macOS/Windows/Linux
+.DS_Store
+Thumbs.db
