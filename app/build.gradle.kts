@@ -6,15 +6,15 @@ plugins {
 
 android {
     namespace = "legOS.testidf"
-    compileSdk = 34
+    compileSdk = 35 // Обновлено до 36 для соответствия требованиям зависимостей
 
     defaultConfig {
         applicationId = "legOS.testidf"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35 // Обновлено до 36 для согласованности с compileSdk
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner" // Для инструментальных тестов
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
@@ -22,7 +22,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "2.1.20" // Обновлено до версии, совместимой с плагином Kotlin
+        kotlinCompilerExtensionVersion = "2.1.20"
     }
 
     buildTypes {
@@ -43,6 +43,7 @@ android {
 }
 
 dependencies {
+    // Compose BOM для согласованности версий
     implementation(platform("androidx.compose:compose-bom:2024.09.03"))
     implementation("androidx.activity:activity-compose")
     implementation("androidx.compose.material3:material3")
@@ -52,6 +53,14 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.8.0")
     implementation("io.coil-kt:coil-compose:2.7.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation(libs.androidx.ui.text)
-}
+    implementation("androidx.compose.ui:ui-text") // Заменено libs.androidx.ui.text на явную зависимость
 
+    // Добавлены зависимости для локальных юнит-тестов
+    testImplementation("junit:junit:4.13.2")
+
+    // Добавлены зависимости для инструментальных тестов
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.09.03"))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+}
