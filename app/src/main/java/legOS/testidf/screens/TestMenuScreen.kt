@@ -306,7 +306,7 @@ private fun ReturnButton(
         Text(
             text = text,
             style = MaterialTheme.typography.bodyLarge,
-            fontSize = 16.sp
+            fontSize = 15.sp
         )
     }
 }

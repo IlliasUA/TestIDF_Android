@@ -5,6 +5,8 @@ import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTransformGestures
@@ -256,9 +258,26 @@ private fun TestScreenCompactLayout(
                 modifier = Modifier.padding(vertical = 8.dp)
             )
 
-            // Image with scaling
+            // Image with scaling and panning
             var scale by remember { mutableStateOf(1f) }
+            var offsetX by remember { mutableStateOf(0f) }
+            var offsetY by remember { mutableStateOf(0f) }
             var isGestureActive by remember { mutableStateOf(false) }
+            val animatedScale by animateFloatAsState(
+                targetValue = scale,
+                animationSpec = tween(durationMillis = 300),
+                label = "scaleAnimation"
+            )
+            val animatedOffsetX by animateFloatAsState(
+                targetValue = offsetX,
+                animationSpec = tween(durationMillis = 300),
+                label = "offsetXAnimation"
+            )
+            val animatedOffsetY by animateFloatAsState(
+                targetValue = offsetY,
+                animationSpec = tween(durationMillis = 300),
+                label = "offsetYAnimation"
+            )
             val imagePath = getImagePath(category, currentQuestion)
             val bitmap = loadImageFromAssets(LocalContext.current, imagePath)
             bitmap?.let { imageBitmap ->
@@ -267,24 +286,39 @@ private fun TestScreenCompactLayout(
                     contentDescription = "Question Image",
                     modifier = Modifier
                         .size(
-                            width = if (isLandscape) 390.dp else 416.dp,
-                            height = if (isLandscape) 260.dp else 286.dp
+                            width = if (isLandscape) 390.dp else 430.dp,
+                            height = if (isLandscape) 260.dp else 350.dp
                         )
                         .padding(16.dp)
                         .graphicsLayer(
-                            scaleX = scale,
-                            scaleY = scale
+                            scaleX = animatedScale,
+                            scaleY = animatedScale,
+                            translationX = animatedOffsetX,
+                            translationY = animatedOffsetY
                         )
                         .pointerInput(Unit) {
-                            detectTransformGestures { _, _, zoom, _ ->
+                            detectTransformGestures { _, pan, zoom, _ ->
                                 isGestureActive = true
+                                // Обновляем масштаб
                                 scale = (scale * zoom).coerceIn(1f, 3f)
+                                // Обновляем смещение с учётом масштабирования
+                                if (scale > 1f) {
+                                    offsetX += pan.x
+                                    offsetY += pan.y
+                                    // Ограничиваем смещение
+                                    val maxOffsetX = (size.width * (scale - 1f)) / 2
+                                    val maxOffsetY = (size.height * (scale - 1f)) / 2
+                                    offsetX = offsetX.coerceIn(-maxOffsetX, maxOffsetX)
+                                    offsetY = offsetY.coerceIn(-maxOffsetY, maxOffsetY)
+                                }
                             }
                             awaitPointerEventScope {
                                 while (true) {
                                     val event = awaitPointerEvent()
                                     if (event.type == PointerEventType.Release && isGestureActive) {
                                         scale = 1f
+                                        offsetX = 0f
+                                        offsetY = 0f
                                         isGestureActive = false
                                     }
                                 }
@@ -432,9 +466,26 @@ private fun TestScreenLargeLayout(
                 modifier = Modifier.padding(vertical = 12.dp)
             )
 
-            // Image with scaling
+            // Image with scaling and panning
             var scale by remember { mutableStateOf(1f) }
+            var offsetX by remember { mutableStateOf(0f) }
+            var offsetY by remember { mutableStateOf(0f) }
             var isGestureActive by remember { mutableStateOf(false) }
+            val animatedScale by animateFloatAsState(
+                targetValue = scale,
+                animationSpec = tween(durationMillis = 300),
+                label = "scaleAnimation"
+            )
+            val animatedOffsetX by animateFloatAsState(
+                targetValue = offsetX,
+                animationSpec = tween(durationMillis = 300),
+                label = "offsetXAnimation"
+            )
+            val animatedOffsetY by animateFloatAsState(
+                targetValue = offsetY,
+                animationSpec = tween(durationMillis = 300),
+                label = "offsetYAnimation"
+            )
             val imagePath = getImagePath(category, currentQuestion)
             val bitmap = loadImageFromAssets(LocalContext.current, imagePath)
             bitmap?.let { imageBitmap ->
@@ -443,24 +494,39 @@ private fun TestScreenLargeLayout(
                     contentDescription = "Question Image",
                     modifier = Modifier
                         .size(
-                            width = if (isLandscape) 520.dp else 585.dp,
-                            height = if (isLandscape) 390.dp else 455.dp
+                            width = if (isLandscape) 585.dp else 530.dp,
+                            height = if (isLandscape) 455.dp else 390.dp
                         )
                         .padding(24.dp)
                         .graphicsLayer(
-                            scaleX = scale,
-                            scaleY = scale
+                            scaleX = animatedScale,
+                            scaleY = animatedScale,
+                            translationX = animatedOffsetX,
+                            translationY = animatedOffsetY
                         )
                         .pointerInput(Unit) {
-                            detectTransformGestures { _, _, zoom, _ ->
+                            detectTransformGestures { _, pan, zoom, _ ->
                                 isGestureActive = true
+                                // Обновляем масштаб
                                 scale = (scale * zoom).coerceIn(1f, 3f)
+                                // Обновляем смещение с учётом масштабирования
+                                if (scale > 1f) {
+                                    offsetX += pan.x
+                                    offsetY += pan.y
+                                    // Ограничиваем смещение
+                                    val maxOffsetX = (size.width * (scale - 1f)) / 2
+                                    val maxOffsetY = (size.height * (scale - 1f)) / 2
+                                    offsetX = offsetX.coerceIn(-maxOffsetX, maxOffsetX)
+                                    offsetY = offsetY.coerceIn(-maxOffsetY, maxOffsetY)
+                                }
                             }
                             awaitPointerEventScope {
                                 while (true) {
                                     val event = awaitPointerEvent()
                                     if (event.type == PointerEventType.Release && isGestureActive) {
                                         scale = 1f
+                                        offsetX = 0f
+                                        offsetY = 0f
                                         isGestureActive = false
                                     }
                                 }
