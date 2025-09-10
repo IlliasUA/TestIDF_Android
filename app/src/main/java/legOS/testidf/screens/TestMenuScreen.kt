@@ -136,7 +136,7 @@ private fun TestMenuCompactLayout(navController: NavController, isLandscape: Boo
                     navController = navController,
                     modifier = Modifier.weight(1f),
                     route = "hall_of_fame",
-                    text = "Salle d'honneur",
+                    text = "\uD83C\uDFC6",
                     color = Color(0xFFFFFF00)
                 )
             }
@@ -235,7 +235,7 @@ private fun TestMenuLargeLayout(navController: NavController, isLandscape: Boole
                     navController = navController,
                     modifier = Modifier.weight(1f),
                     route = "hall_of_fame",
-                    text = "Salle d'honneur",
+                    text = "\uD83C\uDFC6",
                     color = Color(0xFFFFFF00)
                 )
             }
