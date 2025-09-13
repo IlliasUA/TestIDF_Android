@@ -1805,8 +1805,8 @@ object Recon_Data {
         Question(
             image = "reco110.jpg",
             additionalImages = listOf("reco110_extra1.jpg", "reco110_extra2.jpg", "reco110_extra3.jpg", "reco110_extra4.jpg"),
-            correct = "BRM-3K Rys",
-            options = listOf("BTR-D", "BRM-3K Rys", "2S25 Sprut", "BMP-Terminator"),
+            correct = "BRM-3K",
+            options = listOf("BTR-D", "BRM-3K", "2S25 Sprut", "BMP-Terminator"),
             description = """
                 Le BRM-3K Rys (Lynx en russe) est un véhicule blindé de reconnaissance russe. Il est développé dans les années 1990.
                 Le BRM-3K Rys est entré en service en 1995.

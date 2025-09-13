@@ -30,6 +30,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.quizapp.Air_Data
+import com.example.quizapp.Art_Data
+import com.example.quizapp.Genie_Data
+import com.example.quizapp.Recon_Data
+import com.example.quizapp.Test_Data
+import com.example.quizapp.Test_bm2
 import java.io.IOException
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -339,10 +344,16 @@ fun SearchResultCard(
 
 private fun searchInAirData(query: String, context: Context): List<SearchResult> {
     val airDataQuestions = Air_Data.QUESTION
+    val artDataQuestions = Art_Data.QUESTION
+    val genieDataQuestions = Genie_Data.QUESTION
+    val reconDataQuestions = Recon_Data.QUESTION
+    val tankDataQuestions = Test_Data.QUESTION
+    val bm2DataQuestions = Test_bm2.QUESTION
 
     val results = mutableListOf<SearchResult>()
     val queryLower = query.lowercase()
 
+    // Search in Air_Data
     airDataQuestions.forEach { question ->
         if (question.correct.lowercase().contains(queryLower)) {
             if (results.none { it.aircraftName == question.correct }) {
@@ -358,7 +369,112 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
                     )
                 )
 
-                Log.d("searchInAirData", "Found match: ${question.correct} with ${question.additionalImages?.size?.plus(1)} images")
+                Log.d("searchInAirData", "Found air match: ${question.correct} with ${question.additionalImages?.size?.plus(1)} images")
+            }
+        }
+    }
+
+    // Search in Art_Data
+    artDataQuestions.forEach { question ->
+        if (question.correct.lowercase().contains(queryLower)) {
+            if (results.none { it.aircraftName == question.correct }) {
+                val mainImagePath = "artillery_images/${question.image}"
+                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "artillery_images/$it" }
+
+                results.add(
+                    SearchResult(
+                        aircraftName = question.correct,
+                        description = question.description ?: "Description non disponible",
+                        mainImage = mainImagePath,
+                        additionalImages = additionalImagePaths
+                    )
+                )
+
+                Log.d("searchInAirData", "Found artillery match: ${question.correct} with ${question.additionalImages?.size?.plus(1)} images")
+            }
+        }
+    }
+
+    // Search in Genie_Data
+    genieDataQuestions.forEach { question ->
+        if (question.correct.lowercase().contains(queryLower)) {
+            if (results.none { it.aircraftName == question.correct }) {
+                val mainImagePath = "genie_images/${question.image}"
+                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "genie_images/$it" }
+
+                results.add(
+                    SearchResult(
+                        aircraftName = question.correct,
+                        description = question.description ?: "Description non disponible",
+                        mainImage = mainImagePath,
+                        additionalImages = additionalImagePaths
+                    )
+                )
+
+                Log.d("searchInAirData", "Found genie match: ${question.correct} with ${question.additionalImages?.size?.plus(1)} images")
+            }
+        }
+    }
+
+    // Search in Recon_Data
+    reconDataQuestions.forEach { question ->
+        if (question.correct.lowercase().contains(queryLower)) {
+            if (results.none { it.aircraftName == question.correct }) {
+                val mainImagePath = "recon_images/${question.image}"
+                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "recon_images/$it" }
+
+                results.add(
+                    SearchResult(
+                        aircraftName = question.correct,
+                        description = question.description ?: "Description non disponible",
+                        mainImage = mainImagePath,
+                        additionalImages = additionalImagePaths
+                    )
+                )
+
+                Log.d("searchInAirData", "Found recon match: ${question.correct} with ${question.additionalImages?.size?.plus(1)} images")
+            }
+        }
+    }
+
+    // Search in Test_Data (Tanks)
+    tankDataQuestions.forEach { question ->
+        if (question.correct.lowercase().contains(queryLower)) {
+            if (results.none { it.aircraftName == question.correct }) {
+                val mainImagePath = "tank_images/${question.image}"
+                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "tank_images/$it" }
+
+                results.add(
+                    SearchResult(
+                        aircraftName = question.correct,
+                        description = question.description ?: "Description non disponible",
+                        mainImage = mainImagePath,
+                        additionalImages = additionalImagePaths
+                    )
+                )
+
+                Log.d("searchInAirData", "Found tank match: ${question.correct} with ${question.additionalImages?.size?.plus(1)} images")
+            }
+        }
+    }
+
+    // Search in Test_bm2 (BM2)
+    bm2DataQuestions.forEach { question ->
+        if (question.correct.lowercase().contains(queryLower)) {
+            if (results.none { it.aircraftName == question.correct }) {
+                val mainImagePath = "bm2_images/${question.image}"
+                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "bm2_images/$it" }
+
+                results.add(
+                    SearchResult(
+                        aircraftName = question.correct,
+                        description = question.description ?: "Description non disponible",
+                        mainImage = mainImagePath,
+                        additionalImages = additionalImagePaths
+                    )
+                )
+
+                Log.d("searchInAirData", "Found bm2 match: ${question.correct} with ${question.additionalImages?.size?.plus(1)} images")
             }
         }
     }
