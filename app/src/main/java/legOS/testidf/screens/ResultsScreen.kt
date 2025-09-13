@@ -7,10 +7,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
@@ -68,18 +70,20 @@ fun ResultsScreen(navController: NavController, category: String, timeLimit: Int
                         contentScale = ContentScale.Crop
                     )
                 } ?: Modifier.background(MaterialTheme.colorScheme.background) // Fallback to default background if image fails to load
-            ),
+            )
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
             "Score: $correctAnswers / ${questions.size}",
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(8.dp)
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.onSurface
         )
 
         LazyColumn(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(questions.size) { index ->
                 val question = questions[index]
@@ -87,15 +91,14 @@ fun ResultsScreen(navController: NavController, category: String, timeLimit: Int
                 val isCorrect = userAnswer == question.correct
 
                 Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
                         containerColor = if (isCorrect) Color(0xFF90EE90) else Color(0xFFFFB6C1)
                     )
                 ) {
                     Column(
-                        modifier = Modifier.padding(16.dp)
+                        modifier = Modifier.padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         val imagePath = getImagePath(category, question)
                         val bitmap = loadImageFromAssets(context, imagePath)
@@ -104,13 +107,22 @@ fun ResultsScreen(navController: NavController, category: String, timeLimit: Int
                                 bitmap = it.asImageBitmap(),
                                 contentDescription = "Question Image",
                                 modifier = Modifier
-                                    .size(400.dp, 250.dp)
-                                    .align(Alignment.CenterHorizontally)
+                                    .fillMaxWidth()
+                                    .aspectRatio(16 / 9f)
+                                    .clip(MaterialTheme.shapes.medium)
+                                    .align(Alignment.CenterHorizontally),
+                                contentScale = ContentScale.Crop
                             )
                         } ?: Text("Image not found: ${question.image}")
 
-                        Text("Question ${index + 1}", style = MaterialTheme.typography.bodyLarge)
-                        Text("Correct: ${question.correct}", style = MaterialTheme.typography.bodyMedium)
+                        Text(
+                            "Question ${index + 1}",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                        Text(
+                            "Correct: ${question.correct}",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
                         Text(
                             "Votre réponse: ${userAnswer ?: "Aucune"}",
                             style = MaterialTheme.typography.bodyMedium
@@ -131,40 +143,34 @@ fun ResultsScreen(navController: NavController, category: String, timeLimit: Int
             }
         }
 
-        Spacer(Modifier.height(16.dp))
-
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Button(
                 onClick = { navController.navigate("time_selection/$category") },
                 modifier = Modifier
-                    .width(200.dp)
-                    .height(70.dp)
-                    .padding(8.dp),
+                    .weight(1f)
+                    .height(56.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.tertiary,
                     contentColor = MaterialTheme.colorScheme.onTertiary
                 )
             ) {
-                Text("Recommencer", style = MaterialTheme.typography.bodyMedium)
+                Text("Recommencer", style = MaterialTheme.typography.bodyLarge)
             }
 
             Button(
                 onClick = { navController.navigate("test_menu") },
                 modifier = Modifier
-                    .width(200.dp)
-                    .height(70.dp)
-                    .padding(8.dp),
+                    .weight(1f)
+                    .height(56.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.tertiary,
                     contentColor = MaterialTheme.colorScheme.onTertiary
                 )
             ) {
-                    Text("Retour", style = MaterialTheme.typography.bodyMedium)
+                Text("Retour", style = MaterialTheme.typography.bodyLarge)
             }
         }
     }
