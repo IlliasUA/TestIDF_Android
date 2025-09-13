@@ -20,6 +20,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import legOS.testidf.screens.CatalogScreen
 import legOS.testidf.screens.ConfirmationFinalTestScreen
 import legOS.testidf.screens.HallOfFameScreen
 import legOS.testidf.screens.InfoScreen
@@ -52,6 +53,7 @@ class MainActivity : ComponentActivity() {
 fun AppNavigation() {
     val navController = rememberNavController()
     Box(modifier = Modifier.fillMaxSize()) {
+        ->
         // Фоновое изображение с прозрачностью 75%
         val context = LocalContext.current
         val backgroundBitmap = try {
@@ -106,6 +108,7 @@ fun AppNavigation() {
                 TestScreen(navController, category, timeLimit)
             }
             composable("info_screen") { InfoScreen(navController) } // Новый маршрут для InfoScreen
+            composable("catalog") { CatalogScreen(navController) }
         }
     }
 }

@@ -116,7 +116,29 @@ private fun TestMenuCompactLayout(navController: NavController, isLandscape: Boo
                 )
             }
 
-            Spacer(Modifier.height(12.dp))
+            // Новая кнопка 📚 между TEST FINAL и Retour (строго как Retour)
+            Spacer(Modifier.height(8.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                ReturnButton(
+                    navController = navController,
+                    modifier = Modifier.weight(1f),
+                    route = "catalog",
+                    text = "\uD83D\uDD0D",
+                    color = Color(0xFF4CAF50) // Мягкий зелёный
+                )
+                Spacer(Modifier.width(8.dp))
+                // Пустое место справа (невидимый Spacer с weight)
+                Spacer(modifier = Modifier.weight(1f))
+            }
+
+            // Уменьшенный Spacer для чёткого позиционирования над Retour
+            Spacer(Modifier.height(8.dp))
 
             Row(
                 modifier = Modifier
@@ -215,7 +237,30 @@ private fun TestMenuLargeLayout(navController: NavController, isLandscape: Boole
                 }
             }
 
-            Spacer(Modifier.height(24.dp))
+            // Новая кнопка 📚 между TEST FINAL и Retour (строго как Retour)
+            Spacer(Modifier.height(12.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Кнопка 📚 слева (как Retour), справа пусто
+                ReturnButton(
+                    navController = navController,
+                    modifier = Modifier.weight(1f),
+                    route = "catalog",
+                    text = "📚",
+                    color = Color(0xFF4CAF50) // Мягкий зелёный
+                )
+                Spacer(Modifier.width(16.dp))
+                // Пустое место справа (невидимый Spacer с weight)
+                Spacer(modifier = Modifier.weight(1f))
+            }
+
+            // Уменьшенный Spacer для чёткого позиционирования над Retour
+            Spacer(Modifier.height(8.dp))
 
             Row(
                 modifier = Modifier
