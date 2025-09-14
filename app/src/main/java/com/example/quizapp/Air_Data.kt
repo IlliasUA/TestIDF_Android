@@ -477,8 +477,8 @@ object Air_Data {
         Question(
             image = "air28.jpg",
             additionalImages = listOf("air28_extra1.jpg", "air28_extra2.jpg", "air28_extra3.jpg", "air28_extra4.jpg"),
-            correct = "Caracal H225 M",
-            options = listOf("Caracal H225 M", "UH-60 Black Hawk", "Stallion CH-53", "SA 330 PUMA"),
+            correct = "Caracal H225M",
+            options = listOf("Caracal H225M", "UH-60 Black Hawk", "Stallion CH-53", "SA 330 PUMA"),
             description = """
                 Mis en service en 2006, le H225M Caracal conçu par Airbus Helicopters est le dernier standard de la famille des Puma SA330.
                 Capables de transporter jusqu’à 28 combattants.

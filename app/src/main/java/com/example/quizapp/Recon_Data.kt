@@ -1906,8 +1906,8 @@ object Recon_Data {
         Question(
             image = "reco116.jpg",
             additionalImages = listOf("reco116_extra1.jpg", "reco116_extra2.jpg", "reco116_extra3.jpg", "reco116_extra4.jpg"),
-            correct = "ERC-90-Sagaie",
-            options = listOf("AMX-10RC", "ERC-90-Sagaie", "AMX-13", "Aravis"),
+            correct = "ERC-90 Sagaie",
+            options = listOf("AMX-10RC", "ERC-90 Sagaie", "AMX-13", "Aravis"),
             description = """
                 L’ERC-90 est un VAL, Véhicule à Armement Lourd, à roues 6×6 français. Il a été développé dans les années 1970.
                 L’ERC-90 est entré en service en 1979.

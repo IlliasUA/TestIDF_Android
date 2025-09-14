@@ -126,7 +126,7 @@ fun CatalogScreen(navController: NavController) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp),
-                    placeholder = { Text("...") },
+                    placeholder = { Text("Entrez ici") },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Search,

@@ -120,13 +120,13 @@ object Test_bm2 {
         Question(
             image = "bm2_question8.jpg",
             additionalImages = listOf("bm2_question8_extra1.jpg", "bm2_question8_extra2.jpg", "bm2_question8_extra3.jpg"),
-            correct = "MT-LB",
-            options = listOf("BTR-60", "BTR-D", "MT-LB", "BMO-T"),
+            correct = "MTLB",
+            options = listOf("BTR-60", "BTR-D", "MTLB", "BMO-T"),
             category = "bm2",
             description = """
-                Le MT-LB est un véhicule blindé de transport multirôle russe, entré en service en 1964. 
+                Le MTLB est un véhicule blindé de transport multirôle russe, entré en service en 1964. 
                 Il est conçu comme un tracteur de canon d’artillerie et un transporteur de matériel. 
-                Par la suite, le MT-LB a été adopté en version transport de troupe, véhicule d’évacuation sanitaire et la plate-forme d’installation de différents systèmes et équipements.
+                Par la suite, le MTLB a été adopté en version transport de troupe, véhicule d’évacuation sanitaire et la plate-forme d’installation de différents systèmes et équipements.
                 Equipage : 2 + 11.
             """.trimIndent(),
             moreInfo = null
@@ -397,8 +397,8 @@ object Test_bm2 {
         Question(
             image = "bm2_question26.jpg",
             additionalImages = listOf("bm2_question26_extra1.jpg", "bm2_question26_extra2.jpg", "bm2_question26_extra3.jpg"),
-            correct = "BMP KSHM",
-            options = listOf("BMP-1", "BMP-1K", "BMP KSHM", "BMR-2 CP"),
+            correct = "BMP-KSHM",
+            options = listOf("BMP-1", "BMP-1K", "BMP-KSHM", "BMR-2 CP"),
             category = "bm2",
             description = """
                 Le BMP-KSHM est un véhicule blindé de commandement basé sur le châssis du véhicule BMP-1 d'origine russe, entré en service en 1972. 

@@ -116,7 +116,7 @@ private fun TestMenuCompactLayout(navController: NavController, isLandscape: Boo
                 )
             }
 
-            // Новая кнопка 📚 между TEST FINAL и Retour (строго как Retour)
+            // Новые кнопки между TEST FINAL и Retour
             Spacer(Modifier.height(8.dp))
             Row(
                 modifier = Modifier
@@ -133,8 +133,13 @@ private fun TestMenuCompactLayout(navController: NavController, isLandscape: Boo
                     color = Color(0xFF4CAF50) // Мягкий зелёный
                 )
                 Spacer(Modifier.width(8.dp))
-                // Пустое место справа (невидимый Spacer с weight)
-                Spacer(modifier = Modifier.weight(1f))
+                ReturnButton(
+                    navController = navController,
+                    modifier = Modifier.weight(1f),
+                    route = "creation", // новая навигация
+                    text = "Creation",
+                    color = Color(0xFF4CAF50) // Тот же цвет что и у поиска
+                )
             }
 
             // Уменьшенный Spacer для чёткого позиционирования над Retour
@@ -237,7 +242,7 @@ private fun TestMenuLargeLayout(navController: NavController, isLandscape: Boole
                 }
             }
 
-            // Новая кнопка 📚 между TEST FINAL и Retour (строго как Retour)
+            // Новые кнопки между TEST FINAL и Retour
             Spacer(Modifier.height(12.dp))
             Row(
                 modifier = Modifier
@@ -246,7 +251,6 @@ private fun TestMenuLargeLayout(navController: NavController, isLandscape: Boole
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Кнопка 📚 слева (как Retour), справа пусто
                 ReturnButton(
                     navController = navController,
                     modifier = Modifier.weight(1f),
@@ -255,8 +259,13 @@ private fun TestMenuLargeLayout(navController: NavController, isLandscape: Boole
                     color = Color(0xFF4CAF50) // Мягкий зелёный
                 )
                 Spacer(Modifier.width(16.dp))
-                // Пустое место справа (невидимый Spacer с weight)
-                Spacer(modifier = Modifier.weight(1f))
+                ReturnButton(
+                    navController = navController,
+                    modifier = Modifier.weight(1f),
+                    route = "creation", // новая навигация
+                    text = "Creation",
+                    color = Color(0xFF4CAF50) // Тот же цвет что и у поиска
+                )
             }
 
             // Уменьшенный Spacer для чёткого позиционирования над Retour
