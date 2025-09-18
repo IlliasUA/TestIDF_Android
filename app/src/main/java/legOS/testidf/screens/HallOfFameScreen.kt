@@ -91,9 +91,8 @@ fun HallOfFameScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background) // Fallback background
-            .safeDrawingPadding() // Respect system bars (notch, status/nav bars)
     ) {
-        // Display background image
+        // Display background image - заполняет весь экран включая системные панели
         backgroundImage?.let { image ->
             Image(
                 bitmap = image,
@@ -103,14 +102,21 @@ fun HallOfFameScreen(navController: NavController) {
             )
         }
 
-        when (windowSizeClass.widthSizeClass) {
-            WindowWidthSizeClass.Compact -> {
-                // Small screens (phones)
-                HallOfFameCompactLayout(navController, scores, isLandscape)
-            }
-            WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
-                // Tablets or large screens
-                HallOfFameLargeLayout(navController, scores, isLandscape)
+        // Контент с безопасными отступами поверх фона
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding() // Применяем отступы только к контенту
+        ) {
+            when (windowSizeClass.widthSizeClass) {
+                WindowWidthSizeClass.Compact -> {
+                    // Small screens (phones)
+                    HallOfFameCompactLayout(navController, scores, isLandscape)
+                }
+                WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
+                    // Tablets or large screens
+                    HallOfFameLargeLayout(navController, scores, isLandscape)
+                }
             }
         }
     }

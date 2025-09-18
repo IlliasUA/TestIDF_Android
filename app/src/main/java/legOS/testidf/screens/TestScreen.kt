@@ -123,9 +123,8 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .safeDrawingPadding()
     ) {
-        // Display background image
+        // Display background image - заполняет весь экран включая системные панели
         backgroundImage?.let { image: androidx.compose.ui.graphics.ImageBitmap ->
             Image(
                 bitmap = image,
@@ -135,74 +134,81 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
             )
         }
 
-        when (windowSizeClass.widthSizeClass) {
-            WindowWidthSizeClass.Compact -> {
-                TestScreenCompactLayout(
-                    navController = navController,
-                    category = category,
-                    currentQuestion = currentQuestion,
-                    currentQuestionIndex = currentQuestionIndex,
-                    totalQuestions = totalQuestions,
-                    timeRemaining = timeRemaining,
-                    initialTimeLimit = initialTimeLimit,
-                    answers = answers,
-                    showQuitConfirmation = showQuitConfirmation,
-                    scope = scope,
-                    isLandscape = isLandscape,
-                    onAnswer = { answer ->
-                        answers.add(answer)
-                        Log.d("TestScreen", "User answer: $answer at index $currentQuestionIndex")
-                        if (currentQuestionIndex < questions.size - 1) {
-                            currentQuestionIndex++
-                            timeRemaining = initialTimeLimit
-                        } else {
-                            navController.currentBackStackEntry?.savedStateHandle?.set("questions", questions)
-                            navController.currentBackStackEntry?.savedStateHandle?.set("answers", answers)
-                            navController.currentBackStackEntry?.savedStateHandle?.set("playerName", playerName)
-                            navController.navigate("results/$category/$timeLimit?playerName=$playerName")
-                        }
-                    },
-                    onQuit = { showQuitConfirmation = true },
-                    onConfirmQuit = {
-                        showQuitConfirmation = false
-                        navController.navigate("test_menu")
-                    },
-                    onDismissQuit = { showQuitConfirmation = false }
-                )
-            }
-            WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
-                TestScreenLargeLayout(
-                    navController = navController,
-                    category = category,
-                    currentQuestion = currentQuestion,
-                    currentQuestionIndex = currentQuestionIndex,
-                    totalQuestions = totalQuestions,
-                    timeRemaining = timeRemaining,
-                    initialTimeLimit = initialTimeLimit,
-                    answers = answers,
-                    showQuitConfirmation = showQuitConfirmation,
-                    scope = scope,
-                    isLandscape = isLandscape,
-                    onAnswer = { answer ->
-                        answers.add(answer)
-                        Log.d("TestScreen", "User answer: $answer at index $currentQuestionIndex")
-                        if (currentQuestionIndex < questions.size - 1) {
-                            currentQuestionIndex++
-                            timeRemaining = initialTimeLimit
-                        } else {
-                            navController.currentBackStackEntry?.savedStateHandle?.set("questions", questions)
-                            navController.currentBackStackEntry?.savedStateHandle?.set("answers", answers)
-                            navController.currentBackStackEntry?.savedStateHandle?.set("playerName", playerName)
-                            navController.navigate("results/$category/$timeLimit?playerName=$playerName")
-                        }
-                    },
-                    onQuit = { showQuitConfirmation = true },
-                    onConfirmQuit = {
-                        showQuitConfirmation = false
-                        navController.navigate("test_menu")
-                    },
-                    onDismissQuit = { showQuitConfirmation = false }
-                )
+        // Контент с безопасными отступами поверх фона
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding() // Применяем отступы только к контенту
+        ) {
+            when (windowSizeClass.widthSizeClass) {
+                WindowWidthSizeClass.Compact -> {
+                    TestScreenCompactLayout(
+                        navController = navController,
+                        category = category,
+                        currentQuestion = currentQuestion,
+                        currentQuestionIndex = currentQuestionIndex,
+                        totalQuestions = totalQuestions,
+                        timeRemaining = timeRemaining,
+                        initialTimeLimit = initialTimeLimit,
+                        answers = answers,
+                        showQuitConfirmation = showQuitConfirmation,
+                        scope = scope,
+                        isLandscape = isLandscape,
+                        onAnswer = { answer ->
+                            answers.add(answer)
+                            Log.d("TestScreen", "User answer: $answer at index $currentQuestionIndex")
+                            if (currentQuestionIndex < questions.size - 1) {
+                                currentQuestionIndex++
+                                timeRemaining = initialTimeLimit
+                            } else {
+                                navController.currentBackStackEntry?.savedStateHandle?.set("questions", questions)
+                                navController.currentBackStackEntry?.savedStateHandle?.set("answers", answers)
+                                navController.currentBackStackEntry?.savedStateHandle?.set("playerName", playerName)
+                                navController.navigate("results/$category/$timeLimit?playerName=$playerName")
+                            }
+                        },
+                        onQuit = { showQuitConfirmation = true },
+                        onConfirmQuit = {
+                            showQuitConfirmation = false
+                            navController.navigate("test_menu")
+                        },
+                        onDismissQuit = { showQuitConfirmation = false }
+                    )
+                }
+                WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
+                    TestScreenLargeLayout(
+                        navController = navController,
+                        category = category,
+                        currentQuestion = currentQuestion,
+                        currentQuestionIndex = currentQuestionIndex,
+                        totalQuestions = totalQuestions,
+                        timeRemaining = timeRemaining,
+                        initialTimeLimit = initialTimeLimit,
+                        answers = answers,
+                        showQuitConfirmation = showQuitConfirmation,
+                        scope = scope,
+                        isLandscape = isLandscape,
+                        onAnswer = { answer ->
+                            answers.add(answer)
+                            Log.d("TestScreen", "User answer: $answer at index $currentQuestionIndex")
+                            if (currentQuestionIndex < questions.size - 1) {
+                                currentQuestionIndex++
+                                timeRemaining = initialTimeLimit
+                            } else {
+                                navController.currentBackStackEntry?.savedStateHandle?.set("questions", questions)
+                                navController.currentBackStackEntry?.savedStateHandle?.set("answers", answers)
+                                navController.currentBackStackEntry?.savedStateHandle?.set("playerName", playerName)
+                                navController.navigate("results/$category/$timeLimit?playerName=$playerName")
+                            }
+                        },
+                        onQuit = { showQuitConfirmation = true },
+                        onConfirmQuit = {
+                            showQuitConfirmation = false
+                            navController.navigate("test_menu")
+                        },
+                        onDismissQuit = { showQuitConfirmation = false }
+                    )
+                }
             }
         }
     }

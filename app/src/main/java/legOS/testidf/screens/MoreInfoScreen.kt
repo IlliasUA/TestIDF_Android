@@ -69,9 +69,8 @@ fun MoreInfoScreen(navController: NavController, category: String, index: Int, t
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .safeDrawingPadding()
     ) {
-        // Display background image
+        // Display background image - заполняет весь экран включая системные панели
         backgroundImage?.let {
             Image(
                 painter = BitmapPainter(it.asImageBitmap()),
@@ -81,12 +80,19 @@ fun MoreInfoScreen(navController: NavController, category: String, index: Int, t
             )
         }
 
-        when (windowSizeClass.widthSizeClass) {
-            WindowWidthSizeClass.Compact -> {
-                MoreInfoCompactLayout(navController, category, currentQuestion, index, isLandscape)
-            }
-            WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
-                MoreInfoLargeLayout(navController, category, currentQuestion, index, isLandscape)
+        // Контент с безопасными отступами поверх фона
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding() // Применяем отступы только к контенту
+        ) {
+            when (windowSizeClass.widthSizeClass) {
+                WindowWidthSizeClass.Compact -> {
+                    MoreInfoCompactLayout(navController, category, currentQuestion, index, isLandscape)
+                }
+                WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
+                    MoreInfoLargeLayout(navController, category, currentQuestion, index, isLandscape)
+                }
             }
         }
     }

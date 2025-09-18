@@ -70,9 +70,8 @@ fun TestMenuScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .systemBarsPadding()
     ) {
-        // Display background image
+        // Display background image - заполняет весь экран включая системные панели
         backgroundImage?.let { image: ImageBitmap ->
             Image(
                 bitmap = image,
@@ -82,24 +81,31 @@ fun TestMenuScreen(navController: NavController) {
             )
         }
 
-        when (windowSizeClass.widthSizeClass) {
-            WindowWidthSizeClass.Compact -> {
-                TestMenuCompactLayout(
-                    navController = navController,
-                    isLandscape = isLandscape,
-                    isCompactHeight = isCompactHeight,
-                    screenWidth = screenWidthDp,
-                    screenHeight = screenHeightDp
-                )
-            }
-            WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
-                TestMenuLargeLayout(
-                    navController = navController,
-                    isLandscape = isLandscape,
-                    isCompactHeight = isCompactHeight,
-                    screenWidth = screenWidthDp,
-                    screenHeight = screenHeightDp
-                )
+        // Контент с безопасными отступами поверх фона
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding() // Применяем отступы только к контенту
+        ) {
+            when (windowSizeClass.widthSizeClass) {
+                WindowWidthSizeClass.Compact -> {
+                    TestMenuCompactLayout(
+                        navController = navController,
+                        isLandscape = isLandscape,
+                        isCompactHeight = isCompactHeight,
+                        screenWidth = screenWidthDp,
+                        screenHeight = screenHeightDp
+                    )
+                }
+                WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
+                    TestMenuLargeLayout(
+                        navController = navController,
+                        isLandscape = isLandscape,
+                        isCompactHeight = isCompactHeight,
+                        screenWidth = screenWidthDp,
+                        screenHeight = screenHeightDp
+                    )
+                }
             }
         }
     }
