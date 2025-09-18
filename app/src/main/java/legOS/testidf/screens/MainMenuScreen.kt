@@ -192,9 +192,11 @@ private fun MainMenuCompactLayout(
         verticalArrangement = if (isCompactHeight) Arrangement.SpaceBetween else Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Верхний спейсер (адаптивный)
+        // Верхний спейсер (адаптивный) - увеличиваем для сдвига вниз
         if (!isCompactHeight) {
-            Spacer(Modifier.height(screenHeight * 0.1f))
+            Spacer(Modifier.height(screenHeight * 0.28f)) // Увеличено с 0.22f до 0.28f
+        } else {
+            Spacer(Modifier.height(32.dp)) // Увеличено с 24dp до 32dp
         }
 
         // Заголовок (скрываем на очень маленьких экранах)
@@ -341,9 +343,11 @@ private fun MainMenuLargeLayout(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Верхний спейсер
+            // Верхний спейсер - увеличиваем для сдвига вниз
             if (!isCompactHeight) {
-                Spacer(Modifier.height(screenHeight * 0.1f))
+                Spacer(Modifier.height(screenHeight * 0.28f)) // Увеличено с 0.22f до 0.28f
+            } else {
+                Spacer(Modifier.height(40.dp)) // Увеличено с 32dp до 40dp
             }
 
             // Заголовок
@@ -445,11 +449,8 @@ private fun MenuButton(
         onClick = onClick,
         modifier = modifier
             .height(
-                when {
-                    isCompact -> 40.dp
-                    text.length > 20 -> 56.dp // Больше высота для длинного текста
-                    else -> 48.dp
-                }
+                // Возвращаем исходную высоту
+                if (isCompact) 48.dp else 56.dp
             )
             .padding(vertical = if (isCompact) 2.dp else 4.dp),
         colors = ButtonDefaults.buttonColors(
@@ -458,17 +459,17 @@ private fun MenuButton(
         ),
         shape = MaterialTheme.shapes.medium,
         contentPadding = PaddingValues(
-            horizontal = if (isCompact) 8.dp else 16.dp,
-            vertical = if (isCompact) 8.dp else 12.dp
+            horizontal = if (isCompact) 16.dp else 20.dp,
+            vertical = if (isCompact) 8.dp else 12.dp    // Разумные вертикальные отступы
         )
     ) {
         Text(
             text = text,
             style = MaterialTheme.typography.bodyLarge.copy(
                 fontSize = when {
-                    isCompact -> 12.sp
-                    text.length > 20 -> 13.sp // Меньший шрифт для длинного текста
-                    else -> 14.sp
+                    isCompact -> 17.sp // Уменьшено на 35% с 26.sp (26 * 0.65 = 16.9)
+                    text.length > 20 -> 17.sp // Уменьшено на 35% с 26.sp
+                    else -> 18.sp // Уменьшено на 35% с 28.sp (28 * 0.65 = 18.2)
                 }
             ),
             textAlign = TextAlign.Center,
