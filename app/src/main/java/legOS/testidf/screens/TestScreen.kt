@@ -17,6 +17,7 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -54,15 +55,18 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
     val windowSizeClass = calculateWindowSizeClass(activity = context as ComponentActivity)
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     val scope = rememberCoroutineScope()
-    var currentQuestionIndex by remember { mutableStateOf(0) }
-    var initialTimeLimit by remember { mutableStateOf(timeLimit) }
-    var timeRemaining by remember { mutableStateOf(timeLimit) }
-    var answers by remember { mutableStateOf(mutableListOf<String?>()) }
-    var showQuitConfirmation by remember { mutableStateOf(false) }
+
+    // Используем rememberSaveable для сохранения состояния при поворотах экрана
+    var currentQuestionIndex by rememberSaveable { mutableIntStateOf(0) }
+    var initialTimeLimit by rememberSaveable { mutableIntStateOf(timeLimit) }
+    var timeRemaining by rememberSaveable { mutableIntStateOf(timeLimit) }
+    var answers by rememberSaveable { mutableStateOf(mutableListOf<String?>()) }
+    var showQuitConfirmation by rememberSaveable { mutableStateOf(false) }
 
     Log.d("TestScreen", "Received category: $category, timeLimit: $timeLimit")
 
-    val questions = remember {
+    // Используем rememberSaveable для сохранения вопросов
+    val questions = rememberSaveable {
         when (category) {
             "tanks" -> Test_Data.QUESTION
             "artillery" -> Art_Data.QUESTION
