@@ -82,7 +82,7 @@ fun ResultsScreen(navController: NavController, category: String, timeLimit: Int
         )
 
         LazyColumn(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(0.4f), // Еще больше уменьшаем weight с 0.7f до 0.4f
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(questions.size) { index ->
@@ -173,5 +173,7 @@ fun ResultsScreen(navController: NavController, category: String, timeLimit: Int
                 Text("Retour", style = MaterialTheme.typography.bodyLarge)
             }
         }
+
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }

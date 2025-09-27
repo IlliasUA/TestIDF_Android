@@ -52,10 +52,9 @@ fun InfoScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background) // Fallback background
-            .safeDrawingPadding() // Respect system bars (notch, status/nav bars)
+            .background(MaterialTheme.colorScheme.background)
     ) {
-        // Display background image
+        // Display background image - заполняет весь экран включая системные панели
         backgroundImage?.let { image ->
             Image(
                 bitmap = image,
@@ -65,14 +64,21 @@ fun InfoScreen(navController: NavController) {
             )
         }
 
-        when (windowSizeClass.widthSizeClass) {
-            WindowWidthSizeClass.Compact -> {
-                // Small screens (phones)
-                InfoCompactLayout(navController, isLandscape)
-            }
-            WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
-                // Tablets or large screens
-                InfoLargeLayout(navController, isLandscape)
+        // Контент с безопасными отступами поверх фона
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding() // Применяем отступы только к контенту
+        ) {
+            when (windowSizeClass.widthSizeClass) {
+                WindowWidthSizeClass.Compact -> {
+                    // Small screens (phones)
+                    InfoCompactLayout(navController, isLandscape)
+                }
+                WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
+                    // Tablets or large screens
+                    InfoLargeLayout(navController, isLandscape)
+                }
             }
         }
     }
