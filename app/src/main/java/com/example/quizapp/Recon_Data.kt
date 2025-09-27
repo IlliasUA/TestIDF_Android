@@ -1415,7 +1415,7 @@ object Recon_Data {
         ),
         Question(
             image = "reco87.jpg",
-            additionalImages = listOf("reco87_extra1.jpg", "reco87_extra2.jpg", "reco87_extra3.jpg", "reco87_extra4.jpg"),
+            additionalImages = listOf("reco87_extra1.jpg", "reco87_extra2.jpg", "reco87_extra3.jpg"),
             correct = "PVP",
             options = listOf("URO", "PVP", "Eagle V", "Komatsu LAV"),
             description = """
@@ -2245,8 +2245,8 @@ object Recon_Data {
         Question(
             image = "reco139.jpg",
             additionalImages = listOf("reco139_extra1.jpg"),
-            correct = "GBC 180",
-            options = listOf("URAL 4320", "VCR Panhard", "TRM 2000", "GBC 180"),
+            correct = "GBC-180",
+            options = listOf("URAL-4320", "VCR Panhard", "TRM-2000", "GBC-180"),
             description = """
                 GBC 180 - Gazelle Berliet Cargo (180 ch). Il est principalement destiné à transporter du personnel, du fret ou des shelters 
                 et à assurer des missions spécialisées de dépannage (lot 7) et de ravitaillement en carburant (CCT).
@@ -2258,9 +2258,9 @@ object Recon_Data {
         ),
         Question(
             image = "reco140.jpg",
-            additionalImages = listOf("reco140_extra1.jpg, reco140_extra2.jpg"),
-            correct = "ACMAT VT-4",
-            options = listOf("Ford Ranger", "GAS Tiger", "ACMAT VT-4", "Peugeot P-4"),
+            additionalImages = listOf("reco140_extra1.jpg", "reco140_extra2.jpg"),
+            correct = "ACMAT VT4",
+            options = listOf("Ford Ranger", "GAS Tiger", "ACMAT VT4", "Peugeot P4"),
             description = """
                 Véhicule de commandement et de liaison léger, non blindé, le  véhicule tactique 4X4 (VT4) est de type 4x4 militarisé, 
                 destiné à assurer des liaisons au profit de 5 soldats ou 4 combattants équipés FELIN dans un contexte opérationnel 
@@ -2283,9 +2283,9 @@ object Recon_Data {
         ),
         Question(
             image = "reco141.jpg",
-            additionalImages = listOf("reco141_extra1.jpg, reco141_extra2.jpg"),
-            correct = "Peugeot P-4",
-            options = listOf("Ford Ranger", "GAS Tiger", "ACMAT VT-4", "Peugeot P-4"),
+            additionalImages = listOf("reco141_extra1.jpg", "reco141_extra2.jpg"),
+            correct = "Peugeot P4",
+            options = listOf("Ford Ranger", "GAS Tiger", "ACMAT VT4", "Peugeot P4"),
             description = """
                 Le Peugeot P4 est un véhicule léger à quatre roues motrices produit par le constructeur automobile français Peugeot de 1982 à 1992.
                 Bien qu'équipé et motorisé par Peugeot, le P4 est une variante du Mercedes-Benz Classe G construit sous licence.
@@ -2295,14 +2295,27 @@ object Recon_Data {
         ),
         Question(
             image = "reco142.jpg",
-            additionalImages = listOf("reco142_extra1.jpg, reco142_extra2.jpg"),
+            additionalImages = listOf("reco142_extra1.jpg", "reco142_extra2.jpg"),
             correct = "Masstech T4",
-            options = listOf("Ford Ranger", "Masstech T4", "ACMAT VT-4", "Peugeot P-4"),
+            options = listOf("Ford Ranger", "Masstech T4", "ACMAT VT4", "Peugeot P4"),
             description = """
                 Le Masstech T4 est un véhicule militaire léger français, basé sur la Toyota Land Cruiser HZJ 76 
                 et modifié par la société Technamm. En particulier, le véhicule est doté d'une radio PR4G, d'un terminal SITEL et d'un GPS DAGR. 
                 Il peut embarquer quatre combattants équipés ou cinq passagers. Déployé uniquement en France avec l'Opération Sentinelle, 
                 son moteur, rustique et compatible avec les carburants africains et militaires, autorise son envoi en OPEX.
+            """.trimIndent(),
+            moreInfo = null,
+            category = "recon"
+        ),
+        Question(
+            image = "reco143.jpg",
+            additionalImages = listOf("reco143_extra1.jpg", "reco143_extra2.jpg"),
+            correct = "TRM-2000",
+            options = listOf("TRM-2000", "KAMAZ-4310", "GBC-180", "URAL-4320"),
+            description = """
+                Le Renault TRM 2000 est un camion militaire français à 4 roues motrices 
+                (attesté par ses initiales : Toutes Roues Motrices) conçu pour les missions de soutien en terrain difficile. 
+                Il est produit de 1982 à 1990. 
             """.trimIndent(),
             moreInfo = null,
             category = "recon"
