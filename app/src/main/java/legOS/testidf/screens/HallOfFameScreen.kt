@@ -229,7 +229,7 @@ private fun ScoreCard(index: Int, score: Pair<String, Int>, isLargeScreen: Boole
                 0 -> Color(0xFFFFD700) // Gold for 1st place
                 1 -> Color(0xFFC0C0C0) // Silver for 2nd place
                 2 -> Color(0xFFCD7F32) // Bronze for 3rd place
-                else -> Color(0xFFD2B48C).copy(alpha = 0.5f) // Coffee color with 50% opacity
+                else -> Color(0xFFD2B48C).copy(alpha = 1f) // Coffee color with 50% opacity
             }
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)

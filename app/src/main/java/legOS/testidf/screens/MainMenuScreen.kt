@@ -299,7 +299,7 @@ private fun MainMenuCompactLayout(
             )
 
             Text(
-                text = "GROMOV I.",
+                text = "IlliasUA",
                 style = MaterialTheme.typography.bodySmall.copy(
                     fontSize = when {
                         isCompactHeight -> 10.sp
@@ -349,21 +349,6 @@ private fun MainMenuLargeLayout(
             } else {
                 Spacer(Modifier.height(40.dp)) // Увеличено с 32dp до 40dp
             }
-
-            // Заголовок
-            Text(
-                text = "Quiz App",
-                style = MaterialTheme.typography.headlineMedium.copy(
-                    fontSize = when {
-                        isCompactHeight -> 20.sp
-                        screenHeight < 700.dp -> 24.sp
-                        else -> 28.sp
-                    }
-                ),
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = if (isCompactHeight) 16.dp else 24.dp)
-            )
 
             // Кнопки меню
             Column(
@@ -423,7 +408,7 @@ private fun MainMenuLargeLayout(
                 )
 
                 Text(
-                    text = "GROMOV I.",
+                    text = "IlliasUA",
                     style = MaterialTheme.typography.bodySmall.copy(
                         fontSize = when {
                             isCompactHeight -> 12.sp

@@ -417,7 +417,7 @@ private fun TestScreenLandscapeLayout(
                             shape = MaterialTheme.shapes.medium
                         ) {
                             Text(
-                                text = "${index + 1}. $option",
+                                text = option,
                                 style = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp),
                                 maxLines = 2,
                                 textAlign = TextAlign.Center
@@ -447,7 +447,7 @@ private fun TestScreenLandscapeLayout(
                             shape = MaterialTheme.shapes.medium
                         ) {
                             Text(
-                                text = "${displayIndex + 1}. $option",
+                                text = option,
                                 style = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp),
                                 maxLines = 2,
                                 textAlign = TextAlign.Center
@@ -652,7 +652,7 @@ private fun TestScreenCompactLayout(
                     shape = MaterialTheme.shapes.medium
                 ) {
                     Text(
-                        text = "${index + 1}. $option",
+                        text = option, // Убрана нумерация
                         style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
                         maxLines = 2
                     )
@@ -869,7 +869,7 @@ private fun TestScreenLargeLayout(
                             shape = MaterialTheme.shapes.medium
                         ) {
                             Text(
-                                text = "${index + 1}. $option",
+                                text = option, // Убрана нумерация
                                 style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
                                 maxLines = 2
                             )
@@ -895,7 +895,7 @@ private fun TestScreenLargeLayout(
                             shape = MaterialTheme.shapes.medium
                         ) {
                             Text(
-                                text = "${index + currentQuestion.options.size / 2 + 1}. $option",
+                                text = option, // Убрана нумерация
                                 style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
                                 maxLines = 2
                             )

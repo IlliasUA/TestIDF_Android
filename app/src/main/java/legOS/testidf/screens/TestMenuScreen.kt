@@ -140,20 +140,7 @@ private fun TestMenuCompactLayout(
         verticalArrangement = if (isCompactHeight) Arrangement.Top else Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Заголовок
-        Text(
-            text = "Choisisez une catégorie",
-            style = MaterialTheme.typography.headlineSmall.copy(
-                fontSize = when {
-                    isCompactHeight -> 16.sp
-                    screenHeight < 600.dp -> 18.sp
-                    else -> 20.sp
-                }
-            ),
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(bottom = if (isCompactHeight) 12.dp else 16.dp)
-        )
+
 
         if (!isCompactHeight) {
             Spacer(Modifier.height(if (isLandscape) 8.dp else 12.dp))
@@ -280,20 +267,7 @@ private fun TestMenuLargeLayout(
                 .padding(end = if (isLandscape) min(32.dp, screenWidth * 0.04f) else 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Заголовок
-            Text(
-                text = "Choisisez une catégorie",
-                style = MaterialTheme.typography.headlineMedium.copy(
-                    fontSize = when {
-                        isCompactHeight -> 20.sp
-                        screenHeight < 700.dp -> 24.sp
-                        else -> 28.sp
-                    }
-                ),
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = if (isCompactHeight) 16.dp else 24.dp)
-            )
+
 
             // Основные кнопки в две колонки
             Row(
@@ -363,7 +337,7 @@ private fun TestMenuLargeLayout(
                     navController = navController,
                     modifier = Modifier.weight(1f),
                     route = "catalog",
-                    text = "📚",
+                    text = "🔍",
                     color = Color(0xFF4CAF50),
                     isCompact = isCompactHeight
                 )
