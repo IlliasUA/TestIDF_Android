@@ -1,6 +1,7 @@
 package legOS.testidf.screens
 
 import android.content.Context
+import android.content.res.Configuration
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,6 +32,8 @@ import legOS.testidf.saveScore
 @Composable
 fun ResultsScreen(navController: NavController, category: String, timeLimit: Int) {
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
+    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     val navBackStackEntry = navController.previousBackStackEntry ?: return
     val questions = navBackStackEntry.savedStateHandle.get<List<Question>>("questions") ?: emptyList()
     val answers = navBackStackEntry.savedStateHandle.get<MutableList<String?>>("answers") ?: mutableListOf()
@@ -61,6 +65,241 @@ fun ResultsScreen(navController: NavController, category: String, timeLimit: Int
     // Load the background image
     val backgroundImage = loadImageFromAssets(context, "images/background_3.jpg")
 
+    // Выбираем компоновку в зависимости от ориентации
+    if (isLandscape) {
+        ResultsLandscapeLayout(
+            navController = navController,
+            category = category,
+            timeLimit = timeLimit,
+            questions = questions,
+            answers = answers,
+            correctAnswers = correctAnswers,
+            backgroundImage = backgroundImage,
+            context = context
+        )
+    } else {
+        ResultsPortraitLayout(
+            navController = navController,
+            category = category,
+            timeLimit = timeLimit,
+            questions = questions,
+            answers = answers,
+            correctAnswers = correctAnswers,
+            backgroundImage = backgroundImage,
+            context = context
+        )
+    }
+}
+
+// Новый компонент для горизонтального режима
+@Composable
+private fun ResultsLandscapeLayout(
+    navController: NavController,
+    category: String,
+    timeLimit: Int,
+    questions: List<Question>,
+    answers: MutableList<String?>,
+    correctAnswers: Int,
+    backgroundImage: android.graphics.Bitmap?,
+    context: Context
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .then(
+                backgroundImage?.let {
+                    Modifier.paint(
+                        painter = BitmapPainter(it.asImageBitmap()),
+                        contentScale = ContentScale.Crop
+                    )
+                } ?: Modifier.background(MaterialTheme.colorScheme.background)
+            )
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        // Левая часть - полные карточки с изображениями и описанием
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+        ) {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(questions.size) { index ->
+                    val question = questions[index]
+                    val userAnswer = answers.getOrNull(index)
+                    val isCorrect = userAnswer == question.correct
+
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = if (isCorrect) Color(0xFF90EE90) else Color(0xFFFFB6C1)
+                        )
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(12.dp),
+                            verticalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            // Изображение
+                            val imagePath = getImagePath(category, question)
+                            val bitmap = loadImageFromAssets(context, imagePath)
+                            bitmap?.let {
+                                Image(
+                                    bitmap = it.asImageBitmap(),
+                                    contentDescription = "Question Image ${index + 1}",
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .aspectRatio(16 / 9f)
+                                        .clip(MaterialTheme.shapes.medium),
+                                    contentScale = ContentScale.Crop
+                                )
+                            } ?: Text(
+                                "Image not found: ${question.image}",
+                                modifier = Modifier.padding(8.dp)
+                            )
+
+                            // Текстовая информация
+                            Text(
+                                "Question ${index + 1}",
+                                style = MaterialTheme.typography.titleMedium.copy(fontSize = 14.sp)
+                            )
+                            Text(
+                                "Correct: ${question.correct}",
+                                style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
+                            )
+                            Text(
+                                "Votre réponse: ${userAnswer ?: "Aucune"}",
+                                style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
+                            )
+
+                            // Кнопка "Plus d'infos" для каждой карточки
+                            if (category !in listOf("tanks", "artillery", "recon", "genie", "air")) {
+                                Button(
+                                    onClick = {
+                                        navController.currentBackStackEntry?.savedStateHandle?.set("questions", questions)
+                                        navController.navigate("more_info/$category/$index/$timeLimit")
+                                    },
+                                    modifier = Modifier
+                                        .align(Alignment.End)
+                                        .height(32.dp),
+                                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                                ) {
+                                    Text(
+                                        "Plus d'infos",
+                                        style = MaterialTheme.typography.bodySmall.copy(fontSize = 10.sp)
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Правая часть - общая информация и основные кнопки навигации
+        Column(
+            modifier = Modifier
+                .weight(0.7f) // Немного меньше места для правой части
+                .fillMaxHeight()
+                .padding(8.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Заголовок со счетом
+            Text(
+                "Score: $correctAnswers / ${questions.size}",
+                style = MaterialTheme.typography.headlineMedium.copy(fontSize = 24.sp),
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.padding(bottom = 32.dp)
+            )
+
+            // Дополнительная информация о результатах
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 24.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    val percentage = (correctAnswers.toFloat() / questions.size * 100).toInt()
+                    Text(
+                        "Résultat: $percentage%",
+                        style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Text(
+                        "${questions.size - correctAnswers} réponses incorrectes",
+                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            // Основные кнопки навигации
+            Column(
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Button(
+                    onClick = { navController.navigate("time_selection/$category") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.tertiary,
+                        contentColor = MaterialTheme.colorScheme.onTertiary
+                    )
+                ) {
+                    Text(
+                        "Recommencer",
+                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp)
+                    )
+                }
+
+                Button(
+                    onClick = { navController.navigate("test_menu") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.tertiary,
+                        contentColor = MaterialTheme.colorScheme.onTertiary
+                    )
+                ) {
+                    Text(
+                        "Retour",
+                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+    }
+}
+
+// Старая компоновка для портретного режима
+@Composable
+private fun ResultsPortraitLayout(
+    navController: NavController,
+    category: String,
+    timeLimit: Int,
+    questions: List<Question>,
+    answers: MutableList<String?>,
+    correctAnswers: Int,
+    backgroundImage: android.graphics.Bitmap?,
+    context: Context
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -70,7 +309,7 @@ fun ResultsScreen(navController: NavController, category: String, timeLimit: Int
                         painter = BitmapPainter(it.asImageBitmap()),
                         contentScale = ContentScale.Crop
                     )
-                } ?: Modifier.background(MaterialTheme.colorScheme.background) // Fallback to default background if image fails to load
+                } ?: Modifier.background(MaterialTheme.colorScheme.background)
             )
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -83,7 +322,7 @@ fun ResultsScreen(navController: NavController, category: String, timeLimit: Int
         )
 
         LazyColumn(
-            modifier = Modifier.weight(0.4f), // Еще больше уменьшаем weight с 0.7f до 0.4f
+            modifier = Modifier.weight(0.4f),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(questions.size) { index ->
