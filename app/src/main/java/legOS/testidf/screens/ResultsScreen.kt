@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.quizapp.Question
 import legOS.testidf.loadImageFromAssets
@@ -157,7 +158,7 @@ fun ResultsScreen(navController: NavController, category: String, timeLimit: Int
                     contentColor = MaterialTheme.colorScheme.onTertiary
                 )
             ) {
-                Text("Recommencer", style = MaterialTheme.typography.bodyLarge)
+                Text("Recommencer", style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp))
             }
 
             Button(
@@ -170,7 +171,7 @@ fun ResultsScreen(navController: NavController, category: String, timeLimit: Int
                     contentColor = MaterialTheme.colorScheme.onTertiary
                 )
             ) {
-                Text("Retour", style = MaterialTheme.typography.bodyLarge)
+                Text("Retour", style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp))
             }
         }
 
