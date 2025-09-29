@@ -1,44 +1,39 @@
+
 package legOS.testidf.screens
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.os.Parcelable
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.quizapp.Air_Data
-import com.example.quizapp.Art_Data
-import com.example.quizapp.Genie_Data
-import com.example.quizapp.Recon_Data
-import com.example.quizapp.Test_Data
-import com.example.quizapp.Test_bm2
+import com.example.quizapp.*
 import kotlinx.parcelize.Parcelize
 import java.io.IOException
 
@@ -56,14 +51,15 @@ data class CreationItem(
 fun CreationScreen(navController: NavController) {
     val context = LocalContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
+    val configuration = LocalConfiguration.current
+    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
-    var searchQuery by remember { mutableStateOf("") }
-    var searchResults by remember { mutableStateOf<List<CreationItem>>(emptyList()) }
-    var selectedItems by remember { mutableStateOf<List<CreationItem>>(emptyList()) }
-    var isSearching by remember { mutableStateOf(false) }
-    var showSelectedItems by remember { mutableStateOf(false) }
+    // Используем rememberSaveable для сохранения состояния при поворотах
+    var searchQuery by rememberSaveable { mutableStateOf("") }
+    var searchResults by rememberSaveable { mutableStateOf<List<CreationItem>>(emptyList()) }
+    var selectedItems by rememberSaveable { mutableStateOf<List<CreationItem>>(emptyList()) }
+    var showSelectedItems by rememberSaveable { mutableStateOf(false) }
 
-    // Background image
     val backgroundImage = remember {
         try {
             context.assets.open("images/background_3.jpg").use { inputStream ->
@@ -76,21 +72,8 @@ fun CreationScreen(navController: NavController) {
     }
 
     fun performSearch(query: String) {
-        if (query.isBlank()) {
-            searchResults = emptyList()
-            return
-        }
-
-        isSearching = true
-        try {
-            val results = searchAllData(query.trim(), context)
-            searchResults = results
-            Log.d("CreationScreen", "Search for '$query' found ${results.size} results")
-        } catch (e: Exception) {
-            Log.e("CreationScreen", "Error during search", e)
-            searchResults = emptyList()
-        }
-        isSearching = false
+        searchResults = searchAllData(query.trim(), context)
+        Log.d("CreationScreen", "Search for '$query' found ${searchResults.size} results")
     }
 
     fun addToSelection(item: CreationItem) {
@@ -107,141 +90,403 @@ fun CreationScreen(navController: NavController) {
 
     fun navigateToCustomTest() {
         try {
-            // Сохраняем selectedItems в SavedStateHandle текущего экрана
+            TestDataHolder.selectedItems = selectedItems
+            Log.d("CreationScreen", "Saved ${selectedItems.size} items to TestDataHolder")
             navController.currentBackStackEntry?.savedStateHandle?.set("selectedItems", selectedItems)
-            Log.d("CreationScreen", "Saved ${selectedItems.size} items to SavedStateHandle")
-
-            // Логируем содержимое для отладки
             selectedItems.forEachIndexed { index, item ->
                 Log.d("CreationScreen", "Item $index: ${item.name} (${item.category})")
             }
-
-            // Переходим к выбору времени
             navController.navigate("custom_time_selection/${selectedItems.size}")
-
         } catch (e: Exception) {
-            Log.e("CreationScreen", "Error saving selected items", e)
-            // Fallback: используем глобальный объект
-            TestDataHolder.selectedItems = selectedItems
-            navController.navigate("custom_time_selection/${selectedItems.size}")
+            Log.e("CreationScreen", "Error navigating to custom test", e)
         }
     }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Créateur de Test") },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Retour"
-                        )
-                    }
-                },
-                actions = {
-                    // Badge with selected count
-                    Badge(
-                        modifier = Modifier.padding(end = 16.dp)
-                    ) {
-                        Text("${selectedItems.size}")
-                    }
-
-                    // Toggle view button
-                    TextButton(
-                        onClick = { showSelectedItems = !showSelectedItems }
-                    ) {
-                        Text(if (showSelectedItems) "Recherche" else "Sélection")
-                    }
-                }
-            )
-        }
-    ) { paddingValues ->
-        Column(
+    // Выбор компоновки в зависимости от ориентации
+    if (isLandscape) {
+        // ГОРИЗОНТАЛЬНАЯ ОРИЕНТАЦИЯ
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
                 .then(
                     backgroundImage?.let {
-                        Modifier.paint(
-                            painter = BitmapPainter(it),
-                            contentScale = ContentScale.Crop
-                        )
+                        Modifier.paint(painter = BitmapPainter(it), contentScale = ContentScale.Crop)
                     } ?: Modifier.background(MaterialTheme.colorScheme.background)
                 )
         ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                // ЛЕВАЯ ЧАСТЬ - Результаты поиска или выбранные элементы
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                ) {
+                    if (!showSelectedItems) {
+                        // Показываем результаты поиска
+                        when {
+                            searchResults.isEmpty() && searchQuery.isBlank() -> {
+                                Column(
+                                    modifier = Modifier.align(Alignment.Center),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Search,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(64.dp),
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Text(
+                                        text = "Recherchez des éléments pour créer votre test",
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        textAlign = TextAlign.Center,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
+                            }
+                            searchResults.isEmpty() && searchQuery.isNotBlank() -> {
+                                Text(
+                                    text = "Aucun élément trouvé pour \"$searchQuery\"",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    textAlign = TextAlign.Center,
+                                    color = MaterialTheme.colorScheme.error,
+                                    modifier = Modifier.align(Alignment.Center)
+                                )
+                            }
+                            else -> {
+                                LazyColumn(
+                                    modifier = Modifier.fillMaxSize(),
+                                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    items(searchResults) { item ->
+                                        CreationItemCard(
+                                            item = item,
+                                            context = context,
+                                            isSelected = selectedItems.any { it.name == item.name },
+                                            onAddClick = { addToSelection(item) },
+                                            onRemoveClick = { removeFromSelection(item) }
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        // Показываем выбранные элементы
+                        if (selectedItems.isEmpty()) {
+                            Column(
+                                modifier = Modifier.align(Alignment.Center),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = "Aucun élément sélectionné",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    textAlign = TextAlign.Center
+                                )
+                                Spacer(modifier = Modifier.height(16.dp))
+                                Text(
+                                    text = "Minimum 4 éléments requis pour créer un test",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                        } else {
+                            LazyColumn(
+                                modifier = Modifier.fillMaxSize(),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                items(selectedItems) { item ->
+                                    CreationItemCard(
+                                        item = item,
+                                        context = context,
+                                        isSelected = true,
+                                        onAddClick = { },
+                                        onRemoveClick = { removeFromSelection(item) }
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // ПРАВАЯ ЧАСТЬ - Элементы управления
+                Column(
+                    modifier = Modifier
+                        .weight(0.6f)
+                        .fillMaxHeight()
+                        .padding(top = 40.dp),
+                    verticalArrangement = Arrangement.Top
+                ) {
+                    if (!showSelectedItems) {
+                        // Панель поиска
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                        ) {
+                            Column(modifier = Modifier.padding(8.dp)) {
+                                if (selectedItems.isNotEmpty()) {
+                                    Box(
+                                        modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                                        contentAlignment = Alignment.CenterEnd
+                                    ) {
+                                        Badge { Text("${selectedItems.size}") }
+                                    }
+                                }
+
+                                OutlinedTextField(
+                                    value = searchQuery,
+                                    onValueChange = { newValue ->
+                                        searchQuery = newValue
+                                        performSearch(newValue)
+                                    },
+                                    modifier = Modifier.fillMaxWidth(),
+                                    placeholder = { Text("Entrez ici") },
+                                    leadingIcon = {
+                                        Icon(Icons.Default.Search, contentDescription = "Rechercher")
+                                    },
+                                    trailingIcon = {
+                                        if (searchQuery.isNotEmpty()) {
+                                            IconButton(onClick = {
+                                                searchQuery = ""
+                                                searchResults = emptyList()
+                                            }) {
+                                                Icon(Icons.Default.Clear, contentDescription = "Effacer")
+                                            }
+                                        }
+                                    },
+                                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                                    keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
+                                    singleLine = true
+                                )
+
+                                Spacer(modifier = Modifier.height(8.dp))
+
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    Button(
+                                        onClick = {
+                                            navController.navigate("test_menu") {
+                                                popUpTo("test_menu") { inclusive = false }
+                                            }
+                                        },
+                                        modifier = Modifier.weight(1f),
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = MaterialTheme.colorScheme.secondary
+                                        )
+                                    ) {
+                                        Icon(Icons.Default.ArrowBack, null, Modifier.size(16.dp))
+                                        Spacer(Modifier.width(4.dp))
+                                        Text("Retour")
+                                    }
+
+                                    Button(
+                                        onClick = { showSelectedItems = !showSelectedItems },
+                                        modifier = Modifier.weight(1f),
+                                        enabled = selectedItems.size >= 4,
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = if (selectedItems.size >= 4)
+                                                Color(0xFF4CAF50)
+                                            else
+                                                MaterialTheme.colorScheme.surfaceVariant
+                                        )
+                                    ) {
+                                        Text("Sélection")
+                                        if (selectedItems.isNotEmpty()) {
+                                            Text(" (${selectedItems.size})")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        // Панель управления выбранными элементами
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                        ) {
+                            Column(modifier = Modifier.padding(8.dp)) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    Button(
+                                        onClick = { showSelectedItems = false },
+                                        modifier = Modifier.weight(1f),
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = MaterialTheme.colorScheme.secondary
+                                        )
+                                    ) {
+                                        Icon(Icons.Default.ArrowBack, null, Modifier.size(16.dp))
+                                        Spacer(Modifier.width(4.dp))
+                                        Text("Retour")
+                                    }
+
+                                    Button(
+                                        onClick = { selectedItems = emptyList() },
+                                        modifier = Modifier.weight(1f),
+                                        enabled = selectedItems.isNotEmpty(),
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = MaterialTheme.colorScheme.error
+                                        )
+                                    ) {
+                                        Icon(Icons.Default.Clear, null, Modifier.size(16.dp))
+                                        Spacer(Modifier.width(4.dp))
+                                        Text("Effacer")
+                                    }
+                                }
+
+                                Spacer(modifier = Modifier.height(8.dp))
+
+                                Button(
+                                    onClick = { navigateToCustomTest() },
+                                    modifier = Modifier.fillMaxWidth(),
+                                    enabled = selectedItems.size >= 4,
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = if (selectedItems.size >= 4)
+                                            Color(0xFF4CAF50)
+                                        else
+                                            MaterialTheme.colorScheme.surfaceVariant
+                                    )
+                                ) {
+                                    Text("Créer Test (${selectedItems.size})")
+                                }
+
+                                if (selectedItems.isNotEmpty()) {
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                    Card(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        colors = CardDefaults.cardColors(
+                                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                                        )
+                                    ) {
+                                        Column(modifier = Modifier.padding(8.dp)) {
+                                            Text(
+                                                text = "Éléments sélectionnés: ${selectedItems.size}",
+                                                style = MaterialTheme.typography.titleMedium
+                                            )
+                                            val categoryCounts = selectedItems.groupingBy { it.category }.eachCount()
+                                            categoryCounts.forEach { (category, count) ->
+                                                Text(
+                                                    text = "$category: $count",
+                                                    style = MaterialTheme.typography.bodySmall
+                                                )
+                                            }
+                                            if (selectedItems.size < 4) {
+                                                Spacer(modifier = Modifier.height(4.dp))
+                                                Text(
+                                                    text = "Encore ${4 - selectedItems.size} éléments requis",
+                                                    style = MaterialTheme.typography.bodySmall,
+                                                    color = MaterialTheme.colorScheme.error
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    } else {
+        // ВЕРТИКАЛЬНАЯ ОРИЕНТАЦИЯ (без изменений)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .then(
+                    backgroundImage?.let {
+                        Modifier.paint(painter = BitmapPainter(it), contentScale = ContentScale.Crop)
+                    } ?: Modifier.background(MaterialTheme.colorScheme.background)
+                )
+        ) {
+            Spacer(modifier = Modifier.fillMaxHeight(0.07f))
+
             if (!showSelectedItems) {
                 // Search interface
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
                     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                 ) {
-                    Column(
-                        modifier = Modifier.padding(8.dp)
-                    ) {
+                    Column(modifier = Modifier.padding(8.dp)) {
+                        if (selectedItems.isNotEmpty()) {
+                            Box(
+                                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                                contentAlignment = Alignment.CenterEnd
+                            ) {
+                                Badge { Text("${selectedItems.size}") }
+                            }
+                        }
+
                         OutlinedTextField(
                             value = searchQuery,
-                            onValueChange = { searchQuery = it },
+                            onValueChange = { newValue ->
+                                searchQuery = newValue
+                                performSearch(newValue)
+                            },
                             modifier = Modifier.fillMaxWidth(),
                             placeholder = { Text("Entrez ici") },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Default.Search,
-                                    contentDescription = "Rechercher"
-                                )
-                            },
+                            leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Rechercher") },
                             trailingIcon = {
                                 if (searchQuery.isNotEmpty()) {
                                     IconButton(onClick = {
                                         searchQuery = ""
                                         searchResults = emptyList()
                                     }) {
-                                        Icon(
-                                            imageVector = Icons.Default.Clear,
-                                            contentDescription = "Effacer"
-                                        )
+                                        Icon(Icons.Default.Clear, contentDescription = "Effacer")
                                     }
                                 }
                             },
-                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                            keyboardActions = KeyboardActions(
-                                onSearch = {
-                                    performSearch(searchQuery)
-                                    keyboardController?.hide()
-                                }
-                            ),
+                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
                             singleLine = true
                         )
 
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        // Кнопка OK для подтверждения поиска
-                        Button(
-                            onClick = {
-                                performSearch(searchQuery)
-                                keyboardController?.hide()
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(48.dp),
-                            enabled = searchQuery.isNotBlank(),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                contentColor = MaterialTheme.colorScheme.onPrimary
-                            )
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            if (isSearching) {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.size(16.dp),
-                                    color = MaterialTheme.colorScheme.onPrimary,
-                                    strokeWidth = 2.dp
+                            Button(
+                                onClick = {
+                                    navController.navigate("test_menu") {
+                                        popUpTo("test_menu") { inclusive = false }
+                                    }
+                                },
+                                modifier = Modifier.weight(1f),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.secondary
                                 )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text("Recherche en cours...")
-                            } else {
-                                Text("OK", style = MaterialTheme.typography.bodyLarge)
+                            ) {
+                                Icon(Icons.Default.ArrowBack, null, Modifier.size(16.dp))
+                                Spacer(Modifier.width(4.dp))
+                                Text("Retour")
+                            }
+
+                            Button(
+                                onClick = { showSelectedItems = !showSelectedItems },
+                                modifier = Modifier.weight(1f),
+                                enabled = selectedItems.size >= 4,
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = if (selectedItems.size >= 4)
+                                        Color(0xFF4CAF50)
+                                    else
+                                        MaterialTheme.colorScheme.surfaceVariant
+                                )
+                            ) {
+                                Text("Sélection")
+                                if (selectedItems.isNotEmpty()) {
+                                    Spacer(Modifier.width(4.dp))
+                                    Text("(${selectedItems.size})")
+                                }
                             }
                         }
                     }
@@ -250,53 +495,22 @@ fun CreationScreen(navController: NavController) {
                 // Search Results
                 when {
                     searchResults.isEmpty() && searchQuery.isBlank() -> {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
+                        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                Icon(
-                                    imageVector = Icons.Default.Search,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(64.dp),
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                                Spacer(modifier = Modifier.height(16.dp))
-                                Text(
-                                    text = "Recherchez des éléments pour créer votre test",
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    textAlign = TextAlign.Center,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
+                                Icon(Icons.Default.Search, null, Modifier.size(64.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Spacer(Modifier.height(16.dp))
+                                Text("Recherchez des éléments pour créer votre test", textAlign = TextAlign.Center)
                             }
                         }
                     }
-                    searchResults.isEmpty() && searchQuery.isNotBlank() && !isSearching -> {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "Aucun élément trouvé pour \"$searchQuery\"",
-                                style = MaterialTheme.typography.bodyLarge,
-                                textAlign = TextAlign.Center,
-                                color = MaterialTheme.colorScheme.error
-                            )
-                        }
-                    }
-                    isSearching -> {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            CircularProgressIndicator()
+                    searchResults.isEmpty() && searchQuery.isNotBlank() -> {
+                        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                            Text("Aucun élément trouvé pour \"$searchQuery\"", textAlign = TextAlign.Center)
                         }
                     }
                     else -> {
                         LazyColumn(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(horizontal = 8.dp),
+                            modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp),
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             items(searchResults) { item ->
@@ -313,117 +527,99 @@ fun CreationScreen(navController: NavController) {
                 }
             } else {
                 // Selected items view
-                if (selectedItems.isEmpty()) {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text(
-                                text = "Aucun élément sélectionné",
-                                style = MaterialTheme.typography.bodyLarge,
-                                textAlign = TextAlign.Center,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                            Spacer(modifier = Modifier.height(16.dp))
-                            Text(
-                                text = "Minimum 4 éléments requis pour créer un test",
-                                style = MaterialTheme.typography.bodyMedium,
-                                textAlign = TextAlign.Center,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                    }
-                } else {
-                    Column {
-                        // Action buttons
+                Card(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                ) {
+                    Column(modifier = Modifier.padding(8.dp)) {
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             Button(
-                                onClick = {
-                                    selectedItems = emptyList()
-                                    Log.d("CreationScreen", "Cleared all selected items")
-                                },
+                                onClick = { showSelectedItems = false },
+                                modifier = Modifier.weight(1f),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.secondary
+                                )
+                            ) {
+                                Icon(Icons.Default.ArrowBack, null, Modifier.size(16.dp))
+                                Spacer(Modifier.width(4.dp))
+                                Text("Retour")
+                            }
+
+                            Button(
+                                onClick = { selectedItems = emptyList() },
+                                modifier = Modifier.weight(1f),
+                                enabled = selectedItems.isNotEmpty(),
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = MaterialTheme.colorScheme.error
                                 )
                             ) {
-                                Icon(Icons.Default.Clear, contentDescription = null)
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text("Effacer tout")
+                                Icon(Icons.Default.Clear, null, Modifier.size(16.dp))
+                                Spacer(Modifier.width(4.dp))
+                                Text("Effacer")
                             }
 
                             Button(
                                 onClick = { navigateToCustomTest() },
+                                modifier = Modifier.weight(1f),
                                 enabled = selectedItems.size >= 4,
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = MaterialTheme.colorScheme.tertiary
+                                    containerColor = if (selectedItems.size >= 4)
+                                        Color(0xFF4CAF50)
+                                    else
+                                        MaterialTheme.colorScheme.surfaceVariant
                                 )
                             ) {
-                                Text("Créer Test (${selectedItems.size})")
+                                Text("Créer (${selectedItems.size})")
                             }
                         }
+                    }
+                }
 
-                        // Selected items summary
-                        if (selectedItems.isNotEmpty()) {
-                            Card(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                                colors = CardDefaults.cardColors(
-                                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
-                                )
-                            ) {
-                                Column(
-                                    modifier = Modifier.padding(16.dp)
-                                ) {
-                                    Text(
-                                        text = "Éléments sélectionnés: ${selectedItems.size}",
-                                        style = MaterialTheme.typography.titleMedium,
-                                        color = MaterialTheme.colorScheme.primary
-                                    )
+                Spacer(modifier = Modifier.height(8.dp))
 
-                                    val categoryCounts = selectedItems.groupingBy { it.category }.eachCount()
-                                    categoryCounts.forEach { (category, count) ->
-                                        Text(
-                                            text = "$category: $count",
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                                        )
-                                    }
-
-                                    if (selectedItems.size < 4) {
-                                        Spacer(modifier = Modifier.height(8.dp))
-                                        Text(
-                                            text = "Encore ${4 - selectedItems.size} éléments requis",
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = MaterialTheme.colorScheme.error
-                                        )
-                                    }
-                                }
+                if (selectedItems.isEmpty()) {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("Aucun élément sélectionné", textAlign = TextAlign.Center)
+                            Spacer(Modifier.height(16.dp))
+                            Text("Minimum 4 éléments requis pour créer un test", textAlign = TextAlign.Center)
+                        }
+                    }
+                } else {
+                    Card(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                        )
+                    ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Text("Éléments sélectionnés: ${selectedItems.size}")
+                            val categoryCounts = selectedItems.groupingBy { it.category }.eachCount()
+                            categoryCounts.forEach { (category, count) ->
+                                Text("$category: $count", style = MaterialTheme.typography.bodySmall)
+                            }
+                            if (selectedItems.size < 4) {
+                                Spacer(Modifier.height(8.dp))
+                                Text("Encore ${4 - selectedItems.size} éléments requis", color = MaterialTheme.colorScheme.error)
                             }
                         }
+                    }
 
-                        // Selected items list
-                        LazyColumn(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(horizontal = 8.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            items(selectedItems) { item ->
-                                CreationItemCard(
-                                    item = item,
-                                    context = context,
-                                    isSelected = true,
-                                    onAddClick = { },
-                                    onRemoveClick = { removeFromSelection(item) }
-                                )
-                            }
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(selectedItems) { item ->
+                            CreationItemCard(
+                                item = item,
+                                context = context,
+                                isSelected = true,
+                                onAddClick = { },
+                                onRemoveClick = { removeFromSelection(item) }
+                            )
                         }
                     }
                 }
@@ -432,9 +628,21 @@ fun CreationScreen(navController: NavController) {
     }
 }
 
-// Глобальный объект как fallback
+// Глобальный объект для надежной передачи данных между экранами
 object TestDataHolder {
     var selectedItems: List<CreationItem> = emptyList()
+
+    // Метод для получения данных в других экранах
+    fun getAndClearItems(): List<CreationItem> {
+        val items = selectedItems
+        // Не очищаем сразу, чтобы данные были доступны на всех экранах
+        return items
+    }
+
+    // Метод для очистки после завершения теста
+    fun clearItems() {
+        selectedItems = emptyList()
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -567,6 +775,9 @@ fun CreationItemCard(
 }
 
 private fun searchAllData(query: String, context: Context): List<CreationItem> {
+    // Если запрос пустой, возвращаем пустой список
+    if (query.isBlank()) return emptyList()
+
     val airDataQuestions = Air_Data.QUESTION
     val artDataQuestions = Art_Data.QUESTION
     val genieDataQuestions = Genie_Data.QUESTION
@@ -575,128 +786,184 @@ private fun searchAllData(query: String, context: Context): List<CreationItem> {
     val bm2DataQuestions = Test_bm2.QUESTION
 
     val results = mutableListOf<CreationItem>()
-    val queryLower = query.lowercase()
+
+    // Нормализуем запрос: удаляем пробелы, тире и переводим в нижний регистр
+    val normalizedQuery = query.lowercase().replace(" ", "").replace("-", "").replace("_", "").trim()
+
+    // Создаем карту для сортировки по релевантности
+    val relevanceMap = mutableMapOf<CreationItem, Int>()
+
+    // Функция для нормализации имени
+    fun normalizeName(name: String): String {
+        return name.lowercase().replace(" ", "").replace("-", "").replace("_", "")
+    }
+
+    // Функция для добавления элемента с расчетом релевантности
+    fun addItemWithRelevance(
+        name: String,
+        description: String,
+        mainImagePath: String,
+        additionalImagePaths: List<String>,
+        category: String
+    ) {
+        if (results.none { it.name == name }) {
+            val normalizedName = normalizeName(name)
+            val originalNameLower = name.lowercase()
+
+            // Расчет релевантности
+            val relevance = when {
+                // Точное совпадение (игнорируя пробелы и тире)
+                normalizedName == normalizedQuery -> 100
+
+                // Точное совпадение с оригинальным запросом
+                originalNameLower == query.lowercase() -> 95
+
+                // Начинается с запроса (нормализованного)
+                normalizedName.startsWith(normalizedQuery) -> 90
+
+                // Начинается с оригинального запроса
+                originalNameLower.startsWith(query.lowercase()) -> 85
+
+                // Содержит полную последовательность символов
+                normalizedName.contains(normalizedQuery) -> 70
+
+                // Проверка по частям слова
+                else -> {
+                    // Разбиваем оригинальное имя на слова
+                    val words = originalNameLower.split(" ", "-", "_")
+
+                    // Проверяем, начинается ли какое-то слово с запроса
+                    val startsWithQuery = words.any { it.startsWith(query.lowercase()) }
+                    if (startsWithQuery) {
+                        65
+                    } else {
+                        // Проверяем, содержится ли запрос в каком-то слове
+                        val containsQuery = words.any { it.contains(query.lowercase()) }
+                        if (containsQuery) {
+                            60
+                        } else {
+                            // Последовательный поиск символов (для опечаток)
+                            var searchIndex = 0
+                            val queryChars = normalizedQuery.toCharArray()
+                            var allFound = true
+
+                            for (char in queryChars) {
+                                val found = normalizedName.indexOf(char, searchIndex)
+                                if (found == -1) {
+                                    allFound = false
+                                    break
+                                }
+                                searchIndex = found + 1
+                            }
+
+                            // Если все символы найдены в последовательности
+                            if (allFound) 40 else 0
+                        }
+                    }
+                }
+            }
+
+            if (relevance > 0) {
+                val item = CreationItem(
+                    name = name,
+                    description = description,
+                    mainImage = mainImagePath,
+                    additionalImages = additionalImagePaths,
+                    category = category
+                )
+                results.add(item)
+                relevanceMap[item] = relevance
+            }
+        }
+    }
 
     // Search in Air_Data
     airDataQuestions.forEach { question ->
-        if (question.correct.lowercase().contains(queryLower)) {
-            if (results.none { it.name == question.correct }) {
-                val mainImagePath = "air_images/${question.image}"
-                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "air_images/$it" }
+        val mainImagePath = "air_images/${question.image}"
+        val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "air_images/$it" }
 
-                results.add(
-                    CreationItem(
-                        name = question.correct,
-                        description = question.description ?: "Description non disponible",
-                        mainImage = mainImagePath,
-                        additionalImages = additionalImagePaths,
-                        category = "Aviation"
-                    )
-                )
-            }
-        }
+        addItemWithRelevance(
+            name = question.correct,
+            description = question.description ?: "Description non disponible",
+            mainImagePath = mainImagePath,
+            additionalImagePaths = additionalImagePaths,
+            category = "Aviation"
+        )
     }
 
     // Search in Art_Data
     artDataQuestions.forEach { question ->
-        if (question.correct.lowercase().contains(queryLower)) {
-            if (results.none { it.name == question.correct }) {
-                val mainImagePath = "artillery_images/${question.image}"
-                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "artillery_images/$it" }
+        val mainImagePath = "artillery_images/${question.image}"
+        val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "artillery_images/$it" }
 
-                results.add(
-                    CreationItem(
-                        name = question.correct,
-                        description = question.description ?: "Description non disponible",
-                        mainImage = mainImagePath,
-                        additionalImages = additionalImagePaths,
-                        category = "Artillerie"
-                    )
-                )
-            }
-        }
+        addItemWithRelevance(
+            name = question.correct,
+            description = question.description ?: "Description non disponible",
+            mainImagePath = mainImagePath,
+            additionalImagePaths = additionalImagePaths,
+            category = "Artillerie"
+        )
     }
 
     // Search in Genie_Data
     genieDataQuestions.forEach { question ->
-        if (question.correct.lowercase().contains(queryLower)) {
-            if (results.none { it.name == question.correct }) {
-                val mainImagePath = "genie_images/${question.image}"
-                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "genie_images/$it" }
+        val mainImagePath = "genie_images/${question.image}"
+        val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "genie_images/$it" }
 
-                results.add(
-                    CreationItem(
-                        name = question.correct,
-                        description = question.description ?: "Description non disponible",
-                        mainImage = mainImagePath,
-                        additionalImages = additionalImagePaths,
-                        category = "Génie"
-                    )
-                )
-            }
-        }
+        addItemWithRelevance(
+            name = question.correct,
+            description = question.description ?: "Description non disponible",
+            mainImagePath = mainImagePath,
+            additionalImagePaths = additionalImagePaths,
+            category = "Génie"
+        )
     }
 
     // Search in Recon_Data
     reconDataQuestions.forEach { question ->
-        if (question.correct.lowercase().contains(queryLower)) {
-            if (results.none { it.name == question.correct }) {
-                val mainImagePath = "recon_images/${question.image}"
-                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "recon_images/$it" }
+        val mainImagePath = "recon_images/${question.image}"
+        val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "recon_images/$it" }
 
-                results.add(
-                    CreationItem(
-                        name = question.correct,
-                        description = question.description ?: "Description non disponible",
-                        mainImage = mainImagePath,
-                        additionalImages = additionalImagePaths,
-                        category = "Reconnaissance"
-                    )
-                )
-            }
-        }
+        addItemWithRelevance(
+            name = question.correct,
+            description = question.description ?: "Description non disponible",
+            mainImagePath = mainImagePath,
+            additionalImagePaths = additionalImagePaths,
+            category = "Reconnaissance"
+        )
     }
 
     // Search in Test_Data (Tanks)
     tankDataQuestions.forEach { question ->
-        if (question.correct.lowercase().contains(queryLower)) {
-            if (results.none { it.name == question.correct }) {
-                val mainImagePath = "tank_images/${question.image}"
-                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "tank_images/$it" }
+        val mainImagePath = "tank_images/${question.image}"
+        val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "tank_images/$it" }
 
-                results.add(
-                    CreationItem(
-                        name = question.correct,
-                        description = question.description ?: "Description non disponible",
-                        mainImage = mainImagePath,
-                        additionalImages = additionalImagePaths,
-                        category = "Chars"
-                    )
-                )
-            }
-        }
+        addItemWithRelevance(
+            name = question.correct,
+            description = question.description ?: "Description non disponible",
+            mainImagePath = mainImagePath,
+            additionalImagePaths = additionalImagePaths,
+            category = "Chars"
+        )
     }
 
     // Search in Test_bm2
     bm2DataQuestions.forEach { question ->
-        if (question.correct.lowercase().contains(queryLower)) {
-            if (results.none { it.name == question.correct }) {
-                val mainImagePath = "bm2_images/${question.image}"
-                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "bm2_images/$it" }
+        val mainImagePath = "bm2_images/${question.image}"
+        val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "bm2_images/$it" }
 
-                results.add(
-                    CreationItem(
-                        name = question.correct,
-                        description = question.description ?: "Description non disponible",
-                        mainImage = mainImagePath,
-                        additionalImages = additionalImagePaths,
-                        category = "Militaire"
-                    )
-                )
-            }
-        }
+        addItemWithRelevance(
+            name = question.correct,
+            description = question.description ?: "Description non disponible",
+            mainImagePath = mainImagePath,
+            additionalImagePaths = additionalImagePaths,
+            category = "Militaire"
+        )
     }
 
-    Log.d("CreationScreen", "Search completed: found ${results.size} items for query '$query'")
-    return results
+    // Сортируем результаты по релевантности (от большей к меньшей)
+    val sortedResults = results.sortedByDescending { relevanceMap[it] ?: 0 }
+
+    Log.d("CreationScreen", "Search completed: found ${sortedResults.size} items for query '$query'")
+    return sortedResults
 }
