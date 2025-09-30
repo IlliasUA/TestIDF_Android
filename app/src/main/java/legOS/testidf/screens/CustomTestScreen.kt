@@ -182,48 +182,71 @@ fun CustomTestScreen(navController: NavController, questionCount: String, timeLi
             )
         }
 
-        when (windowSizeClass.widthSizeClass) {
-            WindowWidthSizeClass.Compact -> {
-                CustomTestCompactLayout(
-                    navController = navController,
-                    currentQuestion = currentQuestion,
-                    currentQuestionIndex = currentQuestionIndex,
-                    totalQuestions = totalQuestions,
-                    timeRemaining = timeRemaining,
-                    timeLimitInt = timeLimitInt,
-                    currentAnswer = currentAnswer,
-                    showQuitConfirmation = showQuitConfirmation,
-                    isLandscape = isLandscape,
-                    onAnswerChange = { currentAnswer = it },
-                    onSubmitAnswer = { submitAnswer() },
-                    onQuit = { showQuitConfirmation = true },
-                    onConfirmQuit = {
-                        showQuitConfirmation = false
-                        navController.navigate("test_menu")
-                    },
-                    onDismissQuit = { showQuitConfirmation = false }
-                )
-            }
-            WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
-                CustomTestLargeLayout(
-                    navController = navController,
-                    currentQuestion = currentQuestion,
-                    currentQuestionIndex = currentQuestionIndex,
-                    totalQuestions = totalQuestions,
-                    timeRemaining = timeRemaining,
-                    timeLimitInt = timeLimitInt,
-                    currentAnswer = currentAnswer,
-                    showQuitConfirmation = showQuitConfirmation,
-                    isLandscape = isLandscape,
-                    onAnswerChange = { currentAnswer = it },
-                    onSubmitAnswer = { submitAnswer() },
-                    onQuit = { showQuitConfirmation = true },
-                    onConfirmQuit = {
-                        showQuitConfirmation = false
-                        navController.navigate("test_menu")
-                    },
-                    onDismissQuit = { showQuitConfirmation = false }
-                )
+        if (isLandscape) {
+            // Горизонтальная ориентация - специальный layout
+            CustomTestLandscapeLayout(
+                navController = navController,
+                currentQuestion = currentQuestion,
+                currentQuestionIndex = currentQuestionIndex,
+                totalQuestions = totalQuestions,
+                timeRemaining = timeRemaining,
+                timeLimitInt = timeLimitInt,
+                currentAnswer = currentAnswer,
+                showQuitConfirmation = showQuitConfirmation,
+                onAnswerChange = { currentAnswer = it },
+                onSubmitAnswer = { submitAnswer() },
+                onQuit = { showQuitConfirmation = true },
+                onConfirmQuit = {
+                    showQuitConfirmation = false
+                    navController.navigate("test_menu")
+                },
+                onDismissQuit = { showQuitConfirmation = false }
+            )
+        } else {
+            // Вертикальная ориентация
+            when (windowSizeClass.widthSizeClass) {
+                WindowWidthSizeClass.Compact -> {
+                    CustomTestCompactLayout(
+                        navController = navController,
+                        currentQuestion = currentQuestion,
+                        currentQuestionIndex = currentQuestionIndex,
+                        totalQuestions = totalQuestions,
+                        timeRemaining = timeRemaining,
+                        timeLimitInt = timeLimitInt,
+                        currentAnswer = currentAnswer,
+                        showQuitConfirmation = showQuitConfirmation,
+                        isLandscape = false,
+                        onAnswerChange = { currentAnswer = it },
+                        onSubmitAnswer = { submitAnswer() },
+                        onQuit = { showQuitConfirmation = true },
+                        onConfirmQuit = {
+                            showQuitConfirmation = false
+                            navController.navigate("test_menu")
+                        },
+                        onDismissQuit = { showQuitConfirmation = false }
+                    )
+                }
+                WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
+                    CustomTestLargeLayout(
+                        navController = navController,
+                        currentQuestion = currentQuestion,
+                        currentQuestionIndex = currentQuestionIndex,
+                        totalQuestions = totalQuestions,
+                        timeRemaining = timeRemaining,
+                        timeLimitInt = timeLimitInt,
+                        currentAnswer = currentAnswer,
+                        showQuitConfirmation = showQuitConfirmation,
+                        isLandscape = false,
+                        onAnswerChange = { currentAnswer = it },
+                        onSubmitAnswer = { submitAnswer() },
+                        onQuit = { showQuitConfirmation = true },
+                        onConfirmQuit = {
+                            showQuitConfirmation = false
+                            navController.navigate("test_menu")
+                        },
+                        onDismissQuit = { showQuitConfirmation = false }
+                    )
+                }
             }
         }
     }
@@ -231,6 +254,248 @@ fun CustomTestScreen(navController: NavController, questionCount: String, timeLi
 
 private fun CoroutineScope.navigateToResults() {
     TODO("Not yet implemented")
+}
+
+@Composable
+private fun CustomTestLandscapeLayout(
+    navController: NavController,
+    currentQuestion: CustomTestQuestion,
+    currentQuestionIndex: Int,
+    totalQuestions: Int,
+    timeRemaining: Int,
+    timeLimitInt: Int,
+    currentAnswer: TextFieldValue,
+    showQuitConfirmation: Boolean,
+    onAnswerChange: (TextFieldValue) -> Unit,
+    onSubmitAnswer: () -> Unit,
+    onQuit: () -> Unit,
+    onConfirmQuit: () -> Unit,
+    onDismissQuit: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        // ЛЕВАЯ ЧАСТЬ - ИЗОБРАЖЕНИЕ (55% экрана)
+        Box(
+            modifier = Modifier
+                .weight(0.55f)
+                .fillMaxHeight()
+                .padding(end = 8.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            var scale by remember { mutableStateOf(1f) }
+            var offsetX by remember { mutableStateOf(0f) }
+            var offsetY by remember { mutableStateOf(0f) }
+            var isGestureActive by remember { mutableStateOf(false) }
+
+            val animatedScale by animateFloatAsState(
+                targetValue = scale,
+                animationSpec = tween(durationMillis = 300),
+                label = "scaleAnimation"
+            )
+            val animatedOffsetX by animateFloatAsState(
+                targetValue = offsetX,
+                animationSpec = tween(durationMillis = 300),
+                label = "offsetXAnimation"
+            )
+            val animatedOffsetY by animateFloatAsState(
+                targetValue = offsetY,
+                animationSpec = tween(durationMillis = 300),
+                label = "offsetYAnimation"
+            )
+
+            val bitmap = loadImageFromAssets(LocalContext.current, currentQuestion.imagePath)
+            bitmap?.let { imageBitmap ->
+                Image(
+                    bitmap = imageBitmap.asImageBitmap(),
+                    contentDescription = "Question Image",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(8.dp)
+                        .graphicsLayer(
+                            scaleX = animatedScale,
+                            scaleY = animatedScale,
+                            translationX = animatedOffsetX,
+                            translationY = animatedOffsetY
+                        )
+                        .pointerInput(Unit) {
+                            detectTransformGestures { _, pan, zoom, _ ->
+                                isGestureActive = true
+                                scale = (scale * zoom).coerceIn(1f, 3f)
+                                if (scale > 1f) {
+                                    offsetX += pan.x
+                                    offsetY += pan.y
+                                    val maxOffsetX = (size.width * (scale - 1f)) / 2
+                                    val maxOffsetY = (size.height * (scale - 1f)) / 2
+                                    offsetX = offsetX.coerceIn(-maxOffsetX, maxOffsetX)
+                                    offsetY = offsetY.coerceIn(-maxOffsetY, maxOffsetY)
+                                }
+                            }
+                            awaitPointerEventScope {
+                                while (true) {
+                                    val event = awaitPointerEvent()
+                                    if (event.type == PointerEventType.Release && isGestureActive) {
+                                        scale = 1f
+                                        offsetX = 0f
+                                        offsetY = 0f
+                                        isGestureActive = false
+                                    }
+                                }
+                            }
+                        },
+                    contentScale = ContentScale.Fit
+                )
+            } ?: Text(
+                text = "Image not found: ${currentQuestion.imagePath}",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+
+        // ПРАВАЯ ЧАСТЬ - УПРАВЛЕНИЕ (45% экрана)
+        Column(
+            modifier = Modifier
+                .weight(0.45f)
+                .fillMaxHeight()
+                .padding(start = 8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceEvenly
+        ) {
+            // Progress bar
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+                    .background(Color.Transparent)
+            ) {
+                LinearProgressIndicator(
+                    progress = { timeRemaining.toFloat() / timeLimitInt.toFloat() },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(16.dp),
+                    color = if (timeRemaining <= 3 && timeRemaining > 0) Color(0xFF8B0000) else Color(0xFF32CD32),
+                    trackColor = Color.Transparent
+                )
+            }
+
+            // Счетчик вопросов и категория
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(vertical = 8.dp)
+            ) {
+                Text(
+                    text = "${currentQuestionIndex + 1}/$totalQuestions",
+                    style = MaterialTheme.typography.headlineSmall.copy(fontSize = 20.sp)
+                )
+                Text(
+                    text = "Catégorie: ${currentQuestion.category}",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            Spacer(Modifier.height(16.dp))
+
+            // Поле ввода ответа
+            OutlinedTextField(
+                value = currentAnswer,
+                onValueChange = onAnswerChange,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                label = { Text("Votre réponse") },
+                placeholder = { Text("Entrez le nom de l'équipement...") },
+                trailingIcon = {
+                    if (currentAnswer.text.isNotEmpty()) {
+                        IconButton(onClick = { onAnswerChange(TextFieldValue("")) }) {
+                            Icon(Icons.Default.Clear, contentDescription = "Effacer")
+                        }
+                    }
+                },
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(
+                    onDone = { onSubmitAnswer() }
+                ),
+                singleLine = true,
+                textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
+            )
+
+            Spacer(Modifier.height(16.dp))
+
+            // Кнопка "Valider"
+            Button(
+                onClick = onSubmitAnswer,
+                modifier = Modifier
+                    .fillMaxWidth(0.9f)
+                    .height(52.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                shape = MaterialTheme.shapes.medium
+            ) {
+                Text(
+                    text = "Valider",
+                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp)
+                )
+            }
+
+            Spacer(Modifier.height(12.dp))
+
+            // Кнопка "Quitter"
+            Button(
+                onClick = onQuit,
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .height(48.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                    contentColor = MaterialTheme.colorScheme.onTertiary
+                ),
+                shape = MaterialTheme.shapes.medium
+            ) {
+                Text(
+                    text = "Quitter",
+                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
+                )
+            }
+
+            // Диалог подтверждения выхода
+            if (showQuitConfirmation) {
+                AlertDialog(
+                    onDismissRequest = onDismissQuit,
+                    title = { Text("Confirmation", style = MaterialTheme.typography.headlineSmall) },
+                    text = {
+                        Text(
+                            "Êtes-vous sûr de vouloir quitter le test?",
+                            style = MaterialTheme.typography.bodyLarge,
+                            textAlign = TextAlign.Center
+                        )
+                    },
+                    confirmButton = {
+                        TextButton(
+                            onClick = onConfirmQuit,
+                            modifier = Modifier.padding(8.dp)
+                        ) {
+                            Text("Oui", style = MaterialTheme.typography.labelLarge)
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(
+                            onClick = onDismissQuit,
+                            modifier = Modifier.padding(8.dp)
+                        ) {
+                            Text("Non", style = MaterialTheme.typography.labelLarge)
+                        }
+                    },
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+        }
+    }
 }
 
 @Composable
@@ -700,4 +965,3 @@ private fun CustomTestLargeLayout(
         }
     }
 }
-

@@ -217,8 +217,7 @@ fun CreationScreen(navController: NavController) {
                 Column(
                     modifier = Modifier
                         .weight(0.6f)
-                        .fillMaxHeight()
-                        .padding(top = 40.dp),
+                        .fillMaxHeight(),
                     verticalArrangement = Arrangement.Top
                 ) {
                     if (!showSelectedItems) {
@@ -405,7 +404,6 @@ fun CreationScreen(navController: NavController) {
                     } ?: Modifier.background(MaterialTheme.colorScheme.background)
                 )
         ) {
-            Spacer(modifier = Modifier.fillMaxHeight(0.07f))
 
             if (!showSelectedItems) {
                 // Search interface
@@ -628,18 +626,15 @@ fun CreationScreen(navController: NavController) {
     }
 }
 
-// Глобальный объект для надежной передачи данных между экранами
+// Остальной код остается без изменений
 object TestDataHolder {
     var selectedItems: List<CreationItem> = emptyList()
 
-    // Метод для получения данных в других экранах
     fun getAndClearItems(): List<CreationItem> {
         val items = selectedItems
-        // Не очищаем сразу, чтобы данные были доступны на всех экранах
         return items
     }
 
-    // Метод для очистки после завершения теста
     fun clearItems() {
         selectedItems = emptyList()
     }
@@ -656,7 +651,7 @@ fun CreationItemCard(
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = if (isSelected) 4.dp else 2.dp),
+        elevation = CardDefaults.cardElevation(if (isSelected) 4.dp else 2.dp),
         colors = CardDefaults.cardColors(
             containerColor = if (isSelected) {
                 MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
@@ -665,110 +660,65 @@ fun CreationItemCard(
             }
         )
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
+        Column(modifier = Modifier.padding(16.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = item.name,
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Text(
-                        text = "Catégorie: ${item.category}",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                    Text(item.name, style = MaterialTheme.typography.headlineSmall)
+                    Text("Catégorie: ${item.category}", style = MaterialTheme.typography.bodySmall)
                     if (item.additionalImages.isNotEmpty()) {
-                        Text(
-                            text = "${item.additionalImages.size + 1} images disponibles",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                        Text("${item.additionalImages.size + 1} images disponibles", style = MaterialTheme.typography.bodySmall)
                     }
                 }
 
                 if (isSelected) {
                     IconButton(
                         onClick = onRemoveClick,
-                        colors = IconButtonDefaults.iconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.error
-                        )
+                        colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.error)
                     ) {
-                        Icon(
-                            Icons.Default.Delete,
-                            contentDescription = "Retirer",
-                            tint = MaterialTheme.colorScheme.onError
-                        )
+                        Icon(Icons.Default.Delete, "Retirer", tint = MaterialTheme.colorScheme.onError)
                     }
                 } else {
                     IconButton(
                         onClick = onAddClick,
-                        colors = IconButtonDefaults.iconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.primary
-                        )
+                        colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary)
                     ) {
-                        Icon(
-                            Icons.Default.Add,
-                            contentDescription = "Ajouter",
-                            tint = MaterialTheme.colorScheme.onPrimary
-                        )
+                        Icon(Icons.Default.Add, "Ajouter", tint = MaterialTheme.colorScheme.onPrimary)
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(Modifier.height(12.dp))
 
-            // Main Image
             val mainBitmap = remember(item.mainImage) {
                 try {
                     context.assets.open(item.mainImage).use { inputStream ->
                         BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
                     }
-                } catch (e: IOException) {
-                    Log.e("CreationItemCard", "Error loading main image ${item.mainImage}", e)
-                    null
-                }
+                } catch (e: IOException) { null }
             }
 
             mainBitmap?.let {
                 Image(
                     bitmap = it,
                     contentDescription = "Image de ${item.name}",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(150.dp),
+                    modifier = Modifier.fillMaxWidth().height(150.dp),
                     contentScale = ContentScale.Crop
                 )
-                Spacer(modifier = Modifier.height(8.dp))
-            } ?: run {
-                // Показываем placeholder если изображение не загрузилось
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(150.dp)
-                        .background(MaterialTheme.colorScheme.surfaceVariant),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "Image non disponible",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(Modifier.height(8.dp))
+            } ?: Box(
+                modifier = Modifier.fillMaxWidth().height(150.dp).background(MaterialTheme.colorScheme.surfaceVariant),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("Image non disponible")
             }
 
-            // Description (shortened)
             Text(
                 text = item.description.take(100) + if (item.description.length > 100) "..." else "",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
