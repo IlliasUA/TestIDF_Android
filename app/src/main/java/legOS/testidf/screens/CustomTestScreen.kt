@@ -21,6 +21,7 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -59,25 +60,35 @@ fun CustomTestScreen(navController: NavController, questionCount: String, timeLi
     val windowSizeClass = calculateWindowSizeClass(activity = context as ComponentActivity)
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
-    var currentQuestionIndex by remember { mutableStateOf(0) }
+    var currentQuestionIndex by rememberSaveable { mutableStateOf(0) }
     val timeLimitInt = timeLimit.toIntOrNull() ?: 10
-    var timeRemaining by remember { mutableStateOf(timeLimitInt) }
-    var answers by remember { mutableStateOf(mutableListOf<String?>()) }
+    var timeRemaining by rememberSaveable { mutableStateOf(timeLimitInt) }
+    var answers by rememberSaveable { mutableStateOf(mutableListOf<String?>()) }
     var showQuitConfirmation by remember { mutableStateOf(false) }
-    var currentAnswer by remember { mutableStateOf(TextFieldValue("")) }
+    var currentAnswer by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(""))
+    }
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Log.d("CustomTestScreen", "Starting custom test with $questionCount questions, $timeLimit seconds each")
 
     // Retrieve selected items from navigation state
-    val selectedItems = navController.previousBackStackEntry?.savedStateHandle?.get<List<CreationItem>>("selectedItems")
-        ?: TestDataHolder.selectedItems
+    val selectedItems = remember {
+        navController.previousBackStackEntry?.savedStateHandle?.get<List<CreationItem>>("selectedItems")
+            ?: TestDataHolder.selectedItems
+    }
 
-    val customQuestions = remember {
+// Сохраняем seed для воспроизводимого перемешивания
+    val shuffleSeed by rememberSaveable { mutableStateOf(System.currentTimeMillis()) }
+
+    val customQuestions = remember(shuffleSeed) {
+        val random = kotlin.random.Random(shuffleSeed.toInt())
+
         selectedItems.map { item ->
             // Choose random image from main + additional images
             val allImages = listOf(item.mainImage) + item.additionalImages
-            val randomImage = allImages.randomOrNull() ?: item.mainImage
+            val imageRandom = kotlin.random.Random((shuffleSeed + item.name.hashCode().toLong()).toInt())
+            val randomImage = allImages.random(imageRandom)
 
             CustomTestQuestion(
                 name = item.name,
@@ -85,29 +96,44 @@ fun CustomTestScreen(navController: NavController, questionCount: String, timeLi
                 imagePath = randomImage,
                 correctAnswer = item.name
             )
-        }.shuffled().take(questionCount.toIntOrNull() ?: selectedItems.size)
+        }.shuffled(random).take(questionCount.toIntOrNull() ?: selectedItems.size)
     }
 
     val totalQuestions = customQuestions.size
 
-    // Timer logic
+    // Timer logic - запускается только при смене вопроса
+    var isTimerRunning by rememberSaveable { mutableStateOf(false) }
+    var lastQuestionIndex by rememberSaveable { mutableStateOf(-1) }
+
     LaunchedEffect(currentQuestionIndex) {
-        timeRemaining = timeLimitInt
-        while (timeRemaining > 0 && currentQuestionIndex < customQuestions.size) {
+        // Сбрасываем таймер только если это действительно новый вопрос
+        if (currentQuestionIndex != lastQuestionIndex) {
+            timeRemaining = timeLimitInt
+            lastQuestionIndex = currentQuestionIndex
+            isTimerRunning = true
+        }
+
+        // Запускаем таймер
+        while (timeRemaining > 0 && currentQuestionIndex < customQuestions.size && isTimerRunning) {
             delay(1000L)
             timeRemaining--
         }
+
         if (timeRemaining <= 0 && currentQuestionIndex < customQuestions.size) {
             // Auto-submit current answer or null
             answers.add(currentAnswer.text.takeIf { it.isNotBlank() })
             currentAnswer = TextFieldValue("")
+            isTimerRunning = false
             Log.d("CustomTestScreen", "Time up! Auto-submitted answer at index $currentQuestionIndex")
 
             if (currentQuestionIndex < customQuestions.size - 1) {
                 currentQuestionIndex++
             } else {
-                // Test finished
-                navigateToResults()
+                // Test finished - navigate to results
+                Log.d("CustomTestScreen", "Custom test completed with ${answers.size} answers")
+                navController.currentBackStackEntry?.savedStateHandle?.set("customQuestions", customQuestions)
+                navController.currentBackStackEntry?.savedStateHandle?.set("customAnswers", answers)
+                navController.navigate("custom_results/$questionCount/$timeLimit")
             }
         }
     }
@@ -429,8 +455,8 @@ private fun CustomTestLandscapeLayout(
             Button(
                 onClick = onSubmitAnswer,
                 modifier = Modifier
-                    .fillMaxWidth(0.9f)
-                    .height(52.dp),
+                    .fillMaxWidth(0.8f)
+                    .height(48.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.onPrimary
@@ -658,7 +684,7 @@ private fun CustomTestCompactLayout(
             Button(
                 onClick = onSubmitAnswer,
                 modifier = Modifier
-                    .fillMaxWidth(0.8f)
+                    .fillMaxWidth(0.7f)
                     .height(48.dp)
                     .padding(vertical = 4.dp),
                 colors = ButtonDefaults.buttonColors(
