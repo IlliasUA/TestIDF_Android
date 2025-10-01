@@ -528,6 +528,8 @@ private fun CustomResultsPortraitLayout(
                 Text("Menu", style = MaterialTheme.typography.bodyLarge)
             }
         }
+
+        Spacer(modifier = Modifier.height(16.dp)) // Safe zone below buttons for system navigation
     }
 }
 

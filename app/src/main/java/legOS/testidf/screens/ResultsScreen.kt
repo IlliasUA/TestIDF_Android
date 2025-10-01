@@ -201,44 +201,44 @@ private fun ResultsLandscapeLayout(
         // Правая часть - общая информация и основные кнопки навигации
         Column(
             modifier = Modifier
-                .weight(0.7f) // Немного меньше места для правой части
+                .weight(0.5f) // Уменьшено с 0.7f до 0.5f
                 .fillMaxHeight()
-                .padding(8.dp),
+                .padding(end = 24.dp, top = 8.dp, bottom = 8.dp), // Добавлен отступ справа
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Заголовок со счетом
             Text(
                 "Score: $correctAnswers / ${questions.size}",
-                style = MaterialTheme.typography.headlineMedium.copy(fontSize = 24.sp),
+                style = MaterialTheme.typography.headlineMedium.copy(fontSize = 22.sp), // Немного уменьшен шрифт
                 color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(bottom = 32.dp)
+                modifier = Modifier.padding(bottom = 24.dp)
             )
 
             // Дополнительная информация о результатах
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 24.dp),
+                    .padding(bottom = 20.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             ) {
                 Column(
-                    modifier = Modifier.padding(16.dp),
+                    modifier = Modifier.padding(12.dp), // Уменьшен padding
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     val percentage = (correctAnswers.toFloat() / questions.size * 100).toInt()
                     Text(
                         "Résultat: $percentage%",
-                        style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp),
+                        style = MaterialTheme.typography.titleLarge.copy(fontSize = 18.sp),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
                         "${questions.size - correctAnswers} réponses incorrectes",
-                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
+                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 13.sp),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = 8.dp)
+                        modifier = Modifier.padding(top = 6.dp)
                     )
                 }
             }
@@ -247,14 +247,15 @@ private fun ResultsLandscapeLayout(
 
             // Основные кнопки навигации
             Column(
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Button(
                     onClick = { navController.navigate("time_selection/$category") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(48.dp),
+                        .height(44.dp), // Немного уменьшена высота
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.tertiary,
                         contentColor = MaterialTheme.colorScheme.onTertiary
@@ -262,7 +263,7 @@ private fun ResultsLandscapeLayout(
                 ) {
                     Text(
                         "Recommencer",
-                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp)
+                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 13.sp)
                     )
                 }
 
@@ -270,7 +271,7 @@ private fun ResultsLandscapeLayout(
                     onClick = { navController.navigate("test_menu") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(48.dp),
+                        .height(44.dp), // Немного уменьшена высота
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.tertiary,
                         contentColor = MaterialTheme.colorScheme.onTertiary
@@ -278,12 +279,12 @@ private fun ResultsLandscapeLayout(
                 ) {
                     Text(
                         "Retour",
-                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp)
+                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 13.sp)
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(12.dp))
         }
     }
 }
