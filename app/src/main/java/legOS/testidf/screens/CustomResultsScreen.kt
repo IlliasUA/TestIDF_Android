@@ -5,12 +5,26 @@ import android.content.res.Configuration
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -189,120 +203,125 @@ private fun CustomResultsLandscapeLayout(
             }
         }
 
-        // ПРАВАЯ ЧАСТЬ - Статистика и кнопки (40%)
-        Column(
+        // ПРАВАЯ ЧАСТЬ - Статистика и кнопки (40%) с прокруткой
+        LazyColumn(
             modifier = Modifier
                 .weight(0.4f)
-                .fillMaxHeight(),
+                .fillMaxHeight()
+                .padding(end = 8.dp), // Prevent content from touching the right edge
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.9f)
-                )
-            ) {
-                Column(
-                    modifier = Modifier.padding(20.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        "Test Terminé!",
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        textAlign = TextAlign.Center
-                    )
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    Text(
-                        "Score: $correctCount / $totalQuestions",
-                        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-                        color = if (correctCount >= totalQuestions * 0.7) Color(0xFF2E7D32) else Color(0xFFD32F2F)
-                    )
-
-                    val percentage = if (totalQuestions > 0) (correctCount * 100) / totalQuestions else 0
-                    Text(
-                        "($percentage%)",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                }
-            }
-
-            val categoryStats = results.groupBy { it.first.category }
-            if (categoryStats.size > 1) {
+            item {
                 Card(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(0.8f), // Reduced width to 80% to shift left
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.9f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.9f)
                     )
                 ) {
                     Column(
-                        modifier = Modifier.padding(16.dp)
+                        modifier = Modifier.padding(20.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            "Par catégorie:",
-                            style = MaterialTheme.typography.titleSmall,
-                            color = MaterialTheme.colorScheme.primary
+                            "Test Terminé!",
+                            style = MaterialTheme.typography.headlineSmall,
+                            color = MaterialTheme.colorScheme.primary,
+                            textAlign = TextAlign.Center
                         )
 
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        categoryStats.forEach { (category, categoryResults) ->
-                            val categoryCorrect = categoryResults.count { it.third }
-                            val categoryTotal = categoryResults.size
+                        Text(
+                            "Score: $correctCount / $totalQuestions",
+                            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                            color = if (correctCount >= totalQuestions * 0.7) Color(0xFF2E7D32) else Color(0xFFD32F2F)
+                        )
 
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                Text(
-                                    category,
-                                    style = MaterialTheme.typography.bodySmall
-                                )
-                                Text(
-                                    "$categoryCorrect/$categoryTotal",
-                                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
-                                    color = if (categoryCorrect == categoryTotal) Color(0xFF2E7D32) else MaterialTheme.colorScheme.onSurface
-                                )
+                        val percentage = if (totalQuestions > 0) (correctCount * 100) / totalQuestions else 0
+                        Text(
+                            "($percentage%)",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    }
+                }
+
+                val categoryStats = results.groupBy { it.first.category }
+                if (categoryStats.size > 1) {
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Card(
+                        modifier = Modifier.fillMaxWidth(0.8f), // Reduced width to 80% to shift left
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.9f)
+                        )
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(16.dp)
+                        ) {
+                            Text(
+                                "Par catégorie:",
+                                style = MaterialTheme.typography.titleSmall,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            categoryStats.forEach { (category, categoryResults) ->
+                                val categoryCorrect = categoryResults.count { it.third }
+                                val categoryTotal = categoryResults.size
+
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Text(
+                                        category,
+                                        style = MaterialTheme.typography.bodySmall
+                                    )
+                                    Text(
+                                        "$categoryCorrect/$categoryTotal",
+                                        style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
+                                        color = if (categoryCorrect == categoryTotal) Color(0xFF2E7D32) else MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.height(16.dp))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Button(
-                    onClick = { navController.navigate("creation") },
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(48.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary
-                    )
+                Row(
+                    modifier = Modifier.fillMaxWidth(0.8f), // Reduced width to 80% to align with cards
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text("Nouveau Test", style = MaterialTheme.typography.bodyMedium)
-                }
+                    Button(
+                        onClick = { navController.navigate("creation") },
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(48.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
+                        )
+                    ) {
+                        Text("Test", style = MaterialTheme.typography.bodyMedium)
+                    }
 
-                Button(
-                    onClick = { navController.navigate("test_menu") },
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(48.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.tertiary,
-                        contentColor = MaterialTheme.colorScheme.onTertiary
-                    )
-                ) {
-                    Text("Menu", style = MaterialTheme.typography.bodyMedium)
+                    Button(
+                        onClick = { navController.navigate("test_menu") },
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(48.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.tertiary,
+                            contentColor = MaterialTheme.colorScheme.onTertiary
+                        )
+                    ) {
+                        Text("Menu", style = MaterialTheme.typography.bodyMedium)
+                    }
                 }
             }
         }
@@ -320,7 +339,8 @@ private fun CustomResultsPortraitLayout(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp)
+            .safeDrawingPadding(), // Ensure content is inset from system bars
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -492,7 +512,7 @@ private fun CustomResultsPortraitLayout(
                     contentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
-                Text("Nouveau Test", style = MaterialTheme.typography.bodyLarge)
+                Text("Test", style = MaterialTheme.typography.bodyLarge)
             }
 
             Button(
@@ -505,7 +525,7 @@ private fun CustomResultsPortraitLayout(
                     contentColor = MaterialTheme.colorScheme.onTertiary
                 )
             ) {
-                Text("Menu Principal", style = MaterialTheme.typography.bodyLarge)
+                Text("Menu", style = MaterialTheme.typography.bodyLarge)
             }
         }
     }

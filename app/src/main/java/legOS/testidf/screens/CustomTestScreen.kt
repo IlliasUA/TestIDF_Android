@@ -78,7 +78,7 @@ fun CustomTestScreen(navController: NavController, questionCount: String, timeLi
             ?: TestDataHolder.selectedItems
     }
 
-// Сохраняем seed для воспроизводимого перемешивания
+    // Сохраняем seed для воспроизводимого перемешивания
     val shuffleSeed by rememberSaveable { mutableStateOf(System.currentTimeMillis()) }
 
     val customQuestions = remember(shuffleSeed) {
@@ -196,82 +196,90 @@ fun CustomTestScreen(navController: NavController, questionCount: String, timeLi
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .safeDrawingPadding()
     ) {
         // Display background image
         backgroundImage?.let { image ->
             Image(
                 bitmap = image,
                 contentDescription = "Background Image",
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
+                modifier = Modifier
+                    .fillMaxSize()
+                    .systemBarsPadding(), // Extend under system bars for full coverage
+                contentScale = ContentScale.FillBounds // Use FillBounds to ensure no gaps
             )
         }
 
-        if (isLandscape) {
-            // Горизонтальная ориентация - специальный layout
-            CustomTestLandscapeLayout(
-                navController = navController,
-                currentQuestion = currentQuestion,
-                currentQuestionIndex = currentQuestionIndex,
-                totalQuestions = totalQuestions,
-                timeRemaining = timeRemaining,
-                timeLimitInt = timeLimitInt,
-                currentAnswer = currentAnswer,
-                showQuitConfirmation = showQuitConfirmation,
-                onAnswerChange = { currentAnswer = it },
-                onSubmitAnswer = { submitAnswer() },
-                onQuit = { showQuitConfirmation = true },
-                onConfirmQuit = {
-                    showQuitConfirmation = false
-                    navController.navigate("test_menu")
-                },
-                onDismissQuit = { showQuitConfirmation = false }
-            )
-        } else {
-            // Вертикальная ориентация
-            when (windowSizeClass.widthSizeClass) {
-                WindowWidthSizeClass.Compact -> {
-                    CustomTestCompactLayout(
-                        navController = navController,
-                        currentQuestion = currentQuestion,
-                        currentQuestionIndex = currentQuestionIndex,
-                        totalQuestions = totalQuestions,
-                        timeRemaining = timeRemaining,
-                        timeLimitInt = timeLimitInt,
-                        currentAnswer = currentAnswer,
-                        showQuitConfirmation = showQuitConfirmation,
-                        isLandscape = false,
-                        onAnswerChange = { currentAnswer = it },
-                        onSubmitAnswer = { submitAnswer() },
-                        onQuit = { showQuitConfirmation = true },
-                        onConfirmQuit = {
-                            showQuitConfirmation = false
-                            navController.navigate("test_menu")
-                        },
-                        onDismissQuit = { showQuitConfirmation = false }
-                    )
-                }
-                WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
-                    CustomTestLargeLayout(
-                        navController = navController,
-                        currentQuestion = currentQuestion,
-                        currentQuestionIndex = currentQuestionIndex,
-                        totalQuestions = totalQuestions,
-                        timeRemaining = timeRemaining,
-                        timeLimitInt = timeLimitInt,
-                        currentAnswer = currentAnswer,
-                        showQuitConfirmation = showQuitConfirmation,
-                        isLandscape = false,
-                        onAnswerChange = { currentAnswer = it },
-                        onSubmitAnswer = { submitAnswer() },
-                        onQuit = { showQuitConfirmation = true },
-                        onConfirmQuit = {
-                            showQuitConfirmation = false
-                            navController.navigate("test_menu")
-                        },
-                        onDismissQuit = { showQuitConfirmation = false }
-                    )
+        // Content Box with safe padding for UI elements
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .safeDrawingPadding()
+        ) {
+            if (isLandscape) {
+                // Горизонтальная ориентация - специальный layout
+                CustomTestLandscapeLayout(
+                    navController = navController,
+                    currentQuestion = currentQuestion,
+                    currentQuestionIndex = currentQuestionIndex,
+                    totalQuestions = totalQuestions,
+                    timeRemaining = timeRemaining,
+                    timeLimitInt = timeLimitInt,
+                    currentAnswer = currentAnswer,
+                    showQuitConfirmation = showQuitConfirmation,
+                    onAnswerChange = { currentAnswer = it },
+                    onSubmitAnswer = { submitAnswer() },
+                    onQuit = { showQuitConfirmation = true },
+                    onConfirmQuit = {
+                        showQuitConfirmation = false
+                        navController.navigate("test_menu")
+                    },
+                    onDismissQuit = { showQuitConfirmation = false }
+                )
+            } else {
+                // Вертикальная ориентация
+                when (windowSizeClass.widthSizeClass) {
+                    WindowWidthSizeClass.Compact -> {
+                        CustomTestCompactLayout(
+                            navController = navController,
+                            currentQuestion = currentQuestion,
+                            currentQuestionIndex = currentQuestionIndex,
+                            totalQuestions = totalQuestions,
+                            timeRemaining = timeRemaining,
+                            timeLimitInt = timeLimitInt,
+                            currentAnswer = currentAnswer,
+                            showQuitConfirmation = showQuitConfirmation,
+                            isLandscape = false,
+                            onAnswerChange = { currentAnswer = it },
+                            onSubmitAnswer = { submitAnswer() },
+                            onQuit = { showQuitConfirmation = true },
+                            onConfirmQuit = {
+                                showQuitConfirmation = false
+                                navController.navigate("test_menu")
+                            },
+                            onDismissQuit = { showQuitConfirmation = false }
+                        )
+                    }
+                    WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
+                        CustomTestLargeLayout(
+                            navController = navController,
+                            currentQuestion = currentQuestion,
+                            currentQuestionIndex = currentQuestionIndex,
+                            totalQuestions = totalQuestions,
+                            timeRemaining = timeRemaining,
+                            timeLimitInt = timeLimitInt,
+                            currentAnswer = currentAnswer,
+                            showQuitConfirmation = showQuitConfirmation,
+                            isLandscape = false,
+                            onAnswerChange = { currentAnswer = it },
+                            onSubmitAnswer = { submitAnswer() },
+                            onQuit = { showQuitConfirmation = true },
+                            onConfirmQuit = {
+                                showQuitConfirmation = false
+                                navController.navigate("test_menu")
+                            },
+                            onDismissQuit = { showQuitConfirmation = false }
+                        )
+                    }
                 }
             }
         }
