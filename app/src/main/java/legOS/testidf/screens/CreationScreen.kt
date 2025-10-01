@@ -1,4 +1,3 @@
-
 package legOS.testidf.screens
 
 import android.content.Context
@@ -32,6 +31,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.quizapp.*
 import kotlinx.parcelize.Parcelize
@@ -54,7 +54,6 @@ fun CreationScreen(navController: NavController) {
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
-    // Используем rememberSaveable для сохранения состояния при поворотах
     var searchQuery by rememberSaveable { mutableStateOf("") }
     var searchResults by rememberSaveable { mutableStateOf<List<CreationItem>>(emptyList()) }
     var selectedItems by rememberSaveable { mutableStateOf<List<CreationItem>>(emptyList()) }
@@ -102,7 +101,6 @@ fun CreationScreen(navController: NavController) {
         }
     }
 
-    // Выбор компоновки в зависимости от ориентации
     if (isLandscape) {
         // ГОРИЗОНТАЛЬНАЯ ОРИЕНТАЦИЯ
         Box(
@@ -117,17 +115,17 @@ fun CreationScreen(navController: NavController) {
             Row(
                 modifier = Modifier
                     .fillMaxSize()
+                    .systemBarsPadding()
                     .padding(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                // ЛЕВАЯ ЧАСТЬ - Результаты поиска или выбранные элементы
+                // ЛЕВАЯ ЧАСТЬ - Результаты поиска
                 Box(
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
                 ) {
                     if (!showSelectedItems) {
-                        // Показываем результаты поиска
                         when {
                             searchResults.isEmpty() && searchQuery.isBlank() -> {
                                 Column(
@@ -161,7 +159,8 @@ fun CreationScreen(navController: NavController) {
                             else -> {
                                 LazyColumn(
                                     modifier = Modifier.fillMaxSize(),
-                                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                                    contentPadding = PaddingValues(top = 8.dp)
                                 ) {
                                     items(searchResults) { item ->
                                         CreationItemCard(
@@ -197,7 +196,8 @@ fun CreationScreen(navController: NavController) {
                         } else {
                             LazyColumn(
                                 modifier = Modifier.fillMaxSize(),
-                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                                verticalArrangement = Arrangement.spacedBy(6.dp),
+                                contentPadding = PaddingValues(top = 8.dp)
                             ) {
                                 items(selectedItems) { item ->
                                     CreationItemCard(
@@ -218,95 +218,126 @@ fun CreationScreen(navController: NavController) {
                     modifier = Modifier
                         .weight(0.6f)
                         .fillMaxHeight(),
-                    verticalArrangement = Arrangement.Top
+                    verticalArrangement = Arrangement.Top,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     if (!showSelectedItems) {
-                        // Панель поиска
+                        // Search Bar
                         Card(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 12.dp, top = 8.dp),
                             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                         ) {
-                            Column(modifier = Modifier.padding(8.dp)) {
-                                if (selectedItems.isNotEmpty()) {
-                                    Box(
-                                        modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
-                                        contentAlignment = Alignment.CenterEnd
-                                    ) {
-                                        Badge { Text("${selectedItems.size}") }
-                                    }
-                                }
-
-                                OutlinedTextField(
-                                    value = searchQuery,
-                                    onValueChange = { newValue ->
-                                        searchQuery = newValue
-                                        performSearch(newValue)
-                                    },
-                                    modifier = Modifier.fillMaxWidth(),
-                                    placeholder = { Text("Entrez ici") },
-                                    leadingIcon = {
-                                        Icon(Icons.Default.Search, contentDescription = "Rechercher")
-                                    },
-                                    trailingIcon = {
-                                        if (searchQuery.isNotEmpty()) {
-                                            IconButton(onClick = {
-                                                searchQuery = ""
-                                                searchResults = emptyList()
-                                            }) {
-                                                Icon(Icons.Default.Clear, contentDescription = "Effacer")
-                                            }
+                            OutlinedTextField(
+                                value = searchQuery,
+                                onValueChange = { newValue ->
+                                    searchQuery = newValue
+                                    performSearch(newValue)
+                                },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp),
+                                placeholder = { Text("Entrez ici") },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Search,
+                                        contentDescription = "Rechercher"
+                                    )
+                                },
+                                trailingIcon = {
+                                    if (searchQuery.isNotEmpty()) {
+                                        IconButton(onClick = {
+                                            searchQuery = ""
+                                            searchResults = emptyList()
+                                        }) {
+                                            Icon(
+                                                imageVector = Icons.Default.Clear,
+                                                contentDescription = "Effacer"
+                                            )
                                         }
-                                    },
-                                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                                    keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
-                                    singleLine = true
+                                    }
+                                },
+                                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                                keyboardActions = KeyboardActions(
+                                    onSearch = {
+                                        performSearch(searchQuery)
+                                        keyboardController?.hide()
+                                    }
+                                ),
+                                singleLine = true
+                            )
+                        }
+
+                        // Buttons Row
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 16.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Button(
+                                onClick = {
+                                    navController.navigate("test_menu") {
+                                        popUpTo("test_menu") { inclusive = false }
+                                    }
+                                },
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(14.dp)
                                 )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    "Retour",
+                                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
+                                )
+                            }
 
-                                Spacer(modifier = Modifier.height(8.dp))
+                            Button(
+                                onClick = { showSelectedItems = !showSelectedItems },
+                                modifier = Modifier.weight(1f),
+                                enabled = selectedItems.size >= 4,
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = if (selectedItems.size >= 4)
+                                        Color(0xFF4CAF50)
+                                    else
+                                        MaterialTheme.colorScheme.surfaceVariant
+                                )
+                            ) {
+                                Text(
+                                    "Sélection" + if (selectedItems.isNotEmpty()) " (${selectedItems.size})" else "",
+                                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
+                                )
+                            }
+                        }
 
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                                ) {
-                                    Button(
-                                        onClick = {
-                                            navController.navigate("test_menu") {
-                                                popUpTo("test_menu") { inclusive = false }
-                                            }
-                                        },
-                                        modifier = Modifier.weight(1f),
-                                        colors = ButtonDefaults.buttonColors(
-                                            containerColor = MaterialTheme.colorScheme.secondary
-                                        )
-                                    ) {
-                                        Icon(Icons.Default.ArrowBack, null, Modifier.size(16.dp))
-                                        Spacer(Modifier.width(4.dp))
-                                        Text("Retour")
-                                    }
-
-                                    Button(
-                                        onClick = { showSelectedItems = !showSelectedItems },
-                                        modifier = Modifier.weight(1f),
-                                        enabled = selectedItems.size >= 4,
-                                        colors = ButtonDefaults.buttonColors(
-                                            containerColor = if (selectedItems.size >= 4)
-                                                Color(0xFF4CAF50)
-                                            else
-                                                MaterialTheme.colorScheme.surfaceVariant
-                                        )
-                                    ) {
-                                        Text("Sélection")
-                                        if (selectedItems.isNotEmpty()) {
-                                            Text(" (${selectedItems.size})")
-                                        }
-                                    }
-                                }
+                        // Badge for selected items count
+                        if (selectedItems.isNotEmpty()) {
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = 8.dp),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                                )
+                            ) {
+                                Text(
+                                    text = "Éléments sélectionnés: ${selectedItems.size}",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    modifier = Modifier.padding(8.dp),
+                                    textAlign = TextAlign.Center
+                                )
                             }
                         }
                     } else {
-                        // Панель управления выбранными элементами
+                        // Selected items view controls
                         Card(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 12.dp, top = 8.dp),
                             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                         ) {
                             Column(modifier = Modifier.padding(8.dp)) {
@@ -316,14 +347,18 @@ fun CreationScreen(navController: NavController) {
                                 ) {
                                     Button(
                                         onClick = { showSelectedItems = false },
-                                        modifier = Modifier.weight(1f),
-                                        colors = ButtonDefaults.buttonColors(
-                                            containerColor = MaterialTheme.colorScheme.secondary
-                                        )
+                                        modifier = Modifier.weight(1f)
                                     ) {
-                                        Icon(Icons.Default.ArrowBack, null, Modifier.size(16.dp))
-                                        Spacer(Modifier.width(4.dp))
-                                        Text("Retour")
+                                        Icon(
+                                            imageVector = Icons.Default.ArrowBack,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(14.dp)
+                                        )
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Text(
+                                            "Retour",
+                                            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
+                                        )
                                     }
 
                                     Button(
@@ -334,9 +369,16 @@ fun CreationScreen(navController: NavController) {
                                             containerColor = MaterialTheme.colorScheme.error
                                         )
                                     ) {
-                                        Icon(Icons.Default.Clear, null, Modifier.size(16.dp))
-                                        Spacer(Modifier.width(4.dp))
-                                        Text("Effacer")
+                                        Icon(
+                                            imageVector = Icons.Default.Clear,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(14.dp)
+                                        )
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Text(
+                                            "Effacer",
+                                            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
+                                        )
                                     }
                                 }
 
@@ -353,7 +395,10 @@ fun CreationScreen(navController: NavController) {
                                             MaterialTheme.colorScheme.surfaceVariant
                                     )
                                 ) {
-                                    Text("Créer Test (${selectedItems.size})")
+                                    Text(
+                                        "Créer Test (${selectedItems.size})",
+                                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
+                                    )
                                 }
 
                                 if (selectedItems.isNotEmpty()) {
@@ -367,7 +412,7 @@ fun CreationScreen(navController: NavController) {
                                         Column(modifier = Modifier.padding(8.dp)) {
                                             Text(
                                                 text = "Éléments sélectionnés: ${selectedItems.size}",
-                                                style = MaterialTheme.typography.titleMedium
+                                                style = MaterialTheme.typography.titleSmall
                                             )
                                             val categoryCounts = selectedItems.groupingBy { it.category }.eachCount()
                                             categoryCounts.forEach { (category, count) ->
@@ -394,7 +439,7 @@ fun CreationScreen(navController: NavController) {
             }
         }
     } else {
-        // ВЕРТИКАЛЬНАЯ ОРИЕНТАЦИЯ (без изменений)
+        // ВЕРТИКАЛЬНАЯ ОРИЕНТАЦИЯ
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -403,112 +448,144 @@ fun CreationScreen(navController: NavController) {
                         Modifier.paint(painter = BitmapPainter(it), contentScale = ContentScale.Crop)
                     } ?: Modifier.background(MaterialTheme.colorScheme.background)
                 )
+                .systemBarsPadding()
         ) {
+            Spacer(modifier = Modifier.height(16.dp))
 
             if (!showSelectedItems) {
                 // Search interface
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                        .padding(horizontal = 16.dp),
                     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                 ) {
-                    Column(modifier = Modifier.padding(8.dp)) {
-                        if (selectedItems.isNotEmpty()) {
-                            Box(
-                                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
-                                contentAlignment = Alignment.CenterEnd
-                            ) {
-                                Badge { Text("${selectedItems.size}") }
-                            }
-                        }
-
-                        OutlinedTextField(
-                            value = searchQuery,
-                            onValueChange = { newValue ->
-                                searchQuery = newValue
-                                performSearch(newValue)
-                            },
-                            modifier = Modifier.fillMaxWidth(),
-                            placeholder = { Text("Entrez ici") },
-                            leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Rechercher") },
-                            trailingIcon = {
-                                if (searchQuery.isNotEmpty()) {
-                                    IconButton(onClick = {
-                                        searchQuery = ""
-                                        searchResults = emptyList()
-                                    }) {
-                                        Icon(Icons.Default.Clear, contentDescription = "Effacer")
-                                    }
+                    OutlinedTextField(
+                        value = searchQuery,
+                        onValueChange = { newValue ->
+                            searchQuery = newValue
+                            performSearch(newValue)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        placeholder = { Text("Entrez ici") },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = "Rechercher"
+                            )
+                        },
+                        trailingIcon = {
+                            if (searchQuery.isNotEmpty()) {
+                                IconButton(onClick = {
+                                    searchQuery = ""
+                                    searchResults = emptyList()
+                                }) {
+                                    Icon(
+                                        imageVector = Icons.Default.Clear,
+                                        contentDescription = "Effacer"
+                                    )
                                 }
-                            },
-                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
-                            singleLine = true
+                            }
+                        },
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                        keyboardActions = KeyboardActions(
+                            onSearch = {
+                                performSearch(searchQuery)
+                                keyboardController?.hide()
+                            }
+                        ),
+                        singleLine = true
+                    )
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Button(
+                        onClick = {
+                            navController.navigate("test_menu") {
+                                popUpTo("test_menu") { inclusive = false }
+                            }
+                        },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp)
                         )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Retour")
+                    }
 
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            Button(
-                                onClick = {
-                                    navController.navigate("test_menu") {
-                                        popUpTo("test_menu") { inclusive = false }
-                                    }
-                                },
-                                modifier = Modifier.weight(1f),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = MaterialTheme.colorScheme.secondary
-                                )
-                            ) {
-                                Icon(Icons.Default.ArrowBack, null, Modifier.size(16.dp))
-                                Spacer(Modifier.width(4.dp))
-                                Text("Retour")
-                            }
-
-                            Button(
-                                onClick = { showSelectedItems = !showSelectedItems },
-                                modifier = Modifier.weight(1f),
-                                enabled = selectedItems.size >= 4,
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = if (selectedItems.size >= 4)
-                                        Color(0xFF4CAF50)
-                                    else
-                                        MaterialTheme.colorScheme.surfaceVariant
-                                )
-                            ) {
-                                Text("Sélection")
-                                if (selectedItems.isNotEmpty()) {
-                                    Spacer(Modifier.width(4.dp))
-                                    Text("(${selectedItems.size})")
-                                }
-                            }
+                    Button(
+                        onClick = { showSelectedItems = !showSelectedItems },
+                        modifier = Modifier.weight(1f),
+                        enabled = selectedItems.size >= 4,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = if (selectedItems.size >= 4)
+                                Color(0xFF4CAF50)
+                            else
+                                MaterialTheme.colorScheme.surfaceVariant
+                        )
+                    ) {
+                        Text("Sélection")
+                        if (selectedItems.isNotEmpty()) {
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text("(${selectedItems.size})")
                         }
                     }
                 }
 
+                Spacer(modifier = Modifier.height(16.dp))
+
                 // Search Results
                 when {
                     searchResults.isEmpty() && searchQuery.isBlank() -> {
-                        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                Icon(Icons.Default.Search, null, Modifier.size(64.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                                Spacer(Modifier.height(16.dp))
-                                Text("Recherchez des éléments pour créer votre test", textAlign = TextAlign.Center)
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(64.dp),
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Spacer(modifier = Modifier.height(16.dp))
+                                Text(
+                                    text = "Recherchez des éléments pour créer votre test",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    textAlign = TextAlign.Center,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
                             }
                         }
                     }
                     searchResults.isEmpty() && searchQuery.isNotBlank() -> {
-                        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                            Text("Aucun élément trouvé pour \"$searchQuery\"", textAlign = TextAlign.Center)
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "Aucun élément trouvé pour \"$searchQuery\"",
+                                style = MaterialTheme.typography.bodyLarge,
+                                textAlign = TextAlign.Center,
+                                color = MaterialTheme.colorScheme.error
+                            )
                         }
                     }
                     else -> {
                         LazyColumn(
-                            modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(horizontal = 8.dp),
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             items(searchResults) { item ->
@@ -526,23 +603,27 @@ fun CreationScreen(navController: NavController) {
             } else {
                 // Selected items view
                 Card(
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
                     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                 ) {
                     Column(modifier = Modifier.padding(8.dp)) {
+                        // Первая строка - кнопки Retour и Effacer
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             Button(
                                 onClick = { showSelectedItems = false },
-                                modifier = Modifier.weight(1f),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = MaterialTheme.colorScheme.secondary
-                                )
+                                modifier = Modifier.weight(1f)
                             ) {
-                                Icon(Icons.Default.ArrowBack, null, Modifier.size(16.dp))
-                                Spacer(Modifier.width(4.dp))
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
                                 Text("Retour")
                             }
 
@@ -554,24 +635,31 @@ fun CreationScreen(navController: NavController) {
                                     containerColor = MaterialTheme.colorScheme.error
                                 )
                             ) {
-                                Icon(Icons.Default.Clear, null, Modifier.size(16.dp))
-                                Spacer(Modifier.width(4.dp))
+                                Icon(
+                                    imageVector = Icons.Default.Clear,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
                                 Text("Effacer")
                             }
+                        }
 
-                            Button(
-                                onClick = { navigateToCustomTest() },
-                                modifier = Modifier.weight(1f),
-                                enabled = selectedItems.size >= 4,
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = if (selectedItems.size >= 4)
-                                        Color(0xFF4CAF50)
-                                    else
-                                        MaterialTheme.colorScheme.surfaceVariant
-                                )
-                            ) {
-                                Text("Créer (${selectedItems.size})")
-                            }
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        // Вторая строка - кнопка Créer Test
+                        Button(
+                            onClick = { navigateToCustomTest() },
+                            modifier = Modifier.fillMaxWidth(),
+                            enabled = selectedItems.size >= 4,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (selectedItems.size >= 4)
+                                    Color(0xFF4CAF50)
+                                else
+                                    MaterialTheme.colorScheme.surfaceVariant
+                            )
+                        ) {
+                            Text("Créer Test (${selectedItems.size})")
                         }
                     }
                 }
@@ -579,35 +667,60 @@ fun CreationScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 if (selectedItems.isEmpty()) {
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text("Aucun élément sélectionné", textAlign = TextAlign.Center)
-                            Spacer(Modifier.height(16.dp))
-                            Text("Minimum 4 éléments requis pour créer un test", textAlign = TextAlign.Center)
+                            Text(
+                                text = "Aucun élément sélectionné",
+                                style = MaterialTheme.typography.bodyLarge,
+                                textAlign = TextAlign.Center
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(
+                                text = "Minimum 4 éléments requis pour créer un test",
+                                style = MaterialTheme.typography.bodyMedium,
+                                textAlign = TextAlign.Center
+                            )
                         }
                     }
                 } else {
                     Card(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
                         )
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
-                            Text("Éléments sélectionnés: ${selectedItems.size}")
+                            Text(
+                                text = "Éléments sélectionnés: ${selectedItems.size}",
+                                style = MaterialTheme.typography.titleMedium
+                            )
                             val categoryCounts = selectedItems.groupingBy { it.category }.eachCount()
                             categoryCounts.forEach { (category, count) ->
-                                Text("$category: $count", style = MaterialTheme.typography.bodySmall)
+                                Text(
+                                    text = "$category: $count",
+                                    style = MaterialTheme.typography.bodySmall
+                                )
                             }
                             if (selectedItems.size < 4) {
-                                Spacer(Modifier.height(8.dp))
-                                Text("Encore ${4 - selectedItems.size} éléments requis", color = MaterialTheme.colorScheme.error)
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Text(
+                                    text = "Encore ${4 - selectedItems.size} éléments requis",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.error
+                                )
                             }
                         }
                     }
 
                     LazyColumn(
-                        modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 8.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         items(selectedItems) { item ->
