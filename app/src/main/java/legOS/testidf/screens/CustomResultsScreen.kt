@@ -529,7 +529,7 @@ private fun CustomResultsPortraitLayout(
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp)) // Safe zone below buttons for system navigation
+        Spacer(modifier = Modifier.height(2.dp)) // Safe zone below buttons for system navigation
     }
 }
 

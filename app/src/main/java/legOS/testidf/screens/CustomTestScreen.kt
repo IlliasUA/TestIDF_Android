@@ -193,23 +193,19 @@ fun CustomTestScreen(navController: NavController, questionCount: String, timeLi
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+        modifier = Modifier.fillMaxSize()
     ) {
-        // Display background image
+        // Фоновое изображение на весь экран БЕЗ отступов
         backgroundImage?.let { image ->
             Image(
                 bitmap = image,
                 contentDescription = "Background Image",
-                modifier = Modifier
-                    .fillMaxSize()
-                    .systemBarsPadding(), // Extend under system bars for full coverage
-                contentScale = ContentScale.FillBounds // Use FillBounds to ensure no gaps
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop // Используем Crop для заполнения всего экрана
             )
         }
 
-        // Content Box with safe padding for UI elements
+        // Контент поверх фона С безопасными отступами
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -285,6 +281,7 @@ fun CustomTestScreen(navController: NavController, questionCount: String, timeLi
         }
     }
 }
+
 
 private fun CoroutineScope.navigateToResults() {
     TODO("Not yet implemented")
@@ -394,54 +391,58 @@ private fun CustomTestLandscapeLayout(
             modifier = Modifier
                 .weight(0.45f)
                 .fillMaxHeight()
-                .padding(start = 8.dp),
+                .padding(start = 8.dp, end = 16.dp), // Добавлен отступ справа
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
+            verticalArrangement = Arrangement.Top // Изменено с SpaceEvenly на Top
         ) {
+            Spacer(Modifier.height(8.dp)) // Небольшой отступ сверху
+
             // Progress bar
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp)
+                    .padding(vertical = 6.dp)
                     .background(Color.Transparent)
             ) {
                 LinearProgressIndicator(
                     progress = { timeRemaining.toFloat() / timeLimitInt.toFloat() },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(16.dp),
+                        .height(14.dp),
                     color = if (timeRemaining <= 3 && timeRemaining > 0) Color(0xFF8B0000) else Color(0xFF32CD32),
                     trackColor = Color.Transparent
                 )
             }
 
+            Spacer(Modifier.height(12.dp))
+
             // Счетчик вопросов и категория
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(vertical = 4.dp)
             ) {
                 Text(
                     text = "${currentQuestionIndex + 1}/$totalQuestions",
-                    style = MaterialTheme.typography.headlineSmall.copy(fontSize = 20.sp)
+                    style = MaterialTheme.typography.headlineSmall.copy(fontSize = 18.sp)
                 )
                 Text(
                     text = "Catégorie: ${currentQuestion.category}",
-                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(20.dp))
 
             // Поле ввода ответа
             OutlinedTextField(
                 value = currentAnswer,
                 onValueChange = onAnswerChange,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp),
-                label = { Text("Votre réponse") },
-                placeholder = { Text("Entrez le nom de l'équipement...") },
+                    .fillMaxWidth(0.95f)
+                    .padding(vertical = 6.dp),
+                label = { Text("Votre réponse", fontSize = 14.sp) },
+                placeholder = { Text("Entrez le nom...", fontSize = 13.sp) },
                 trailingIcon = {
                     if (currentAnswer.text.isNotEmpty()) {
                         IconButton(onClick = { onAnswerChange(TextFieldValue("")) }) {
@@ -454,7 +455,7 @@ private fun CustomTestLandscapeLayout(
                     onDone = { onSubmitAnswer() }
                 ),
                 singleLine = true,
-                textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
+                textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 15.sp)
             )
 
             Spacer(Modifier.height(16.dp))
@@ -463,8 +464,8 @@ private fun CustomTestLandscapeLayout(
             Button(
                 onClick = onSubmitAnswer,
                 modifier = Modifier
-                    .fillMaxWidth(0.8f)
-                    .height(48.dp),
+                    .fillMaxWidth(0.85f)
+                    .height(44.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.onPrimary
@@ -473,7 +474,7 @@ private fun CustomTestLandscapeLayout(
             ) {
                 Text(
                     text = "Valider",
-                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp)
+                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
                 )
             }
 
@@ -483,8 +484,8 @@ private fun CustomTestLandscapeLayout(
             Button(
                 onClick = onQuit,
                 modifier = Modifier
-                    .fillMaxWidth(0.8f)
-                    .height(48.dp),
+                    .fillMaxWidth(0.85f)
+                    .height(44.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.tertiary,
                     contentColor = MaterialTheme.colorScheme.onTertiary
@@ -493,7 +494,7 @@ private fun CustomTestLandscapeLayout(
             ) {
                 Text(
                     text = "Quitter",
-                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
+                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 15.sp)
                 )
             }
 
@@ -531,6 +532,7 @@ private fun CustomTestLandscapeLayout(
         }
     }
 }
+
 
 @Composable
 private fun CustomTestCompactLayout(
