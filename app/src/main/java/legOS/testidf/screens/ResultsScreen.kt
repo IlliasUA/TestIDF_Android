@@ -201,16 +201,16 @@ private fun ResultsLandscapeLayout(
         // Правая часть - общая информация и основные кнопки навигации
         Column(
             modifier = Modifier
-                .weight(0.5f) // Уменьшено с 0.7f до 0.5f
+                .weight(0.5f)
                 .fillMaxHeight()
-                .padding(end = 24.dp, top = 8.dp, bottom = 8.dp), // Добавлен отступ справа
+                .padding(end = 32.dp, top = 8.dp, bottom = 8.dp), // Увеличен отступ справа с 24dp до 32dp
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Заголовок со счетом
             Text(
                 "Score: $correctAnswers / ${questions.size}",
-                style = MaterialTheme.typography.headlineMedium.copy(fontSize = 22.sp), // Немного уменьшен шрифт
+                style = MaterialTheme.typography.headlineMedium.copy(fontSize = 22.sp),
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.padding(bottom = 24.dp)
             )
@@ -218,14 +218,14 @@ private fun ResultsLandscapeLayout(
             // Дополнительная информация о результатах
             Card(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(0.85f) // Уменьшена ширина с 100% до 85%
                     .padding(bottom = 20.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             ) {
                 Column(
-                    modifier = Modifier.padding(12.dp), // Уменьшен padding
+                    modifier = Modifier.padding(12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     val percentage = (correctAnswers.toFloat() / questions.size * 100).toInt()
@@ -249,13 +249,13 @@ private fun ResultsLandscapeLayout(
             Column(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(0.85f) // Уменьшена ширина с 100% до 85%
             ) {
                 Button(
                     onClick = { navController.navigate("time_selection/$category") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(44.dp), // Немного уменьшена высота
+                        .height(44.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.tertiary,
                         contentColor = MaterialTheme.colorScheme.onTertiary
@@ -271,7 +271,7 @@ private fun ResultsLandscapeLayout(
                     onClick = { navController.navigate("test_menu") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(44.dp), // Немного уменьшена высота
+                        .height(44.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.tertiary,
                         contentColor = MaterialTheme.colorScheme.onTertiary

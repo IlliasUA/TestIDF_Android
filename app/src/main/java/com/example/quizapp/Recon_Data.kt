@@ -1003,7 +1003,7 @@ object Recon_Data {
         ),
         Question(
             image = "reco64.jpg",
-            additionalImages = listOf("reco64_extra1.jpg", "reco64_extra2.jpg", "reco64_extra3.jpg", "reco64_extra4.jpg"),
+            additionalImages = listOf("reco64_extra1.jpg", "reco64_extra2.jpg", "reco64_extra3.jpg"),
             correct = "ZBD-05",
             options = listOf("BMD-2", "BMP-2", "ZBD-05", "ZTD-05"),
             description = """
