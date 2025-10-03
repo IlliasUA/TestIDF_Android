@@ -17,6 +17,7 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -54,15 +55,18 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
     val windowSizeClass = calculateWindowSizeClass(activity = context as ComponentActivity)
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     val scope = rememberCoroutineScope()
-    var currentQuestionIndex by remember { mutableStateOf(0) }
-    var initialTimeLimit by remember { mutableStateOf(timeLimit) }
-    var timeRemaining by remember { mutableStateOf(timeLimit) }
-    var answers by remember { mutableStateOf(mutableListOf<String?>()) }
-    var showQuitConfirmation by remember { mutableStateOf(false) }
+
+    // Используем rememberSaveable для сохранения состояния при поворотах экрана
+    var currentQuestionIndex by rememberSaveable { mutableIntStateOf(0) }
+    var initialTimeLimit by rememberSaveable { mutableIntStateOf(timeLimit) }
+    var timeRemaining by rememberSaveable { mutableIntStateOf(timeLimit) }
+    var answers by rememberSaveable { mutableStateOf(mutableListOf<String?>()) }
+    var showQuitConfirmation by rememberSaveable { mutableStateOf(false) }
 
     Log.d("TestScreen", "Received category: $category, timeLimit: $timeLimit")
 
-    val questions = remember {
+    // Используем rememberSaveable для сохранения вопросов
+    val questions = rememberSaveable {
         when (category) {
             "tanks" -> Test_Data.QUESTION
             "artillery" -> Art_Data.QUESTION
@@ -123,9 +127,8 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .safeDrawingPadding()
     ) {
-        // Display background image
+        // Display background image - заполняет весь экран включая системные панели
         backgroundImage?.let { image: androidx.compose.ui.graphics.ImageBitmap ->
             Image(
                 bitmap = image,
@@ -135,9 +138,15 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
             )
         }
 
-        when (windowSizeClass.widthSizeClass) {
-            WindowWidthSizeClass.Compact -> {
-                TestScreenCompactLayout(
+        // Контент с безопасными отступами поверх фона
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding() // Применяем отступы только к контенту
+        ) {
+            // Выбираем компоновку в зависимости от ориентации
+            if (isLandscape) {
+                TestScreenLandscapeLayout(
                     navController = navController,
                     category = category,
                     currentQuestion = currentQuestion,
@@ -148,7 +157,6 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
                     answers = answers,
                     showQuitConfirmation = showQuitConfirmation,
                     scope = scope,
-                    isLandscape = isLandscape,
                     onAnswer = { answer ->
                         answers.add(answer)
                         Log.d("TestScreen", "User answer: $answer at index $currentQuestionIndex")
@@ -169,42 +177,338 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
                     },
                     onDismissQuit = { showQuitConfirmation = false }
                 )
+            } else {
+                // Для портретного режима используем старую логику
+                when (windowSizeClass.widthSizeClass) {
+                    WindowWidthSizeClass.Compact -> {
+                        TestScreenCompactLayout(
+                            navController = navController,
+                            category = category,
+                            currentQuestion = currentQuestion,
+                            currentQuestionIndex = currentQuestionIndex,
+                            totalQuestions = totalQuestions,
+                            timeRemaining = timeRemaining,
+                            initialTimeLimit = initialTimeLimit,
+                            answers = answers,
+                            showQuitConfirmation = showQuitConfirmation,
+                            scope = scope,
+                            isLandscape = false,
+                            onAnswer = { answer ->
+                                answers.add(answer)
+                                Log.d("TestScreen", "User answer: $answer at index $currentQuestionIndex")
+                                if (currentQuestionIndex < questions.size - 1) {
+                                    currentQuestionIndex++
+                                    timeRemaining = initialTimeLimit
+                                } else {
+                                    navController.currentBackStackEntry?.savedStateHandle?.set("questions", questions)
+                                    navController.currentBackStackEntry?.savedStateHandle?.set("answers", answers)
+                                    navController.currentBackStackEntry?.savedStateHandle?.set("playerName", playerName)
+                                    navController.navigate("results/$category/$timeLimit?playerName=$playerName")
+                                }
+                            },
+                            onQuit = { showQuitConfirmation = true },
+                            onConfirmQuit = {
+                                showQuitConfirmation = false
+                                navController.navigate("test_menu")
+                            },
+                            onDismissQuit = { showQuitConfirmation = false }
+                        )
+                    }
+                    WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
+                        TestScreenLargeLayout(
+                            navController = navController,
+                            category = category,
+                            currentQuestion = currentQuestion,
+                            currentQuestionIndex = currentQuestionIndex,
+                            totalQuestions = totalQuestions,
+                            timeRemaining = timeRemaining,
+                            initialTimeLimit = initialTimeLimit,
+                            answers = answers,
+                            showQuitConfirmation = showQuitConfirmation,
+                            scope = scope,
+                            isLandscape = false,
+                            onAnswer = { answer ->
+                                answers.add(answer)
+                                Log.d("TestScreen", "User answer: $answer at index $currentQuestionIndex")
+                                if (currentQuestionIndex < questions.size - 1) {
+                                    currentQuestionIndex++
+                                    timeRemaining = initialTimeLimit
+                                } else {
+                                    navController.currentBackStackEntry?.savedStateHandle?.set("questions", questions)
+                                    navController.currentBackStackEntry?.savedStateHandle?.set("answers", answers)
+                                    navController.currentBackStackEntry?.savedStateHandle?.set("playerName", playerName)
+                                    navController.navigate("results/$category/$timeLimit?playerName=$playerName")
+                                }
+                            },
+                            onQuit = { showQuitConfirmation = true },
+                            onConfirmQuit = {
+                                showQuitConfirmation = false
+                                navController.navigate("test_menu")
+                            },
+                            onDismissQuit = { showQuitConfirmation = false }
+                        )
+                    }
+                }
             }
-            WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
-                TestScreenLargeLayout(
-                    navController = navController,
-                    category = category,
-                    currentQuestion = currentQuestion,
-                    currentQuestionIndex = currentQuestionIndex,
-                    totalQuestions = totalQuestions,
-                    timeRemaining = timeRemaining,
-                    initialTimeLimit = initialTimeLimit,
-                    answers = answers,
-                    showQuitConfirmation = showQuitConfirmation,
-                    scope = scope,
-                    isLandscape = isLandscape,
-                    onAnswer = { answer ->
-                        answers.add(answer)
-                        Log.d("TestScreen", "User answer: $answer at index $currentQuestionIndex")
-                        if (currentQuestionIndex < questions.size - 1) {
-                            currentQuestionIndex++
-                            timeRemaining = initialTimeLimit
-                        } else {
-                            navController.currentBackStackEntry?.savedStateHandle?.set("questions", questions)
-                            navController.currentBackStackEntry?.savedStateHandle?.set("answers", answers)
-                            navController.currentBackStackEntry?.savedStateHandle?.set("playerName", playerName)
-                            navController.navigate("results/$category/$timeLimit?playerName=$playerName")
+        }
+    }
+}
+
+// Новый компонент для горизонтального режима
+@Composable
+private fun TestScreenLandscapeLayout(
+    navController: NavController,
+    category: String,
+    currentQuestion: Question,
+    currentQuestionIndex: Int,
+    totalQuestions: Int,
+    timeRemaining: Int,
+    initialTimeLimit: Int,
+    answers: MutableList<String?>,
+    showQuitConfirmation: Boolean,
+    scope: CoroutineScope,
+    onAnswer: (String) -> Unit,
+    onQuit: () -> Unit,
+    onConfirmQuit: () -> Unit,
+    onDismissQuit: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        // Левая часть - изображение (занимает всю левую половину)
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight(),
+            contentAlignment = Alignment.Center
+        ) {
+            // Image with scaling and panning
+            var scale by remember { mutableStateOf(1f) }
+            var offsetX by remember { mutableStateOf(0f) }
+            var offsetY by remember { mutableStateOf(0f) }
+            var isGestureActive by remember { mutableStateOf(false) }
+            val animatedScale by animateFloatAsState(
+                targetValue = scale,
+                animationSpec = tween(durationMillis = 300),
+                label = "scaleAnimation"
+            )
+            val animatedOffsetX by animateFloatAsState(
+                targetValue = offsetX,
+                animationSpec = tween(durationMillis = 300),
+                label = "offsetXAnimation"
+            )
+            val animatedOffsetY by animateFloatAsState(
+                targetValue = offsetY,
+                animationSpec = tween(durationMillis = 300),
+                label = "offsetYAnimation"
+            )
+            val imagePath = getImagePath(category, currentQuestion)
+            val bitmap = loadImageFromAssets(LocalContext.current, imagePath)
+            bitmap?.let { imageBitmap ->
+                Image(
+                    bitmap = imageBitmap.asImageBitmap(),
+                    contentDescription = "Question Image",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(8.dp)
+                        .graphicsLayer(
+                            scaleX = animatedScale,
+                            scaleY = animatedScale,
+                            translationX = animatedOffsetX,
+                            translationY = animatedOffsetY
+                        )
+                        .pointerInput(Unit) {
+                            detectTransformGestures { _, pan, zoom, _ ->
+                                isGestureActive = true
+                                // Обновляем масштаб
+                                scale = (scale * zoom).coerceIn(1f, 3f)
+                                // Обновляем смещение с учётом масштабирования
+                                if (scale > 1f) {
+                                    offsetX += pan.x
+                                    offsetY += pan.y
+                                    // Ограничиваем смещение
+                                    val maxOffsetX = (size.width * (scale - 1f)) / 2
+                                    val maxOffsetY = (size.height * (scale - 1f)) / 2
+                                    offsetX = offsetX.coerceIn(-maxOffsetX, maxOffsetX)
+                                    offsetY = offsetY.coerceIn(-maxOffsetY, maxOffsetY)
+                                }
+                            }
+                            awaitPointerEventScope {
+                                while (true) {
+                                    val event = awaitPointerEvent()
+                                    if (event.type == PointerEventType.Release && isGestureActive) {
+                                        scale = 1f
+                                        offsetX = 0f
+                                        offsetY = 0f
+                                        isGestureActive = false
+                                    }
+                                }
+                            }
+                        },
+                    contentScale = ContentScale.Fit
+                )
+            } ?: Text(
+                text = "Image not found: ${currentQuestion.image}",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+
+        // Правая часть - управление (занимает правую половину)
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+                .padding(8.dp),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Progress bar (только правая половина)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+                    .background(Color.Transparent)
+            ) {
+                LinearProgressIndicator(
+                    progress = { timeRemaining.toFloat() / initialTimeLimit.toFloat() },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(16.dp),
+                    color = if (timeRemaining <= 3 && timeRemaining > 0) Color(0xFF8B0000) else Color(0xFF32CD32),
+                    trackColor = Color.Transparent
+                )
+            }
+
+            // Question number
+            Text(
+                text = "${currentQuestionIndex + 1}/$totalQuestions",
+                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+
+            Spacer(Modifier.height(16.dp))
+
+            // Answer buttons - два столбца
+            Row(
+                modifier = Modifier.weight(1f),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                // Левый столбец
+                LazyColumn(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    items(currentQuestion.options.take((currentQuestion.options.size + 1) / 2).size) { index ->
+                        val option = currentQuestion.options[index]
+                        Button(
+                            onClick = { onAnswer(option) },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(56.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onPrimary
+                            ),
+                            shape = MaterialTheme.shapes.medium
+                        ) {
+                            Text(
+                                text = option,
+                                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp),
+                                maxLines = 2,
+                                textAlign = TextAlign.Center
+                            )
                         }
-                    },
-                    onQuit = { showQuitConfirmation = true },
-                    onConfirmQuit = {
-                        showQuitConfirmation = false
-                        navController.navigate("test_menu")
-                    },
-                    onDismissQuit = { showQuitConfirmation = false }
+                    }
+                }
+
+                // Правый столбец
+                LazyColumn(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    items(currentQuestion.options.drop((currentQuestion.options.size + 1) / 2).size) { index ->
+                        val option = currentQuestion.options[index + (currentQuestion.options.size + 1) / 2]
+                        val displayIndex = index + (currentQuestion.options.size + 1) / 2
+                        Button(
+                            onClick = { onAnswer(option) },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(56.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onPrimary
+                            ),
+                            shape = MaterialTheme.shapes.medium
+                        ) {
+                            Text(
+                                text = option,
+                                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp),
+                                maxLines = 2,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
+                }
+            }
+
+            Spacer(Modifier.height(16.dp))
+
+            // Quit button
+            Button(
+                onClick = onQuit,
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .height(48.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                    contentColor = MaterialTheme.colorScheme.onTertiary
+                ),
+                shape = MaterialTheme.shapes.medium
+            ) {
+                Text(
+                    text = "Quitter",
+                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
                 )
             }
         }
+    }
+
+    // Quit confirmation dialog
+    if (showQuitConfirmation) {
+        AlertDialog(
+            onDismissRequest = onDismissQuit,
+            title = { Text("Confirmation", style = MaterialTheme.typography.headlineSmall) },
+            text = {
+                Text(
+                    "Êtes-vous sûr?",
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = onConfirmQuit,
+                    modifier = Modifier.padding(8.dp)
+                ) {
+                    Text("Oui", style = MaterialTheme.typography.labelLarge)
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = onDismissQuit,
+                    modifier = Modifier.padding(8.dp)
+                ) {
+                    Text("Non", style = MaterialTheme.typography.labelLarge)
+                }
+            },
+            modifier = Modifier.padding(16.dp)
+        )
     }
 }
 
@@ -348,7 +652,7 @@ private fun TestScreenCompactLayout(
                     shape = MaterialTheme.shapes.medium
                 ) {
                     Text(
-                        text = "${index + 1}. $option",
+                        text = option, // Убрана нумерация
                         style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
                         maxLines = 2
                     )
@@ -565,7 +869,7 @@ private fun TestScreenLargeLayout(
                             shape = MaterialTheme.shapes.medium
                         ) {
                             Text(
-                                text = "${index + 1}. $option",
+                                text = option, // Убрана нумерация
                                 style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
                                 maxLines = 2
                             )
@@ -591,7 +895,7 @@ private fun TestScreenLargeLayout(
                             shape = MaterialTheme.shapes.medium
                         ) {
                             Text(
-                                text = "${index + currentQuestion.options.size / 2 + 1}. $option",
+                                text = option, // Убрана нумерация
                                 style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
                                 maxLines = 2
                             )

@@ -7,11 +7,15 @@ import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,11 +25,15 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import java.io.IOException
+import kotlin.math.min
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -33,7 +41,13 @@ fun TestMenuScreen(navController: NavController) {
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
     val windowSizeClass = calculateWindowSizeClass(activity = context as ComponentActivity)
+    val density = LocalDensity.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+    // Адаптивные размеры экрана
+    val screenHeightDp = with(density) { configuration.screenHeightDp.dp }
+    val screenWidthDp = with(density) { configuration.screenWidthDp.dp }
+    val isCompactHeight = screenHeightDp < 600.dp || windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
 
     // Load background image (same as MainMenuScreen for consistency)
     val backgroundImage: ImageBitmap? = remember {
@@ -47,13 +61,17 @@ fun TestMenuScreen(navController: NavController) {
         }
     }
 
+    // Сбрасываем состояние при входе на экран
+    LaunchedEffect(Unit) {
+        Log.d("TestMenuScreen", "Screen launched/relaunched - resetting state")
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .safeDrawingPadding()
     ) {
-        // Display background image
+        // Display background image - заполняет весь экран включая системные панели
         backgroundImage?.let { image: ImageBitmap ->
             Image(
                 bitmap = image,
@@ -63,39 +81,74 @@ fun TestMenuScreen(navController: NavController) {
             )
         }
 
-        when (windowSizeClass.widthSizeClass) {
-            WindowWidthSizeClass.Compact -> {
-                TestMenuCompactLayout(navController, isLandscape)
-            }
-            WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
-                TestMenuLargeLayout(navController, isLandscape)
+        // Контент с безопасными отступами поверх фона
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding() // Применяем отступы только к контенту
+        ) {
+            when (windowSizeClass.widthSizeClass) {
+                WindowWidthSizeClass.Compact -> {
+                    TestMenuCompactLayout(
+                        navController = navController,
+                        isLandscape = isLandscape,
+                        isCompactHeight = isCompactHeight,
+                        screenWidth = screenWidthDp,
+                        screenHeight = screenHeightDp
+                    )
+                }
+                WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
+                    TestMenuLargeLayout(
+                        navController = navController,
+                        isLandscape = isLandscape,
+                        isCompactHeight = isCompactHeight,
+                        screenWidth = screenWidthDp,
+                        screenHeight = screenHeightDp
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
-private fun TestMenuCompactLayout(navController: NavController, isLandscape: Boolean) {
+private fun TestMenuCompactLayout(
+    navController: NavController,
+    isLandscape: Boolean,
+    isCompactHeight: Boolean,
+    screenWidth: Dp,
+    screenHeight: Dp
+) {
+    // Создаем новое состояние прокрутки при каждом входе на экран
+    val scrollState = rememberScrollState()
+
+    // Сбрасываем прокрутку в начало при входе на экран
+    LaunchedEffect(Unit) {
+        scrollState.animateScrollTo(0)
+    }
+
+    // Адаптивные отступы
+    val horizontalPadding = min(16.dp, screenWidth * 0.04f)
+    val verticalPadding = if (isCompactHeight) 8.dp else min(24.dp, screenHeight * 0.03f)
+    val buttonSpacing = if (isCompactHeight) 6.dp else 8.dp
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp, vertical = 24.dp),
-        verticalArrangement = Arrangement.Center,
+            .verticalScroll(scrollState)
+            .padding(horizontal = horizontalPadding, vertical = verticalPadding),
+        verticalArrangement = if (isCompactHeight) Arrangement.Top else Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Choisisez une catégorie",
-            style = MaterialTheme.typography.headlineSmall,
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
 
-        Spacer(Modifier.height(if (isLandscape) 12.dp else 20.dp))
 
-        // Single column for all buttons
+        if (!isCompactHeight) {
+            Spacer(Modifier.height(if (isLandscape) 8.dp else 12.dp))
+        }
+
+        // Основные кнопки категорий
         Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(buttonSpacing),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             listOf(
@@ -112,95 +165,118 @@ private fun TestMenuCompactLayout(navController: NavController, isLandscape: Boo
                     category = category,
                     navController = navController,
                     modifier = Modifier.fillMaxWidth(0.9f),
-                    isTertiary = category in listOf("bm2", "final")
+                    isTertiary = category in listOf("bm2", "final"),
+                    isCompact = isCompactHeight
                 )
             }
 
-            // Новые кнопки между TEST FINAL и Retour
-            Spacer(Modifier.height(8.dp))
+            // Дополнительное пространство перед кнопками действий
+            Spacer(Modifier.height(if (isCompactHeight) 8.dp else 12.dp))
+
+            // Кнопки поиска и создания
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 ReturnButton(
                     navController = navController,
                     modifier = Modifier.weight(1f),
                     route = "catalog",
-                    text = "\uD83D\uDD0D",
-                    color = Color(0xFF4CAF50) // Мягкий зелёный
+                    text = "🔍",
+                    color = Color(0xFF4CAF50),
+                    isCompact = isCompactHeight
                 )
-                Spacer(Modifier.width(8.dp))
                 ReturnButton(
                     navController = navController,
                     modifier = Modifier.weight(1f),
-                    route = "creation", // новая навигация
+                    route = "creation",
                     text = "Creation",
-                    color = Color(0xFF4CAF50) // Тот же цвет что и у поиска
+                    color = Color(0xFF4CAF50),
+                    isCompact = isCompactHeight
                 )
             }
 
-            // Уменьшенный Spacer для чёткого позиционирования над Retour
-            Spacer(Modifier.height(8.dp))
+            // Дополнительное пространство
+            Spacer(Modifier.height(buttonSpacing))
 
+            // Кнопки возврата и зала славы
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 ReturnButton(
                     navController = navController,
                     modifier = Modifier.weight(1f),
                     route = "main_menu",
                     text = "Retour",
-                    color = Color(0xFF8B0000)
+                    color = Color(0xFF8B0000),
+                    isCompact = isCompactHeight
                 )
-                Spacer(Modifier.width(8.dp))
                 ReturnButton(
                     navController = navController,
                     modifier = Modifier.weight(1f),
                     route = "hall_of_fame",
-                    text = "\uD83C\uDFC6",
-                    color = Color(0xFFFFFF00)
+                    text = "🏆",
+                    color = Color(0xFFFFFF00),
+                    isCompact = isCompactHeight
                 )
             }
         }
+
+        // Нижний отступ для обеспечения прокрутки
+        Spacer(Modifier.height(if (isCompactHeight) 16.dp else 24.dp))
     }
 }
 
 @Composable
-private fun TestMenuLargeLayout(navController: NavController, isLandscape: Boolean) {
+private fun TestMenuLargeLayout(
+    navController: NavController,
+    isLandscape: Boolean,
+    isCompactHeight: Boolean,
+    screenWidth: Dp,
+    screenHeight: Dp
+) {
+    // Создаем новое состояние прокрутки при каждом входе на экран
+    val scrollState = rememberScrollState()
+
+    // Сбрасываем прокрутку в начало при входе на экран
+    LaunchedEffect(Unit) {
+        scrollState.animateScrollTo(0)
+    }
+
+    // Адаптивные отступы
+    val horizontalPadding = min(32.dp, screenWidth * 0.05f)
+    val verticalPadding = min(32.dp, screenHeight * 0.04f)
+
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 32.dp, vertical = 32.dp),
+            .verticalScroll(scrollState)
+            .padding(horizontal = horizontalPadding, vertical = verticalPadding),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(end = if (isLandscape) 32.dp else 0.dp),
+                .padding(end = if (isLandscape) min(32.dp, screenWidth * 0.04f) else 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Choisisez une catégorie",
-                style = MaterialTheme.typography.headlineMedium,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = 24.dp)
-            )
 
+
+            // Основные кнопки в две колонки
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                // Left column
+                // Левая колонка
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(if (isCompactHeight) 8.dp else 12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.weight(1f)
                 ) {
@@ -216,14 +292,17 @@ private fun TestMenuLargeLayout(navController: NavController, isLandscape: Boole
                             category = category,
                             navController = navController,
                             modifier = Modifier.fillMaxWidth(0.9f),
-                            isTertiary = false
+                            isTertiary = false,
+                            isCompact = isCompactHeight
                         )
                     }
                 }
 
-                // Right column
+                Spacer(Modifier.width(16.dp))
+
+                // Правая колонка
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(if (isCompactHeight) 8.dp else 12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.weight(1f)
                 ) {
@@ -236,63 +315,71 @@ private fun TestMenuLargeLayout(navController: NavController, isLandscape: Boole
                             category = category,
                             navController = navController,
                             modifier = Modifier.fillMaxWidth(0.9f),
-                            isTertiary = true
+                            isTertiary = true,
+                            isCompact = isCompactHeight
                         )
                     }
                 }
             }
 
-            // Новые кнопки между TEST FINAL и Retour
-            Spacer(Modifier.height(12.dp))
+            // Дополнительные кнопки
+            Spacer(Modifier.height(if (isCompactHeight) 8.dp else 12.dp))
+
+            // Кнопки поиска и создания
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 ReturnButton(
                     navController = navController,
                     modifier = Modifier.weight(1f),
                     route = "catalog",
-                    text = "📚",
-                    color = Color(0xFF4CAF50) // Мягкий зелёный
+                    text = "🔍",
+                    color = Color(0xFF4CAF50),
+                    isCompact = isCompactHeight
                 )
-                Spacer(Modifier.width(16.dp))
                 ReturnButton(
                     navController = navController,
                     modifier = Modifier.weight(1f),
-                    route = "creation", // новая навигация
+                    route = "creation",
                     text = "Creation",
-                    color = Color(0xFF4CAF50) // Тот же цвет что и у поиска
+                    color = Color(0xFF4CAF50),
+                    isCompact = isCompactHeight
                 )
             }
 
-            // Уменьшенный Spacer для чёткого позиционирования над Retour
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.height(if (isCompactHeight) 6.dp else 8.dp))
 
+            // Кнопки возврата и зала славы
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 ReturnButton(
                     navController = navController,
                     modifier = Modifier.weight(1f),
                     route = "main_menu",
                     text = "Retour",
-                    color = Color(0xFF8B0000)
+                    color = Color(0xFF8B0000),
+                    isCompact = isCompactHeight
                 )
-                Spacer(Modifier.width(16.dp))
                 ReturnButton(
                     navController = navController,
                     modifier = Modifier.weight(1f),
                     route = "hall_of_fame",
-                    text = "\uD83C\uDFC6",
-                    color = Color(0xFFFFFF00)
+                    text = "🏆",
+                    color = Color(0xFFFFFF00),
+                    isCompact = isCompactHeight
                 )
             }
+
+            // Нижний отступ для обеспечения прокрутки
+            Spacer(Modifier.height(if (isCompactHeight) 16.dp else 24.dp))
         }
     }
 }
@@ -303,7 +390,8 @@ private fun CategoryButton(
     category: String,
     navController: NavController,
     modifier: Modifier,
-    isTertiary: Boolean
+    isTertiary: Boolean,
+    isCompact: Boolean = false
 ) {
     Button(
         onClick = {
@@ -314,8 +402,14 @@ private fun CategoryButton(
             }
         },
         modifier = modifier
-            .height(56.dp)
-            .padding(vertical = 4.dp),
+            .height(
+                when {
+                    isCompact -> 44.dp
+                    text.length > 15 -> 56.dp
+                    else -> 52.dp
+                }
+            )
+            .padding(vertical = if (isCompact) 2.dp else 4.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = if (isTertiary) {
                 MaterialTheme.colorScheme.tertiary.copy(alpha = 0.8f)
@@ -328,12 +422,23 @@ private fun CategoryButton(
                 MaterialTheme.colorScheme.onPrimary
             }
         ),
-        shape = MaterialTheme.shapes.medium
+        shape = MaterialTheme.shapes.medium,
+        contentPadding = PaddingValues(
+            horizontal = if (isCompact) 8.dp else 16.dp,
+            vertical = if (isCompact) 8.dp else 12.dp
+        )
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.bodyLarge,
-            fontSize = 16.sp
+            style = MaterialTheme.typography.bodyLarge.copy(
+                fontSize = when {
+                    isCompact -> 13.sp
+                    text.length > 15 -> 14.sp
+                    else -> 16.sp
+                }
+            ),
+            textAlign = TextAlign.Center,
+            maxLines = if (text.length > 15) 2 else 1
         )
     }
 }
@@ -344,23 +449,30 @@ private fun ReturnButton(
     modifier: Modifier,
     route: String,
     text: String,
-    color: Color
+    color: Color,
+    isCompact: Boolean = false
 ) {
     Button(
         onClick = { navController.navigate(route) },
         modifier = modifier
-            .height(56.dp)
-            .padding(vertical = 4.dp),
+            .height(if (isCompact) 44.dp else 52.dp)
+            .padding(vertical = if (isCompact) 2.dp else 4.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = color.copy(alpha = 0.8f),
             contentColor = if (color == Color(0xFFFFFF00)) Color.Black else Color.White
         ),
-        shape = MaterialTheme.shapes.medium
+        shape = MaterialTheme.shapes.medium,
+        contentPadding = PaddingValues(
+            horizontal = if (isCompact) 8.dp else 12.dp,
+            vertical = if (isCompact) 6.dp else 8.dp
+        )
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.bodyLarge,
-            fontSize = 15.sp
+            style = MaterialTheme.typography.bodyLarge.copy(
+                fontSize = if (isCompact) 12.sp else 15.sp
+            ),
+            textAlign = TextAlign.Center
         )
     }
 }

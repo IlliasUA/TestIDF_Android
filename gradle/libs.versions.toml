@@ -11,6 +11,7 @@ composeBom = "2024.09.00"
 appcompat = "1.7.1"
 material3 = "1.3.2"
 uiText = "1.9.0"
+runtime = "1.9.1"
 
 [libraries]
 androidx-compose-ui-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
@@ -32,6 +33,7 @@ ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 androidx-ui-text = { group = "androidx.compose.ui", name = "ui-text", version.ref = "uiText" }
+androidx-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "runtime" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -54,7 +54,8 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.8.0")
     implementation("io.coil-kt:coil-compose:2.7.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation("androidx.compose.ui:ui-text") // Заменено libs.androidx.ui.text на явную зависимость
+    implementation("androidx.compose.ui:ui-text")
+    implementation(libs.androidx.runtime) // Заменено libs.androidx.ui.text на явную зависимость
 
     // Добавлены зависимости для локальных юнит-тестов
     testImplementation("junit:junit:4.13.2")

@@ -91,9 +91,8 @@ fun HallOfFameScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background) // Fallback background
-            .safeDrawingPadding() // Respect system bars (notch, status/nav bars)
     ) {
-        // Display background image
+        // Display background image - заполняет весь экран включая системные панели
         backgroundImage?.let { image ->
             Image(
                 bitmap = image,
@@ -103,14 +102,21 @@ fun HallOfFameScreen(navController: NavController) {
             )
         }
 
-        when (windowSizeClass.widthSizeClass) {
-            WindowWidthSizeClass.Compact -> {
-                // Small screens (phones)
-                HallOfFameCompactLayout(navController, scores, isLandscape)
-            }
-            WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
-                // Tablets or large screens
-                HallOfFameLargeLayout(navController, scores, isLandscape)
+        // Контент с безопасными отступами поверх фона
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding() // Применяем отступы только к контенту
+        ) {
+            when (windowSizeClass.widthSizeClass) {
+                WindowWidthSizeClass.Compact -> {
+                    // Small screens (phones)
+                    HallOfFameCompactLayout(navController, scores, isLandscape)
+                }
+                WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
+                    // Tablets or large screens
+                    HallOfFameLargeLayout(navController, scores, isLandscape)
+                }
             }
         }
     }
@@ -223,7 +229,7 @@ private fun ScoreCard(index: Int, score: Pair<String, Int>, isLargeScreen: Boole
                 0 -> Color(0xFFFFD700) // Gold for 1st place
                 1 -> Color(0xFFC0C0C0) // Silver for 2nd place
                 2 -> Color(0xFFCD7F32) // Bronze for 3rd place
-                else -> Color(0xFFD2B48C).copy(alpha = 0.5f) // Coffee color with 50% opacity
+                else -> Color(0xFFD2B48C).copy(alpha = 1f) // Coffee color with 50% opacity
             }
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)

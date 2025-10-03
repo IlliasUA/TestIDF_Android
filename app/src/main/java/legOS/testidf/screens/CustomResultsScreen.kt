@@ -1,15 +1,30 @@
 package legOS.testidf.screens
 
 import android.content.Context
+import android.content.res.Configuration
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -28,8 +44,9 @@ import legOS.testidf.loadImageFromAssets
 @Composable
 fun CustomResultsScreen(navController: NavController, questionCount: String, timeLimit: String) {
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
+    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
-    // Получаем данные из предыдущего экрана
     val customQuestions = navController.previousBackStackEntry?.savedStateHandle?.get<List<CustomTestQuestion>>("customQuestions")
         ?: emptyList()
     val customAnswers = navController.previousBackStackEntry?.savedStateHandle?.get<List<String?>>("customAnswers")
@@ -37,7 +54,6 @@ fun CustomResultsScreen(navController: NavController, questionCount: String, tim
 
     Log.d("CustomResultsScreen", "Questions: ${customQuestions.size}, Answers: ${customAnswers.size}")
 
-    // Вычисляем правильные ответы
     val results = customQuestions.zip(customAnswers) { question, answer ->
         val isCorrect = isAnswerCorrect(answer, question.correctAnswer)
         Triple(question, answer, isCorrect)
@@ -48,10 +64,9 @@ fun CustomResultsScreen(navController: NavController, questionCount: String, tim
 
     Log.d("CustomResultsScreen", "Correct answers: $correctCount/$totalQuestions")
 
-    // Загружаем фоновое изображение
     val backgroundImage = loadImageFromAssets(context, "images/background_3.jpg")
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .then(
@@ -62,12 +77,273 @@ fun CustomResultsScreen(navController: NavController, questionCount: String, tim
                     )
                 } ?: Modifier.background(MaterialTheme.colorScheme.background)
             )
+    ) {
+        if (isLandscape) {
+            CustomResultsLandscapeLayout(
+                results = results,
+                correctCount = correctCount,
+                totalQuestions = totalQuestions,
+                context = context,
+                navController = navController
+            )
+        } else {
+            CustomResultsPortraitLayout(
+                results = results,
+                correctCount = correctCount,
+                totalQuestions = totalQuestions,
+                context = context,
+                navController = navController
+            )
+        }
+    }
+}
+
+@Composable
+private fun CustomResultsLandscapeLayout(
+    results: List<Triple<CustomTestQuestion, String?, Boolean>>,
+    correctCount: Int,
+    totalQuestions: Int,
+    context: Context,
+    navController: NavController
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
             .padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        // ЛЕВАЯ ЧАСТЬ - Список результатов с изображениями (60%)
+        LazyColumn(
+            modifier = Modifier
+                .weight(0.6f)
+                .fillMaxHeight(),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(results.size) { index ->
+                val (question, userAnswer, isCorrect) = results[index]
+
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (isCorrect)
+                            Color(0xFF90EE90).copy(alpha = 0.9f)
+                        else
+                            Color(0xFFFFB6C1).copy(alpha = 0.9f)
+                    )
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(12.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        val bitmap = loadImageFromAssets(context, question.imagePath)
+                        bitmap?.let {
+                            Image(
+                                bitmap = it.asImageBitmap(),
+                                contentDescription = "Question Image",
+                                modifier = Modifier
+                                    .width(140.dp)
+                                    .height(100.dp)
+                                    .clip(MaterialTheme.shapes.medium),
+                                contentScale = ContentScale.Crop
+                            )
+                        } ?: Box(
+                            modifier = Modifier
+                                .width(140.dp)
+                                .height(100.dp)
+                                .background(MaterialTheme.colorScheme.surfaceVariant)
+                                .clip(MaterialTheme.shapes.medium),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                "Image\nnon disponible",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+
+                        Column(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            Text(
+                                "Question ${index + 1}",
+                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+
+                            Text(
+                                "Catégorie: ${question.category}",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                            )
+
+                            Text(
+                                "Correct: ${question.correctAnswer}",
+                                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
+                                color = Color(0xFF2E7D32)
+                            )
+
+                            Text(
+                                "Vous: ${userAnswer ?: "Aucune"}",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = if (isCorrect) Color(0xFF2E7D32) else Color(0xFFD32F2F)
+                            )
+
+                            Text(
+                                if (isCorrect) "✓ Correct" else "✗ Incorrect",
+                                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+                                color = if (isCorrect) Color(0xFF2E7D32) else Color(0xFFD32F2F)
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        // ПРАВАЯ ЧАСТЬ - Статистика и кнопки (40%) с прокруткой
+        LazyColumn(
+            modifier = Modifier
+                .weight(0.4f)
+                .fillMaxHeight()
+                .padding(end = 8.dp), // Prevent content from touching the right edge
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            item {
+                Card(
+                    modifier = Modifier.fillMaxWidth(0.8f), // Reduced width to 80% to shift left
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.9f)
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(20.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            "Test Terminé!",
+                            style = MaterialTheme.typography.headlineSmall,
+                            color = MaterialTheme.colorScheme.primary,
+                            textAlign = TextAlign.Center
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Text(
+                            "Score: $correctCount / $totalQuestions",
+                            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                            color = if (correctCount >= totalQuestions * 0.7) Color(0xFF2E7D32) else Color(0xFFD32F2F)
+                        )
+
+                        val percentage = if (totalQuestions > 0) (correctCount * 100) / totalQuestions else 0
+                        Text(
+                            "($percentage%)",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    }
+                }
+
+                val categoryStats = results.groupBy { it.first.category }
+                if (categoryStats.size > 1) {
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Card(
+                        modifier = Modifier.fillMaxWidth(0.8f), // Reduced width to 80% to shift left
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.9f)
+                        )
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(16.dp)
+                        ) {
+                            Text(
+                                "Par catégorie:",
+                                style = MaterialTheme.typography.titleSmall,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            categoryStats.forEach { (category, categoryResults) ->
+                                val categoryCorrect = categoryResults.count { it.third }
+                                val categoryTotal = categoryResults.size
+
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Text(
+                                        category,
+                                        style = MaterialTheme.typography.bodySmall
+                                    )
+                                    Text(
+                                        "$categoryCorrect/$categoryTotal",
+                                        style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
+                                        color = if (categoryCorrect == categoryTotal) Color(0xFF2E7D32) else MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(0.8f), // Reduced width to 80% to align with cards
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Button(
+                        onClick = { navController.navigate("creation") },
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(48.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
+                        )
+                    ) {
+                        Text("Test", style = MaterialTheme.typography.bodyMedium)
+                    }
+
+                    Button(
+                        onClick = { navController.navigate("test_menu") },
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(48.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.tertiary,
+                            contentColor = MaterialTheme.colorScheme.onTertiary
+                        )
+                    ) {
+                        Text("Menu", style = MaterialTheme.typography.bodyMedium)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun CustomResultsPortraitLayout(
+    results: List<Triple<CustomTestQuestion, String?, Boolean>>,
+    correctCount: Int,
+    totalQuestions: Int,
+    context: Context,
+    navController: NavController
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+            .safeDrawingPadding(), // Ensure content is inset from system bars
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-
-        // Заголовок результатов
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(
@@ -102,7 +378,6 @@ fun CustomResultsScreen(navController: NavController, questionCount: String, tim
             }
         }
 
-        // Статистика по категориям
         val categoryStats = results.groupBy { it.first.category }
         if (categoryStats.size > 1) {
             Card(
@@ -145,7 +420,6 @@ fun CustomResultsScreen(navController: NavController, questionCount: String, tim
             }
         }
 
-        // Список результатов
         LazyColumn(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -166,7 +440,6 @@ fun CustomResultsScreen(navController: NavController, questionCount: String, tim
                         modifier = Modifier.padding(16.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        // Изображение
                         val bitmap = loadImageFromAssets(context, question.imagePath)
                         bitmap?.let {
                             Image(
@@ -178,24 +451,21 @@ fun CustomResultsScreen(navController: NavController, questionCount: String, tim
                                     .clip(MaterialTheme.shapes.medium),
                                 contentScale = ContentScale.Crop
                             )
-                        } ?: run {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(120.dp)
-                                    .background(MaterialTheme.colorScheme.surfaceVariant)
-                                    .clip(MaterialTheme.shapes.medium),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    "Image non disponible",
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                            }
+                        } ?: Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(120.dp)
+                                .background(MaterialTheme.colorScheme.surfaceVariant)
+                                .clip(MaterialTheme.shapes.medium),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                "Image non disponible",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
                         }
 
-                        // Информация о вопросе
                         Text(
                             "Question ${index + 1} - ${question.category}",
                             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
@@ -214,7 +484,6 @@ fun CustomResultsScreen(navController: NavController, questionCount: String, tim
                             color = if (isCorrect) Color(0xFF2E7D32) else Color(0xFFD32F2F)
                         )
 
-                        // Статус ответа
                         Row(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -229,7 +498,6 @@ fun CustomResultsScreen(navController: NavController, questionCount: String, tim
             }
         }
 
-        // Кнопки действий
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -244,7 +512,7 @@ fun CustomResultsScreen(navController: NavController, questionCount: String, tim
                     contentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
-                Text("Nouveau Test", style = MaterialTheme.typography.bodyLarge)
+                Text("Test", style = MaterialTheme.typography.bodyLarge)
             }
 
             Button(
@@ -257,13 +525,14 @@ fun CustomResultsScreen(navController: NavController, questionCount: String, tim
                     contentColor = MaterialTheme.colorScheme.onTertiary
                 )
             ) {
-                Text("Menu Principal", style = MaterialTheme.typography.bodyLarge)
+                Text("Menu", style = MaterialTheme.typography.bodyLarge)
             }
         }
+
+        Spacer(modifier = Modifier.height(2.dp)) // Safe zone below buttons for system navigation
     }
 }
 
-// Функция для сравнения ответов с поддержкой осмысленного частичного совпадения
 private fun isAnswerCorrect(userAnswer: String?, correctAnswer: String): Boolean {
     if (userAnswer.isNullOrBlank()) return false
 
@@ -272,23 +541,19 @@ private fun isAnswerCorrect(userAnswer: String?, correctAnswer: String): Boolean
 
     Log.d("CustomResultsScreen", "Comparing: '$normalizedUserAnswer' vs '$normalizedCorrectAnswer'")
 
-    // Точное совпадение
     if (normalizedUserAnswer == normalizedCorrectAnswer) {
         Log.d("CustomResultsScreen", "Exact match found")
         return true
     }
 
-    // Проверяем комбинированные названия (например, "Apache AH-64", "JLTV Falcon")
     if (isCombinedName(normalizedCorrectAnswer)) {
         return validateCombinedName(normalizedUserAnswer, normalizedCorrectAnswer)
     }
 
-    // Специальная логика только для чисто технических названий (например, "Leopard-1")
     if (isPureTechnicalName(normalizedCorrectAnswer)) {
         return validatePureTechnicalName(normalizedUserAnswer, normalizedCorrectAnswer)
     }
 
-    // Для обычных названий используем общую логику
     val meaningfulParts = extractMeaningfulParts(normalizedCorrectAnswer)
     Log.d("CustomResultsScreen", "Meaningful parts: $meaningfulParts")
 
@@ -303,59 +568,44 @@ private fun isAnswerCorrect(userAnswer: String?, correctAnswer: String): Boolean
     return hasValidPart
 }
 
-// Проверяет, является ли слово технической аббревиатурой
 private fun isTechnicalAbbreviation(word: String): Boolean {
-    // Техническая аббревиатура: 2-5 заглавных букв после нормализации
     val upperWord = word.uppercase()
     return upperWord.matches(Regex("^[A-Z]{2,5}$"))
 }
 
-// Проверяет, является ли название комбинированным
 private fun isCombinedName(name: String): Boolean {
     val words = name.split(Regex("\\s+"))
     return words.size >= 2 && (
-            // Случай с цифрами: "UH-60 Black Hawk"
             words.any { word -> word.contains(Regex("[0-9]")) && word.contains(Regex("[a-z]")) } ||
-                    // Случай с техническими аббревиатурами: "URO Vamtac", "JLTV Falcon"
                     words.any { word -> isTechnicalAbbreviation(word) }
             )
 }
 
-// Проверяет, является ли название чисто техническим (только техническое обозначение)
 private fun isPureTechnicalName(name: String): Boolean {
     val words = name.split(Regex("\\s+"))
-    // Чисто техническое название - это одно слово с цифрами, или очень короткие слова с цифрами
     return words.size <= 2 &&
             words.all { word -> word.contains(Regex("[0-9]")) || word.length <= 3 } &&
             words.any { word -> word.contains(Regex("[0-9]")) }
 }
 
-// Валидация для комбинированных названий (например, "UH-60 Black Hawk", "JLTV Falcon")
 private fun validateCombinedName(userAnswer: String, correctAnswer: String): Boolean {
     Log.d("CustomResultsScreen", "Validating combined name: '$correctAnswer'")
 
     val words = correctAnswer.split(Regex("\\s+"))
-
-    // Извлекаем технические части и обычные слова
     val technicalParts = mutableListOf<String>()
     val regularWords = mutableListOf<String>()
 
     words.forEach { word ->
         when {
-            // Технические обозначения с цифрами: UH-60, AH-64
             word.contains(Regex("[0-9]")) -> technicalParts.add(word)
-            // Технические аббревиатуры: URO, JLTV
             isTechnicalAbbreviation(word) -> technicalParts.add(word)
-            // Обычные слова: Black, Hawk, Vamtac, Falcon
             !isStopWord(word) -> regularWords.add(word)
         }
     }
 
     Log.d("CustomResultsScreen", "Technical parts: $technicalParts, Regular words: $regularWords")
 
-    // 1. Проверяем технические части
     for (technicalPart in technicalParts) {
-        // Для технических обозначений с цифрами
         if (technicalPart.contains(Regex("[0-9]"))) {
             val extractedParts = extractTechnicalParts(technicalPart)
             if (extractedParts != null) {
@@ -368,7 +618,6 @@ private fun validateCombinedName(userAnswer: String, correctAnswer: String): Boo
                 }
             }
         } else {
-            // Для технических аббревиатур (URO, JLTV)
             if (normalizeAnswer(technicalPart) == userAnswer) {
                 Log.d("CustomResultsScreen", "Match found with technical abbreviation: $technicalPart")
                 return true
@@ -376,7 +625,6 @@ private fun validateCombinedName(userAnswer: String, correctAnswer: String): Boo
         }
     }
 
-    // 2. Проверяем отдельные слова из названий/моделей
     for (regularWord in regularWords) {
         if (normalizeAnswer(regularWord) == userAnswer) {
             Log.d("CustomResultsScreen", "Match found with regular word: $regularWord")
@@ -384,7 +632,6 @@ private fun validateCombinedName(userAnswer: String, correctAnswer: String): Boo
         }
     }
 
-    // 3. Проверяем неофициальные названия (составные фразы из обычных слов)
     val informalNames = extractInformalNames(regularWords)
     Log.d("CustomResultsScreen", "Informal names: $informalNames")
 
@@ -395,12 +642,10 @@ private fun validateCombinedName(userAnswer: String, correctAnswer: String): Boo
         }
     }
 
-    // 4. Проверяем полные комбинации
     val fullVariations = generateCombinedVariations(informalNames, technicalParts)
     return fullVariations.any { normalizeAnswer(it) == userAnswer }
 }
 
-// Валидация только для чисто технических названий (например, "Leopard-1")
 private fun validatePureTechnicalName(userAnswer: String, correctAnswer: String): Boolean {
     Log.d("CustomResultsScreen", "Validating pure technical name: '$correctAnswer'")
 
@@ -419,23 +664,19 @@ private fun validatePureTechnicalName(userAnswer: String, correctAnswer: String)
     }
 }
 
-// Извлекает неофициальные названия из обычных слов
 private fun extractInformalNames(regularWords: List<String>): List<String> {
     val informalNames = mutableListOf<String>()
 
-    // Если есть 2 или более значимых слова, они могут составлять неофициальное название
     if (regularWords.size >= 2) {
-        // Проверяем все возможные комбинации из 2+ слов
         for (i in 0..regularWords.size - 2) {
             for (j in i + 1..regularWords.size) {
-                val phrase = regularWords.subList(i, j + 1).joinToString(" ")
+                val phrase = regularWords.subList(i, j).joinToString(" ")
                 if (phrase.split(" ").size >= 2) {
                     informalNames.add(phrase)
                 }
             }
         }
 
-        // Добавляем полную фразу из всех обычных слов
         if (regularWords.isNotEmpty()) {
             informalNames.add(regularWords.joinToString(" "))
         }
@@ -444,15 +685,12 @@ private fun extractInformalNames(regularWords: List<String>): List<String> {
     return informalNames.distinct()
 }
 
-// Генерирует вариации для комбинированных названий
 private fun generateCombinedVariations(informalNames: List<String>, technicalParts: List<String>): List<String> {
     val variations = mutableListOf<String>()
 
-    // Полные комбинации
     for (informalName in informalNames) {
         for (technicalPart in technicalParts) {
             if (technicalPart.contains(Regex("[0-9]"))) {
-                // Для технических обозначений с цифрами
                 val extractedParts = extractTechnicalParts(technicalPart)
                 if (extractedParts != null) {
                     val (baseName, number) = extractedParts
@@ -464,7 +702,6 @@ private fun generateCombinedVariations(informalNames: List<String>, technicalPar
                     }
                 }
             } else {
-                // Для технических аббревиатур
                 variations.add("$technicalPart $informalName")
                 variations.add("$informalName $technicalPart")
             }
@@ -474,14 +711,12 @@ private fun generateCombinedVariations(informalNames: List<String>, technicalPar
     return variations
 }
 
-// Извлекает базовое название и номер из технического названия
 private fun extractTechnicalParts(technicalName: String): Pair<String, String>? {
-    // Паттерны для различных форматов: "leopard-1", "leopard 1", "f-16", "ah-64", "t-80"
     val patterns = listOf(
-        Regex("^([a-z]+)[-\\s]([0-9]+[a-z]*)$"), // leopard-1, f-16a
-        Regex("^([a-z]+)([0-9]+[a-z]*)$"),        // leopard1, f16a
-        Regex("^([a-z]{1,3})[-\\s]([0-9]+[a-z]*)$"), // ah-64, t-80
-        Regex("^([a-z]{1,3})([0-9]+[a-z]*)$")         // ah64, t80
+        Regex("^([a-z]+)[-\\s]([0-9]+[a-z]*)$"),
+        Regex("^([a-z]+)([0-9]+[a-z]*)$"),
+        Regex("^([a-z]{1,3})[-\\s]([0-9]+[a-z]*)$"),
+        Regex("^([a-z]{1,3})([0-9]+[a-z]*)$")
     )
 
     for (pattern in patterns) {
@@ -496,21 +731,18 @@ private fun extractTechnicalParts(technicalName: String): Pair<String, String>? 
     return null
 }
 
-// Генерирует допустимые вариации технического названия
 private fun generateTechnicalVariations(baseName: String, number: String): List<String> {
     return listOf(
-        "$baseName-$number",     // leopard-1
-        "$baseName $number",     // leopard 1
-        "$baseName$number"       // leopard1
+        "$baseName-$number",
+        "$baseName $number",
+        "$baseName$number"
     )
 }
 
-// Улучшенная функция для извлечения осмысленных частей (для нетехнических названий)
 private fun extractMeaningfulParts(answer: String): List<String> {
     val parts = mutableListOf<String>()
     val words = answer.split(Regex("\\s+"))
 
-    // Составные словосочетания из 2+ слов (например: "little bird", "black hawk")
     if (words.size >= 2) {
         for (i in 0..words.size - 2) {
             val compound = "${words[i]} ${words[i + 1]}"
@@ -519,7 +751,6 @@ private fun extractMeaningfulParts(answer: String): List<String> {
             }
         }
 
-        // Для длинных названий проверяем тройки слов
         if (words.size >= 3) {
             for (i in 0..words.size - 3) {
                 val compound = "${words[i]} ${words[i + 1]} ${words[i + 2]}"
@@ -530,7 +761,6 @@ private fun extractMeaningfulParts(answer: String): List<String> {
         }
     }
 
-    // Отдельные значимые слова (только если нет составных частей)
     if (parts.isEmpty()) {
         val significantWords = words.filter { word ->
             word.length >= 4 && !isStopWord(word)
@@ -539,7 +769,6 @@ private fun extractMeaningfulParts(answer: String): List<String> {
         if (significantWords.size == 1) {
             parts.add(significantWords[0])
         } else if (words.size == 1 && words[0].length >= 3) {
-            // Для коротких одиночных слов
             parts.add(words[0])
         }
     }
@@ -547,29 +776,25 @@ private fun extractMeaningfulParts(answer: String): List<String> {
     return parts.distinct()
 }
 
-// Проверяет, состоит ли фраза только из коротких слов
 private fun isOnlyShortWords(phrase: String): Boolean {
     val words = phrase.split(Regex("\\s+"))
     return words.all { it.length <= 2 }
 }
 
-// Проверяет, состоит ли фраза только из служебных слов
 private fun containsOnlyStopWords(phrase: String): Boolean {
     val words = phrase.split(Regex("\\s+"))
     return words.all { isStopWord(it) }
 }
 
-// Проверяет, является ли слово служебным
 private fun isStopWord(word: String): Boolean {
     val stopWords = setOf("the", "and", "or", "of", "in", "on", "at", "to", "for", "with", "by")
     return stopWords.contains(word.lowercase())
 }
 
-// Функция для нормализации ответов
 private fun normalizeAnswer(answer: String): String {
     return answer.trim()
         .lowercase()
-        .replace(Regex("[^a-zA-Z0-9\\s\\-]"), " ") // Сохраняем дефисы для технических названий
-        .replace(Regex("\\s+"), " ") // Заменяем множественные пробелы одним
+        .replace(Regex("[^a-zA-Z0-9\\s\\-]"), " ")
+        .replace(Regex("\\s+"), " ")
         .trim()
 }

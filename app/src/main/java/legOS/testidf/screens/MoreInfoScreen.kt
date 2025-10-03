@@ -7,6 +7,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -69,9 +70,8 @@ fun MoreInfoScreen(navController: NavController, category: String, index: Int, t
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .safeDrawingPadding()
     ) {
-        // Display background image
+        // Display background image - заполняет весь экран включая системные панели
         backgroundImage?.let {
             Image(
                 painter = BitmapPainter(it.asImageBitmap()),
@@ -81,13 +81,150 @@ fun MoreInfoScreen(navController: NavController, category: String, index: Int, t
             )
         }
 
-        when (windowSizeClass.widthSizeClass) {
-            WindowWidthSizeClass.Compact -> {
-                MoreInfoCompactLayout(navController, category, currentQuestion, index, isLandscape)
+        // Контент с безопасными отступами поверх фона
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding() // Применяем отступы только к контенту
+        ) {
+            // Выбираем компоновку в зависимости от ориентации
+            if (isLandscape) {
+                MoreInfoLandscapeLayout(navController, category, currentQuestion, index)
+            } else {
+                // Для портретного режима используем старую логику
+                when (windowSizeClass.widthSizeClass) {
+                    WindowWidthSizeClass.Compact -> {
+                        MoreInfoCompactLayout(navController, category, currentQuestion, index, false)
+                    }
+                    WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
+                        MoreInfoLargeLayout(navController, category, currentQuestion, index, false)
+                    }
+                }
             }
-            WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
-                MoreInfoLargeLayout(navController, category, currentQuestion, index, isLandscape)
+        }
+    }
+}
+
+// Новый компонент для горизонтального режима
+@Composable
+private fun MoreInfoLandscapeLayout(
+    navController: NavController,
+    category: String,
+    question: Question,
+    index: Int
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        // Левая часть - изображения (занимает всю левую половину)
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight(),
+            contentAlignment = Alignment.Center
+        ) {
+            // Вертикальная прокрутка изображений
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                contentPadding = PaddingValues(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                // Главное изображение
+                item {
+                    val mainImagePath = getImagePath(category, question)
+                    AsyncImage(
+                        model = "file:///android_asset/$mainImagePath",
+                        contentDescription = "Main Image",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 200.dp, max = 300.dp),
+                        contentScale = ContentScale.Fit,
+                        placeholder = painterResource(legOS.testidf.R.drawable.placeholder)
+                    )
+                }
+
+                // Дополнительные изображения
+                if (category in listOf("final", "bm2")) {
+                    items(question.additionalImages?.filterNotNull() ?: emptyList()) { additionalImagePath ->
+                        val originalCategory = question.category ?: category
+                        val imageFolder = getImageFolder(originalCategory)
+                        val fullAdditionalPath = "$imageFolder/$additionalImagePath"
+                        Log.d("MoreInfoScreen", "Loading additional image: $fullAdditionalPath")
+                        AsyncImage(
+                            model = "file:///android_asset/$fullAdditionalPath",
+                            contentDescription = "Additional Image",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .heightIn(min = 200.dp, max = 300.dp),
+                            contentScale = ContentScale.Fit,
+                            placeholder = painterResource(legOS.testidf.R.drawable.placeholder)
+                        )
+                    }
+                }
             }
+        }
+
+        // Правая часть - текст и управление (занимает правую половину)
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+                .padding(8.dp),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Заголовок
+            Text(
+                text = if (category in listOf("final", "bm2")) {
+                    "Réponse correcte: ${question.correct}"
+                } else {
+                    "Plus d'infos - Question ${index + 1}"
+                },
+                style = MaterialTheme.typography.headlineSmall.copy(
+                    color = if (category in listOf("final", "bm2")) Color(0xFF006400) else MaterialTheme.colorScheme.onBackground,
+                    fontWeight = if (category in listOf("final", "bm2")) FontWeight.SemiBold else FontWeight.Normal,
+                    fontSize = 18.sp
+                ),
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+
+            // Прокручиваемый текст
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+            ) {
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                        .padding(bottom = 16.dp)
+                ) {
+                    Text(
+                        text = question.description ?: "Aucune description disponible",
+                        style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier.padding(bottom = 12.dp)
+                    )
+                    question.moreInfo?.let { moreInfo ->
+                        Text(
+                            text = moreInfo,
+                            style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
+                            color = MaterialTheme.colorScheme.onBackground,
+                            modifier = Modifier.padding(bottom = 12.dp)
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Кнопка возврата
+            ReturnButton(navController, Modifier.fillMaxWidth(0.8f))
         }
     }
 }

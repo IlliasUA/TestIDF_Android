@@ -1003,7 +1003,7 @@ object Recon_Data {
         ),
         Question(
             image = "reco64.jpg",
-            additionalImages = listOf("reco64_extra1.jpg", "reco64_extra2.jpg", "reco64_extra3.jpg", "reco64_extra4.jpg"),
+            additionalImages = listOf("reco64_extra1.jpg", "reco64_extra2.jpg", "reco64_extra3.jpg"),
             correct = "ZBD-05",
             options = listOf("BMD-2", "BMP-2", "ZBD-05", "ZTD-05"),
             description = """
@@ -1415,7 +1415,7 @@ object Recon_Data {
         ),
         Question(
             image = "reco87.jpg",
-            additionalImages = listOf("reco87_extra1.jpg", "reco87_extra2.jpg", "reco87_extra3.jpg", "reco87_extra4.jpg"),
+            additionalImages = listOf("reco87_extra1.jpg", "reco87_extra2.jpg", "reco87_extra3.jpg"),
             correct = "PVP",
             options = listOf("URO", "PVP", "Eagle V", "Komatsu LAV"),
             description = """
@@ -2072,7 +2072,7 @@ object Recon_Data {
             image = "reco127.jpg",
             additionalImages = listOf("reco127_extra1.jpg", "reco127_extra2.jpg", "reco127_extra3.jpg", "reco127_extra4.jpg"),
             correct = "LMV Lince",
-            options = listOf("LMV Lince", "GRF_Vector", "Eagle V", "URO Vamtac"),
+            options = listOf("LMV Lince", "GRF Vector", "Eagle V", "URO Vamtac"),
             description = """
                 Le LMV Lince est un véhicule blindé multirôle à roues 4×4 italien. Il est développé dans les années 1990 par Iveco. 
                 Le LMV Lince est entré en service en 2001. Le LMV, Light Multirole Vehicle, Lince (Lynx en italien) est également appelé M65. 
@@ -2166,7 +2166,7 @@ object Recon_Data {
             image = "reco134.jpg",
             additionalImages = listOf("reco134_extra1.jpg", "reco134_extra2.jpg", "reco134_extra3.jpg", "reco134_extra4.jpg"),
             correct = "Typhoon-K",
-            options = listOf("GAZ 2330 Tigr", "URAL-4320", "Ural Typhoon", "Typhoon-K"),
+            options = listOf("GAZ2330 Tigr", "URAL 4320", "Ural Typhoon", "Typhoon-K"),
             description = """
                 Le KamAZ-53949 Typhoon-K est un véhicule blindé multirôle à roues 4×4 russe. Il est développé dans les années 2010. 
                 Le Typhoon-K est entré en service en 2019. Le Typhoon-K 4×4 fait partie des véhicules du type MRAP, Mine Resistant Ambush Protected. 
@@ -2212,7 +2212,7 @@ object Recon_Data {
             image = "reco137.jpg",
             additionalImages = listOf("reco137_extra1.jpg", "reco137_extra2.jpg", "reco137_extra3.jpg", "reco137_extra4.jpg"),
             correct = "VCR Panhard",
-            options = listOf("Patria", "VCR Panhard", "ERC-90-Sagaie", "Luchs"),
+            options = listOf("Patria", "VCR Panhard", "ERC90 Sagaie", "Luchs"),
             description = """
                 Le VCR, Véhicule de Combat à Roues, est un véhicule blindé de combat à roues 6×6 français. Il est développé dans les années 1970. 
                 Le VCR est entré en service en 1979. Le VCR est basé sur le véhicule à roues 4×4 M3. 
@@ -2229,7 +2229,7 @@ object Recon_Data {
             image = "reco138.jpg",
             additionalImages = listOf("reco137_extra1.jpg", "reco137_extra2.jpg", "reco137_extra3.jpg", "reco137_extra4.jpg"),
             correct = "VCR Panhard",
-            options = listOf("Patria", "VCR Panhard", "ERC-90-Sagaie", "Luchs"),
+            options = listOf("Patria", "VCR Panhard", "ERC90 Sagaie", "Luchs"),
             description = """
                 Le VCR, Véhicule de Combat à Roues, est un véhicule blindé de combat à roues 6×6 français. It is developed in the 1970s. 
                 Le VCR est entré en service en 1979. Le VCR est basé sur le véhicule à roues 4×4 M3. 
@@ -2238,6 +2238,119 @@ object Recon_Data {
                 Il peut recevoir une mitrailleuse de 7,62 mm ou une mitrailleuse lourde de 12,7 mm. 
                 Les versions spécifiques sont équipées de missiles HOT, de missiles Milan ou d’un canon de 20 mm.
                 Equipage : 3 + 9.
+            """.trimIndent(),
+            moreInfo = null,
+            category = "recon"
+        ),
+        Question(
+            image = "reco139.jpg",
+            additionalImages = listOf("reco139_extra1.jpg"),
+            correct = "GBC 180",
+            options = listOf("URAL 4320", "VCR Panhard", "TRM 2000", "GBC 180"),
+            description = """
+                GBC 180 - Gazelle Berliet Cargo (180 ch). Il est principalement destiné à transporter du personnel, du fret ou des shelters 
+                et à assurer des missions spécialisées de dépannage (lot 7) et de ravitaillement en carburant (CCT).
+                Tous les GBC 180 « cabine torpédo plateau ridelles bâche » sont prédisposés pour recevoir un affût de circulaire 12,7.
+                Le GBC 180 est un véhicule tactique 6 x 6, pouvant emmener trois personnes en cabine.
+            """.trimIndent(),
+            moreInfo = null,
+            category = "recon"
+        ),
+        Question(
+            image = "reco140.jpg",
+            additionalImages = listOf("reco140_extra1.jpg", "reco140_extra2.jpg"),
+            correct = "ACMAT VT4",
+            options = listOf("Ford Ranger", "GAS Tiger", "ACMAT VT4", "Peugeot P4"),
+            description = """
+                Véhicule de commandement et de liaison léger, non blindé, le  véhicule tactique 4X4 (VT4) est de type 4x4 militarisé, 
+                destiné à assurer des liaisons au profit de 5 soldats ou 4 combattants équipés FELIN dans un contexte opérationnel 
+                (opérations intérieures type Sentinelle ou opérations extérieures en phase de stabilisation et normalisation) 
+                et de préparation opérationnelle (sécurité des activités, manœuvres, formation et entraînement).
+                Le VT4 est un véhicule léger tactique polyvalent remplaçant le véhicule P4 (Peugeot 4 roues motrices). 
+                Il allie modernité, puissance, capacité de franchissement et dispose d’un profil de roulage complet 
+                (sur route, en tout chemin et en tout-terrain).
+                Pré-équipé pour recevoir le kit de grilles de protection des vitres
+                Pré-équipé pour recevoir deux postes PR4G,
+                un système de commandement type ordinateur tactile et un GPS
+                Équipé de systèmes d’occultation de sources lumineuses (black-out).
+                Poids à vide (PV) : 2,66 tonnes.
+                Charge utile : 770 kg.
+                Autonomie : 800 km.
+                Équipages: 5 soldats ou 4 combattants avec tenue et équipement FELIN.
+            """.trimIndent(),
+            moreInfo = null,
+            category = "recon"
+        ),
+        Question(
+            image = "reco141.jpg",
+            additionalImages = listOf("reco141_extra1.jpg", "reco141_extra2.jpg"),
+            correct = "Peugeot P4",
+            options = listOf("Ford Ranger", "GAS Tiger", "ACMAT VT4", "Peugeot P4"),
+            description = """
+                Le Peugeot P4 est un véhicule léger à quatre roues motrices produit par le constructeur automobile français Peugeot de 1982 à 1992.
+                Bien qu'équipé et motorisé par Peugeot, le P4 est une variante du Mercedes-Benz Classe G construit sous licence.
+            """.trimIndent(),
+            moreInfo = null,
+            category = "recon"
+        ),
+        Question(
+            image = "reco142.jpg",
+            additionalImages = listOf("reco142_extra1.jpg", "reco142_extra2.jpg"),
+            correct = "Masstech T4",
+            options = listOf("Ford Ranger", "Masstech T4", "ACMAT VT4", "Peugeot P4"),
+            description = """
+                Le Masstech T4 est un véhicule militaire léger français, basé sur la Toyota Land Cruiser HZJ 76 
+                et modifié par la société Technamm. En particulier, le véhicule est doté d'une radio PR4G, d'un terminal SITEL et d'un GPS DAGR. 
+                Il peut embarquer quatre combattants équipés ou cinq passagers. Déployé uniquement en France avec l'Opération Sentinelle, 
+                son moteur, rustique et compatible avec les carburants africains et militaires, autorise son envoi en OPEX.
+            """.trimIndent(),
+            moreInfo = null,
+            category = "recon"
+        ),
+        Question(
+            image = "reco143.jpg",
+            additionalImages = listOf("reco143_extra1.jpg", "reco143_extra2.jpg"),
+            correct = "TRM 2000",
+            options = listOf("TRM 2000", "KAMAZ 4310", "GBC 180", "URAL 4320"),
+            description = """
+                Le Renault TRM 2000 est un camion militaire français à 4 roues motrices 
+                (attesté par ses initiales : Toutes Roues Motrices) conçu pour les missions de soutien en terrain difficile. 
+                Il est produit de 1982 à 1990. 
+            """.trimIndent(),
+            moreInfo = null,
+            category = "recon"
+        ),
+        Question(
+            image = "reco144.jpg",
+            additionalImages = listOf("reco144_extra1.jpg", "reco144_extra2.jpg"),
+            correct = "VAB",
+            options = listOf("VBL", "BTR-80", "VAB", "XA-180"),
+            description = """
+                Le VAB, Véhicule de l’Avant Blindé, est un véhicule blindé de transport de troupe à roues français. 
+                Le VAB est entré en service en 1976. Le VAB est développé en configuration 4×4 et 6×6.  
+                La motorisation du VAB est installée derrière le poste de pilotage. 
+                Une large gamme de véhicules blindés est développée sur le châssis du VAB. 
+                Parmi les versions principales sont le VAB PC Poste de commandement, VAB T20-13 avec un canon de 20 mm, 
+                VAB Mephisto avec quatre missiles antichar HOT, VAB Génie, VAB Sanitaire, VAB Reconnaissance NRBC, VAB RASIT avec un radar terrestre. 
+                Mitrailleuse : 12.7 mm.  
+                Equipage : 2 + 10. 
+                Motorisation : V6 diesel, 220 ch.                 
+            """.trimIndent(),
+            moreInfo = null,
+            category = "recon"
+        ),
+        Question(
+            image = "reco145.jpg",
+            additionalImages = listOf("reco145_extra1.jpg", "reco145_extra2.jpg", "reco145_extra3.jpg"),
+            correct = "EE3 Jararaca",
+            options = listOf("VCR Panhard", "EE3 Jararaca", "LAV-25", "ACV-1"),
+            description = """
+                C'était un véhicule de reconnaissance très léger à quatre roues, armée brésilienne. 
+                Dans les années 1970 et 1980, l'armée brésilienne acheta environ 1300 véhicules blindés à Engesa,  
+                et 2000 véhicules de plus furent exportés vers d'autres pays, spécialement vers les états arabes 
+                et en Afrique en général (la Libye, la Tunisie et l'Irak étant les plus gros acheteurs). 
+                Equipage : 3. 
+                Armement : mitrailleuse de 12,7 mm. 
             """.trimIndent(),
             moreInfo = null,
             category = "recon"
