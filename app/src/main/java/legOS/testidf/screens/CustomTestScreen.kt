@@ -391,58 +391,58 @@ private fun CustomTestLandscapeLayout(
             modifier = Modifier
                 .weight(0.45f)
                 .fillMaxHeight()
-                .padding(start = 8.dp, end = 16.dp), // Добавлен отступ справа
+                .padding(start = 8.dp, end = 24.dp), // Увеличен отступ справа
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top // Изменено с SpaceEvenly на Top
+            verticalArrangement = Arrangement.Top
         ) {
-            Spacer(Modifier.height(8.dp)) // Небольшой отступ сверху
+            Spacer(Modifier.height(4.dp))
 
             // Progress bar
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 6.dp)
+                    .fillMaxWidth(0.9f) // Уменьшена ширина
+                    .padding(vertical = 4.dp)
                     .background(Color.Transparent)
             ) {
                 LinearProgressIndicator(
                     progress = { timeRemaining.toFloat() / timeLimitInt.toFloat() },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(14.dp),
+                        .height(12.dp),
                     color = if (timeRemaining <= 3 && timeRemaining > 0) Color(0xFF8B0000) else Color(0xFF32CD32),
                     trackColor = Color.Transparent
                 )
             }
 
-            Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(8.dp))
 
             // Счетчик вопросов и категория
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(vertical = 4.dp)
+                modifier = Modifier.padding(vertical = 2.dp)
             ) {
                 Text(
                     text = "${currentQuestionIndex + 1}/$totalQuestions",
-                    style = MaterialTheme.typography.headlineSmall.copy(fontSize = 18.sp)
+                    style = MaterialTheme.typography.headlineSmall.copy(fontSize = 16.sp)
                 )
                 Text(
                     text = "Catégorie: ${currentQuestion.category}",
-                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 13.sp),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 
-            Spacer(Modifier.height(20.dp))
+            Spacer(Modifier.height(16.dp))
 
             // Поле ввода ответа
             OutlinedTextField(
                 value = currentAnswer,
                 onValueChange = onAnswerChange,
                 modifier = Modifier
-                    .fillMaxWidth(0.95f)
-                    .padding(vertical = 6.dp),
-                label = { Text("Votre réponse", fontSize = 14.sp) },
-                placeholder = { Text("Entrez le nom...", fontSize = 13.sp) },
+                    .fillMaxWidth(0.9f)
+                    .padding(vertical = 4.dp),
+                label = { Text("Votre réponse", fontSize = 13.sp) },
+                placeholder = { Text("Entrez le nom...", fontSize = 12.sp) },
                 trailingIcon = {
                     if (currentAnswer.text.isNotEmpty()) {
                         IconButton(onClick = { onAnswerChange(TextFieldValue("")) }) {
@@ -455,17 +455,17 @@ private fun CustomTestLandscapeLayout(
                     onDone = { onSubmitAnswer() }
                 ),
                 singleLine = true,
-                textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 15.sp)
+                textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp)
             )
 
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(14.dp))
 
             // Кнопка "Valider"
             Button(
                 onClick = onSubmitAnswer,
                 modifier = Modifier
-                    .fillMaxWidth(0.85f)
-                    .height(44.dp),
+                    .fillMaxWidth(0.8f)
+                    .height(42.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.onPrimary
@@ -474,18 +474,18 @@ private fun CustomTestLandscapeLayout(
             ) {
                 Text(
                     text = "Valider",
-                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
+                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 15.sp)
                 )
             }
 
-            Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(10.dp))
 
             // Кнопка "Quitter"
             Button(
                 onClick = onQuit,
                 modifier = Modifier
-                    .fillMaxWidth(0.85f)
-                    .height(44.dp),
+                    .fillMaxWidth(0.8f)
+                    .height(42.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.tertiary,
                     contentColor = MaterialTheme.colorScheme.onTertiary
@@ -494,7 +494,7 @@ private fun CustomTestLandscapeLayout(
             ) {
                 Text(
                     text = "Quitter",
-                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 15.sp)
+                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp)
                 )
             }
 
