@@ -170,6 +170,13 @@ private fun TestMenuCompactLayout(
                 )
             }
 
+            // Кнопка Compétition - синего цвета
+            CompetitionButton(
+                navController = navController,
+                modifier = Modifier.fillMaxWidth(0.9f),
+                isCompact = isCompactHeight
+            )
+
             // Дополнительное пространство перед кнопками действий
             Spacer(Modifier.height(if (isCompactHeight) 8.dp else 12.dp))
 
@@ -319,6 +326,13 @@ private fun TestMenuLargeLayout(
                             isCompact = isCompactHeight
                         )
                     }
+
+                    // Кнопка Compétition в правой колонке
+                    CompetitionButton(
+                        navController = navController,
+                        modifier = Modifier.fillMaxWidth(0.9f),
+                        isCompact = isCompactHeight
+                    )
                 }
             }
 
@@ -381,6 +395,45 @@ private fun TestMenuLargeLayout(
             // Нижний отступ для обеспечения прокрутки
             Spacer(Modifier.height(if (isCompactHeight) 16.dp else 24.dp))
         }
+    }
+}
+
+// Новая функция для кнопки Compétition
+@Composable
+private fun CompetitionButton(
+    navController: NavController,
+    modifier: Modifier,
+    isCompact: Boolean = false
+) {
+    Button(
+        onClick = {
+            navController.navigate("competition") // Пока заглушка, позже создадим экран
+        },
+        modifier = modifier
+            .height(
+                when {
+                    isCompact -> 44.dp
+                    else -> 52.dp
+                }
+            )
+            .padding(vertical = if (isCompact) 2.dp else 4.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.tertiary,
+            contentColor = MaterialTheme.colorScheme.onTertiary
+        ),
+        shape = MaterialTheme.shapes.medium,
+        contentPadding = PaddingValues(
+            horizontal = if (isCompact) 8.dp else 16.dp,
+            vertical = if (isCompact) 8.dp else 12.dp
+        )
+    ) {
+        Text(
+            text = "Compétition",
+            style = MaterialTheme.typography.bodyLarge.copy(
+                fontSize = if (isCompact) 13.sp else 16.sp
+            ),
+            textAlign = TextAlign.Center
+        )
     }
 }
 

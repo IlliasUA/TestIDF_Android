@@ -20,8 +20,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import legOS.testidf.screens.AdminRegistrationScreen
 import legOS.testidf.screens.CatalogScreen
+import legOS.testidf.screens.ChefSessionsScreen
+import legOS.testidf.screens.CompetitionRoleScreen
 import legOS.testidf.screens.ConfirmationFinalTestScreen
+import legOS.testidf.screens.CreationMode
 import legOS.testidf.screens.CreationScreen
 import legOS.testidf.screens.CustomResultsScreen
 import legOS.testidf.screens.CustomTestScreen
@@ -30,8 +34,14 @@ import legOS.testidf.screens.HallOfFameScreen
 import legOS.testidf.screens.InfoScreen
 import legOS.testidf.screens.MainMenuScreen
 import legOS.testidf.screens.MoreInfoScreen
+import legOS.testidf.screens.ParticipantRegistrationScreen
+import legOS.testidf.screens.ParticipantWaitingScreen
 import legOS.testidf.screens.PlayerNameScreen
 import legOS.testidf.screens.ResultsScreen
+import legOS.testidf.screens.SendTestScreen
+import legOS.testidf.screens.SessionResultsScreen
+import legOS.testidf.screens.TakeTestScreen
+import legOS.testidf.screens.TestCompletedScreen
 import legOS.testidf.screens.TestMenuScreen
 import legOS.testidf.screens.TestScreen
 import legOS.testidf.screens.TimeSelectionScreen
@@ -79,6 +89,55 @@ fun AppNavigation() {
         }
 
         NavHost(navController, startDestination = "main_menu") {
+            composable("creation") {
+                CreationScreen(
+                    navController = navController,
+                    mode = CreationMode.OFFLINE
+                )
+            }
+            composable("creation_online") {
+                CreationScreen(
+                    navController = navController,
+                    mode = CreationMode.ONLINE
+                )
+            }
+            composable("send_test/{sessionId}") { backStackEntry ->
+                val sessionId = backStackEntry.arguments?.getString("sessionId")
+                if (sessionId != null) {
+                    SendTestScreen(navController, sessionId)
+                } else {
+                    Log.e("Navigation", "sessionId is null in send_test route")
+                }
+            }
+            composable("chef_sessions") {
+                ChefSessionsScreen(navController)
+            }
+
+            composable("session_results/{sessionId}") { backStackEntry ->
+                val sessionId = backStackEntry.arguments?.getString("sessionId") ?: ""
+                SessionResultsScreen(navController, sessionId)
+            }
+            composable("take_test/{sessionId}") { backStackEntry ->
+                val sessionId = backStackEntry.arguments?.getString("sessionId") ?: ""
+                TakeTestScreen(navController, sessionId)
+            }
+
+            composable("test_completed") {
+                TestCompletedScreen(navController)
+            }
+            composable("participant_registration") {
+                ParticipantRegistrationScreen(navController)
+            }
+
+            composable("participant_waiting") {
+                ParticipantWaitingScreen(navController)
+            }
+            composable("competition") {
+                CompetitionRoleScreen(navController)
+            }
+            composable("admin_registration") {
+                AdminRegistrationScreen(navController)
+            }
             composable("main_menu") { MainMenuScreen(navController) }
             composable("test_menu") { TestMenuScreen(navController) }
             composable("time_selection/{category}") { backStackEntry ->
