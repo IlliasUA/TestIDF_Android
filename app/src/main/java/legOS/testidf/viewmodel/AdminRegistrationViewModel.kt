@@ -17,7 +17,7 @@ data class AdminRegistrationUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
     val successMessage: String? = null,
-    val groupCode: String? = null  // ДОБАВЛЕНО
+    val groupCode: String? = null
 )
 
 class AdminRegistrationViewModel : ViewModel() {
@@ -29,28 +29,26 @@ class AdminRegistrationViewModel : ViewModel() {
     val uiState: StateFlow<AdminRegistrationUiState> = _uiState
 
     fun registerAdmin(
-        email: String,
-        password: String,
         name: String,
         groupName: String,
-        onComplete: (Boolean, String?, String?, String?) -> Unit  // Добавили groupCode
+        onComplete: (Boolean, String?, String?, String?) -> Unit
     ) {
         viewModelScope.launch {
             _uiState.value = AdminRegistrationUiState(isLoading = true)
 
             try {
-                // 1. Создаем пользователя в Firebase Authentication
-                val authResult = auth.createUserWithEmailAndPassword(email, password).await()
+                // 1. Создаем анонимного пользователя (без email/пароля)
+                val authResult = auth.signInAnonymously().await()
                 val userId = authResult.user?.uid ?: throw Exception("User ID is null")
 
-                Log.d("AdminRegVM", "User created in Auth: $userId")
+                Log.d("AdminRegVM", "Anonymous admin user created: $userId")
 
                 // 2. Создаем документ пользователя в Firestore
                 val userData = hashMapOf(
                     "userId" to userId,
-                    "email" to email,
                     "name" to name,
                     "role" to "admin",
+                    "isAnonymous" to true,
                     "createdAt" to Timestamp.now()
                 )
 
@@ -59,7 +57,7 @@ class AdminRegistrationViewModel : ViewModel() {
                     .set(userData)
                     .await()
 
-                Log.d("AdminRegVM", "User document created in Firestore")
+                Log.d("AdminRegVM", "Admin user document created in Firestore")
 
                 // 3. Генерируем код группы
                 val groupCode = generateGroupCode()
@@ -70,7 +68,7 @@ class AdminRegistrationViewModel : ViewModel() {
                     "groupId" to groupId,
                     "adminId" to userId,
                     "name" to groupName,
-                    "groupCode" to groupCode,  // ДОБАВЛЕНО
+                    "groupCode" to groupCode,
                     "participantIds" to emptyList<String>(),
                     "createdAt" to Timestamp.now()
                 )
@@ -87,13 +85,13 @@ class AdminRegistrationViewModel : ViewModel() {
                     userId = userId,
                     groupId = groupId,
                     name = name,
-                    email = email
+                    email = "" // Пустой email для анонимного пользователя
                 )
 
                 // 6. Успех
                 _uiState.value = AdminRegistrationUiState(
-                    successMessage = "Inscription réussie!",
-                    groupCode = groupCode  // ДОБАВЛЕНО
+                    successMessage = "Groupe créé avec succès!",
+                    groupCode = groupCode
                 )
 
                 onComplete(true, userId, groupId, groupCode)
@@ -102,8 +100,6 @@ class AdminRegistrationViewModel : ViewModel() {
                 Log.e("AdminRegVM", "Registration error", e)
 
                 val errorMessage = when {
-                    e.message?.contains("email address is already in use") == true ->
-                        "Cet email est déjà utilisé"
                     e.message?.contains("network") == true ->
                         "Erreur réseau. Vérifiez votre connexion"
                     else ->
@@ -118,10 +114,9 @@ class AdminRegistrationViewModel : ViewModel() {
 
     /**
      * Генерирует 6-значный код группы
-     * Использует только легко различимые символы
      */
     private fun generateGroupCode(): String {
-        val chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789" // Без I, O, 0, 1
+        val chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
         return (1..6)
             .map { chars.random() }
             .joinToString("")

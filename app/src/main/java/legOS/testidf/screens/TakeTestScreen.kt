@@ -96,7 +96,7 @@ fun TakeTestScreen(
     // Фон
     val backgroundImage = remember {
         try {
-            context.assets.open("images/background_3.jpg").use { inputStream ->
+            context.assets.open("images/background_6.png").use { inputStream ->
                 BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
             }
         } catch (e: IOException) {

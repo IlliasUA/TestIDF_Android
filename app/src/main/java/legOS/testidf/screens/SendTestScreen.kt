@@ -28,7 +28,7 @@ fun SendTestScreen(
     viewModel: SendTestViewModel = viewModel()
 ) {
     val context = LocalContext.current
-    val backgroundImage = loadImageFromAssets(context, "images/background_2.jpg")
+    val backgroundImage = loadImageFromAssets(context, "images/background_6.png")
 
     val uiState by viewModel.uiState.collectAsState()
 

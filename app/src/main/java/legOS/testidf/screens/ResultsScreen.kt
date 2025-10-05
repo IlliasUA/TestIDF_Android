@@ -63,7 +63,7 @@ fun ResultsScreen(navController: NavController, category: String, timeLimit: Int
     }
 
     // Load the background image
-    val backgroundImage = loadImageFromAssets(context, "images/background_3.jpg")
+    val backgroundImage = loadImageFromAssets(context, "images/background_6.png")
 
     // Выбираем компоновку в зависимости от ориентации
     if (isLandscape) {
