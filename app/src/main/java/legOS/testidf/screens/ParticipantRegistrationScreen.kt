@@ -2,12 +2,15 @@ package legOS.testidf.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.QrCode
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -34,8 +37,8 @@ fun ParticipantRegistrationScreen(
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
-    var participantName by remember { mutableStateOf("") }
-    var groupCode by remember { mutableStateOf("") }
+    var participantName by rememberSaveable { mutableStateOf("") }
+    var groupCode by rememberSaveable { mutableStateOf("") }
 
     val uiState by viewModel.uiState.collectAsState()
     val backgroundImage = loadImageFromAssets(context, "images/background_6.png")
@@ -52,142 +55,301 @@ fun ParticipantRegistrationScreen(
                 } ?: Modifier
             )
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .systemBarsPadding()
-                .padding(horizontal = if (isLandscape) 32.dp else 16.dp, vertical = 24.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // Заголовок
-            Text(
-                text = "Rejoindre une compétition",
-                style = MaterialTheme.typography.headlineMedium.copy(fontSize = 28.sp),
-                color = MaterialTheme.colorScheme.onBackground,
-                textAlign = TextAlign.Center
-            )
-
-            Text(
-                text = "Entrez votre nom et le code du groupe",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 8.dp, bottom = 24.dp)
-            )
-
-            // Карточка с формой
-            Card(
-                modifier = Modifier.fillMaxWidth(if (isLandscape) 0.6f else 0.95f),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
-                )
+        if (isLandscape) {
+            // ГОРИЗОНТАЛЬНЫЙ РЕЖИМ
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .systemBarsPadding()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
+                // ЛЕВАЯ ЧАСТЬ - Информация
                 Column(
-                    modifier = Modifier.padding(20.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // Поле имени
-                    OutlinedTextField(
-                        value = participantName,
-                        onValueChange = { participantName = it },
-                        label = { Text("Votre nom") },
-                        placeholder = { Text("Ex: Jean Dupont") },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.Person,
-                                contentDescription = null
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(
-                            capitalization = KeyboardCapitalization.Words
-                        )
+                    Text(
+                        text = "Rejoindre une compétition",
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        textAlign = TextAlign.Center
                     )
 
-                    // Поле кода группы
-                    OutlinedTextField(
-                        value = groupCode,
-                        onValueChange = {
-                            if (it.length <= 6) {
-                                groupCode = it.uppercase()
-                            }
-                        },
-                        label = { Text("Code du groupe") },
-                        placeholder = { Text("ABC123") },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.QrCode,
-                                contentDescription = null
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(
-                            capitalization = KeyboardCapitalization.Characters
-                        ),
-                        supportingText = {
-                            Text("Code fourni par le chef de groupe")
-                        }
-                    )
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                    // Сообщение об ошибке
-                    if (uiState.error != null) {
-                        Text(
-                            text = uiState.error ?: "",
-                            color = MaterialTheme.colorScheme.error,
-                            style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.padding(top = 8.dp)
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    // Кнопка Rejoindre
-                    Button(
-                        onClick = {
-                            viewModel.joinGroup(
-                                participantName = participantName.trim(),
-                                groupCode = groupCode.trim()
-                            ) { success ->
-                                if (success) {
-                                    // Переход к экрану ожидания тестов
-                                    navController.navigate("participant_waiting") {
-                                        popUpTo("competition") { inclusive = true }
-                                    }
-                                }
-                            }
-                        },
-                        enabled = !uiState.isLoading &&
-                                participantName.trim().isNotBlank() &&
-                                groupCode.trim().length == 6,
+                    Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(50.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary
+                            .padding(8.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
                         )
                     ) {
-                        if (uiState.isLoading) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(24.dp),
-                                color = MaterialTheme.colorScheme.onPrimary
+                        Column(
+                            modifier = Modifier.padding(16.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Icon(
+                                Icons.Default.QrCode,
+                                null,
+                                modifier = Modifier.size(48.dp),
+                                tint = MaterialTheme.colorScheme.primary
                             )
-                        } else {
+                            Spacer(modifier = Modifier.height(8.dp))
                             Text(
-                                "Rejoindre",
-                                style = MaterialTheme.typography.bodyLarge
+                                "Mode Compétition",
+                                style = MaterialTheme.typography.titleSmall,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                "Demandez le code\nde groupe à votre chef",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = TextAlign.Center
                             )
                         }
                     }
+                }
 
-                    // Кнопка возврата
-                    TextButton(
-                        onClick = { navController.navigateUp() },
-                        modifier = Modifier.fillMaxWidth()
+                // ПРАВАЯ ЧАСТЬ - Форма
+                Column(
+                    modifier = Modifier
+                        .weight(0.8f)
+                        .fillMaxHeight()
+                        .verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth(0.95f)
+                            .wrapContentHeight()
+                            .padding(vertical = 8.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                        )
                     ) {
-                        Text("Retour")
+                        Column(
+                            modifier = Modifier.padding(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            // Поле имени
+                            OutlinedTextField(
+                                value = participantName,
+                                onValueChange = { participantName = it },
+                                label = { Text("Votre nom") },
+                                placeholder = { Text("Ex: Jean Dupont") },
+                                leadingIcon = {
+                                    Icon(Icons.Default.Person, null)
+                                },
+                                modifier = Modifier.fillMaxWidth(),
+                                singleLine = true,
+                                keyboardOptions = KeyboardOptions(
+                                    capitalization = KeyboardCapitalization.Words
+                                )
+                            )
+
+                            // Поле кода группы
+                            OutlinedTextField(
+                                value = groupCode,
+                                onValueChange = {
+                                    if (it.length <= 6) {
+                                        groupCode = it.uppercase()
+                                    }
+                                },
+                                label = { Text("Code du groupe") },
+                                placeholder = { Text("ABC123") },
+                                leadingIcon = {
+                                    Icon(Icons.Default.QrCode, null)
+                                },
+                                modifier = Modifier.fillMaxWidth(),
+                                singleLine = true,
+                                keyboardOptions = KeyboardOptions(
+                                    capitalization = KeyboardCapitalization.Characters
+                                )
+                            )
+
+                            // Сообщение об ошибке
+                            if (uiState.error != null) {
+                                Text(
+                                    text = uiState.error ?: "",
+                                    color = MaterialTheme.colorScheme.error,
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                            }
+
+                            // Кнопка Rejoindre
+                            Button(
+                                onClick = {
+                                    viewModel.joinGroup(
+                                        participantName = participantName.trim(),
+                                        groupCode = groupCode.trim()
+                                    ) { success ->
+                                        if (success) {
+                                            navController.navigate("participant_waiting") {
+                                                popUpTo("competition") { inclusive = true }
+                                            }
+                                        }
+                                    }
+                                },
+                                enabled = !uiState.isLoading &&
+                                        participantName.trim().isNotBlank() &&
+                                        groupCode.trim().length == 6,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(48.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.primary
+                                )
+                            ) {
+                                if (uiState.isLoading) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.size(20.dp),
+                                        color = MaterialTheme.colorScheme.onPrimary
+                                    )
+                                } else {
+                                    Text("Rejoindre", style = MaterialTheme.typography.bodyLarge)
+                                }
+                            }
+
+                            // Кнопка возврата
+                            TextButton(
+                                onClick = { navController.navigateUp() },
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text("Retour")
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            // ВЕРТИКАЛЬНЫЙ РЕЖИМ
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .systemBarsPadding()
+                    .verticalScroll(rememberScrollState())
+                    .padding(horizontal = 16.dp, vertical = 24.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Rejoindre une compétition",
+                    style = MaterialTheme.typography.headlineMedium.copy(fontSize = 28.sp),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    textAlign = TextAlign.Center
+                )
+
+                Text(
+                    text = "Entrez votre nom et le code du groupe",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 8.dp, bottom = 24.dp)
+                )
+
+                Card(
+                    modifier = Modifier.fillMaxWidth(0.95f),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(20.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        OutlinedTextField(
+                            value = participantName,
+                            onValueChange = { participantName = it },
+                            label = { Text("Votre nom") },
+                            placeholder = { Text("Ex: Jean Dupont") },
+                            leadingIcon = {
+                                Icon(Icons.Default.Person, null)
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true,
+                            keyboardOptions = KeyboardOptions(
+                                capitalization = KeyboardCapitalization.Words
+                            )
+                        )
+
+                        OutlinedTextField(
+                            value = groupCode,
+                            onValueChange = {
+                                if (it.length <= 6) {
+                                    groupCode = it.uppercase()
+                                }
+                            },
+                            label = { Text("Code du groupe") },
+                            placeholder = { Text("ABC123") },
+                            leadingIcon = {
+                                Icon(Icons.Default.QrCode, null)
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true,
+                            keyboardOptions = KeyboardOptions(
+                                capitalization = KeyboardCapitalization.Characters
+                            ),
+                            supportingText = {
+                                Text("Code fourni par le chef de groupe")
+                            }
+                        )
+
+                        if (uiState.error != null) {
+                            Text(
+                                text = uiState.error ?: "",
+                                color = MaterialTheme.colorScheme.error,
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Button(
+                            onClick = {
+                                viewModel.joinGroup(
+                                    participantName = participantName.trim(),
+                                    groupCode = groupCode.trim()
+                                ) { success ->
+                                    if (success) {
+                                        navController.navigate("participant_waiting") {
+                                            popUpTo("competition") { inclusive = true }
+                                        }
+                                    }
+                                }
+                            },
+                            enabled = !uiState.isLoading &&
+                                    participantName.trim().isNotBlank() &&
+                                    groupCode.trim().length == 6,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary
+                            )
+                        ) {
+                            if (uiState.isLoading) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(24.dp),
+                                    color = MaterialTheme.colorScheme.onPrimary
+                                )
+                            } else {
+                                Text("Rejoindre", style = MaterialTheme.typography.bodyLarge)
+                            }
+                        }
+
+                        TextButton(
+                            onClick = { navController.navigateUp() },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("Retour")
+                        }
                     }
                 }
             }
