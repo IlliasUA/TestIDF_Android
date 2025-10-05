@@ -14,33 +14,39 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import legOS.testidf.data.UserSession
+import legOS.testidf.viewmodel.ParticipantRegistrationViewModel
 import legOS.testidf.viewmodel.ParticipantWaitingViewModel
 
 @Composable
 fun ParticipantWaitingScreen(
     navController: NavController,
-    viewModel: ParticipantWaitingViewModel = viewModel()
+    waitingViewModel: ParticipantWaitingViewModel = viewModel(),
+    registrationViewModel: ParticipantRegistrationViewModel = viewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by waitingViewModel.uiState.collectAsState()
+    val registrationUiState by registrationViewModel.uiState.collectAsState()
+
+    var showLeaveDialog by remember { mutableStateOf(false) }
 
     // Начинаем слушать уведомления
     LaunchedEffect(Unit) {
         val userId = UserSession.userId
         if (userId != null) {
-            viewModel.startListeningForTests(userId)
+            waitingViewModel.startListeningForTests(userId)
         }
     }
 
     // Очищаем слушатель при выходе
     DisposableEffect(Unit) {
         onDispose {
-            viewModel.stopListening()
+            waitingViewModel.stopListening()
         }
     }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .systemBarsPadding()  // Безопасная зона
             .padding(16.dp)
     ) {
         // Заголовок
@@ -83,7 +89,7 @@ fun ParticipantWaitingScreen(
             }
         }
 
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(16.dp))
 
         // Список тестов
         if (uiState.availableTests.isEmpty()) {
@@ -115,7 +121,8 @@ fun ParticipantWaitingScreen(
 
             LazyColumn(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(bottom = 8.dp)
             ) {
                 items(uiState.availableTests) { test ->
                     TestCard(
@@ -123,7 +130,6 @@ fun ParticipantWaitingScreen(
                         questionCount = test.questionCount,
                         timeLimit = test.timeLimit,
                         onStartClick = {
-                            // Переход к прохождению теста
                             navController.navigate("take_test/${test.sessionId}")
                         }
                     )
@@ -133,17 +139,77 @@ fun ParticipantWaitingScreen(
 
         Spacer(Modifier.height(16.dp))
 
-        // Кнопка выхода
+        // Кнопка выхода из группы
         OutlinedButton(
-            onClick = {
-                UserSession.clearSession()
-                navController.navigate("test_menu") {
-                    popUpTo(0) { inclusive = true }
+            onClick = { showLeaveDialog = true },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.outlinedButtonColors(
+                contentColor = MaterialTheme.colorScheme.error
+            )
+        ) {
+            Icon(
+                Icons.Default.ExitToApp,
+                null,
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(Modifier.width(8.dp))
+            Text("Quitter le groupe")
+        }
+    }
+
+    // Диалог подтверждения выхода
+    if (showLeaveDialog) {
+        AlertDialog(
+            onDismissRequest = { showLeaveDialog = false },
+            title = { Text("Quitter le groupe?") },
+            text = {
+                Text(
+                    "Êtes-vous sûr de vouloir quitter? Vous devrez entrer à nouveau le code du groupe pour rejoindre.",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        showLeaveDialog = false
+                        registrationViewModel.leaveGroup { success ->
+                            if (success) {
+                                navController.navigate("test_menu") {
+                                    popUpTo(0) { inclusive = true }
+                                }
+                            }
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error
+                    ),
+                    enabled = !registrationUiState.isLoading
+                ) {
+                    if (registrationUiState.isLoading) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(16.dp),
+                            color = MaterialTheme.colorScheme.onError
+                        )
+                        Spacer(Modifier.width(8.dp))
+                    }
+                    Text("Quitter")
                 }
             },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Quitter")
+            dismissButton = {
+                TextButton(
+                    onClick = { showLeaveDialog = false },
+                    enabled = !registrationUiState.isLoading
+                ) {
+                    Text("Annuler")
+                }
+            }
+        )
+    }
+
+    // Snackbar для ошибок
+    if (registrationUiState.error != null) {
+        LaunchedEffect(registrationUiState.error) {
+            // Можно добавить Snackbar если нужно
         }
     }
 }

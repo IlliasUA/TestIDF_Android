@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import legOS.testidf.data.UserSession
-import java.util.UUID
 
 data class ParticipantRegistrationUiState(
     val isLoading: Boolean = false,
@@ -37,13 +36,13 @@ class ParticipantRegistrationViewModel : ViewModel() {
             _uiState.value = ParticipantRegistrationUiState(isLoading = true)
 
             try {
-                // 1. СНАЧАЛА создаем анонимного пользователя
+                // 1. Создаем анонимного пользователя
                 val authResult = auth.signInAnonymously().await()
                 val userId = authResult.user?.uid ?: throw Exception("User ID is null")
 
                 Log.d("ParticipantVM", "Anonymous user created: $userId")
 
-                // 2. ПОТОМ ищем группу по коду
+                // 2. Ищем группу по коду
                 val groupQuery = firestore.collection("groups")
                     .whereEqualTo("groupCode", groupCode.trim().uppercase())
                     .limit(1)
@@ -71,6 +70,7 @@ class ParticipantRegistrationViewModel : ViewModel() {
                     "role" to "participant",
                     "isAnonymous" to true,
                     "groupCodes" to listOf(groupCode),
+                    "groupId" to groupId,  // Добавлено для упрощения выхода
                     "createdAt" to Timestamp.now()
                 )
 
@@ -89,7 +89,29 @@ class ParticipantRegistrationViewModel : ViewModel() {
 
                 Log.d("ParticipantVM", "Participant added to group")
 
-                // 5. Сохраняем сессию
+                // 5. Добавляем участника во все активные сессии этой группы
+                val sessionsQuery = firestore.collection("test_sessions")
+                    .whereEqualTo("groupId", groupId)
+                    .whereEqualTo("status", "pending")
+                    .get()
+                    .await()
+
+                Log.d("ParticipantVM", "Found ${sessionsQuery.size()} active sessions")
+
+                for (sessionDoc in sessionsQuery.documents) {
+                    try {
+                        firestore.collection("test_sessions")
+                            .document(sessionDoc.id)
+                            .update("participantIds", FieldValue.arrayUnion(userId))
+                            .await()
+
+                        Log.d("ParticipantVM", "Added to session: ${sessionDoc.id}")
+                    } catch (e: Exception) {
+                        Log.e("ParticipantVM", "Error adding to session ${sessionDoc.id}", e)
+                    }
+                }
+
+                // 6. Сохраняем сессию
                 UserSession.setParticipantSession(
                     userId = userId,
                     name = participantName,
@@ -112,7 +134,87 @@ class ParticipantRegistrationViewModel : ViewModel() {
         }
     }
 
-    fun clearError() {
-        _uiState.value = _uiState.value.copy(error = null)
+    // НОВЫЙ МЕТОД: Выход из группы
+    fun leaveGroup(onComplete: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            _uiState.value = ParticipantRegistrationUiState(isLoading = true)
+
+            try {
+                val userId = UserSession.userId
+                if (userId == null) {
+                    _uiState.value = ParticipantRegistrationUiState(
+                        error = "Utilisateur non connecté"
+                    )
+                    onComplete(false)
+                    return@launch
+                }
+
+                Log.d("ParticipantVM", "Starting leave group process for: $userId")
+
+                // Получаем данные пользователя
+                val userDoc = firestore.collection("users")
+                    .document(userId)
+                    .get()
+                    .await()
+
+                val groupId = userDoc.getString("groupId")
+
+                if (groupId != null) {
+                    // Удаляем участника из группы
+                    firestore.collection("groups")
+                        .document(groupId)
+                        .update("participantIds", FieldValue.arrayRemove(userId))
+                        .await()
+
+                    Log.d("ParticipantVM", "Removed from group: $groupId")
+
+                    // Удаляем участника из всех сессий этой группы
+                    val sessionsQuery = firestore.collection("test_sessions")
+                        .whereEqualTo("groupId", groupId)
+                        .get()
+                        .await()
+
+                    for (sessionDoc in sessionsQuery.documents) {
+                        try {
+                            firestore.collection("test_sessions")
+                                .document(sessionDoc.id)
+                                .update("participantIds", FieldValue.arrayRemove(userId))
+                                .await()
+
+                            Log.d("ParticipantVM", "Removed from session: ${sessionDoc.id}")
+                        } catch (e: Exception) {
+                            Log.e("ParticipantVM", "Error removing from session", e)
+                        }
+                    }
+                }
+
+                // Удаляем пользователя из Firestore
+                firestore.collection("users")
+                    .document(userId)
+                    .delete()
+                    .await()
+
+                Log.d("ParticipantVM", "User deleted from Firestore")
+
+                // Выход из Firebase Auth
+                auth.signOut()
+
+                // Очищаем локальную сессию
+                UserSession.clearSession()
+
+                _uiState.value = ParticipantRegistrationUiState(
+                    successMessage = "Vous avez quitté le groupe"
+                )
+
+                onComplete(true)
+
+            } catch (e: Exception) {
+                Log.e("ParticipantVM", "Error leaving group", e)
+                _uiState.value = ParticipantRegistrationUiState(
+                    error = "Erreur: ${e.message}"
+                )
+                onComplete(false)
+            }
+        }
     }
 }

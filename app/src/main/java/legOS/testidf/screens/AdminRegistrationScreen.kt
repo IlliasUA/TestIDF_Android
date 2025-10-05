@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -38,17 +39,17 @@ fun AdminRegistrationScreen(
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     val clipboardManager = LocalClipboardManager.current
 
-    var name by remember { mutableStateOf("") }
-    var groupName by remember { mutableStateOf("") }
+    // ИСПРАВЛЕНО: rememberSaveable вместо remember
+    var name by rememberSaveable { mutableStateOf("") }
+    var groupName by rememberSaveable { mutableStateOf("") }
 
-    var showGroupCodeDialog by remember { mutableStateOf(false) }
-    var groupCode by remember { mutableStateOf("") }
+    var showGroupCodeDialog by rememberSaveable { mutableStateOf(false) }
+    var groupCode by rememberSaveable { mutableStateOf("") }
     var showCopiedMessage by remember { mutableStateOf(false) }
 
     val uiState by viewModel.uiState.collectAsState()
     val backgroundImage = loadImageFromAssets(context, "images/background_6.png")
 
-    // Валидация
     val isFormValid = name.trim().isNotBlank() && groupName.trim().isNotBlank()
 
     Box(
@@ -63,131 +64,280 @@ fun AdminRegistrationScreen(
                 } ?: Modifier
             )
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .systemBarsPadding()
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = if (isLandscape) 32.dp else 16.dp, vertical = 24.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // Заголовок
-            Text(
-                text = "Créer un groupe",
-                style = MaterialTheme.typography.headlineMedium.copy(fontSize = 28.sp),
-                color = MaterialTheme.colorScheme.onBackground,
-                textAlign = TextAlign.Center
-            )
-
-            Text(
-                text = "Organisez des tests pour votre équipe",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 8.dp, bottom = 24.dp)
-            )
-
-            // Карточка с формой
-            Card(
-                modifier = Modifier.fillMaxWidth(if (isLandscape) 0.7f else 0.95f),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
-                )
+        if (isLandscape) {
+            // ГОРИЗОНТАЛЬНЫЙ РЕЖИМ
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .systemBarsPadding()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
+                // ЛЕВАЯ ЧАСТЬ - Информация
                 Column(
-                    modifier = Modifier.padding(20.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // Имя Chef
-                    OutlinedTextField(
-                        value = name,
-                        onValueChange = { name = it },
-                        label = { Text("Votre nom") },
-                        placeholder = { Text("Ex: Jean Dupont") },
-                        modifier = Modifier.fillMaxWidth(),
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(
-                            capitalization = KeyboardCapitalization.Words
-                        ),
-                        isError = name.isNotBlank() && name.trim().length < 2,
-                        supportingText = if (name.isNotBlank() && name.trim().length < 2) {
-                            { Text("Minimum 2 caractères") }
-                        } else null
+                    Text(
+                        text = "Créer un groupe",
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        textAlign = TextAlign.Center
                     )
 
-                    // Nom du groupe
-                    OutlinedTextField(
-                        value = groupName,
-                        onValueChange = { groupName = it },
-                        label = { Text("Nom du groupe") },
-                        placeholder = { Text("Ex: Escadron Alpha") },
-                        modifier = Modifier.fillMaxWidth(),
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(
-                            capitalization = KeyboardCapitalization.Words
-                        )
-                    )
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                    // Message d'erreur
-                    if (uiState.error != null) {
-                        Text(
-                            text = uiState.error ?: "",
-                            color = MaterialTheme.colorScheme.error,
-                            style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.padding(top = 8.dp)
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    // Bouton Créer
-                    Button(
-                        onClick = {
-                            viewModel.registerAdmin(
-                                name = name.trim(),
-                                groupName = groupName.trim()
-                            ) { success, userId, groupId, code ->
-                                if (success && code != null) {
-                                    groupCode = code
-                                    showGroupCodeDialog = true
-                                }
-                            }
-                        },
-                        enabled = !uiState.isLoading && isFormValid,
+                    Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(50.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary
+                            .padding(8.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
                         )
                     ) {
-                        if (uiState.isLoading) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(24.dp),
-                                color = MaterialTheme.colorScheme.onPrimary
-                            )
-                        } else {
+                        Column(
+                            modifier = Modifier.padding(16.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
                             Text(
-                                "Créer le groupe",
-                                style = MaterialTheme.typography.bodyLarge
+                                "Mode Compétition",
+                                style = MaterialTheme.typography.titleSmall,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                "Organisez des tests\npour votre équipe",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = TextAlign.Center
                             )
                         }
                     }
+                }
 
-                    // Bouton retour
-                    TextButton(
-                        onClick = { navController.navigateUp() },
-                        modifier = Modifier.fillMaxWidth()
+                // ПРАВАЯ ЧАСТЬ - Форма (ИСПРАВЛЕНО)
+                Column(
+                    modifier = Modifier
+                        .weight(0.8f)
+                        .fillMaxHeight()
+                        .verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth(0.95f)  // ИСПРАВЛЕНО: не 100% ширины
+                            .wrapContentHeight()   // ДОБАВЛЕНО: высота по содержимому
+                            .padding(vertical = 8.dp),  // ДОБАВЛЕНО: отступы сверху/снизу
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                        )
                     ) {
-                        Text("Retour")
+                        Column(
+                            modifier = Modifier.padding(16.dp),  // ИСПРАВЛЕНО: уменьшен padding с 20dp
+                            verticalArrangement = Arrangement.spacedBy(12.dp)  // ИСПРАВЛЕНО: уменьшен spacing с 16dp
+                        ) {
+                            // Имя Chef
+                            OutlinedTextField(
+                                value = name,
+                                onValueChange = { name = it },
+                                label = { Text("Votre nom") },
+                                placeholder = { Text("Ex: Jean Dupont") },
+                                modifier = Modifier.fillMaxWidth(),
+                                singleLine = true,
+                                keyboardOptions = KeyboardOptions(
+                                    capitalization = KeyboardCapitalization.Words
+                                ),
+                                isError = name.isNotBlank() && name.trim().length < 2,
+                                supportingText = if (name.isNotBlank() && name.trim().length < 2) {
+                                    { Text("Minimum 2 caractères") }
+                                } else null
+                            )
+
+                            // Nom du groupe
+                            OutlinedTextField(
+                                value = groupName,
+                                onValueChange = { groupName = it },
+                                label = { Text("Nom du groupe") },
+                                placeholder = { Text("Ex: Escadron Alpha") },
+                                modifier = Modifier.fillMaxWidth(),
+                                singleLine = true,
+                                keyboardOptions = KeyboardOptions(
+                                    capitalization = KeyboardCapitalization.Words
+                                )
+                            )
+
+                            // Message d'erreur
+                            if (uiState.error != null) {
+                                Text(
+                                    text = uiState.error ?: "",
+                                    color = MaterialTheme.colorScheme.error,
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                            }
+
+                            // Bouton Créer
+                            Button(
+                                onClick = {
+                                    viewModel.registerAdmin(
+                                        name = name.trim(),
+                                        groupName = groupName.trim()
+                                    ) { success, _, _, code ->
+                                        if (success && code != null) {
+                                            groupCode = code
+                                            showGroupCodeDialog = true
+                                        }
+                                    }
+                                },
+                                enabled = !uiState.isLoading && isFormValid,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(48.dp),  // ИСПРАВЛЕНО: уменьшена высота с 50dp
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.primary
+                                )
+                            ) {
+                                if (uiState.isLoading) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.size(20.dp),  // ИСПРАВЛЕНО: уменьшен размер с 24dp
+                                        color = MaterialTheme.colorScheme.onPrimary
+                                    )
+                                } else {
+                                    Text("Créer le groupe", style = MaterialTheme.typography.bodyLarge)
+                                }
+                            }
+
+                            // Bouton retour
+                            TextButton(
+                                onClick = { navController.navigateUp() },
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text("Retour")
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            // ВЕРТИКАЛЬНЫЙ РЕЖИМ
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .systemBarsPadding()
+                    .verticalScroll(rememberScrollState())
+                    .padding(horizontal = 16.dp, vertical = 24.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Créer un groupe",
+                    style = MaterialTheme.typography.headlineMedium.copy(fontSize = 28.sp),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    textAlign = TextAlign.Center
+                )
+
+                Text(
+                    text = "Organisez des tests pour votre équipe",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 8.dp, bottom = 24.dp)
+                )
+
+                Card(
+                    modifier = Modifier.fillMaxWidth(0.95f),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(20.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        OutlinedTextField(
+                            value = name,
+                            onValueChange = { name = it },
+                            label = { Text("Votre nom") },
+                            placeholder = { Text("Ex: Jean Dupont") },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true,
+                            keyboardOptions = KeyboardOptions(
+                                capitalization = KeyboardCapitalization.Words
+                            ),
+                            isError = name.isNotBlank() && name.trim().length < 2,
+                            supportingText = if (name.isNotBlank() && name.trim().length < 2) {
+                                { Text("Minimum 2 caractères") }
+                            } else null
+                        )
+
+                        OutlinedTextField(
+                            value = groupName,
+                            onValueChange = { groupName = it },
+                            label = { Text("Nom du groupe") },
+                            placeholder = { Text("Ex: Escadron Alpha") },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true,
+                            keyboardOptions = KeyboardOptions(
+                                capitalization = KeyboardCapitalization.Words
+                            )
+                        )
+
+                        if (uiState.error != null) {
+                            Text(
+                                text = uiState.error ?: "",
+                                color = MaterialTheme.colorScheme.error,
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Button(
+                            onClick = {
+                                viewModel.registerAdmin(
+                                    name = name.trim(),
+                                    groupName = groupName.trim()
+                                ) { success, _, _, code ->
+                                    if (success && code != null) {
+                                        groupCode = code
+                                        showGroupCodeDialog = true
+                                    }
+                                }
+                            },
+                            enabled = !uiState.isLoading && isFormValid,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary
+                            )
+                        ) {
+                            if (uiState.isLoading) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(24.dp),
+                                    color = MaterialTheme.colorScheme.onPrimary
+                                )
+                            } else {
+                                Text("Créer le groupe", style = MaterialTheme.typography.bodyLarge)
+                            }
+                        }
+
+                        TextButton(
+                            onClick = { navController.navigateUp() },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("Retour")
+                        }
                     }
                 }
             }
         }
     }
 
-    // Диалог с кодом группы
+    // Диалог с кодом группы (без изменений)
     if (showGroupCodeDialog) {
         AlertDialog(
             onDismissRequest = { },
@@ -212,7 +362,6 @@ fun AdminRegistrationScreen(
 
                     Spacer(Modifier.height(24.dp))
 
-                    // Карточка с кодом
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         colors = CardDefaults.cardColors(
@@ -241,11 +390,7 @@ fun AdminRegistrationScreen(
                                     showCopiedMessage = true
                                 }
                             ) {
-                                Icon(
-                                    Icons.Default.ContentCopy,
-                                    null,
-                                    modifier = Modifier.size(18.dp)
-                                )
+                                Icon(Icons.Default.ContentCopy, null, modifier = Modifier.size(18.dp))
                                 Spacer(Modifier.width(8.dp))
                                 Text("Copier le code")
                             }
@@ -273,11 +418,7 @@ fun AdminRegistrationScreen(
                             modifier = Modifier.padding(12.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(
-                                "⚠️",
-                                style = MaterialTheme.typography.titleLarge,
-                                modifier = Modifier.padding(end = 8.dp)
-                            )
+                            Text("⚠️", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(end = 8.dp))
                             Text(
                                 "Notez ce code pour que vos subordonnés puissent rejoindre!",
                                 style = MaterialTheme.typography.bodySmall,

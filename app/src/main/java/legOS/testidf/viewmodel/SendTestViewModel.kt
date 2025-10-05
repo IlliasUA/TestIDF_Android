@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -25,12 +26,14 @@ data class SendTestUiState(
     val questionCount: Int = 0,
     val timeLimit: Int = 0,
     val participants: List<Participant> = emptyList(),
-    val notifiedParticipants: Set<String> = emptySet()
+    val notifiedParticipants: Set<String> = emptySet(),
+    val groupCode: String = ""
 )
 
 class SendTestViewModel : ViewModel() {
 
     private val firestore = FirebaseFirestore.getInstance()
+    private var sessionListener: ListenerRegistration? = null
 
     private val _uiState = MutableStateFlow(SendTestUiState())
     val uiState: StateFlow<SendTestUiState> = _uiState
@@ -40,51 +43,112 @@ class SendTestViewModel : ViewModel() {
             _uiState.value = _uiState.value.copy(isLoading = true)
 
             try {
-                // Загружаем сессию
-                val sessionDoc = firestore.collection("test_sessions")
+                Log.d("SendTestVM", "Setting up real-time listener for session: $sessionId")
+
+                // Устанавливаем слушатель на изменения документа сессии
+                sessionListener = firestore.collection("test_sessions")
                     .document(sessionId)
-                    .get()
-                    .await()
+                    .addSnapshotListener { snapshot, error ->
+                        if (error != null) {
+                            Log.e("SendTestVM", "Error listening to session", error)
+                            _uiState.value = _uiState.value.copy(
+                                isLoading = false,
+                                error = "Erreur: ${error.message}"
+                            )
+                            return@addSnapshotListener
+                        }
 
-                val title = sessionDoc.getString("title") ?: "Test"
-                val questionRefs = sessionDoc.get("questionRefs") as? List<*> ?: emptyList<Any>()
-                val timeLimit = (sessionDoc.getLong("timeLimit") ?: 15).toInt()
-                val participantIds = sessionDoc.get("participantIds") as? List<String> ?: emptyList()
+                        if (snapshot != null && snapshot.exists()) {
+                            viewModelScope.launch {
+                                processSessionUpdate(snapshot.data ?: emptyMap())
+                            }
+                        } else {
+                            Log.e("SendTestVM", "Session document doesn't exist")
+                            _uiState.value = _uiState.value.copy(
+                                isLoading = false,
+                                error = "Session introuvable"
+                            )
+                        }
+                    }
 
-                // Загружаем данные участников
-                val participants = mutableListOf<Participant>()
-                for (participantId in participantIds) {
+            } catch (e: Exception) {
+                Log.e("SendTestVM", "Error setting up session listener", e)
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    error = "Erreur de chargement: ${e.message}"
+                )
+            }
+        }
+    }
+
+    private suspend fun processSessionUpdate(data: Map<String, Any>) {
+        try {
+            val title = data["title"] as? String ?: "Test"
+            val questionRefs = data["questionRefs"] as? List<*> ?: emptyList<Any>()
+            val timeLimit = (data["timeLimit"] as? Long ?: 15).toInt()
+            val participantIds = data["participantIds"] as? List<String> ?: emptyList()
+            val groupId = data["groupId"] as? String ?: ""
+
+            Log.d("SendTestVM", "Session updated - Title: $title, Participants: ${participantIds.size}")
+
+            // Загружаем код группы
+            var groupCode = ""
+            if (groupId.isNotEmpty()) {
+                try {
+                    val groupDoc = firestore.collection("groups")
+                        .document(groupId)
+                        .get()
+                        .await()
+                    groupCode = groupDoc.getString("groupCode") ?: ""
+                    Log.d("SendTestVM", "Group code loaded: $groupCode")
+                } catch (e: Exception) {
+                    Log.e("SendTestVM", "Error loading group code", e)
+                }
+            }
+
+            // Загружаем участников
+            val participants = mutableListOf<Participant>()
+            for (participantId in participantIds) {
+                try {
                     val userDoc = firestore.collection("users")
                         .document(participantId)
                         .get()
                         .await()
 
                     if (userDoc.exists()) {
+                        val participantName = userDoc.getString("name") ?: "Anonyme"
                         participants.add(
                             Participant(
                                 userId = participantId,
-                                name = userDoc.getString("name") ?: "Anonyme"
+                                name = participantName
                             )
                         )
+                        Log.d("SendTestVM", "Loaded participant: $participantName ($participantId)")
+                    } else {
+                        Log.w("SendTestVM", "Participant document not found: $participantId")
                     }
+                } catch (e: Exception) {
+                    Log.e("SendTestVM", "Error loading participant $participantId", e)
                 }
-
-                _uiState.value = SendTestUiState(
-                    sessionTitle = title,
-                    questionCount = questionRefs.size,
-                    timeLimit = timeLimit,
-                    participants = participants
-                )
-
-                Log.d("SendTestVM", "Session loaded: $title, ${participants.size} participants")
-
-            } catch (e: Exception) {
-                Log.e("SendTestVM", "Error loading session", e)
-                _uiState.value = _uiState.value.copy(
-                    isLoading = false,
-                    error = "Erreur de chargement: ${e.message}"
-                )
             }
+
+            Log.d("SendTestVM", "Total participants loaded: ${participants.size}")
+
+            _uiState.value = SendTestUiState(
+                sessionTitle = title,
+                questionCount = questionRefs.size,
+                timeLimit = timeLimit,
+                participants = participants,
+                groupCode = groupCode,
+                notifiedParticipants = _uiState.value.notifiedParticipants
+            )
+
+        } catch (e: Exception) {
+            Log.e("SendTestVM", "Error processing session update", e)
+            _uiState.value = _uiState.value.copy(
+                isLoading = false,
+                error = "Erreur: ${e.message}"
+            )
         }
     }
 
@@ -94,29 +158,42 @@ class SendTestViewModel : ViewModel() {
 
             try {
                 val participants = _uiState.value.participants
+
+                if (participants.isEmpty()) {
+                    _uiState.value = _uiState.value.copy(
+                        isSending = false,
+                        error = "Aucun participant dans la session"
+                    )
+                    return@launch
+                }
+
                 val notified = mutableSetOf<String>()
 
                 // Создаем уведомления для каждого участника
                 for (participant in participants) {
-                    val notificationId = UUID.randomUUID().toString()
-                    val notificationData = hashMapOf(
-                        "notificationId" to notificationId,
-                        "type" to "test_available",
-                        "sessionId" to sessionId,
-                        "recipientId" to participant.userId,
-                        "title" to "Nouveau test disponible",
-                        "message" to "Le chef a envoyé un nouveau test: ${_uiState.value.sessionTitle}",
-                        "isRead" to false,
-                        "createdAt" to Timestamp.now()
-                    )
+                    try {
+                        val notificationId = UUID.randomUUID().toString()
+                        val notificationData = hashMapOf(
+                            "notificationId" to notificationId,
+                            "type" to "test_available",
+                            "sessionId" to sessionId,
+                            "recipientId" to participant.userId,
+                            "title" to "Nouveau test disponible",
+                            "message" to "Le chef a envoyé un nouveau test: ${_uiState.value.sessionTitle}",
+                            "isRead" to false,
+                            "createdAt" to Timestamp.now()
+                        )
 
-                    firestore.collection("notifications")
-                        .document(notificationId)
-                        .set(notificationData)
-                        .await()
+                        firestore.collection("notifications")
+                            .document(notificationId)
+                            .set(notificationData)
+                            .await()
 
-                    notified.add(participant.userId)
-                    Log.d("SendTestVM", "Notification sent to ${participant.name}")
+                        notified.add(participant.userId)
+                        Log.d("SendTestVM", "Notification sent to ${participant.name}")
+                    } catch (e: Exception) {
+                        Log.e("SendTestVM", "Error sending notification to ${participant.name}", e)
+                    }
                 }
 
                 // Обновляем статус сессии
@@ -131,6 +208,8 @@ class SendTestViewModel : ViewModel() {
                     successMessage = "Test envoyé à ${notified.size} participant(s)!"
                 )
 
+                Log.d("SendTestVM", "Test sent to ${notified.size} participants")
+
             } catch (e: Exception) {
                 Log.e("SendTestVM", "Error sending test", e)
                 _uiState.value = _uiState.value.copy(
@@ -143,5 +222,11 @@ class SendTestViewModel : ViewModel() {
 
     fun clearError() {
         _uiState.value = _uiState.value.copy(error = null)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        sessionListener?.remove()
+        Log.d("SendTestVM", "Session listener removed")
     }
 }
