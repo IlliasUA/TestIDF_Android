@@ -1,5 +1,6 @@
 package legOS.testidf.screens
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -14,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -29,6 +31,8 @@ fun SessionResultsScreen(
     viewModel: SessionResultsViewModel = viewModel()
 ) {
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
+    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     val backgroundImage = loadImageFromAssets(context, "images/background_6.png")
 
     val uiState by viewModel.uiState.collectAsState()
@@ -49,103 +53,252 @@ fun SessionResultsScreen(
                 } ?: Modifier
             )
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .systemBarsPadding()
-                .padding(16.dp)
-        ) {
-            // Заголовок
+        if (isLandscape) {
+            // ГОРИЗОНТАЛЬНЫЙ РЕЖИМ
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                modifier = Modifier
+                    .fillMaxSize()
+                    .systemBarsPadding()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(Icons.Default.ArrowBack, "Retour")
-                }
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        uiState.sessionTitle,
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                    Text(
-                        "${uiState.totalQuestions} questions • ${uiState.timeLimit}s/question",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                    )
-                }
-            }
-
-            Spacer(Modifier.height(16.dp))
-
-            // Статистика
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
-                )
-            ) {
-                Row(
+                // ЛЕВАЯ ЧАСТЬ - Список результатов
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    horizontalArrangement = Arrangement.SpaceAround
+                        .weight(0.5f)
+                        .fillMaxHeight()
                 ) {
-                    ResultStatItem(
-                        label = "Participants",
-                        value = uiState.results.size.toString(),
-                        icon = Icons.Default.Person
+                    Text(
+                        "Résultats (${uiState.results.size})",
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.padding(bottom = 12.dp)
                     )
-                    ResultStatItem(
-                        label = "Moyenne",
-                        value = "${uiState.averageScore}%",
-                        icon = Icons.Default.BarChart
-                    )
-                    ResultStatItem(
-                        label = "Meilleur",
-                        value = "${uiState.bestScore}%",
-                        icon = Icons.Default.TrendingUp
-                    )
+
+                    if (uiState.isLoading) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator()
+                        }
+                    } else if (uiState.results.isEmpty()) {
+                        Card(
+                            modifier = Modifier.fillMaxSize(),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
+                            )
+                        ) {
+                            Column(
+                                modifier = Modifier.fillMaxSize(),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Icon(
+                                    Icons.Default.HourglassEmpty,
+                                    null,
+                                    modifier = Modifier.size(48.dp),
+                                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+                                )
+                                Spacer(Modifier.height(8.dp))
+                                Text(
+                                    "En attente des résultats",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                                )
+                            }
+                        }
+                    } else {
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            items(uiState.results) { result ->
+                                ParticipantResultCard(result)
+                            }
+                        }
+                    }
+                }
+
+                // ПРАВАЯ ЧАСТЬ - Статистика и информация
+                Column(
+                    modifier = Modifier
+                        .weight(0.5f)
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Column {
+                        Text(
+                            "Statistiques",
+                            style = MaterialTheme.typography.titleLarge,
+                            modifier = Modifier.padding(bottom = 12.dp)
+                        )
+
+                        // Информация о тесте
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                            )
+                        ) {
+                            Column(modifier = Modifier.padding(20.dp)) {
+                                Text(
+                                    uiState.sessionTitle,
+                                    style = MaterialTheme.typography.headlineSmall
+                                )
+                                Spacer(Modifier.height(8.dp))
+                                Text(
+                                    "${uiState.totalQuestions} questions • ${uiState.timeLimit}s/question",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                                )
+                            }
+                        }
+
+                        Spacer(Modifier.height(16.dp))
+
+                        // Статистика
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                            )
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                horizontalArrangement = Arrangement.SpaceEvenly
+                            ) {
+                                ResultStatItem(
+                                    label = "Participants",
+                                    value = uiState.results.size.toString(),
+                                    icon = Icons.Default.Person
+                                )
+                                ResultStatItem(
+                                    label = "Moyenne",
+                                    value = "${uiState.averageScore}%",
+                                    icon = Icons.Default.BarChart
+                                )
+                                ResultStatItem(
+                                    label = "Meilleur",
+                                    value = "${uiState.bestScore}%",
+                                    icon = Icons.Default.TrendingUp
+                                )
+                            }
+                        }
+                    }
+
+                    // Кнопка возврата внизу
+                    Button(
+                        onClick = { navController.navigateUp() },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(Icons.Default.ArrowBack, null, modifier = Modifier.size(18.dp))
+                        Spacer(Modifier.width(8.dp))
+                        Text("Retour")
+                    }
                 }
             }
-
-            Spacer(Modifier.height(16.dp))
-
-            // Список результатов
-            if (uiState.isLoading) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
+        } else {
+            // ВЕРТИКАЛЬНЫЙ РЕЖИМ
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .systemBarsPadding()
+                    .padding(16.dp)
+            ) {
+                // Заголовок
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    CircularProgressIndicator()
-                }
-            } else if (uiState.results.isEmpty()) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(
-                            Icons.Default.HourglassEmpty,
-                            null,
-                            modifier = Modifier.size(64.dp),
-                            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
-                        )
-                        Spacer(Modifier.height(16.dp))
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(Icons.Default.ArrowBack, "Retour")
+                    }
+                    Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            "En attente des résultats",
-                            style = MaterialTheme.typography.bodyLarge,
+                            uiState.sessionTitle,
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                        Text(
+                            "${uiState.totalQuestions} questions • ${uiState.timeLimit}s/question",
+                            style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                         )
                     }
                 }
-            } else {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+
+                Spacer(Modifier.height(16.dp))
+
+                // Статистика
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                    )
                 ) {
-                    items(uiState.results) { result ->
-                        ParticipantResultCard(result)
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.SpaceAround
+                    ) {
+                        ResultStatItem(
+                            label = "Participants",
+                            value = uiState.results.size.toString(),
+                            icon = Icons.Default.Person
+                        )
+                        ResultStatItem(
+                            label = "Moyenne",
+                            value = "${uiState.averageScore}%",
+                            icon = Icons.Default.BarChart
+                        )
+                        ResultStatItem(
+                            label = "Meilleur",
+                            value = "${uiState.bestScore}%",
+                            icon = Icons.Default.TrendingUp
+                        )
+                    }
+                }
+
+                Spacer(Modifier.height(16.dp))
+
+                // Список результатов
+                if (uiState.isLoading) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                } else if (uiState.results.isEmpty()) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Icon(
+                                Icons.Default.HourglassEmpty,
+                                null,
+                                modifier = Modifier.size(64.dp),
+                                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+                            )
+                            Spacer(Modifier.height(16.dp))
+                            Text(
+                                "En attente des résultats",
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                            )
+                        }
+                    }
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(uiState.results) { result ->
+                            ParticipantResultCard(result)
+                        }
                     }
                 }
             }
