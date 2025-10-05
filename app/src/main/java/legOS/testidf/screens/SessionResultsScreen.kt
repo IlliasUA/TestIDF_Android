@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -68,11 +67,26 @@ fun SessionResultsScreen(
                         .weight(0.5f)
                         .fillMaxHeight()
                 ) {
-                    Text(
-                        "Résultats (${uiState.results.size})",
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.padding(bottom = 12.dp)
-                    )
+                    // Заголовок с кнопкой возврата - ВЫРОВНЕН ПО ВЫСОТЕ
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(40.dp), // ФИКСИРОВАННАЯ ВЫСОТА
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconButton(
+                            onClick = { navController.navigateUp() },
+                            modifier = Modifier.size(40.dp)
+                        ) {
+                            Icon(Icons.Default.ArrowBack, "Retour")
+                        }
+                        Text(
+                            "Résultats (${uiState.results.size})",
+                            style = MaterialTheme.typography.titleLarge // ТОТ ЖЕ РАЗМЕР
+                        )
+                    }
+
+                    Spacer(Modifier.height(12.dp))
 
                     if (uiState.isLoading) {
                         Box(
@@ -110,7 +124,7 @@ fun SessionResultsScreen(
                     } else {
                         LazyColumn(
                             modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                            verticalArrangement = Arrangement.spacedBy(6.dp) // УМЕНЬШЕН ОТСТУП
                         ) {
                             items(uiState.results) { result ->
                                 ParticipantResultCard(result)
@@ -123,79 +137,75 @@ fun SessionResultsScreen(
                 Column(
                     modifier = Modifier
                         .weight(0.5f)
-                        .fillMaxHeight(),
-                    verticalArrangement = Arrangement.SpaceBetween
+                        .fillMaxHeight()
                 ) {
-                    Column {
+                    // Заголовок - ВЫРОВНЕН ПО ВЫСОТЕ
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(40.dp), // ТА ЖЕ ВЫСОТА ЧТО И СЛЕВА
+                        contentAlignment = Alignment.CenterStart
+                    ) {
                         Text(
                             "Statistiques",
-                            style = MaterialTheme.typography.titleLarge,
-                            modifier = Modifier.padding(bottom = 12.dp)
+                            style = MaterialTheme.typography.titleLarge
                         )
+                    }
 
-                        // Информация о тесте
-                        Card(
-                            modifier = Modifier.fillMaxWidth(),
-                            colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                    Spacer(Modifier.height(12.dp))
+
+                    // Информация о тесте
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                        )
+                    ) {
+                        Column(modifier = Modifier.padding(20.dp)) {
+                            Text(
+                                uiState.sessionTitle,
+                                style = MaterialTheme.typography.headlineSmall
                             )
-                        ) {
-                            Column(modifier = Modifier.padding(20.dp)) {
-                                Text(
-                                    uiState.sessionTitle,
-                                    style = MaterialTheme.typography.headlineSmall
-                                )
-                                Spacer(Modifier.height(8.dp))
-                                Text(
-                                    "${uiState.totalQuestions} questions • ${uiState.timeLimit}s/question",
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                                )
-                            }
-                        }
-
-                        Spacer(Modifier.height(16.dp))
-
-                        // Статистика
-                        Card(
-                            modifier = Modifier.fillMaxWidth(),
-                            colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                            Spacer(Modifier.height(8.dp))
+                            Text(
+                                "${uiState.totalQuestions} questions • ${uiState.timeLimit}s/question",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                             )
-                        ) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp),
-                                horizontalArrangement = Arrangement.SpaceEvenly
-                            ) {
-                                ResultStatItem(
-                                    label = "Participants",
-                                    value = uiState.results.size.toString(),
-                                    icon = Icons.Default.Person
-                                )
-                                ResultStatItem(
-                                    label = "Moyenne",
-                                    value = "${uiState.averageScore}%",
-                                    icon = Icons.Default.BarChart
-                                )
-                                ResultStatItem(
-                                    label = "Meilleur",
-                                    value = "${uiState.bestScore}%",
-                                    icon = Icons.Default.TrendingUp
-                                )
-                            }
                         }
                     }
 
-                    // Кнопка возврата внизу
-                    Button(
-                        onClick = { navController.navigateUp() },
-                        modifier = Modifier.fillMaxWidth()
+                    Spacer(Modifier.height(16.dp))
+
+                    // Статистика
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                        )
                     ) {
-                        Icon(Icons.Default.ArrowBack, null, modifier = Modifier.size(18.dp))
-                        Spacer(Modifier.width(8.dp))
-                        Text("Retour")
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            ResultStatItem(
+                                label = "Participants",
+                                value = uiState.results.size.toString(),
+                                icon = Icons.Default.Person
+                            )
+                            ResultStatItem(
+                                label = "Moyenne",
+                                value = "${uiState.averageScore}%",
+                                icon = Icons.Default.BarChart
+                            )
+                            ResultStatItem(
+                                label = "Meilleur",
+                                value = "${uiState.bestScore}%",
+                                icon = Icons.Default.TrendingUp
+                            )
+                        }
                     }
                 }
             }
@@ -207,7 +217,6 @@ fun SessionResultsScreen(
                     .systemBarsPadding()
                     .padding(16.dp)
             ) {
-                // Заголовок
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -230,7 +239,6 @@ fun SessionResultsScreen(
 
                 Spacer(Modifier.height(16.dp))
 
-                // Статистика
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
@@ -263,7 +271,6 @@ fun SessionResultsScreen(
 
                 Spacer(Modifier.height(16.dp))
 
-                // Список результатов
                 if (uiState.isLoading) {
                     Box(
                         modifier = Modifier.fillMaxSize(),
@@ -335,53 +342,54 @@ private fun ResultStatItem(
 @Composable
 private fun ParticipantResultCard(result: ParticipantResult) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp), // УМЕНЬШЕНА ВЫСОТА НА 25% (было ~80dp)
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
         )
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+                .fillMaxSize()
+                .padding(horizontal = 12.dp, vertical = 8.dp), // УМЕНЬШЕН PADDING
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Позиция
             Surface(
-                modifier = Modifier.size(40.dp),
+                modifier = Modifier.size(36.dp), // УМЕНЬШЕН РАЗМЕР
                 shape = MaterialTheme.shapes.small,
                 color = when {
-                    result.rank == 1 -> Color(0xFFFFD700) // Gold
-                    result.rank == 2 -> Color(0xFFC0C0C0) // Silver
-                    result.rank == 3 -> Color(0xFFCD7F32) // Bronze
+                    result.rank == 1 -> Color(0xFFFFD700)
+                    result.rank == 2 -> Color(0xFFC0C0C0)
+                    result.rank == 3 -> Color(0xFFCD7F32)
                     else -> MaterialTheme.colorScheme.primaryContainer
                 }
             ) {
                 Box(contentAlignment = Alignment.Center) {
                     Text(
                         "${result.rank}",
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleSmall, // УМЕНЬШЕН ШРИФТ
                         color = if (result.rank <= 3) Color.White else MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 }
             }
 
-            Spacer(Modifier.width(16.dp))
+            Spacer(Modifier.width(12.dp))
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     result.participantName,
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.bodyLarge // УМЕНЬШЕН ШРИФТ
                 )
-                Spacer(Modifier.height(4.dp))
                 Text(
-                    "${result.score}/${result.totalQuestions} réponses correctes",
+                    "${result.score}/${result.totalQuestions} correctes",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                 )
             }
 
-            // Score en процентах
+            // Score
             Surface(
                 shape = MaterialTheme.shapes.small,
                 color = when {
@@ -392,8 +400,8 @@ private fun ParticipantResultCard(result: ParticipantResult) {
             ) {
                 Text(
                     "${result.percentage}%",
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
-                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp), // УМЕНЬШЕН PADDING
+                    style = MaterialTheme.typography.titleSmall, // УМЕНЬШЕН ШРИФТ
                     color = when {
                         result.percentage >= 80 -> Color(0xFF4CAF50)
                         result.percentage >= 60 -> Color(0xFFFF9800)
