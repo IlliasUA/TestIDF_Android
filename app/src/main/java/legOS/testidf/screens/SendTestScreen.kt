@@ -1,7 +1,10 @@
 package legOS.testidf.screens
 
 import android.content.res.Configuration
+import android.graphics.BitmapFactory
+import android.util.Log
 import androidx.compose.animation.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,7 +14,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.painter.BitmapPainter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -19,6 +27,8 @@ import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 import legOS.testidf.viewmodel.Participant
 import legOS.testidf.viewmodel.SendTestViewModel
+import java.io.IOException
+import java.io.InputStream // Added explicit import
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,6 +40,19 @@ fun SendTestScreen(
     val uiState by viewModel.uiState.collectAsState()
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    val context = LocalContext.current
+
+    // Load background image
+    val backgroundImage = remember {
+        try {
+            context.assets.open("images/background_6.png").use { stream: InputStream ->
+                BitmapFactory.decodeStream(stream)?.asImageBitmap()
+            }
+        } catch (e: IOException) {
+            Log.e("SendTestScreen", "Error loading background_6.png", e)
+            null
+        }
+    }
 
     // Автоматическое скрытие сообщения об успехе
     LaunchedEffect(uiState.successMessage) {
@@ -48,6 +71,14 @@ fun SendTestScreen(
         Row(
             modifier = Modifier
                 .fillMaxSize()
+                .then(
+                    backgroundImage?.let {
+                        Modifier.paint(
+                            painter = BitmapPainter(it),
+                            contentScale = ContentScale.Crop
+                        )
+                    } ?: Modifier.background(MaterialTheme.colorScheme.background)
+                )
                 .systemBarsPadding()
                 .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -107,20 +138,27 @@ fun SendTestScreen(
                 modifier = Modifier
                     .weight(0.45f)
                     .fillMaxHeight(),
-                verticalArrangement = Arrangement.SpaceBetween
+                verticalArrangement = Arrangement.Top
             ) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.Top
                 ) {
                     Text(
                         "Envoyer le test",
-                        style = MaterialTheme.typography.headlineMedium
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.padding(bottom = 12.dp)
                     )
+                }
 
-                    // Код группы - ПОЛНАЯ ШИРИНА
+                // Код группы и информация о тесте
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    // Код группы
                     if (uiState.groupCode.isNotEmpty()) {
                         Card(
-                            modifier = Modifier.fillMaxWidth(), // ИЗМЕНЕНО
+                            modifier = Modifier.fillMaxWidth(),
                             colors = CardDefaults.cardColors(
                                 containerColor = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.5f)
                             )
@@ -154,8 +192,8 @@ fun SendTestScreen(
                         }
                     }
 
-                    // Информация о тесте - ПОЛНАЯ ШИРИНА
-                    Card(modifier = Modifier.fillMaxWidth()) { // ИЗМЕНЕНО
+                    // Информация о тесте
+                    Card(modifier = Modifier.fillMaxWidth()) {
                         Column(modifier = Modifier.padding(12.dp)) {
                             Text(
                                 uiState.sessionTitle,
@@ -233,6 +271,8 @@ fun SendTestScreen(
                     }
                 }
 
+                Spacer(modifier = Modifier.weight(1f)) // Push buttons to the bottom
+
                 // Кнопки
                 if (!uiState.testSent) {
                     Row(
@@ -278,7 +318,7 @@ fun SendTestScreen(
                                 navController.navigate("session_results/$sessionId")
                             },
                             enabled = uiState.hasCompletedTests,
-                            modifier = Modifier.wrapContentWidth() // ИЗМЕНЕНО
+                            modifier = Modifier.wrapContentWidth()
                         ) {
                             Icon(Icons.Default.Assessment, null, modifier = Modifier.size(18.dp))
                             Spacer(Modifier.width(8.dp))
@@ -293,6 +333,14 @@ fun SendTestScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .then(
+                    backgroundImage?.let {
+                        Modifier.paint(
+                            painter = BitmapPainter(it),
+                            contentScale = ContentScale.Crop
+                        )
+                    } ?: Modifier.background(MaterialTheme.colorScheme.background)
+                )
                 .systemBarsPadding()
                 .padding(16.dp)
         ) {
@@ -510,7 +558,7 @@ fun SendTestScreen(
                             navController.navigate("session_results/$sessionId")
                         },
                         enabled = uiState.hasCompletedTests,
-                        modifier = Modifier.wrapContentWidth() // ИЗМЕНЕНО
+                        modifier = Modifier.wrapContentWidth()
                     ) {
                         Icon(Icons.Default.Assessment, null, modifier = Modifier.size(20.dp))
                         Spacer(Modifier.width(8.dp))
