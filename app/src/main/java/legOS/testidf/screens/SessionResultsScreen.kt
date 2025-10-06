@@ -523,19 +523,6 @@ private fun AnswerDetailCard(
                     color = if (answer.isCorrect) Color(0xFF4CAF50) else Color(0xFFF44336)
                 )
             }
-
-            if (!answer.isCorrect) {
-                Spacer(Modifier.height(4.dp))
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.CheckCircle, null, Modifier.size(16.dp), tint = Color(0xFF4CAF50))
-                    Spacer(Modifier.width(8.dp))
-                    Text(
-                        "Correct: ${answer.correctAnswer}",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = Color(0xFF4CAF50)
-                    )
-                }
-            }
         }
     }
 }

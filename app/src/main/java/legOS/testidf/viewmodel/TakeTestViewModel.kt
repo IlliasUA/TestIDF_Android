@@ -44,12 +44,9 @@ class TakeTestViewModel : ViewModel() {
                 val questions = questionRefs.mapNotNull { ref ->
                     val name = ref["name"] as? String ?: return@mapNotNull null
                     val category = ref["category"] as? String ?: return@mapNotNull null
-                    val imagePath = ref["imagePath"] as? String  // Сохраняем полный путь
+                    val imagePath = ref["imagePath"] as? String
 
-                    // Находим вопрос и обновляем путь к изображению
                     val question = findQuestionByNameAndCategory(name, category)
-
-                    // Если imagePath передан из Firebase, используем его
                     question?.copy(image = imagePath ?: question.image)
                 }
 
@@ -79,14 +76,26 @@ class TakeTestViewModel : ViewModel() {
                 val userId = UserSession.userId ?: throw Exception("User not logged in")
                 val userName = UserSession.userName ?: "Anonyme"
 
-                // Подсчитываем результат
                 val questions = _uiState.value.questions
                 var score = 0
-                answers.forEachIndexed { index, answer ->
-                    if (answer == questions.getOrNull(index)?.correct) {
-                        score++
-                    }
+
+                // НОВОЕ: Формируем детальные ответы
+                val detailedAnswers = questions.mapIndexed { index, question ->
+                    val userAnswer = answers.getOrNull(index) ?: "Aucune réponse"
+                    val correctAnswer = question.correct
+                    val isCorrect = userAnswer == correctAnswer
+
+                    if (isCorrect) score++
+
+                    hashMapOf(
+                        "questionText" to correctAnswer, // Используем название как текст вопроса
+                        "userAnswer" to userAnswer,
+                        "correctAnswer" to correctAnswer,
+                        "isCorrect" to isCorrect
+                    )
                 }
+
+                Log.d("TakeTestVM", "Prepared ${detailedAnswers.size} detailed answers, score: $score")
 
                 val resultId = UUID.randomUUID().toString()
                 val resultData = hashMapOf(
@@ -94,17 +103,19 @@ class TakeTestViewModel : ViewModel() {
                     "sessionId" to sessionId,
                     "participantId" to userId,
                     "participantName" to userName,
-                    "answers" to answers,
+                    "answers" to detailedAnswers, // ИЗМЕНЕНО: детальные ответы вместо простого списка
                     "score" to score,
                     "totalQuestions" to questions.size,
                     "completedAt" to Timestamp.now(),
-                    "timeSpent" to 0 // TODO: добавить отслеживание времени
+                    "timeSpent" to 0
                 )
 
                 firestore.collection("test_results")
                     .document(resultId)
                     .set(resultData)
                     .await()
+
+                Log.d("TakeTestVM", "Results submitted successfully with detailed answers")
 
                 // Отмечаем уведомление как прочитанное
                 firestore.collection("notifications")
@@ -117,7 +128,6 @@ class TakeTestViewModel : ViewModel() {
                         doc.reference.update("isRead", true).await()
                     }
 
-                Log.d("TakeTestVM", "Results submitted: $score/${questions.size}")
                 onComplete(true)
 
             } catch (e: Exception) {

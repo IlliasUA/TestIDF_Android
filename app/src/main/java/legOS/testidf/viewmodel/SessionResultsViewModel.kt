@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import legOS.testidf.screens.Answer
 import legOS.testidf.screens.ParticipantResult
 
 data class SessionResultsUiState(
@@ -33,6 +34,8 @@ class SessionResultsViewModel : ViewModel() {
             _uiState.value = SessionResultsUiState(isLoading = true)
 
             try {
+                Log.d("SessionResultsVM", "Loading results for session: $sessionId")
+
                 // Загружаем информацию о сессии
                 val sessionDoc = firestore.collection("test_sessions")
                     .document(sessionId)
@@ -43,27 +46,71 @@ class SessionResultsViewModel : ViewModel() {
                 val questionRefs = sessionDoc.get("questionRefs") as? List<*> ?: emptyList<Any>()
                 val timeLimit = (sessionDoc.getLong("timeLimit") ?: 15).toInt()
 
+                Log.d("SessionResultsVM", "Session info loaded: $title")
+
                 // Загружаем результаты
                 val resultsSnapshot = firestore.collection("test_results")
                     .whereEqualTo("sessionId", sessionId)
                     .get()
                     .await()
 
-                val results = resultsSnapshot.documents.map { doc ->
+                Log.d("SessionResultsVM", "Found ${resultsSnapshot.size()} results")
+
+                val results = mutableListOf<ParticipantResult>()
+
+                for (doc in resultsSnapshot.documents) {
+                    val participantId = doc.getString("participantId") ?: continue
+                    val participantName = doc.getString("participantName") ?: "Anonyme"
                     val score = (doc.getLong("score") ?: 0).toInt()
                     val total = (doc.getLong("totalQuestions") ?: 1).toInt()
                     val percentage = if (total > 0) (score * 100) / total else 0
 
-                    ParticipantResult(
-                        participantId = doc.getString("participantId") ?: "",
-                        participantName = doc.getString("participantName") ?: "Anonyme",
-                        score = score,
-                        totalQuestions = total,
-                        percentage = percentage
-                    )
-                }.sortedByDescending { it.score }
+                    // КРИТИЧНО: Загружаем детальные ответы
+                    val answersData = doc.get("answers") as? List<*> ?: emptyList<Any>()
 
-                // Добавляем ранги
+                    Log.d("SessionResultsVM", "Raw answers data type: ${answersData.javaClass.name}")
+                    Log.d("SessionResultsVM", "Answers data size: ${answersData.size}")
+
+                    val answers = answersData.mapNotNull { answerItem ->
+                        try {
+                            when (answerItem) {
+                                is Map<*, *> -> {
+                                    // Новый формат - детальные ответы
+                                    Answer(
+                                        questionText = answerItem["questionText"] as? String ?: "",
+                                        userAnswer = answerItem["userAnswer"] as? String ?: "",
+                                        correctAnswer = answerItem["correctAnswer"] as? String ?: "",
+                                        isCorrect = answerItem["isCorrect"] as? Boolean ?: false
+                                    )
+                                }
+                                else -> {
+                                    Log.w("SessionResultsVM", "Unexpected answer format: ${answerItem?.javaClass?.name}")
+                                    null
+                                }
+                            }
+                        } catch (e: Exception) {
+                            Log.e("SessionResultsVM", "Error parsing answer", e)
+                            null
+                        }
+                    }
+
+                    Log.d("SessionResultsVM", "Participant: $participantName, Score: $score/$total, Answers: ${answers.size}")
+
+                    results.add(
+                        ParticipantResult(
+                            participantId = participantId,
+                            participantName = participantName,
+                            score = score,
+                            totalQuestions = total,
+                            percentage = percentage,
+                            rank = 0,
+                            answers = answers
+                        )
+                    )
+                }
+
+                // Сортируем и присваиваем ранги
+                results.sortByDescending { it.score }
                 val rankedResults = results.mapIndexed { index, result ->
                     result.copy(rank = index + 1)
                 }
@@ -84,7 +131,7 @@ class SessionResultsViewModel : ViewModel() {
                     bestScore = bestScore
                 )
 
-                Log.d("SessionResultsVM", "Loaded ${results.size} results")
+                Log.d("SessionResultsVM", "Successfully loaded ${rankedResults.size} results")
 
             } catch (e: Exception) {
                 Log.e("SessionResultsVM", "Error loading results", e)
