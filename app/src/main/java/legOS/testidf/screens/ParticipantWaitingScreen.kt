@@ -1,5 +1,9 @@
 package legOS.testidf.screens
 
+import android.content.res.Configuration
+import android.graphics.BitmapFactory
+import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -9,6 +13,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.painter.BitmapPainter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -16,6 +26,8 @@ import androidx.navigation.NavController
 import legOS.testidf.data.UserSession
 import legOS.testidf.viewmodel.ParticipantRegistrationViewModel
 import legOS.testidf.viewmodel.ParticipantWaitingViewModel
+import java.io.IOException
+import java.io.InputStream
 
 @Composable
 fun ParticipantWaitingScreen(
@@ -25,8 +37,23 @@ fun ParticipantWaitingScreen(
 ) {
     val uiState by waitingViewModel.uiState.collectAsState()
     val registrationUiState by registrationViewModel.uiState.collectAsState()
+    val context = LocalContext.current
+    val configuration = LocalConfiguration.current
+    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     var showLeaveDialog by remember { mutableStateOf(false) }
+
+    // Load background image
+    val backgroundImage = remember {
+        try {
+            context.assets.open("images/background_6.png").use { stream: InputStream ->
+                BitmapFactory.decodeStream(stream)?.asImageBitmap()
+            }
+        } catch (e: IOException) {
+            Log.e("ParticipantWaitingScreen", "Error loading background_6.png", e)
+            null
+        }
+    }
 
     // Начинаем слушать уведомления
     LaunchedEffect(Unit) {
@@ -43,117 +70,271 @@ fun ParticipantWaitingScreen(
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .systemBarsPadding()  // Безопасная зона
-            .padding(16.dp)
-    ) {
-        // Заголовок
-        Text(
-            "Bienvenue, ${UserSession.userName}!",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-
-        // Статус
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
-            )
+    if (isLandscape) {
+        // ГОРИЗОНТАЛЬНЫЙ РЕЖИМ
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .then(
+                    backgroundImage?.let {
+                        Modifier.paint(
+                            painter = BitmapPainter(it),
+                            contentScale = ContentScale.Crop
+                        )
+                    } ?: Modifier.background(MaterialTheme.colorScheme.background)
+                )
+                .systemBarsPadding()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Row(
-                modifier = Modifier.padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
+            // ЛЕВАЯ ЧАСТЬ - Приветствие и кнопка "Quitter le groupe"
+            Column(
+                modifier = Modifier
+                    .weight(0.4f)
+                    .fillMaxHeight(),
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
-                if (uiState.availableTests.isEmpty()) {
-                    CircularProgressIndicator(modifier = Modifier.size(24.dp))
-                    Spacer(Modifier.width(16.dp))
+                Column {
                     Text(
-                        "En attente d'un test...",
-                        style = MaterialTheme.typography.bodyLarge
+                        "Bienvenue, ${UserSession.userName}!",
+                        style = MaterialTheme.typography.headlineMedium,
+                        modifier = Modifier.padding(bottom = 16.dp)
                     )
-                } else {
+                }
+
+                // Кнопка выхода из группы
+                OutlinedButton(
+                    onClick = { showLeaveDialog = true },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
                     Icon(
-                        Icons.Default.Notifications,
+                        Icons.Default.ExitToApp,
                         null,
-                        tint = MaterialTheme.colorScheme.primary
+                        modifier = Modifier.size(18.dp)
                     )
-                    Spacer(Modifier.width(16.dp))
+                    Spacer(Modifier.width(8.dp))
+                    Text("Quitter le groupe")
+                }
+            }
+
+            // ПРАВАЯ ЧАСТЬ - Статус и список тестов/информативный текст
+            Column(
+                modifier = Modifier
+                    .weight(0.6f)
+                    .fillMaxHeight(),
+                verticalArrangement = Arrangement.Top
+            ) {
+                // Статус
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                    )
+                ) {
+                    Row(
+                        modifier = Modifier.padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if (uiState.availableTests.isEmpty()) {
+                            CircularProgressIndicator(modifier = Modifier.size(24.dp))
+                            Spacer(Modifier.width(16.dp))
+                            Text(
+                                "En attente d'un test...",
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        } else {
+                            Icon(
+                                Icons.Default.Notifications,
+                                null,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(Modifier.width(16.dp))
+                            Text(
+                                "${uiState.availableTests.size} test(s) disponible(s)",
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
+                    }
+                }
+
+                Spacer(Modifier.height(16.dp))
+
+                // Список тестов
+                if (uiState.availableTests.isEmpty()) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Top
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.HourglassEmpty,
+                            contentDescription = null,
+                            modifier = Modifier.size(64.dp),
+                            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+                        )
+                        Spacer(Modifier.height(16.dp))
+                        Text(
+                            "Le chef va bientôt envoyer un test.\nVous serez notifié automatiquement.",
+                            style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                        )
+                    }
+                } else {
                     Text(
-                        "${uiState.availableTests.size} test(s) disponible(s)",
-                        style = MaterialTheme.typography.bodyLarge
+                        "Tests disponibles:",
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(bottom = 8.dp)
                     )
+
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        contentPadding = PaddingValues(bottom = 8.dp)
+                    ) {
+                        items(uiState.availableTests) { test ->
+                            TestCard(
+                                title = test.title,
+                                questionCount = test.questionCount,
+                                timeLimit = test.timeLimit,
+                                onStartClick = {
+                                    navController.navigate("take_test/${test.sessionId}")
+                                }
+                            )
+                        }
+                    }
                 }
             }
         }
+    } else {
+        // ВЕРТИКАЛЬНЫЙ РЕЖИМ
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .then(
+                    backgroundImage?.let {
+                        Modifier.paint(
+                            painter = BitmapPainter(it),
+                            contentScale = ContentScale.Crop
+                        )
+                    } ?: Modifier.background(MaterialTheme.colorScheme.background)
+                )
+                .systemBarsPadding()
+                .padding(16.dp)
+        ) {
+            // Заголовок
+            Text(
+                "Bienvenue, ${UserSession.userName}!",
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
 
-        Spacer(Modifier.height(16.dp))
+            // Статус
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                )
+            ) {
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    if (uiState.availableTests.isEmpty()) {
+                        CircularProgressIndicator(modifier = Modifier.size(24.dp))
+                        Spacer(Modifier.width(16.dp))
+                        Text(
+                            "En attente d'un test...",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.Notifications,
+                            null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(Modifier.width(16.dp))
+                        Text(
+                            "${uiState.availableTests.size} test(s) disponible(s)",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+                }
+            }
 
-        // Список тестов
-        if (uiState.availableTests.isEmpty()) {
-            Column(
-                modifier = Modifier.weight(1f),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+            Spacer(Modifier.weight(1f)) // Push content to bottom
+
+            // Информативный текст (если нет тестов)
+            if (uiState.availableTests.isEmpty()) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.HourglassEmpty,
+                        contentDescription = null,
+                        modifier = Modifier.size(64.dp),
+                        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+                    )
+                    Spacer(Modifier.height(16.dp))
+                    Text(
+                        "Le chef va bientôt envoyer un test.\nVous serez notifié automatiquement.",
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Center,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                    )
+                }
+            } else {
+                Text(
+                    "Tests disponibles:",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    contentPadding = PaddingValues(bottom = 8.dp)
+                ) {
+                    items(uiState.availableTests) { test ->
+                        TestCard(
+                            title = test.title,
+                            questionCount = test.questionCount,
+                            timeLimit = test.timeLimit,
+                            onStartClick = {
+                                navController.navigate("take_test/${test.sessionId}")
+                            }
+                        )
+                    }
+                }
+            }
+
+            // Кнопка выхода из группы
+            OutlinedButton(
+                onClick = { showLeaveDialog = true },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = MaterialTheme.colorScheme.error
+                )
             ) {
                 Icon(
-                    imageVector = Icons.Default.HourglassEmpty,
-                    contentDescription = null,
-                    modifier = Modifier.size(64.dp),
-                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+                    Icons.Default.ExitToApp,
+                    null,
+                    modifier = Modifier.size(18.dp)
                 )
-                Spacer(Modifier.height(16.dp))
-                Text(
-                    "Le chef va bientôt envoyer un test.\nVous serez notifié automatiquement.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                )
+                Spacer(Modifier.width(8.dp))
+                Text("Quitter le groupe")
             }
-        } else {
-            Text(
-                "Tests disponibles:",
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-
-            LazyColumn(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                contentPadding = PaddingValues(bottom = 8.dp)
-            ) {
-                items(uiState.availableTests) { test ->
-                    TestCard(
-                        title = test.title,
-                        questionCount = test.questionCount,
-                        timeLimit = test.timeLimit,
-                        onStartClick = {
-                            navController.navigate("take_test/${test.sessionId}")
-                        }
-                    )
-                }
-            }
-        }
-
-        Spacer(Modifier.height(16.dp))
-
-        // Кнопка выхода из группы
-        OutlinedButton(
-            onClick = { showLeaveDialog = true },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.outlinedButtonColors(
-                contentColor = MaterialTheme.colorScheme.error
-            )
-        ) {
-            Icon(
-                Icons.Default.ExitToApp,
-                null,
-                modifier = Modifier.size(18.dp)
-            )
-            Spacer(Modifier.width(8.dp))
-            Text("Quitter le groupe")
         }
     }
 
