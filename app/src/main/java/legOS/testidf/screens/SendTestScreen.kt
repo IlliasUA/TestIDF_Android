@@ -16,6 +16,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
@@ -202,7 +203,7 @@ fun SendTestScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("Mes tests", style = MaterialTheme.typography.titleLarge)
+                    Text("      ", style = MaterialTheme.typography.titleLarge)
 
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         IconButton(onClick = { scope.launch { loadTests() } }) {
@@ -213,7 +214,7 @@ fun SendTestScreen(
                             Icon(Icons.Default.Home, "Menu principal")
                         }
 
-                        FilledTonalButton(onClick = {
+                        Button(onClick = {
                             val testName = "Test ${System.currentTimeMillis()}"
                             navController.currentBackStackEntry?.savedStateHandle?.set("testName", testName)
                             navController.navigate("creation_online")
@@ -395,7 +396,7 @@ fun SendTestScreen(
 
             TabRow(
                 selectedTabIndex = selectedTab,
-                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
+                containerColor = Color.Transparent,
                 contentColor = MaterialTheme.colorScheme.onSurface
             ) {
                 Tab(
@@ -590,11 +591,18 @@ fun SendTestScreen(
     if (showExitConfirmDialog) {
         AlertDialog(
             onDismissRequest = { showExitConfirmDialog = false },
-            title = { Text("Quitter vers le menu principal ?") },
+            title = {
+                Text(
+                    "Quitter vers le menu principal ?",
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            },
             text = {
                 Text(
                     "Cela supprimera la session de groupe actuelle. Cette action est irréversible.",
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             },
             confirmButton = {
