@@ -57,7 +57,7 @@ class FirebaseRepository {
                 "title" to title,
                 "questionRefs" to questionRefs,
                 "participantIds" to participantIds,
-                "status" to "pending",
+                "status" to "ready",
                 "timeLimit" to timeLimit,
                 "createdAt" to Timestamp.now()
             )

@@ -1,102 +1,133 @@
 package legOS.testidf.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.util.UUID
+import legOS.testidf.data.UserSession
 
 data class Participant(
-    val userId: String = "",
+    val id: String = "",
     val name: String = ""
 )
 
 data class SendTestUiState(
     val isLoading: Boolean = false,
-    val isSending: Boolean = false,
     val error: String? = null,
     val successMessage: String? = null,
-    val sessionTitle: String = "",
-    val questionCount: Int = 0,
-    val timeLimit: Int = 0,
     val participants: List<Participant> = emptyList(),
-    val notifiedParticipants: Set<String> = emptySet(),
     val groupCode: String = "",
+    val isSending: Boolean = false,
     val testSent: Boolean = false,
-    val hasCompletedTests: Boolean = false
+    val hasCompletedTests: Boolean = false,
+    val lastSentTestId: String? = null // ДОБАВЛЕНО
 )
 
-class SendTestViewModel(
-    private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
+class SendTestViewModel : ViewModel() {
 
     private val firestore = FirebaseFirestore.getInstance()
-    private var sessionListener: ListenerRegistration? = null
-    private var resultsListener: ListenerRegistration? = null  // ДОБАВЛЕНО
+    private var groupListener: ListenerRegistration? = null
+    private var resultsListener: ListenerRegistration? = null
+    private var currentSessionId: String? = null
 
-    private val _uiState = MutableStateFlow(
-        SendTestUiState(
-            testSent = savedStateHandle.get<Boolean>("testSent") ?: false
-        )
-    )
+    private val _uiState = MutableStateFlow(SendTestUiState())
     val uiState: StateFlow<SendTestUiState> = _uiState
 
     fun loadSession(sessionId: String) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
+            currentSessionId = sessionId
 
             try {
-                Log.d("SendTestVM", "Setting up real-time listener for session: $sessionId")
+                val groupId = UserSession.groupId
 
-                // Слушатель сессии
-                sessionListener = firestore.collection("test_sessions")
-                    .document(sessionId)
-                    .addSnapshotListener { snapshot, error ->
-                        if (error != null) {
-                            Log.e("SendTestVM", "Error listening to session", error)
-                            _uiState.value = _uiState.value.copy(
-                                isLoading = false,
-                                error = "Erreur: ${error.message}"
-                            )
-                            return@addSnapshotListener
-                        }
+                if (groupId != null) {
+                    val groupDoc = firestore.collection("groups")
+                        .document(groupId)
+                        .get()
+                        .await()
 
-                        if (snapshot != null && snapshot.exists()) {
-                            viewModelScope.launch {
-                                processSessionUpdate(sessionId, snapshot.data ?: emptyMap())
-                            }
-                        } else {
-                            Log.e("SendTestVM", "Session document doesn't exist")
-                            _uiState.value = _uiState.value.copy(
-                                isLoading = false,
-                                error = "Session introuvable"
-                            )
-                        }
+                    val groupCode = groupDoc.getString("groupCode") ?: ""
+
+                    // ДОБАВЛЕНО: Загружаем последний отправленный тест
+                    val lastSentTestId = groupDoc.getString("lastSentTestId")
+
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        groupCode = groupCode,
+                        lastSentTestId = lastSentTestId
+                    )
+
+                    startListeningToGroup(groupId, sessionId)
+
+                    // ИЗМЕНЕНО: Слушаем результаты только для последнего отправленного теста
+                    if (lastSentTestId != null) {
+                        startListeningToResults(lastSentTestId)
                     }
 
-                // НОВОЕ: Слушатель результатов
-                setupResultsListener(sessionId)
-
+                    Log.d("SendTestVM", "Last sent test: $lastSentTestId")
+                } else {
+                    Log.e("SendTestVM", "GroupId is null")
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        error = "Groupe non trouvé"
+                    )
+                }
             } catch (e: Exception) {
-                Log.e("SendTestVM", "Error setting up session listener", e)
+                Log.e("SendTestVM", "Error loading session", e)
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
-                    error = "Erreur de chargement: ${e.message}"
+                    error = "Erreur: ${e.message}"
                 )
             }
         }
     }
 
-    // НОВЫЙ МЕТОД: Отслеживание результатов в реальном времени
-    private fun setupResultsListener(sessionId: String) {
-        Log.d("SendTestVM", "Setting up results listener for session: $sessionId")
+    private fun startListeningToGroup(groupId: String, sessionId: String) {
+        groupListener?.remove()
+
+        groupListener = firestore.collection("groups")
+            .document(groupId)
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    Log.e("SendTestVM", "Error listening to group", error)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    val participantIds = snapshot.get("participantIds") as? List<*> ?: emptyList<Any>()
+
+                    // ДОБАВЛЕНО: Отслеживаем изменения lastSentTestId
+                    val lastSentTestId = snapshot.getString("lastSentTestId")
+                    val currentLastSent = _uiState.value.lastSentTestId
+
+                    if (lastSentTestId != currentLastSent) {
+                        Log.d("SendTestVM", "🔄 Last sent test changed: $currentLastSent -> $lastSentTestId")
+                        _uiState.value = _uiState.value.copy(lastSentTestId = lastSentTestId)
+
+                        // Переключаем слушатель результатов на новый тест
+                        if (lastSentTestId != null) {
+                            startListeningToResults(lastSentTestId)
+                        } else {
+                            _uiState.value = _uiState.value.copy(hasCompletedTests = false)
+                        }
+                    }
+
+                    Log.d("SendTestVM", "🔄 Group updated, participants: ${participantIds.size}")
+                    loadParticipants(participantIds)
+                }
+            }
+    }
+
+    private fun startListeningToResults(sessionId: String) {
+        resultsListener?.remove()
+
+        Log.d("SendTestVM", "📊 Listening to results for test: $sessionId")
 
         resultsListener = firestore.collection("test_results")
             .whereEqualTo("sessionId", sessionId)
@@ -107,82 +138,46 @@ class SendTestViewModel(
                 }
 
                 val hasCompleted = snapshot != null && !snapshot.isEmpty
-                Log.d("SendTestVM", "Results updated - Has completed tests: $hasCompleted (${snapshot?.size() ?: 0} results)")
+                Log.d("SendTestVM", "📊 Results updated for $sessionId: hasCompleted = $hasCompleted (${snapshot?.size()} results)")
 
-                _uiState.value = _uiState.value.copy(hasCompletedTests = hasCompleted)
+                _uiState.value = _uiState.value.copy(
+                    hasCompletedTests = hasCompleted
+                )
             }
     }
 
-    private suspend fun processSessionUpdate(sessionId: String, data: Map<String, Any>) {
-        try {
-            val title = data["title"] as? String ?: "Test"
-            val questionRefs = data["questionRefs"] as? List<*> ?: emptyList<Any>()
-            val timeLimit = (data["timeLimit"] as? Long ?: 15).toInt()
-            val participantIds = data["participantIds"] as? List<String> ?: emptyList()
-            val groupId = data["groupId"] as? String ?: ""
-            val status = data["status"] as? String ?: "pending"
+    private fun loadParticipants(participantIds: List<*>) {
+        viewModelScope.launch {
+            try {
+                val participants = mutableListOf<Participant>()
 
-            Log.d("SendTestVM", "Session updated - Status: $status, Participants: ${participantIds.size}")
+                participantIds.forEach { participantId ->
+                    try {
+                        val userDoc = firestore.collection("users")
+                            .document(participantId.toString())
+                            .get()
+                            .await()
 
-            val testSent = status == "active"
-            savedStateHandle["testSent"] = testSent
-
-            // Загружаем код группы
-            var groupCode = ""
-            if (groupId.isNotEmpty()) {
-                try {
-                    val groupDoc = firestore.collection("groups")
-                        .document(groupId)
-                        .get()
-                        .await()
-                    groupCode = groupDoc.getString("groupCode") ?: ""
-                } catch (e: Exception) {
-                    Log.e("SendTestVM", "Error loading group code", e)
-                }
-            }
-
-            // Загружаем участников
-            val participants = mutableListOf<Participant>()
-            for (participantId in participantIds) {
-                try {
-                    val userDoc = firestore.collection("users")
-                        .document(participantId)
-                        .get()
-                        .await()
-
-                    if (userDoc.exists()) {
-                        val participantName = userDoc.getString("name") ?: "Anonyme"
+                        val name = userDoc.getString("name") ?: "Anonyme"
                         participants.add(
                             Participant(
-                                userId = participantId,
-                                name = participantName
+                                id = participantId.toString(),
+                                name = name
                             )
                         )
+                    } catch (e: Exception) {
+                        Log.e("SendTestVM", "Error loading participant $participantId", e)
                     }
-                } catch (e: Exception) {
-                    Log.e("SendTestVM", "Error loading participant $participantId", e)
                 }
+
+                Log.d("SendTestVM", "✅ Loaded ${participants.size} participants")
+
+                _uiState.value = _uiState.value.copy(
+                    participants = participants
+                )
+            } catch (e: Exception) {
+                Log.e("SendTestVM", "Error loading participants", e)
             }
-
-            Log.d("SendTestVM", "Total participants loaded: ${participants.size}, Test sent: $testSent")
-
-            // Обновляем состояние (hasCompletedTests обновляется слушателем)
-            _uiState.value = _uiState.value.copy(
-                sessionTitle = title,
-                questionCount = questionRefs.size,
-                timeLimit = timeLimit,
-                participants = participants,
-                groupCode = groupCode,
-                testSent = testSent,
-                notifiedParticipants = if (testSent) participants.map { it.userId }.toSet() else emptySet()
-            )
-
-        } catch (e: Exception) {
-            Log.e("SendTestVM", "Error processing session update", e)
-            _uiState.value = _uiState.value.copy(
-                isLoading = false,
-                error = "Erreur: ${e.message}"
-            )
         }
     }
 
@@ -190,66 +185,128 @@ class SendTestViewModel(
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isSending = true)
 
+            Log.d("SendTestVM", "========================================")
+            Log.d("SendTestVM", "🚀 Starting to send test: $sessionId")
+
             try {
                 val participants = _uiState.value.participants
+                val groupId = UserSession.groupId
+
+                Log.d("SendTestVM", "Participants count: ${participants.size}")
+                Log.d("SendTestVM", "Group ID: $groupId")
 
                 if (participants.isEmpty()) {
                     _uiState.value = _uiState.value.copy(
                         isSending = false,
-                        error = "Aucun participant dans la session"
+                        error = "Aucun participant dans le groupe"
                     )
                     return@launch
                 }
 
-                val notified = mutableSetOf<String>()
-
-                for (participant in participants) {
-                    try {
-                        val notificationId = UUID.randomUUID().toString()
-                        val notificationData = hashMapOf(
-                            "notificationId" to notificationId,
-                            "type" to "test_available",
-                            "sessionId" to sessionId,
-                            "recipientId" to participant.userId,
-                            "title" to "Nouveau test disponible",
-                            "message" to "Le chef a envoyé un nouveau test: ${_uiState.value.sessionTitle}",
-                            "isRead" to false,
-                            "createdAt" to Timestamp.now()
-                        )
-
-                        firestore.collection("notifications")
-                            .document(notificationId)
-                            .set(notificationData)
-                            .await()
-
-                        notified.add(participant.userId)
-                        Log.d("SendTestVM", "Notification sent to ${participant.name}")
-                    } catch (e: Exception) {
-                        Log.e("SendTestVM", "Error sending notification to ${participant.name}", e)
-                    }
+                if (groupId == null) {
+                    _uiState.value = _uiState.value.copy(
+                        isSending = false,
+                        error = "Groupe non trouvé"
+                    )
+                    return@launch
                 }
 
-                firestore.collection("test_sessions")
+                val sessionDoc = firestore.collection("test_sessions")
                     .document(sessionId)
-                    .update("status", "active")
+                    .get()
                     .await()
 
-                savedStateHandle["testSent"] = true
+                val testTitle = sessionDoc.getString("title") ?: "Test"
+                Log.d("SendTestVM", "Test title: $testTitle")
+
+                // Деактивируем старые уведомления
+                val previousTestId = _uiState.value.lastSentTestId
+                Log.d("SendTestVM", "Previous test ID: $previousTestId")
+                Log.d("SendTestVM", "Current test ID: $sessionId")
+
+                if (previousTestId != null && previousTestId != sessionId) {
+                    Log.d("SendTestVM", "⚠️ Deactivating previous test: $previousTestId")
+
+                    val oldNotifications = firestore.collection("notifications")
+                        .whereEqualTo("sessionId", previousTestId)
+                        .whereEqualTo("type", "test_invitation")
+                        .get()
+                        .await()
+
+                    Log.d("SendTestVM", "Found ${oldNotifications.size()} old notifications to deactivate")
+
+                    oldNotifications.documents.forEach { doc ->
+                        Log.d("SendTestVM", "Deactivating notification: ${doc.id}")
+                        doc.reference.update(
+                            mapOf(
+                                "isActive" to false,
+                                "deactivatedAt" to com.google.firebase.Timestamp.now()
+                            )
+                        ).await()
+                    }
+
+                    Log.d("SendTestVM", "✅ Deactivated ${oldNotifications.size()} old notifications")
+                } else {
+                    Log.d("SendTestVM", "No previous test to deactivate")
+                }
+
+                // Отправляем новые уведомления
+                Log.d("SendTestVM", "📨 Creating new notifications...")
+                var notificationCount = 0
+
+                participants.forEach { participant ->
+                    Log.d("SendTestVM", "Creating notification for: ${participant.name} (${participant.id})")
+
+                    val notificationData = hashMapOf(
+                        "recipientId" to participant.id,
+                        "sessionId" to sessionId,
+                        "title" to "Nouveau test disponible",
+                        "message" to testTitle,
+                        "type" to "test_invitation",
+                        "isRead" to false,
+                        "isActive" to true,
+                        "createdAt" to com.google.firebase.Timestamp.now()
+                    )
+
+                    val docRef = firestore.collection("notifications")
+                        .add(notificationData)
+                        .await()
+
+                    notificationCount++
+                    Log.d("SendTestVM", "✅ Created notification: ${docRef.id}")
+                }
+
+                Log.d("SendTestVM", "✅ Created $notificationCount new notifications")
+
+                // Обновляем lastSentTestId в группе
+                Log.d("SendTestVM", "Updating group lastSentTestId...")
+                firestore.collection("groups")
+                    .document(groupId)
+                    .update("lastSentTestId", sessionId)
+                    .await()
+
+                Log.d("SendTestVM", "✅ Updated lastSentTestId to: $sessionId")
+                Log.d("SendTestVM", "✅ TEST SENT SUCCESSFULLY!")
+                Log.d("SendTestVM", "========================================")
 
                 _uiState.value = _uiState.value.copy(
                     isSending = false,
                     testSent = true,
-                    notifiedParticipants = notified,
-                    successMessage = "Test envoyé à ${notified.size} participant(s)!"
+                    successMessage = "Test envoyé à ${participants.size} participants",
+                    lastSentTestId = sessionId,
+                    hasCompletedTests = false
                 )
 
-                Log.d("SendTestVM", "Test sent successfully")
+                startListeningToResults(sessionId)
 
             } catch (e: Exception) {
-                Log.e("SendTestVM", "Error sending test", e)
+                Log.e("SendTestVM", "❌ ERROR sending test", e)
+                Log.e("SendTestVM", "Error details: ${e.message}")
+                e.printStackTrace()
+
                 _uiState.value = _uiState.value.copy(
                     isSending = false,
-                    error = "Erreur d'envoi: ${e.message}"
+                    error = "Erreur lors de l'envoi: ${e.message}"
                 )
             }
         }
@@ -261,8 +318,8 @@ class SendTestViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        sessionListener?.remove()
-        resultsListener?.remove()  // ДОБАВЛЕНО
-        Log.d("SendTestVM", "Listeners removed")
+        groupListener?.remove()
+        resultsListener?.remove()
+        Log.d("SendTestVM", "All listeners removed")
     }
 }

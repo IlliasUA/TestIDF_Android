@@ -9,12 +9,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import legOS.testidf.data.UserSession
-import legOS.testidf.screens.TestSession
+import legOS.testidf.screens.ChefTestSession
 
 data class ChefSessionsUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
-    val sessions: List<TestSession> = emptyList()
+    val sessions: List<ChefTestSession> = emptyList()
 )
 
 class ChefSessionsViewModel : ViewModel() {
@@ -39,15 +39,16 @@ class ChefSessionsViewModel : ViewModel() {
                 val sessions = sessionsSnapshot.documents.map { doc ->
                     val questionRefs = doc.get("questionRefs") as? List<*> ?: emptyList<Any>()
                     val participantIds = doc.get("participantIds") as? List<*> ?: emptyList<Any>()
-                    val createdAt = doc.getTimestamp("createdAt")?.toDate()?.time ?: 0L
+                    val createdAtTimestamp = doc.getTimestamp("createdAt")?.toDate()?.time ?: 0L
 
-                    TestSession(
+                    // ИЗМЕНЕНО: Используем ChefTestSession вместо TestSession
+                    ChefTestSession(
                         sessionId = doc.id,
                         title = doc.getString("title") ?: "Test sans titre",
                         questionCount = questionRefs.size,
                         participantCount = participantIds.size,
                         status = doc.getString("status") ?: "pending",
-                        createdAt = createdAt
+                        createdAt = createdAtTimestamp
                     )
                 }.sortedByDescending { it.createdAt }
 

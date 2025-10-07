@@ -45,6 +45,7 @@ fun AdminRegistrationScreen(
 
     var showGroupCodeDialog by rememberSaveable { mutableStateOf(false) }
     var groupCode by rememberSaveable { mutableStateOf("") }
+    var sessionId by rememberSaveable { mutableStateOf("") } // ДОБАВЛЕНО
     var showCopiedMessage by remember { mutableStateOf(false) }
 
     val uiState by viewModel.uiState.collectAsState()
@@ -432,7 +433,8 @@ fun AdminRegistrationScreen(
                 Button(
                     onClick = {
                         showGroupCodeDialog = false
-                        navController.navigate("creation_online") {
+                        // ИЗМЕНЕНО: переход к send_test с sessionId
+                        navController.navigate("send_test/$sessionId") {
                             popUpTo("competition") { inclusive = true }
                         }
                     },

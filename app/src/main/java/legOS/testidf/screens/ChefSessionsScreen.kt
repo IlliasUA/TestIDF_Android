@@ -23,6 +23,16 @@ import legOS.testidf.viewmodel.ChefSessionsViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
+// ПЕРЕИМЕНОВАНО: ChefTestSession вместо TestSession
+data class ChefTestSession(
+    val sessionId: String = "",
+    val title: String = "",
+    val questionCount: Int = 0,
+    val participantCount: Int = 0,
+    val status: String = "pending",
+    val createdAt: Long = 0
+)
+
 @Composable
 fun ChefSessionsScreen(
     navController: NavController,
@@ -197,7 +207,7 @@ private fun StatItem(
 
 @Composable
 private fun SessionCard(
-    session: TestSession,
+    session: ChefTestSession, // ИЗМЕНЕНО
     onClick: () -> Unit
 ) {
     Card(
@@ -269,13 +279,3 @@ private fun formatDate(timestamp: Long): String {
     val sdf = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.FRENCH)
     return sdf.format(Date(timestamp))
 }
-
-// Модель данных для сессии
-data class TestSession(
-    val sessionId: String = "",
-    val title: String = "",
-    val questionCount: Int = 0,
-    val participantCount: Int = 0,
-    val status: String = "pending",
-    val createdAt: Long = 0
-)
