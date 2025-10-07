@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,7 +32,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.quizapp.*
 import kotlinx.coroutines.delay
-import legOS.testidf.data.UserSession
 import legOS.testidf.loadImageFromAssets
 import legOS.testidf.viewmodel.TakeTestViewModel
 import java.io.IOException
@@ -56,30 +54,27 @@ fun TakeTestScreen(
     var timeRemaining by rememberSaveable { mutableIntStateOf(0) }
     var answers by rememberSaveable { mutableStateOf(mutableListOf<String?>()) }
     var showQuitConfirmation by rememberSaveable { mutableStateOf(false) }
+    var isSubmitting by rememberSaveable { mutableStateOf(false) }
 
-    // Загружаем вопросы при открытии экрана
     LaunchedEffect(sessionId) {
         viewModel.loadTestQuestions(sessionId)
     }
 
-    // Инициализируем timeRemaining когда загрузились вопросы
     LaunchedEffect(uiState.questions.isNotEmpty(), currentQuestionIndex) {
         if (timeRemaining == 0 && uiState.timeLimit > 0) {
             timeRemaining = uiState.timeLimit
         }
     }
 
-    // Таймер
-    LaunchedEffect(currentQuestionIndex, uiState.questions.size) {
-        if (uiState.questions.isEmpty()) return@LaunchedEffect
+    LaunchedEffect(currentQuestionIndex, uiState.questions.size, isSubmitting) {
+        if (uiState.questions.isEmpty() || isSubmitting) return@LaunchedEffect
 
-        while (timeRemaining > 0 && currentQuestionIndex < uiState.questions.size) {
+        while (timeRemaining > 0 && currentQuestionIndex < uiState.questions.size && !isSubmitting) {
             delay(1000L)
             timeRemaining--
         }
 
-        if (timeRemaining <= 0 && currentQuestionIndex < uiState.questions.size) {
-            // Время истекло - автоответ
+        if (timeRemaining <= 0 && currentQuestionIndex < uiState.questions.size && !isSubmitting) {
             answers.add(null)
             Log.d("TakeTestScreen", "Auto answer: null at index $currentQuestionIndex")
 
@@ -87,13 +82,14 @@ fun TakeTestScreen(
                 currentQuestionIndex++
                 timeRemaining = uiState.timeLimit
             } else {
-                // Завершаем тест
-                submitTest(viewModel, sessionId, answers, navController)
+                if (!isSubmitting) {
+                    isSubmitting = true
+                    submitTest(viewModel, sessionId, answers, navController)
+                }
             }
         }
     }
 
-    // Фон
     val backgroundImage = remember {
         try {
             context.assets.open("images/background_6.png").use { inputStream ->
@@ -104,18 +100,22 @@ fun TakeTestScreen(
         }
     }
 
-    // Показываем загрузку
-    if (uiState.isLoading) {
+    if (uiState.isLoading || isSubmitting) {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            CircularProgressIndicator()
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                CircularProgressIndicator()
+                if (isSubmitting) {
+                    Spacer(Modifier.height(16.dp))
+                    Text("Envoi des résultats...")
+                }
+            }
         }
         return
     }
 
-    // Показываем ошибку
     if (uiState.error != null) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -135,7 +135,6 @@ fun TakeTestScreen(
         return
     }
 
-    // Проверяем наличие вопросов
     if (uiState.questions.isEmpty()) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -149,7 +148,6 @@ fun TakeTestScreen(
     val currentQuestion = uiState.questions[currentQuestionIndex]
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // Фон
         backgroundImage?.let { image ->
             Image(
                 bitmap = image,
@@ -159,7 +157,6 @@ fun TakeTestScreen(
             )
         }
 
-        // Контент
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -173,7 +170,10 @@ fun TakeTestScreen(
                     timeRemaining = timeRemaining,
                     initialTimeLimit = uiState.timeLimit,
                     showQuitConfirmation = showQuitConfirmation,
+                    isSubmitting = isSubmitting,
                     onAnswer = { answer ->
+                        if (isSubmitting) return@TakeTestLandscapeLayout
+
                         answers.add(answer)
                         Log.d("TakeTestScreen", "User answer: $answer at index $currentQuestionIndex")
 
@@ -181,7 +181,10 @@ fun TakeTestScreen(
                             currentQuestionIndex++
                             timeRemaining = uiState.timeLimit
                         } else {
-                            submitTest(viewModel, sessionId, answers, navController)
+                            if (!isSubmitting) {
+                                isSubmitting = true
+                                submitTest(viewModel, sessionId, answers, navController)
+                            }
                         }
                     },
                     onQuit = { showQuitConfirmation = true },
@@ -203,14 +206,20 @@ fun TakeTestScreen(
                             timeRemaining = timeRemaining,
                             initialTimeLimit = uiState.timeLimit,
                             showQuitConfirmation = showQuitConfirmation,
+                            isSubmitting = isSubmitting,
                             onAnswer = { answer ->
+                                if (isSubmitting) return@TakeTestCompactLayout
+
                                 answers.add(answer)
 
                                 if (currentQuestionIndex < uiState.questions.size - 1) {
                                     currentQuestionIndex++
                                     timeRemaining = uiState.timeLimit
                                 } else {
-                                    submitTest(viewModel, sessionId, answers, navController)
+                                    if (!isSubmitting) {
+                                        isSubmitting = true
+                                        submitTest(viewModel, sessionId, answers, navController)
+                                    }
                                 }
                             },
                             onQuit = { showQuitConfirmation = true },
@@ -231,14 +240,20 @@ fun TakeTestScreen(
                             timeRemaining = timeRemaining,
                             initialTimeLimit = uiState.timeLimit,
                             showQuitConfirmation = showQuitConfirmation,
+                            isSubmitting = isSubmitting,
                             onAnswer = { answer ->
+                                if (isSubmitting) return@TakeTestLargeLayout
+
                                 answers.add(answer)
 
                                 if (currentQuestionIndex < uiState.questions.size - 1) {
                                     currentQuestionIndex++
                                     timeRemaining = uiState.timeLimit
                                 } else {
-                                    submitTest(viewModel, sessionId, answers, navController)
+                                    if (!isSubmitting) {
+                                        isSubmitting = true
+                                        submitTest(viewModel, sessionId, answers, navController)
+                                    }
                                 }
                             },
                             onQuit = { showQuitConfirmation = true },
@@ -283,6 +298,7 @@ private fun TakeTestLandscapeLayout(
     timeRemaining: Int,
     initialTimeLimit: Int,
     showQuitConfirmation: Boolean,
+    isSubmitting: Boolean,
     onAnswer: (String) -> Unit,
     onQuit: () -> Unit,
     onConfirmQuit: () -> Unit,
@@ -294,7 +310,6 @@ private fun TakeTestLandscapeLayout(
             .padding(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Левая часть - изображение
         Box(
             modifier = Modifier
                 .weight(1f)
@@ -304,7 +319,6 @@ private fun TakeTestLandscapeLayout(
             QuestionImage(currentQuestion)
         }
 
-        // Правая часть - управление
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -313,7 +327,6 @@ private fun TakeTestLandscapeLayout(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Progress bar
             LinearProgressIndicator(
                 progress = { timeRemaining.toFloat() / initialTimeLimit.toFloat() },
                 modifier = Modifier
@@ -323,7 +336,6 @@ private fun TakeTestLandscapeLayout(
                 color = if (timeRemaining <= 3) Color(0xFF8B0000) else Color(0xFF32CD32)
             )
 
-            // Номер вопроса
             Text(
                 text = "${currentQuestionIndex + 1}/$totalQuestions",
                 style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
@@ -332,7 +344,6 @@ private fun TakeTestLandscapeLayout(
 
             Spacer(Modifier.height(16.dp))
 
-            // Кнопки ответов - два столбца
             Row(
                 modifier = Modifier.weight(1f),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -344,7 +355,8 @@ private fun TakeTestLandscapeLayout(
                     items(currentQuestion.options.take((currentQuestion.options.size + 1) / 2).size) { index ->
                         AnswerButton(
                             text = currentQuestion.options[index],
-                            onClick = { onAnswer(currentQuestion.options[index]) }
+                            onClick = { onAnswer(currentQuestion.options[index]) },
+                            enabled = !isSubmitting
                         )
                     }
                 }
@@ -357,7 +369,8 @@ private fun TakeTestLandscapeLayout(
                         val realIndex = index + (currentQuestion.options.size + 1) / 2
                         AnswerButton(
                             text = currentQuestion.options[realIndex],
-                            onClick = { onAnswer(currentQuestion.options[realIndex]) }
+                            onClick = { onAnswer(currentQuestion.options[realIndex]) },
+                            enabled = !isSubmitting
                         )
                     }
                 }
@@ -365,7 +378,7 @@ private fun TakeTestLandscapeLayout(
 
             Spacer(Modifier.height(16.dp))
 
-            QuitButton(onClick = onQuit)
+            QuitButton(onClick = onQuit, enabled = !isSubmitting)
         }
     }
 
@@ -384,6 +397,7 @@ private fun TakeTestCompactLayout(
     timeRemaining: Int,
     initialTimeLimit: Int,
     showQuitConfirmation: Boolean,
+    isSubmitting: Boolean,
     onAnswer: (String) -> Unit,
     onQuit: () -> Unit,
     onConfirmQuit: () -> Unit,
@@ -397,7 +411,6 @@ private fun TakeTestCompactLayout(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
-            // Progress bar
             LinearProgressIndicator(
                 progress = { timeRemaining.toFloat() / initialTimeLimit.toFloat() },
                 modifier = Modifier
@@ -417,14 +430,14 @@ private fun TakeTestCompactLayout(
 
             Spacer(Modifier.height(12.dp))
 
-            // Кнопки ответов
             currentQuestion.options.forEach { option ->
                 AnswerButton(
                     text = option,
                     onClick = { onAnswer(option) },
                     modifier = Modifier
                         .fillMaxWidth(0.9f)
-                        .padding(vertical = 4.dp)
+                        .padding(vertical = 4.dp),
+                    enabled = !isSubmitting
                 )
             }
 
@@ -432,7 +445,8 @@ private fun TakeTestCompactLayout(
 
             QuitButton(
                 onClick = onQuit,
-                modifier = Modifier.fillMaxWidth(0.8f)
+                modifier = Modifier.fillMaxWidth(0.8f),
+                enabled = !isSubmitting
             )
         }
     }
@@ -452,6 +466,7 @@ private fun TakeTestLargeLayout(
     timeRemaining: Int,
     initialTimeLimit: Int,
     showQuitConfirmation: Boolean,
+    isSubmitting: Boolean,
     onAnswer: (String) -> Unit,
     onQuit: () -> Unit,
     onConfirmQuit: () -> Unit,
@@ -487,7 +502,6 @@ private fun TakeTestLargeLayout(
 
             Spacer(Modifier.height(16.dp))
 
-            // Кнопки в две колонки
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
@@ -502,7 +516,8 @@ private fun TakeTestLargeLayout(
                             onClick = { onAnswer(option) },
                             modifier = Modifier
                                 .fillMaxWidth(0.9f)
-                                .height(56.dp)
+                                .height(56.dp),
+                            enabled = !isSubmitting
                         )
                     }
                 }
@@ -516,7 +531,8 @@ private fun TakeTestLargeLayout(
                             onClick = { onAnswer(option) },
                             modifier = Modifier
                                 .fillMaxWidth(0.9f)
-                                .height(56.dp)
+                                .height(56.dp),
+                            enabled = !isSubmitting
                         )
                     }
                 }
@@ -526,7 +542,8 @@ private fun TakeTestLargeLayout(
 
             QuitButton(
                 onClick = onQuit,
-                modifier = Modifier.fillMaxWidth(0.6f)
+                modifier = Modifier.fillMaxWidth(0.6f),
+                enabled = !isSubmitting
             )
         }
     }
@@ -538,7 +555,6 @@ private fun TakeTestLargeLayout(
     )
 }
 
-// Компоненты
 @Composable
 private fun QuestionImage(
     question: Question,
@@ -553,17 +569,8 @@ private fun QuestionImage(
     val animatedOffsetX by animateFloatAsState(offsetX, tween(300))
     val animatedOffsetY by animateFloatAsState(offsetY, tween(300))
 
-    // Определяем путь в зависимости от того, где хранится изображение
     val context = LocalContext.current
-    val imagePath = remember(question) {
-        // Предполагаем, что question.image уже содержит относительный путь
-        // например: "leclerc.jpg"
-        // и нам нужно добавить папку в зависимости от категории
-
-        // Если в вашем Question уже есть полный путь, используйте его напрямую
-        question.image
-    }
-
+    val imagePath = remember(question) { question.image }
     val bitmap = loadImageFromAssets(context, imagePath)
 
     bitmap?.let {
@@ -616,10 +623,12 @@ private fun QuestionImage(
 private fun AnswerButton(
     text: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
 ) {
     Button(
         onClick = onClick,
+        enabled = enabled,
         modifier = modifier.height(48.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
@@ -638,10 +647,12 @@ private fun AnswerButton(
 @Composable
 private fun QuitButton(
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
 ) {
     Button(
         onClick = onClick,
+        enabled = enabled,
         modifier = modifier.height(48.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.tertiary
