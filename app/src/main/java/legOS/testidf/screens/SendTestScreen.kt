@@ -64,7 +64,7 @@ fun SendTestScreen(
     var selectedTestId by rememberSaveable { mutableStateOf<String?>(null) }
     var selectedTab by rememberSaveable { mutableStateOf(0) }
     var showDeleteConfirmDialog by remember { mutableStateOf<String?>(null) }
-    var showExitConfirmDialog by remember { mutableStateOf(false) } // Added for exit confirmation
+    var showExitConfirmDialog by remember { mutableStateOf(false) }
     var showSuccessMessage by remember { mutableStateOf(false) }
 
     val backgroundImage = remember {
@@ -113,14 +113,11 @@ fun SendTestScreen(
         }
     }
 
-    // Delete group session
     suspend fun deleteGroupSession() {
         try {
             val groupId = UserSession.groupId
             if (groupId != null) {
-                // Delete group
                 firestore.collection("groups").document(groupId).delete().await()
-                // Delete associated test sessions
                 val sessions = firestore.collection("test_sessions")
                     .whereEqualTo("groupId", groupId)
                     .get()
@@ -128,6 +125,7 @@ fun SendTestScreen(
                 sessions.documents.forEach { session ->
                     firestore.collection("test_sessions").document(session.id).delete().await()
                 }
+                Log.d("SendTestScreen", "Group session $groupId deleted")
             }
         } catch (e: Exception) {
             Log.e("SendTestScreen", "Error deleting group session", e)
@@ -211,7 +209,7 @@ fun SendTestScreen(
                             Icon(Icons.Default.Refresh, "Actualiser")
                         }
 
-                        IconButton(onClick = { showExitConfirmDialog = true }) { // Changed to show dialog
+                        IconButton(onClick = { showExitConfirmDialog = true }) {
                             Icon(Icons.Default.Home, "Menu principal")
                         }
 
@@ -354,12 +352,12 @@ fun SendTestScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Envoyer le test", style = MaterialTheme.typography.headlineMedium)
+                Text("Chef", style = MaterialTheme.typography.headlineMedium)
                 Row {
                     IconButton(onClick = { scope.launch { loadTests() } }) {
                         Icon(Icons.Default.Refresh, "Actualiser")
                     }
-                    IconButton(onClick = { showExitConfirmDialog = true }) { // Changed to show dialog
+                    IconButton(onClick = { showExitConfirmDialog = true }) {
                         Icon(Icons.Default.Home, "Menu")
                     }
                 }
@@ -544,8 +542,13 @@ fun SendTestScreen(
                     enabled = selectedTestId != null && uiState.participants.isNotEmpty() && !uiState.isSending,
                     modifier = Modifier.weight(1f)
                 ) {
-                    if (uiState.isSending) CircularProgressIndicator(modifier = Modifier.size(20.dp))
-                    else Text("Envoyer")
+                    if (uiState.isSending) {
+                        CircularProgressIndicator(modifier = Modifier.size(16.dp))
+                    } else {
+                        Icon(Icons.Default.Send, null, modifier = Modifier.size(18.dp))
+                        Spacer(Modifier.width(4.dp))
+                        Text("Envoyer")
+                    }
                 }
             }
         }
@@ -583,7 +586,7 @@ fun SendTestScreen(
         )
     }
 
-    // Added: Dialog for confirming exit to main menu
+    // Dialog for confirming exit to main menu
     if (showExitConfirmDialog) {
         AlertDialog(
             onDismissRequest = { showExitConfirmDialog = false },

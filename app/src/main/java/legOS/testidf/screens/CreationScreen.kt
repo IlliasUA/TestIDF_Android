@@ -137,6 +137,7 @@ fun CreationScreen(
                         navController.navigate("send_test/$sessionId") {
                             // Не очищаем backstack для возможности возврата
                         }
+
                         Log.d("CreationScreen", "Navigation initiated to send_test/$sessionId")
                     } catch (e: Exception) {
                         Log.e("CreationScreen", "Navigation error", e)
@@ -323,22 +324,9 @@ fun CreationScreen(
                         ) {
                             Button(
                                 onClick = {
-                                    navController.navigate("test_menu") {
-                                        popUpTo("test_menu") { inclusive = false }
-                                    }
-                                },
-                                modifier = Modifier.weight(1f)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.ArrowBack,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(14.dp)
-                                )
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text(
-                                    "Retour",
-                                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
-                                )
+                                    navController.navigateUp() // Просто возвращается на предыдущий экран
+                                }) {
+                                Icon(Icons.Default.ArrowBack, "Retour")
                             }
 
                             Button(
@@ -574,19 +562,9 @@ fun CreationScreen(
                 ) {
                     Button(
                         onClick = {
-                            navController.navigate("test_menu") {
-                                popUpTo("test_menu") { inclusive = false }
-                            }
-                        },
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = null,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Retour")
+                            navController.navigateUp() // Просто возвращается на предыдущий экран
+                        }) {
+                        Icon(Icons.Default.ArrowBack, "Retour")
                     }
 
                     Button(
