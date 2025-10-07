@@ -71,7 +71,7 @@ fun ParticipantWaitingScreen(
     }
 
     if (isLandscape) {
-        // ГОРИЗОНТАЛЬНЫЙ РЕЖИМ
+        // ГОРИЗОНТАЛЬНЫЙ РЕЖИМ (unchanged)
         Row(
             modifier = Modifier
                 .fillMaxSize()
@@ -267,10 +267,9 @@ fun ParticipantWaitingScreen(
                 }
             }
 
-            Spacer(Modifier.weight(1f)) // Push content to bottom
-
-            // Информативный текст (если нет тестов)
+            // Список тестов или информативный текст
             if (uiState.availableTests.isEmpty()) {
+                Spacer(Modifier.weight(1f)) // Push content to bottom
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -293,12 +292,12 @@ fun ParticipantWaitingScreen(
                     )
                 }
             } else {
+                Spacer(Modifier.height(16.dp)) // Space between status card and test list
                 Text(
                     "Tests disponibles:",
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
-
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
