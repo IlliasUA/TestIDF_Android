@@ -37,7 +37,6 @@ import java.util.UUID
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
 data class TestSession(
     val sessionId: String,
@@ -60,13 +59,12 @@ fun SendTestScreen(
     val firestore = FirebaseFirestore.getInstance()
     val scope = rememberCoroutineScope()
 
-    // ИЗМЕНЕНО: rememberSaveable для сохранения при повороте
+    // State variables
     var availableTests by rememberSaveable { mutableStateOf<List<TestSession>>(emptyList()) }
     var selectedTestId by rememberSaveable { mutableStateOf<String?>(null) }
     var selectedTab by rememberSaveable { mutableStateOf(0) }
     var showDeleteConfirmDialog by remember { mutableStateOf<String?>(null) }
-
-    // ДОБАВЛЕНО: Состояние для сообщения об успехе
+    var showExitConfirmDialog by remember { mutableStateOf(false) } // Added for exit confirmation
     var showSuccessMessage by remember { mutableStateOf(false) }
 
     val backgroundImage = remember {
@@ -115,6 +113,27 @@ fun SendTestScreen(
         }
     }
 
+    // Delete group session
+    suspend fun deleteGroupSession() {
+        try {
+            val groupId = UserSession.groupId
+            if (groupId != null) {
+                // Delete group
+                firestore.collection("groups").document(groupId).delete().await()
+                // Delete associated test sessions
+                val sessions = firestore.collection("test_sessions")
+                    .whereEqualTo("groupId", groupId)
+                    .get()
+                    .await()
+                sessions.documents.forEach { session ->
+                    firestore.collection("test_sessions").document(session.id).delete().await()
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("SendTestScreen", "Error deleting group session", e)
+        }
+    }
+
     LaunchedEffect(Unit) {
         viewModel.loadSession(sessionId)
         delay(500)
@@ -132,7 +151,6 @@ fun SendTestScreen(
         }
     }
 
-    // ДОБАВЛЕНО: Автоскрытие сообщения об успехе через 3 секунды
     LaunchedEffect(showSuccessMessage) {
         if (showSuccessMessage) {
             delay(3000)
@@ -193,12 +211,11 @@ fun SendTestScreen(
                             Icon(Icons.Default.Refresh, "Actualiser")
                         }
 
-                        IconButton(onClick = { navController.navigate("test_menu") }) {
+                        IconButton(onClick = { showExitConfirmDialog = true }) { // Changed to show dialog
                             Icon(Icons.Default.Home, "Menu principal")
                         }
 
                         FilledTonalButton(onClick = {
-                            // ИЗМЕНЕНО: Без диалога, сразу переход
                             val testName = "Test ${System.currentTimeMillis()}"
                             navController.currentBackStackEntry?.savedStateHandle?.set("testName", testName)
                             navController.navigate("creation_online")
@@ -266,7 +283,6 @@ fun SendTestScreen(
 
                 Spacer(Modifier.height(12.dp))
 
-                // ДОБАВЛЕНО: Сообщение об успехе
                 AnimatedVisibility(visible = showSuccessMessage) {
                     Card(
                         modifier = Modifier.fillMaxWidth(),
@@ -303,7 +319,7 @@ fun SendTestScreen(
                         onClick = {
                             selectedTestId?.let { testId ->
                                 viewModel.sendTestToParticipants(testId)
-                                showSuccessMessage = true // ДОБАВЛЕНО
+                                showSuccessMessage = true
                             }
                         },
                         enabled = selectedTestId != null && uiState.participants.isNotEmpty() && !uiState.isSending,
@@ -343,7 +359,7 @@ fun SendTestScreen(
                     IconButton(onClick = { scope.launch { loadTests() } }) {
                         Icon(Icons.Default.Refresh, "Actualiser")
                     }
-                    IconButton(onClick = { navController.navigate("test_menu") }) {
+                    IconButton(onClick = { showExitConfirmDialog = true }) { // Changed to show dialog
                         Icon(Icons.Default.Home, "Menu")
                     }
                 }
@@ -381,7 +397,7 @@ fun SendTestScreen(
 
             TabRow(
                 selectedTabIndex = selectedTab,
-                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f), // ДОБАВЛЕНО
+                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
                 contentColor = MaterialTheme.colorScheme.onSurface
             ) {
                 Tab(
@@ -404,7 +420,7 @@ fun SendTestScreen(
                         Card(
                             modifier = Modifier.fillMaxWidth().weight(1f),
                             colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f) // ИЗМЕНЕНО
+                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f)
                             )
                         ) {
                             Column(
@@ -418,13 +434,12 @@ fun SendTestScreen(
                             }
                         }
                     } else {
-                        // Контейнер для списка тестов
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .weight(1f)
                                 .background(
-                                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f), // ДОБАВЛЕНО
+                                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
                                     shape = MaterialTheme.shapes.medium
                                 )
                                 .padding(8.dp)
@@ -450,7 +465,7 @@ fun SendTestScreen(
                         Card(
                             modifier = Modifier.fillMaxWidth().weight(1f),
                             colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f) // ИЗМЕНЕНО
+                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f)
                             )
                         ) {
                             Column(
@@ -464,13 +479,12 @@ fun SendTestScreen(
                             }
                         }
                     } else {
-                        // Контейнер для списка участников
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .weight(1f)
                                 .background(
-                                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f), // ДОБАВЛЕНО
+                                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
                                     shape = MaterialTheme.shapes.medium
                                 )
                                 .padding(8.dp)
@@ -488,7 +502,6 @@ fun SendTestScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            // ДОБАВЛЕНО: Сообщение об успехе
             AnimatedVisibility(visible = showSuccessMessage) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -538,6 +551,7 @@ fun SendTestScreen(
         }
     }
 
+    // Dialog for deleting a test
     showDeleteConfirmDialog?.let { testId ->
         AlertDialog(
             onDismissRequest = { showDeleteConfirmDialog = null },
@@ -565,6 +579,41 @@ fun SendTestScreen(
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteConfirmDialog = null }) { Text("Annuler") }
+            }
+        )
+    }
+
+    // Added: Dialog for confirming exit to main menu
+    if (showExitConfirmDialog) {
+        AlertDialog(
+            onDismissRequest = { showExitConfirmDialog = false },
+            title = { Text("Quitter vers le menu principal ?") },
+            text = {
+                Text(
+                    "Cela supprimera la session de groupe actuelle. Cette action est irréversible.",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        scope.launch {
+                            deleteGroupSession()
+                            showExitConfirmDialog = false
+                            navController.navigate("test_menu") {
+                                popUpTo("test_menu") { inclusive = true }
+                            }
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                ) {
+                    Text("Quitter")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showExitConfirmDialog = false }) {
+                    Text("Annuler")
+                }
             }
         )
     }
