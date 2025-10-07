@@ -419,7 +419,7 @@ fun SendTestScreen(
                         Card(
                             modifier = Modifier.fillMaxWidth().weight(1f),
                             colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f)
+                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f)
                             )
                         ) {
                             Column(
@@ -464,7 +464,7 @@ fun SendTestScreen(
                         Card(
                             modifier = Modifier.fillMaxWidth().weight(1f),
                             colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f)
+                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f)
                             )
                         ) {
                             Column(
