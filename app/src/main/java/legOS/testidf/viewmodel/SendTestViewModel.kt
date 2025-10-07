@@ -260,6 +260,7 @@ class SendTestViewModel : ViewModel() {
                     val notificationData = hashMapOf(
                         "recipientId" to participant.id,
                         "sessionId" to sessionId,
+                        "groupId" to groupId, // ДОБАВЛЕНО - теперь можно проверять через groupId
                         "title" to "Nouveau test disponible",
                         "message" to testTitle,
                         "type" to "test_invitation",
