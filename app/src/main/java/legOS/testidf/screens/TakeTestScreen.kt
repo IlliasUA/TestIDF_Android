@@ -1,5 +1,6 @@
 package legOS.testidf.screens
 
+import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -26,68 +27,71 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.quizapp.*
-import kotlinx.coroutines.delay
+import com.example.quizapp.Question
 import legOS.testidf.loadImageFromAssets
 import legOS.testidf.viewmodel.TakeTestViewModel
 import java.io.IOException
+
+// Фабрика для передачи sessionId в ViewModel
+class TakeTestViewModelFactory(private val sessionId: String) : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(TakeTestViewModel::class.java)) {
+            return TakeTestViewModel(sessionId) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun TakeTestScreen(
     navController: NavController,
     sessionId: String,
-    viewModel: TakeTestViewModel = viewModel()
+    viewModel: TakeTestViewModel = viewModel(factory = TakeTestViewModelFactory(sessionId))
 ) {
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
     val windowSizeClass = calculateWindowSizeClass(activity = context as ComponentActivity)
-    val isLandscape = configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
+    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     val uiState by viewModel.uiState.collectAsState()
+    val currentQuestionIndex by viewModel.currentQuestionIndex
+    val timeRemaining by viewModel.timeRemaining
+    val showQuitConfirmation by viewModel.showQuitConfirmation
+    val isSubmitting by viewModel.isSubmitting
 
-    var currentQuestionIndex by rememberSaveable { mutableIntStateOf(0) }
-    var timeRemaining by rememberSaveable { mutableIntStateOf(0) }
-    var answers by rememberSaveable { mutableStateOf(mutableListOf<String?>()) }
-    var showQuitConfirmation by rememberSaveable { mutableStateOf(false) }
-    var isSubmitting by rememberSaveable { mutableStateOf(false) }
+    var testCompleted by rememberSaveable { mutableStateOf(false) }
 
-    LaunchedEffect(sessionId) {
-        viewModel.loadTestQuestions(sessionId)
-    }
-
-    LaunchedEffect(uiState.questions.isNotEmpty(), currentQuestionIndex) {
-        if (timeRemaining == 0 && uiState.timeLimit > 0) {
-            timeRemaining = uiState.timeLimit
-        }
-    }
-
-    LaunchedEffect(currentQuestionIndex, uiState.questions.size, isSubmitting) {
-        if (uiState.questions.isEmpty() || isSubmitting) return@LaunchedEffect
-
-        while (timeRemaining > 0 && currentQuestionIndex < uiState.questions.size && !isSubmitting) {
-            delay(1000L)
-            timeRemaining--
-        }
-
-        if (timeRemaining <= 0 && currentQuestionIndex < uiState.questions.size && !isSubmitting) {
-            answers.add(null)
-            Log.d("TakeTestScreen", "Auto answer: null at index $currentQuestionIndex")
-
-            if (currentQuestionIndex < uiState.questions.size - 1) {
-                currentQuestionIndex++
-                timeRemaining = uiState.timeLimit
-            } else {
-                if (!isSubmitting) {
-                    isSubmitting = true
-                    submitTest(viewModel, sessionId, answers, navController)
+    LaunchedEffect(Unit) {
+        viewModel.submitResultFlow.collect { success ->
+            if (success) {
+                testCompleted = true
+                navController.navigate("test_completed") {
+                    popUpTo("participant_waiting") { inclusive = true }
                 }
+            } else if (isSubmitting) {
+                Log.e("TakeTestScreen", "Failed to submit results")
             }
         }
+    }
+
+    LaunchedEffect(Unit) {
+        if (uiState.questions.isEmpty()) {
+            Log.d("TakeTestScreen", "Loading questions for session $sessionId")
+            viewModel.loadTestQuestions()
+        }
+    }
+
+    LaunchedEffect(currentQuestionIndex, timeRemaining) {
+        Log.d("TakeTestScreen", "Current state - question: $currentQuestionIndex, time: $timeRemaining, isSubmitting: $isSubmitting")
     }
 
     val backgroundImage = remember {
@@ -96,11 +100,12 @@ fun TakeTestScreen(
                 BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
             }
         } catch (e: IOException) {
+            Log.e("TakeTestScreen", "Error loading background image", e)
             null
         }
     }
 
-    if (uiState.isLoading || isSubmitting) {
+    if (uiState.isLoading || (isSubmitting && !testCompleted)) {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
@@ -171,30 +176,15 @@ fun TakeTestScreen(
                     initialTimeLimit = uiState.timeLimit,
                     showQuitConfirmation = showQuitConfirmation,
                     isSubmitting = isSubmitting,
-                    onAnswer = { answer ->
-                        if (isSubmitting) return@TakeTestLandscapeLayout
-
-                        answers.add(answer)
-                        Log.d("TakeTestScreen", "User answer: $answer at index $currentQuestionIndex")
-
-                        if (currentQuestionIndex < uiState.questions.size - 1) {
-                            currentQuestionIndex++
-                            timeRemaining = uiState.timeLimit
-                        } else {
-                            if (!isSubmitting) {
-                                isSubmitting = true
-                                submitTest(viewModel, sessionId, answers, navController)
-                            }
-                        }
-                    },
-                    onQuit = { showQuitConfirmation = true },
+                    onAnswer = { answer -> viewModel.selectAnswer(answer) },
+                    onQuit = { viewModel.showQuitDialog(true) },
                     onConfirmQuit = {
-                        showQuitConfirmation = false
+                        viewModel.showQuitDialog(false)
                         navController.navigate("participant_waiting") {
                             popUpTo("participant_waiting") { inclusive = true }
                         }
                     },
-                    onDismissQuit = { showQuitConfirmation = false }
+                    onDismissQuit = { viewModel.showQuitDialog(false) }
                 )
             } else {
                 when (windowSizeClass.widthSizeClass) {
@@ -207,29 +197,15 @@ fun TakeTestScreen(
                             initialTimeLimit = uiState.timeLimit,
                             showQuitConfirmation = showQuitConfirmation,
                             isSubmitting = isSubmitting,
-                            onAnswer = { answer ->
-                                if (isSubmitting) return@TakeTestCompactLayout
-
-                                answers.add(answer)
-
-                                if (currentQuestionIndex < uiState.questions.size - 1) {
-                                    currentQuestionIndex++
-                                    timeRemaining = uiState.timeLimit
-                                } else {
-                                    if (!isSubmitting) {
-                                        isSubmitting = true
-                                        submitTest(viewModel, sessionId, answers, navController)
-                                    }
-                                }
-                            },
-                            onQuit = { showQuitConfirmation = true },
+                            onAnswer = { answer -> viewModel.selectAnswer(answer) },
+                            onQuit = { viewModel.showQuitDialog(true) },
                             onConfirmQuit = {
-                                showQuitConfirmation = false
+                                viewModel.showQuitDialog(false)
                                 navController.navigate("participant_waiting") {
                                     popUpTo("participant_waiting") { inclusive = true }
                                 }
                             },
-                            onDismissQuit = { showQuitConfirmation = false }
+                            onDismissQuit = { viewModel.showQuitDialog(false) }
                         )
                     }
                     else -> {
@@ -241,50 +217,18 @@ fun TakeTestScreen(
                             initialTimeLimit = uiState.timeLimit,
                             showQuitConfirmation = showQuitConfirmation,
                             isSubmitting = isSubmitting,
-                            onAnswer = { answer ->
-                                if (isSubmitting) return@TakeTestLargeLayout
-
-                                answers.add(answer)
-
-                                if (currentQuestionIndex < uiState.questions.size - 1) {
-                                    currentQuestionIndex++
-                                    timeRemaining = uiState.timeLimit
-                                } else {
-                                    if (!isSubmitting) {
-                                        isSubmitting = true
-                                        submitTest(viewModel, sessionId, answers, navController)
-                                    }
-                                }
-                            },
-                            onQuit = { showQuitConfirmation = true },
+                            onAnswer = { answer -> viewModel.selectAnswer(answer) },
+                            onQuit = { viewModel.showQuitDialog(true) },
                             onConfirmQuit = {
-                                showQuitConfirmation = false
+                                viewModel.showQuitDialog(false)
                                 navController.navigate("participant_waiting") {
                                     popUpTo("participant_waiting") { inclusive = true }
                                 }
                             },
-                            onDismissQuit = { showQuitConfirmation = false }
+                            onDismissQuit = { viewModel.showQuitDialog(false) }
                         )
                     }
                 }
-            }
-        }
-    }
-}
-
-private fun submitTest(
-    viewModel: TakeTestViewModel,
-    sessionId: String,
-    answers: List<String?>,
-    navController: NavController
-) {
-    viewModel.submitTestResults(
-        sessionId = sessionId,
-        answers = answers
-    ) { success ->
-        if (success) {
-            navController.navigate("test_completed") {
-                popUpTo("participant_waiting") { inclusive = true }
             }
         }
     }
@@ -345,32 +289,48 @@ private fun TakeTestLandscapeLayout(
             Spacer(Modifier.height(16.dp))
 
             Row(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 LazyColumn(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     items(currentQuestion.options.take((currentQuestion.options.size + 1) / 2).size) { index ->
                         AnswerButton(
                             text = currentQuestion.options[index],
                             onClick = { onAnswer(currentQuestion.options[index]) },
-                            enabled = !isSubmitting
+                            modifier = Modifier
+                                .fillMaxWidth(0.9f)
+                                .defaultMinSize(minHeight = 58.dp), // 48.dp * 1.2 = 57.6.dp, округлено до 58.dp
+                            enabled = !isSubmitting,
+                            contentPadding = PaddingValues(horizontal = 19.dp, vertical = 10.dp) // 16.dp * 1.2 = 19.2.dp, 8.dp * 1.2 = 9.6.dp
                         )
                     }
                 }
 
                 LazyColumn(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     items(currentQuestion.options.drop((currentQuestion.options.size + 1) / 2).size) { index ->
                         val realIndex = index + (currentQuestion.options.size + 1) / 2
                         AnswerButton(
                             text = currentQuestion.options[realIndex],
                             onClick = { onAnswer(currentQuestion.options[realIndex]) },
-                            enabled = !isSubmitting
+                            modifier = Modifier
+                                .fillMaxWidth(0.9f)
+                                .defaultMinSize(minHeight = 58.dp), // 48.dp * 1.2 = 57.6.dp, округлено до 58.dp
+                            enabled = !isSubmitting,
+                            contentPadding = PaddingValues(horizontal = 19.dp, vertical = 10.dp) // 16.dp * 1.2 = 19.2.dp, 8.dp * 1.2 = 9.6.dp
                         )
                     }
                 }
@@ -516,7 +476,7 @@ private fun TakeTestLargeLayout(
                             onClick = { onAnswer(option) },
                             modifier = Modifier
                                 .fillMaxWidth(0.9f)
-                                .height(56.dp),
+                                .defaultMinSize(minHeight = 56.dp),
                             enabled = !isSubmitting
                         )
                     }
@@ -531,7 +491,7 @@ private fun TakeTestLargeLayout(
                             onClick = { onAnswer(option) },
                             modifier = Modifier
                                 .fillMaxWidth(0.9f)
-                                .height(56.dp),
+                                .defaultMinSize(minHeight = 56.dp),
                             enabled = !isSubmitting
                         )
                     }
@@ -560,10 +520,10 @@ private fun QuestionImage(
     question: Question,
     size: Pair<androidx.compose.ui.unit.Dp, androidx.compose.ui.unit.Dp> = 430.dp to 350.dp
 ) {
-    var scale by remember { mutableStateOf(1f) }
-    var offsetX by remember { mutableStateOf(0f) }
-    var offsetY by remember { mutableStateOf(0f) }
-    var isGestureActive by remember { mutableStateOf(false) }
+    var scale by rememberSaveable { mutableStateOf(1f) }
+    var offsetX by rememberSaveable { mutableStateOf(0f) }
+    var offsetY by rememberSaveable { mutableStateOf(0f) }
+    var isGestureActive by rememberSaveable { mutableStateOf(false) }
 
     val animatedScale by animateFloatAsState(scale, tween(300))
     val animatedOffsetX by animateFloatAsState(offsetX, tween(300))
@@ -624,22 +584,27 @@ private fun AnswerButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 8.dp) // Добавлен параметр для явной передачи отступов
 ) {
     Button(
         onClick = onClick,
         enabled = enabled,
-        modifier = modifier.height(48.dp),
+        modifier = modifier
+            .defaultMinSize(minHeight = 48.dp)
+            .wrapContentHeight(),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary
-        )
+        ),
+        contentPadding = contentPadding
     ) {
         Text(
             text = text,
             style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
-            maxLines = 2,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            maxLines = Int.MAX_VALUE,
+            overflow = TextOverflow.Clip
         )
     }
 }
@@ -653,12 +618,16 @@ private fun QuitButton(
     Button(
         onClick = onClick,
         enabled = enabled,
-        modifier = modifier.height(48.dp),
+        modifier = modifier
+            .defaultMinSize(minHeight = 48.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.tertiary
         )
     ) {
-        Text("Quitter", style = MaterialTheme.typography.bodyLarge)
+        Text(
+            text = "Quitter",
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
 }
 
