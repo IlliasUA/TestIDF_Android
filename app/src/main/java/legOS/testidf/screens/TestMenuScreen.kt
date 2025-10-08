@@ -140,8 +140,6 @@ private fun TestMenuCompactLayout(
         verticalArrangement = if (isCompactHeight) Arrangement.Top else Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-
         if (!isCompactHeight) {
             Spacer(Modifier.height(if (isLandscape) 8.dp else 12.dp))
         }
@@ -274,8 +272,6 @@ private fun TestMenuLargeLayout(
                 .padding(end = if (isLandscape) min(32.dp, screenWidth * 0.04f) else 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-
             // Основные кнопки в две колонки
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -418,7 +414,7 @@ private fun CompetitionButton(
             )
             .padding(vertical = if (isCompact) 2.dp else 4.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.tertiary,
+            containerColor = MaterialTheme.colorScheme.tertiary, // Убран alpha
             contentColor = MaterialTheme.colorScheme.onTertiary
         ),
         shape = MaterialTheme.shapes.medium,
@@ -464,16 +460,8 @@ private fun CategoryButton(
             )
             .padding(vertical = if (isCompact) 2.dp else 4.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (isTertiary) {
-                MaterialTheme.colorScheme.tertiary.copy(alpha = 0.8f)
-            } else {
-                MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
-            },
-            contentColor = if (isTertiary) {
-                MaterialTheme.colorScheme.onTertiary
-            } else {
-                MaterialTheme.colorScheme.onPrimary
-            }
+            containerColor = if (isTertiary) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary, // Убран alpha
+            contentColor = if (isTertiary) MaterialTheme.colorScheme.onTertiary else MaterialTheme.colorScheme.onPrimary
         ),
         shape = MaterialTheme.shapes.medium,
         contentPadding = PaddingValues(
@@ -511,7 +499,7 @@ private fun ReturnButton(
             .height(if (isCompact) 44.dp else 52.dp)
             .padding(vertical = if (isCompact) 2.dp else 4.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = color.copy(alpha = 0.8f),
+            containerColor = color, // Убран alpha
             contentColor = if (color == Color(0xFFFFFF00)) Color.Black else Color.White
         ),
         shape = MaterialTheme.shapes.medium,
