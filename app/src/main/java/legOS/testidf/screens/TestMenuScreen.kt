@@ -155,8 +155,8 @@ private fun TestMenuCompactLayout(
                 "Reconnaissance" to "recon",
                 "Génie" to "genie",
                 "Avion/Hélicoptère" to "air",
-                "TEST BM2" to "bm2",
-                "TEST FINAL" to "final"
+                "Test avancé" to "bm2",
+                "Test final" to "final"
             ).forEach { (text, category) ->
                 CategoryButton(
                     text = text,
@@ -310,8 +310,8 @@ private fun TestMenuLargeLayout(
                     modifier = Modifier.weight(1f)
                 ) {
                     listOf(
-                        "TEST BM2" to "bm2",
-                        "TEST FINAL" to "final"
+                        "Test avancé" to "bm2",
+                        "Test final" to "final"
                     ).forEach { (text, category) ->
                         CategoryButton(
                             text = text,
@@ -424,7 +424,7 @@ private fun CompetitionButton(
         )
     ) {
         Text(
-            text = "Compétition",
+            text = "Test collectif",
             style = MaterialTheme.typography.bodyLarge.copy(
                 fontSize = if (isCompact) 13.sp else 16.sp
             ),

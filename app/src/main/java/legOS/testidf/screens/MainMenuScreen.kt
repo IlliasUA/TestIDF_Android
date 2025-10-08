@@ -254,19 +254,19 @@ private fun MainMenuCompactLayout(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 MenuButton(
-                    text = "TEST D'IDENTIFICATION",
+                    text = "TESTS",
                     onClick = { navController.navigate("test_menu") },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
                 )
                 MenuButton(
-                    text = "Info",
+                    text = "INFO",
                     onClick = { navController.navigate("info_screen") },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
                 )
                 MenuButton(
-                    text = "Quitter",
+                    text = "QUITTER",
                     onClick = { showQuitConfirmation.value = true },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
