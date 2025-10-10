@@ -62,7 +62,7 @@ fun CatalogScreen(navController: NavController) {
 
     val backgroundImage = remember {
         try {
-            context.assets.open("images/background_3.jpg").use { inputStream ->
+            context.assets.open("images/background_2.jpg").use { inputStream ->
                 BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
             }
         } catch (e: IOException) {

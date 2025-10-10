@@ -108,7 +108,7 @@ object Test_Data {
         ),
         Question(
             image = "char7.jpg",
-            additionalImages = listOf("char7_extra1.jpg", "char7_extra2.jpg"),
+            additionalImages = listOf("char7_extra1.jpg", "char7_extra2.jpg", "char7_extra3.jpg"),
             correct = "Leopard-1",
             options = listOf("Ariete", "Tigre", "Panther", "Leopard-1"),
             category = "chars",

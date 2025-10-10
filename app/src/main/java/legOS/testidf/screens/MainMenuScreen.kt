@@ -287,7 +287,7 @@ private fun MainMenuCompactLayout(
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
-                text = "Beta 1.0",
+                text = "Beta 2.0",
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = when {
                         isCompactHeight -> 12.sp

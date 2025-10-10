@@ -1,6 +1,7 @@
 package legOS.testidf.screens
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -38,10 +39,23 @@ fun SessionResultsScreen(
 
     val uiState by viewModel.uiState.collectAsState()
     var selectedParticipant by remember { mutableStateOf<ParticipantResult?>(null) }
+    var selectedSessionIndex by remember { mutableStateOf(0) }
 
     LaunchedEffect(sessionId) {
         viewModel.loadResults(sessionId)
     }
+
+    // ОТЛАДКА - добавьте эту часть
+    LaunchedEffect(uiState.sessionGroups.size) {
+        Log.d("SessionResultsScreen", "=== UI State Updated ===")
+        Log.d("SessionResultsScreen", "Total session groups: ${uiState.sessionGroups.size}")
+        uiState.sessionGroups.forEachIndexed { index, group ->
+            Log.d("SessionResultsScreen", "Group $index: ${group.timestamp}, ${group.results.size} participants")
+        }
+    }
+
+    // Получаем текущую сессию для отображения
+    val currentSessionResults = uiState.sessionGroups.getOrNull(selectedSessionIndex)
 
     Box(
         modifier = Modifier
@@ -83,7 +97,7 @@ fun SessionResultsScreen(
                             Icon(Icons.Default.ArrowBack, "Retour")
                         }
                         Text(
-                            "Résultats (${uiState.results.size})",
+                            "Résultats (${currentSessionResults?.results?.size ?: 0})",
                             style = MaterialTheme.typography.titleLarge
                         )
                     }
@@ -97,7 +111,7 @@ fun SessionResultsScreen(
                         ) {
                             CircularProgressIndicator()
                         }
-                    } else if (uiState.results.isEmpty()) {
+                    } else if (currentSessionResults == null || currentSessionResults.results.isEmpty()) {
                         Card(
                             modifier = Modifier.fillMaxSize(),
                             colors = CardDefaults.cardColors(
@@ -128,7 +142,7 @@ fun SessionResultsScreen(
                             modifier = Modifier.fillMaxSize(),
                             verticalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
-                            items(uiState.results) { result ->
+                            items(currentSessionResults.results) { result ->
                                 ParticipantResultCard(
                                     result = result,
                                     onInfoClick = { selectedParticipant = result }
@@ -180,6 +194,40 @@ fun SessionResultsScreen(
 
                     Spacer(Modifier.height(16.dp))
 
+                    // ВКЛАДКИ ДЛЯ РАЗНЫХ СЕССИЙ
+                    if (uiState.sessionGroups.size > 1) {
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                            )
+                        ) {
+                            ScrollableTabRow(
+                                selectedTabIndex = selectedSessionIndex,
+                                modifier = Modifier.fillMaxWidth(),
+                                containerColor = Color.Transparent,
+                                edgePadding = 8.dp
+                            ) {
+                                uiState.sessionGroups.forEachIndexed { index, session ->
+                                    Tab(
+                                        selected = selectedSessionIndex == index,
+                                        onClick = { selectedSessionIndex = index },
+                                        text = {
+                                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                                Text("Test ${index + 1}")
+                                                Text(
+                                                    session.timestamp,
+                                                    style = MaterialTheme.typography.labelSmall
+                                                )
+                                            }
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                        Spacer(Modifier.height(16.dp))
+                    }
+
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         colors = CardDefaults.cardColors(
@@ -194,17 +242,17 @@ fun SessionResultsScreen(
                         ) {
                             ResultStatItem(
                                 label = "Participants",
-                                value = uiState.results.size.toString(),
+                                value = (currentSessionResults?.results?.size ?: 0).toString(),
                                 icon = Icons.Default.Person
                             )
                             ResultStatItem(
                                 label = "Moyenne",
-                                value = "${uiState.averageScore}%",
+                                value = "${currentSessionResults?.averageScore ?: 0}%",
                                 icon = Icons.Default.BarChart
                             )
                             ResultStatItem(
                                 label = "Meilleur",
-                                value = "${uiState.bestScore}%",
+                                value = "${currentSessionResults?.bestScore ?: 0}%",
                                 icon = Icons.Default.TrendingUp
                             )
                         }
@@ -255,23 +303,57 @@ fun SessionResultsScreen(
                     ) {
                         ResultStatItem(
                             label = "Participants",
-                            value = uiState.results.size.toString(),
+                            value = (currentSessionResults?.results?.size ?: 0).toString(),
                             icon = Icons.Default.Person
                         )
                         ResultStatItem(
                             label = "Moyenne",
-                            value = "${uiState.averageScore}%",
+                            value = "${currentSessionResults?.averageScore ?: 0}%",
                             icon = Icons.Default.BarChart
                         )
                         ResultStatItem(
                             label = "Meilleur",
-                            value = "${uiState.bestScore}%",
+                            value = "${currentSessionResults?.bestScore ?: 0}%",
                             icon = Icons.Default.TrendingUp
                         )
                     }
                 }
 
                 Spacer(Modifier.height(16.dp))
+
+                // ВКЛАДКИ ДЛЯ РАЗНЫХ СЕССИЙ
+                if (uiState.sessionGroups.size > 1) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                        )
+                    ) {
+                        ScrollableTabRow(
+                            selectedTabIndex = selectedSessionIndex,
+                            modifier = Modifier.fillMaxWidth(),
+                            containerColor = Color.Transparent,
+                            edgePadding = 8.dp
+                        ) {
+                            uiState.sessionGroups.forEachIndexed { index, session ->
+                                Tab(
+                                    selected = selectedSessionIndex == index,
+                                    onClick = { selectedSessionIndex = index },
+                                    text = {
+                                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                            Text("Test ${index + 1}")
+                                            Text(
+                                                session.timestamp,
+                                                style = MaterialTheme.typography.labelSmall
+                                            )
+                                        }
+                                    }
+                                )
+                            }
+                        }
+                    }
+                    Spacer(Modifier.height(16.dp))
+                }
 
                 if (uiState.isLoading) {
                     Box(
@@ -280,7 +362,7 @@ fun SessionResultsScreen(
                     ) {
                         CircularProgressIndicator()
                     }
-                } else if (uiState.results.isEmpty()) {
+                } else if (currentSessionResults == null || currentSessionResults.results.isEmpty()) {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
@@ -305,7 +387,7 @@ fun SessionResultsScreen(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        items(uiState.results) { result ->
+                        items(currentSessionResults.results) { result ->
                             ParticipantResultCard(
                                 result = result,
                                 onInfoClick = { selectedParticipant = result }
@@ -400,7 +482,6 @@ private fun ParticipantResultCard(
 
             Spacer(Modifier.width(8.dp))
 
-            // Кнопка Info
             FilledTonalButton(
                 onClick = onInfoClick,
                 modifier = Modifier.height(36.dp),
@@ -556,4 +637,12 @@ data class Answer(
     val userAnswer: String = "",
     val correctAnswer: String = "",
     val isCorrect: Boolean = false
+)
+
+// НОВЫЙ: Группа результатов для одной сессии
+data class SessionResultGroup(
+    val timestamp: String = "",
+    val results: List<ParticipantResult> = emptyList(),
+    val averageScore: Int = 0,
+    val bestScore: Int = 0
 )
