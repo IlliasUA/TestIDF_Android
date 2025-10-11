@@ -63,7 +63,7 @@ class CreationViewModel : ViewModel() {
                 val result = repository.createTestSessionFromCreation(
                     adminId = userId,
                     groupId = groupId,
-                    title = "Test personnalisé - ${UserSession.userName}",
+                    title = "${UserSession.userName}",
                     selectedItems = selectedItems,
                     timeLimit = timeLimit
                 )
