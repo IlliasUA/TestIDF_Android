@@ -1,5 +1,7 @@
 package legOS.testidf.screens
 
+import com.google.firebase.Timestamp
+import kotlinx.coroutines.delay
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.util.Log
@@ -26,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import legOS.testidf.data.UserSession
@@ -114,24 +115,109 @@ fun SendTestScreen(
         }
     }
 
+
     suspend fun deleteGroupSession() {
         try {
             val groupId = UserSession.groupId
-            if (groupId != null) {
-                firestore.collection("groups").document(groupId).delete().await()
-                val sessions = firestore.collection("test_sessions")
-                    .whereEqualTo("groupId", groupId)
-                    .get()
-                    .await()
-                sessions.documents.forEach { session ->
-                    firestore.collection("test_sessions").document(session.id).delete().await()
-                }
-                Log.d("SendTestScreen", "Group session $groupId deleted")
+            Log.d("SendTestScreen", "==============================================")
+            Log.d("SendTestScreen", "🔴 STARTING GROUP DELETION")
+            Log.d("SendTestScreen", "Group ID: $groupId")
+
+            if (groupId == null) {
+                Log.e("SendTestScreen", "❌ Group ID is null!")
+                return
             }
+
+            // 1. Помечаем группу как неактивную СНАЧАЛА
+            try {
+                firestore.collection("groups")
+                    .document(groupId)
+                    .update("isActive", false)
+                    .await()
+
+                Log.d("SendTestScreen", "✅ Group marked as inactive")
+            } catch (e: Exception) {
+                Log.e("SendTestScreen", "❌ Error marking group as inactive", e)
+            }
+
+            // Небольшая задержка чтобы изменение успело распространиться
+            kotlinx.coroutines.delay(500)
+
+            // 2. Получаем список участников
+            val groupDoc = firestore.collection("groups")
+                .document(groupId)
+                .get()
+                .await()
+
+            if (!groupDoc.exists()) {
+                Log.w("SendTestScreen", "⚠️ Group document doesn't exist!")
+                return
+            }
+
+            val participantIds = groupDoc.get("participantIds") as? List<String> ?: emptyList()
+
+            Log.d("SendTestScreen", "📋 Found ${participantIds.size} participants")
+            participantIds.forEachIndexed { index, id ->
+                Log.d("SendTestScreen", "  Participant ${index + 1}: $id")
+            }
+
+            // 3. Отправляем уведомления КАЖДОМУ участнику
+            if (participantIds.isNotEmpty()) {
+                Log.d("SendTestScreen", "📤 Sending ${participantIds.size} notifications...")
+
+                participantIds.forEachIndexed { index, participantId ->
+                    try {
+                        val notificationData = hashMapOf(
+                            "type" to "GROUP_CLOSED",
+                            "groupId" to groupId,
+                            "message" to "Le chef a quitté la session",
+                            "timestamp" to com.google.firebase.Timestamp.now(),
+                            "recipientId" to participantId,
+                            "isRead" to false
+                        )
+
+                        val docRef = firestore.collection("notifications")
+                            .add(notificationData)
+                            .await()
+
+                        Log.d("SendTestScreen", "✅ Notification ${index + 1}/${participantIds.size} created: ${docRef.id}")
+
+                    } catch (e: Exception) {
+                        Log.e("SendTestScreen", "❌ Failed to send notification to $participantId", e)
+                    }
+                }
+
+                Log.d("SendTestScreen", "⏳ Waiting 2 seconds for notifications to propagate...")
+                kotlinx.coroutines.delay(2000)
+            } else {
+                Log.w("SendTestScreen", "⚠️ No participants to notify")
+            }
+
+            // 4. Удаляем тестовые сессии
+            Log.d("SendTestScreen", "🗑️ Deleting test sessions...")
+            val sessions = firestore.collection("test_sessions")
+                .whereEqualTo("groupId", groupId)
+                .get()
+                .await()
+
+            Log.d("SendTestScreen", "Found ${sessions.documents.size} sessions")
+            sessions.documents.forEach { session ->
+                firestore.collection("test_sessions").document(session.id).delete().await()
+            }
+
+            // 5. Удаляем группу
+            Log.d("SendTestScreen", "🗑️ Deleting group...")
+            firestore.collection("groups").document(groupId).delete().await()
+
+            Log.d("SendTestScreen", "✅ GROUP DELETION COMPLETED")
+            Log.d("SendTestScreen", "==============================================")
+
         } catch (e: Exception) {
-            Log.e("SendTestScreen", "Error deleting group session", e)
+            Log.e("SendTestScreen", "❌ ERROR in deleteGroupSession", e)
+            e.printStackTrace()
         }
     }
+
 
     LaunchedEffect(Unit) {
         viewModel.loadSession(sessionId)
@@ -609,7 +695,8 @@ fun SendTestScreen(
                 Button(
                     onClick = {
                         scope.launch {
-                            deleteGroupSession()
+                            Log.d("SendTestScreen", "User confirmed exit - starting group deletion")
+                            deleteGroupSession() // ✅ УБЕДИТЕСЬ ЧТО ЭТО ВЫЗЫВАЕТСЯ
                             showExitConfirmDialog = false
                             navController.navigate("test_menu") {
                                 popUpTo("test_menu") { inclusive = true }

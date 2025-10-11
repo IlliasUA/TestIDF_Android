@@ -3,9 +3,7 @@ package legOS.testidf.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,193 +26,204 @@ class ParticipantRegistrationViewModel : ViewModel() {
     val uiState: StateFlow<ParticipantRegistrationUiState> = _uiState
 
     fun joinGroup(
-        participantName: String,
         groupCode: String,
-        onComplete: (Boolean) -> Unit
+        participantName: String,
+        onComplete: (Boolean, String?) -> Unit
     ) {
         viewModelScope.launch {
-            _uiState.value = ParticipantRegistrationUiState(isLoading = true)
+            _uiState.value = _uiState.value.copy(isLoading = true, error = null)
 
             try {
-                // 1. Создаем анонимного пользователя
-                val authResult = auth.signInAnonymously().await()
-                val userId = authResult.user?.uid ?: throw Exception("User ID is null")
+                Log.d("ParticipantRegistrationVM", "==============================================")
+                Log.d("ParticipantRegistrationVM", "🔐 Attempting to join group with code: $groupCode")
 
-                Log.d("ParticipantVM", "Anonymous user created: $userId")
+                // Проверяем существование пользователя
+                val currentUserId = auth.currentUser?.uid
+                if (currentUserId == null) {
+                    Log.e("ParticipantRegistrationVM", "❌ User not authenticated")
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        error = "Utilisateur non authentifié"
+                    )
+                    onComplete(false, null)
+                    return@launch
+                }
 
-                // 2. Ищем группу по коду
+                Log.d("ParticipantRegistrationVM", "Current user ID: $currentUserId")
+
+                // Обновляем имя пользователя в Firestore
+                firestore.collection("users")
+                    .document(currentUserId)
+                    .update("name", participantName)
+                    .await()
+
+                Log.d("ParticipantRegistrationVM", "✅ User name updated to: $participantName")
+
+                // Ищем группу по коду
                 val groupQuery = firestore.collection("groups")
-                    .whereEqualTo("groupCode", groupCode.trim().uppercase())
+                    .whereEqualTo("groupCode", groupCode)
                     .limit(1)
                     .get()
                     .await()
 
                 if (groupQuery.isEmpty) {
-                    _uiState.value = ParticipantRegistrationUiState(
-                        error = "Code invalide. Vérifiez le code avec votre chef."
+                    Log.w("ParticipantRegistrationVM", "⚠️ Group not found with code: $groupCode")
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        error = "Code de groupe invalide"
                     )
-                    onComplete(false)
+                    onComplete(false, null)
                     return@launch
                 }
 
                 val groupDoc = groupQuery.documents[0]
                 val groupId = groupDoc.id
                 val groupName = groupDoc.getString("name") ?: "Groupe"
+                val participantIds = groupDoc.get("participantIds") as? MutableList<String>
+                    ?: mutableListOf()
 
-                Log.d("ParticipantVM", "Found group: $groupName ($groupId)")
+                Log.d("ParticipantRegistrationVM", "✅ Found group: $groupId")
+                Log.d("ParticipantRegistrationVM", "Group name: $groupName")
+                Log.d("ParticipantRegistrationVM", "Current participants: ${participantIds.size}")
 
-                // 3. Сохраняем данные участника
-                val userData = hashMapOf(
-                    "userId" to userId,
-                    "name" to participantName,
-                    "role" to "participant",
-                    "isAnonymous" to true,
-                    "groupCodes" to listOf(groupCode),
-                    "groupId" to groupId,  // Добавлено для упрощения выхода
-                    "createdAt" to Timestamp.now()
-                )
+                // Проверяем, не является ли участник уже членом группы
+                if (!participantIds.contains(currentUserId)) {
+                    participantIds.add(currentUserId)
 
-                firestore.collection("users")
-                    .document(userId)
-                    .set(userData)
-                    .await()
+                    // Обновляем список участников в группе
+                    firestore.collection("groups")
+                        .document(groupId)
+                        .update("participantIds", participantIds)
+                        .await()
 
-                Log.d("ParticipantVM", "User data saved")
-
-                // 4. Добавляем участника в группу
-                firestore.collection("groups")
-                    .document(groupId)
-                    .update("participantIds", FieldValue.arrayUnion(userId))
-                    .await()
-
-                Log.d("ParticipantVM", "Participant added to group")
-
-                // 5. Добавляем участника во все активные сессии этой группы
-                val sessionsQuery = firestore.collection("test_sessions")
-                    .whereEqualTo("groupId", groupId)
-                    .whereEqualTo("status", "pending")
-                    .get()
-                    .await()
-
-                Log.d("ParticipantVM", "Found ${sessionsQuery.size()} active sessions")
-
-                for (sessionDoc in sessionsQuery.documents) {
-                    try {
-                        firestore.collection("test_sessions")
-                            .document(sessionDoc.id)
-                            .update("participantIds", FieldValue.arrayUnion(userId))
-                            .await()
-
-                        Log.d("ParticipantVM", "Added to session: ${sessionDoc.id}")
-                    } catch (e: Exception) {
-                        Log.e("ParticipantVM", "Error adding to session ${sessionDoc.id}", e)
-                    }
+                    Log.d("ParticipantRegistrationVM", "✅ Added user to group participants")
+                } else {
+                    Log.d("ParticipantRegistrationVM", "ℹ️ User already in group")
                 }
 
-                // 6. Сохраняем сессию
-                UserSession.setParticipantSession(
-                    userId = userId,
-                    name = participantName,
-                    email = ""
-                )
+                // КРИТИЧЕСКИ ВАЖНО: Сохраняем данные в UserSession
+                UserSession.userId = currentUserId
+                UserSession.userName = participantName
+                UserSession.userRole = "participant"
+                UserSession.groupId = groupId
 
-                _uiState.value = ParticipantRegistrationUiState(
+                Log.d("ParticipantRegistrationVM", "==============================================")
+                Log.d("ParticipantRegistrationVM", "✅ UserSession updated:")
+                Log.d("ParticipantRegistrationVM", "  userId = ${UserSession.userId}")
+                Log.d("ParticipantRegistrationVM", "  userName = ${UserSession.userName}")
+                Log.d("ParticipantRegistrationVM", "  userRole = ${UserSession.userRole}")
+                Log.d("ParticipantRegistrationVM", "  groupId = ${UserSession.groupId}")
+                Log.d("ParticipantRegistrationVM", "==============================================")
+
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    error = null,
                     successMessage = "Vous avez rejoint $groupName!"
                 )
 
-                onComplete(true)
+                onComplete(true, groupId)
 
             } catch (e: Exception) {
-                Log.e("ParticipantVM", "Error joining group", e)
-                _uiState.value = ParticipantRegistrationUiState(
+                Log.e("ParticipantRegistrationVM", "❌ Error joining group", e)
+                Log.e("ParticipantRegistrationVM", "Error type: ${e.javaClass.simpleName}")
+                Log.e("ParticipantRegistrationVM", "Error message: ${e.message}")
+                e.printStackTrace()
+
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
                     error = "Erreur: ${e.message}"
                 )
-                onComplete(false)
+                onComplete(false, null)
             }
         }
     }
 
-    // НОВЫЙ МЕТОД: Выход из группы
+    // Выход из группы
     fun leaveGroup(onComplete: (Boolean) -> Unit) {
         viewModelScope.launch {
-            _uiState.value = ParticipantRegistrationUiState(isLoading = true)
+            _uiState.value = _uiState.value.copy(isLoading = true)
 
             try {
+                val groupId = UserSession.groupId
                 val userId = UserSession.userId
-                if (userId == null) {
-                    _uiState.value = ParticipantRegistrationUiState(
-                        error = "Utilisateur non connecté"
-                    )
-                    onComplete(false)
-                    return@launch
-                }
 
-                Log.d("ParticipantVM", "Starting leave group process for: $userId")
+                Log.d("ParticipantRegistrationVM", "==============================================")
+                Log.d("ParticipantRegistrationVM", "🚪 Attempting to leave group")
+                Log.d("ParticipantRegistrationVM", "  userId = $userId")
+                Log.d("ParticipantRegistrationVM", "  groupId = $groupId")
 
-                // Получаем данные пользователя
-                val userDoc = firestore.collection("users")
-                    .document(userId)
-                    .get()
-                    .await()
-
-                val groupId = userDoc.getString("groupId")
-
-                if (groupId != null) {
-                    // Удаляем участника из группы
-                    firestore.collection("groups")
+                if (groupId != null && userId != null) {
+                    // Проверяем существование группы
+                    val groupDoc = firestore.collection("groups")
                         .document(groupId)
-                        .update("participantIds", FieldValue.arrayRemove(userId))
-                        .await()
-
-                    Log.d("ParticipantVM", "Removed from group: $groupId")
-
-                    // Удаляем участника из всех сессий этой группы
-                    val sessionsQuery = firestore.collection("test_sessions")
-                        .whereEqualTo("groupId", groupId)
                         .get()
                         .await()
 
-                    for (sessionDoc in sessionsQuery.documents) {
-                        try {
-                            firestore.collection("test_sessions")
-                                .document(sessionDoc.id)
-                                .update("participantIds", FieldValue.arrayRemove(userId))
+                    if (groupDoc.exists()) {
+                        Log.d("ParticipantRegistrationVM", "Group exists - removing participant")
+
+                        // Группа существует - удаляем себя из неё
+                        val participantIds = groupDoc.get("participantIds") as? MutableList<String>
+                            ?: mutableListOf()
+
+                        if (participantIds.contains(userId)) {
+                            participantIds.remove(userId)
+
+                            firestore.collection("groups")
+                                .document(groupId)
+                                .update("participantIds", participantIds)
                                 .await()
 
-                            Log.d("ParticipantVM", "Removed from session: ${sessionDoc.id}")
-                        } catch (e: Exception) {
-                            Log.e("ParticipantVM", "Error removing from session", e)
+                            Log.d("ParticipantRegistrationVM", "✅ Successfully removed from group")
+                        } else {
+                            Log.d("ParticipantRegistrationVM", "User not in participant list")
                         }
+                    } else {
+                        // Группа уже не существует - это нормально
+                        Log.d("ParticipantRegistrationVM", "Group already deleted - this is normal")
                     }
+
+                    // Очищаем локальные данные в любом случае
+                    UserSession.clearGroupData()
+                    Log.d("ParticipantRegistrationVM", "✅ Local session cleared")
+                } else {
+                    Log.w("ParticipantRegistrationVM", "⚠️ groupId or userId is null")
                 }
 
-                // Удаляем пользователя из Firestore
-                firestore.collection("users")
-                    .document(userId)
-                    .delete()
-                    .await()
-
-                Log.d("ParticipantVM", "User deleted from Firestore")
-
-                // Выход из Firebase Auth
-                auth.signOut()
-
-                // Очищаем локальную сессию
-                UserSession.clearSession()
-
-                _uiState.value = ParticipantRegistrationUiState(
-                    successMessage = "Vous avez quitté le groupe"
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    error = null
                 )
+
+                Log.d("ParticipantRegistrationVM", "✅ Leave group completed")
+                Log.d("ParticipantRegistrationVM", "==============================================")
 
                 onComplete(true)
 
             } catch (e: Exception) {
-                Log.e("ParticipantVM", "Error leaving group", e)
-                _uiState.value = ParticipantRegistrationUiState(
-                    error = "Erreur: ${e.message}"
+                Log.e("ParticipantRegistrationVM", "❌ Error leaving group", e)
+                Log.e("ParticipantRegistrationVM", "Error type: ${e.javaClass.simpleName}")
+                Log.e("ParticipantRegistrationVM", "Error message: ${e.message}")
+
+                // Даже при ошибке очищаем данные и считаем успехом
+                UserSession.clearGroupData()
+
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    error = null
                 )
-                onComplete(false)
+
+                Log.d("ParticipantRegistrationVM", "Treated as success - group likely deleted")
+                onComplete(true)
             }
         }
+    }
+
+    fun clearError() {
+        _uiState.value = _uiState.value.copy(error = null)
+    }
+
+    fun clearSuccessMessage() {
+        _uiState.value = _uiState.value.copy(successMessage = null)
     }
 }

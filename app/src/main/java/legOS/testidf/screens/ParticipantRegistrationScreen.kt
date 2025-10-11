@@ -1,6 +1,7 @@
 package legOS.testidf.screens
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import legOS.testidf.data.UserSession
 import legOS.testidf.loadImageFromAssets
 import legOS.testidf.viewmodel.ParticipantRegistrationViewModel
 
@@ -186,14 +188,31 @@ fun ParticipantRegistrationScreen(
                             // Кнопка Rejoindre
                             Button(
                                 onClick = {
+                                    Log.d("ParticipantRegistration", "Attempting to join group...")
+
                                     viewModel.joinGroup(
                                         participantName = participantName.trim(),
                                         groupCode = groupCode.trim()
-                                    ) { success ->
-                                        if (success) {
+                                    ) { success, groupId -> // ИСПРАВЛЕНО: два параметра
+                                        Log.d("ParticipantRegistration", "Join result: success=$success, groupId=$groupId")
+
+                                        if (success && groupId != null) {
+                                            Log.d("ParticipantRegistration", "==============================================")
+                                            Log.d("ParticipantRegistration", "✅ Successfully joined group: $groupId")
+
+                                            // Проверяем что данные сохранились
+                                            Log.d("ParticipantRegistration", "UserSession after join:")
+                                            Log.d("ParticipantRegistration", "  userId = ${UserSession.userId}")
+                                            Log.d("ParticipantRegistration", "  userName = ${UserSession.userName}")
+                                            Log.d("ParticipantRegistration", "  groupId = ${UserSession.groupId}")
+                                            Log.d("ParticipantRegistration", "Navigating to participant_waiting")
+                                            Log.d("ParticipantRegistration", "==============================================")
+
                                             navController.navigate("participant_waiting") {
                                                 popUpTo("competition") { inclusive = true }
                                             }
+                                        } else {
+                                            Log.e("ParticipantRegistration", "❌ Failed to join group")
                                         }
                                     }
                                 },
@@ -313,14 +332,31 @@ fun ParticipantRegistrationScreen(
 
                         Button(
                             onClick = {
+                                Log.d("ParticipantRegistration", "Attempting to join group...")
+
                                 viewModel.joinGroup(
                                     participantName = participantName.trim(),
                                     groupCode = groupCode.trim()
-                                ) { success ->
-                                    if (success) {
+                                ) { success, groupId -> // ИСПРАВЛЕНО: два параметра
+                                    Log.d("ParticipantRegistration", "Join result: success=$success, groupId=$groupId")
+
+                                    if (success && groupId != null) {
+                                        Log.d("ParticipantRegistration", "==============================================")
+                                        Log.d("ParticipantRegistration", "✅ Successfully joined group: $groupId")
+
+                                        // Проверяем что данные сохранились
+                                        Log.d("ParticipantRegistration", "UserSession after join:")
+                                        Log.d("ParticipantRegistration", "  userId = ${UserSession.userId}")
+                                        Log.d("ParticipantRegistration", "  userName = ${UserSession.userName}")
+                                        Log.d("ParticipantRegistration", "  groupId = ${UserSession.groupId}")
+                                        Log.d("ParticipantRegistration", "Navigating to participant_waiting")
+                                        Log.d("ParticipantRegistration", "==============================================")
+
                                         navController.navigate("participant_waiting") {
                                             popUpTo("competition") { inclusive = true }
                                         }
+                                    } else {
+                                        Log.e("ParticipantRegistration", "❌ Failed to join group")
                                     }
                                 }
                             },

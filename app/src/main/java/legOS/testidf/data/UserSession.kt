@@ -10,19 +10,19 @@ object UserSession {
 
     // Данные пользователя
     var userId: String? = null
-        private set
+
 
     var groupId: String? = null
-        private set
+
 
     var userName: String? = null
-        private set
 
-    var userEmail: String? = null
-        private set
+
 
     var userRole: String? = null
-        private set
+
+
+    private var groupCode: String? = null
 
     /**
      * Устанавливает сессию администратора (Chef)
@@ -36,7 +36,6 @@ object UserSession {
         this.userId = userId
         this.groupId = groupId
         this.userName = name
-        this.userEmail = email
         this.userRole = "admin"
 
         Log.d("UserSession", "Admin session set: $name (Group: $groupId)")
@@ -52,7 +51,6 @@ object UserSession {
     ) {
         this.userId = userId
         this.userName = name
-        this.userEmail = email
         this.userRole = "participant"
         this.groupId = null // Участник может быть в нескольких группах
 
@@ -66,7 +64,6 @@ object UserSession {
         userId = null
         groupId = null
         userName = null
-        userEmail = null
         userRole = null
 
         Log.d("UserSession", "Session cleared")
@@ -90,9 +87,22 @@ object UserSession {
             UserSession Info:
             - User ID: $userId
             - Name: $userName
-            - Email: $userEmail
             - Role: $userRole
             - Group ID: $groupId
         """.trimIndent()
+    }
+    fun clearGroupData() {
+        groupId = null
+        groupCode = null
+        Log.d("UserSession", "Group data cleared")
+    }
+
+    fun clearAll() {
+        userId = null
+        userName = null
+        userRole = null
+        groupId = null
+        groupCode = null
+        Log.d("UserSession", "All session data cleared")
     }
 }

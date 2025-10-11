@@ -70,6 +70,7 @@ class AdminRegistrationViewModel : ViewModel() {
                     "name" to groupName,
                     "groupCode" to groupCode,
                     "participantIds" to emptyList<String>(),
+                    "isActive" to true, // ДОБАВЛЕНО
                     "createdAt" to Timestamp.now()
                 )
 

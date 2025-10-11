@@ -42,8 +42,8 @@ fun ParticipantWaitingScreen(
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     var showLeaveDialog by remember { mutableStateOf(false) }
+    var showGroupClosedDialog by remember { mutableStateOf(false) }
 
-    // Load background image
     val backgroundImage = remember {
         try {
             context.assets.open("images/background_6.png").use { stream: InputStream ->
@@ -55,23 +55,142 @@ fun ParticipantWaitingScreen(
         }
     }
 
-    // Начинаем слушать уведомления
+    // Start listening for notifications and group status
     LaunchedEffect(Unit) {
         val userId = UserSession.userId
+        Log.d("ParticipantWaitingScreen", "==============================================")
+        Log.d("ParticipantWaitingScreen", "🚀 ParticipantWaitingScreen started")
+        Log.d("ParticipantWaitingScreen", "User ID: $userId")
+        Log.d("ParticipantWaitingScreen", "Group ID: ${UserSession.groupId}")
+
         if (userId != null) {
             waitingViewModel.startListeningForTests(userId)
+            waitingViewModel.startListeningForGroupStatus()
+            Log.d("ParticipantWaitingScreen", "✅ Listeners started")
+        } else {
+            Log.e("ParticipantWaitingScreen", "❌ User ID is null!")
         }
+        Log.d("ParticipantWaitingScreen", "==============================================")
     }
 
-    // Очищаем слушатель при выходе
+    // Monitor group status changes
+    LaunchedEffect(uiState.isGroupActive) {
+        Log.d("ParticipantWaitingScreen", "==============================================")
+        Log.d("ParticipantWaitingScreen", "📊 UI STATE CHANGED")
+        Log.d("ParticipantWaitingScreen", "isGroupActive: ${uiState.isGroupActive}")
+        Log.d("ParticipantWaitingScreen", "groupClosedMessage: ${uiState.groupClosedMessage}")
+        Log.d("ParticipantWaitingScreen", "showGroupClosedDialog BEFORE: $showGroupClosedDialog")
+
+        if (!uiState.isGroupActive) {
+            Log.d("ParticipantWaitingScreen", "⚠️⚠️⚠️ GROUP IS NOT ACTIVE - SHOWING DIALOG")
+            showGroupClosedDialog = true
+            Log.d("ParticipantWaitingScreen", "showGroupClosedDialog AFTER: $showGroupClosedDialog")
+        }
+        Log.d("ParticipantWaitingScreen", "==============================================")
+    }
+
+    // Monitor dialog state
+    LaunchedEffect(showGroupClosedDialog) {
+        Log.d("ParticipantWaitingScreen", "🔔 showGroupClosedDialog changed to: $showGroupClosedDialog")
+    }
+
     DisposableEffect(Unit) {
         onDispose {
+            Log.d("ParticipantWaitingScreen", "🛑 ParticipantWaitingScreen disposed - stopping listeners")
             waitingViewModel.stopListening()
         }
     }
 
+    // DEBUG INFO - TEMPORARY
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.errorContainer)
+            .padding(4.dp)
+    ) {
+        Text(
+            "DEBUG: User=${UserSession.userId}",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onErrorContainer
+        )
+        Text(
+            "DEBUG: Group=${UserSession.groupId}",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onErrorContainer
+        )
+        Text(
+            "DEBUG: isGroupActive=${uiState.isGroupActive}",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onErrorContainer
+        )
+        Text(
+            "DEBUG: showDialog=$showGroupClosedDialog",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onErrorContainer
+        )
+    }
+
+    // Group closure dialog
+    if (showGroupClosedDialog) {
+        Log.d("ParticipantWaitingScreen", "🎭 Rendering GROUP CLOSED DIALOG")
+        AlertDialog(
+            onDismissRequest = { showGroupClosedDialog = false },
+            icon = {
+                Icon(
+                    Icons.Default.Info,
+                    contentDescription = null,
+                    modifier = Modifier.size(56.dp),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            },
+            title = {
+                Text(
+                    "Information",
+                    style = MaterialTheme.typography.headlineMedium,
+                    textAlign = TextAlign.Center
+                )
+            },
+            text = {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                ) {
+                    Text(
+                        uiState.groupClosedMessage ?: "Le chef a quitté la session",
+                        style = MaterialTheme.typography.bodyLarge,
+                        textAlign = TextAlign.Center,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+                    Text(
+                        "La compétition est maintenant terminée. Vous pouvez rester sur cette page или quitter quand vous le souhaitez.",
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Center,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                    )
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        Log.d("ParticipantWaitingScreen", "User clicked 'OK'")
+                        showGroupClosedDialog = false
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary
+                    )
+                ) {
+                    Text("OK", style = MaterialTheme.typography.bodyLarge)
+                }
+            },
+            containerColor = MaterialTheme.colorScheme.surface
+        )
+    }
+
+    // Main UI - displayed regardless of group status
     if (isLandscape) {
-        // ГОРИЗОНТАЛЬНЫЙ РЕЖИМ (unchanged)
+        // LANDSCAPE MODE
         Row(
             modifier = Modifier
                 .fillMaxSize()
@@ -87,7 +206,6 @@ fun ParticipantWaitingScreen(
                 .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // ЛЕВАЯ ЧАСТЬ - Приветствие и кнопка "Quitter le groupe"
             Column(
                 modifier = Modifier
                     .weight(0.4f)
@@ -102,7 +220,6 @@ fun ParticipantWaitingScreen(
                     )
                 }
 
-                // Кнопка выхода из группы
                 OutlinedButton(
                     onClick = { showLeaveDialog = true },
                     modifier = Modifier.fillMaxWidth(),
@@ -112,7 +229,7 @@ fun ParticipantWaitingScreen(
                 ) {
                     Icon(
                         Icons.Default.ExitToApp,
-                        null,
+                        contentDescription = null,
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(Modifier.width(8.dp))
@@ -120,14 +237,12 @@ fun ParticipantWaitingScreen(
                 }
             }
 
-            // ПРАВАЯ ЧАСТЬ - Статус и список тестов/информативный текст
             Column(
                 modifier = Modifier
                     .weight(0.6f)
                     .fillMaxHeight(),
                 verticalArrangement = Arrangement.Top
             ) {
-                // Статус
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
@@ -138,17 +253,23 @@ fun ParticipantWaitingScreen(
                         modifier = Modifier.padding(16.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        if (uiState.availableTests.isEmpty()) {
+                        if (uiState.isGroupActive && uiState.availableTests.isEmpty()) {
                             CircularProgressIndicator(modifier = Modifier.size(24.dp))
                             Spacer(Modifier.width(16.dp))
                             Text(
                                 "En attente d'un test...",
                                 style = MaterialTheme.typography.bodyLarge
                             )
+                        } else if (!uiState.isGroupActive) {
+                            Text(
+                                "Le groupe est fermé.",
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
                         } else {
                             Icon(
                                 Icons.Default.Notifications,
-                                null,
+                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.primary
                             )
                             Spacer(Modifier.width(16.dp))
@@ -162,7 +283,6 @@ fun ParticipantWaitingScreen(
 
                 Spacer(Modifier.height(16.dp))
 
-                // Список тестов
                 if (uiState.availableTests.isEmpty()) {
                     Column(
                         modifier = Modifier.fillMaxWidth(),
@@ -177,7 +297,11 @@ fun ParticipantWaitingScreen(
                         )
                         Spacer(Modifier.height(16.dp))
                         Text(
-                            "Le chef va bientôt envoyer un test.\nVous serez notifié automatiquement.",
+                            if (uiState.isGroupActive) {
+                                "Le chef va bientôt envoyer un test.\nVous serez notifié automatiquement."
+                            } else {
+                                "Le groupe est fermé.\nAucun test n'est disponible."
+                            },
                             style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Center,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
@@ -198,6 +322,7 @@ fun ParticipantWaitingScreen(
                         contentPadding = PaddingValues(bottom = 8.dp)
                     ) {
                         items(uiState.availableTests) { test ->
+                            Log.d("ParticipantWaitingScreen", "Rendering test: $test")
                             TestCard(
                                 title = test.title,
                                 questionCount = test.questionCount,
@@ -212,7 +337,7 @@ fun ParticipantWaitingScreen(
             }
         }
     } else {
-        // ВЕРТИКАЛЬНЫЙ РЕЖИМ
+        // PORTRAIT MODE
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -227,14 +352,12 @@ fun ParticipantWaitingScreen(
                 .systemBarsPadding()
                 .padding(16.dp)
         ) {
-            // Заголовок
             Text(
                 "Bienvenue, ${UserSession.userName}!",
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            // Статус
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
@@ -245,17 +368,23 @@ fun ParticipantWaitingScreen(
                     modifier = Modifier.padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    if (uiState.availableTests.isEmpty()) {
+                    if (uiState.isGroupActive && uiState.availableTests.isEmpty()) {
                         CircularProgressIndicator(modifier = Modifier.size(24.dp))
                         Spacer(Modifier.width(16.dp))
                         Text(
                             "En attente d'un test...",
                             style = MaterialTheme.typography.bodyLarge
                         )
+                    } else if (!uiState.isGroupActive) {
+                        Text(
+                            "Le groupe est fermé.",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
                     } else {
                         Icon(
                             Icons.Default.Notifications,
-                            null,
+                            contentDescription = null,
                             tint = MaterialTheme.colorScheme.primary
                         )
                         Spacer(Modifier.width(16.dp))
@@ -267,9 +396,8 @@ fun ParticipantWaitingScreen(
                 }
             }
 
-            // Список тестов или информативный текст
             if (uiState.availableTests.isEmpty()) {
-                Spacer(Modifier.weight(1f)) // Push content to bottom
+                Spacer(Modifier.weight(1f))
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -285,14 +413,18 @@ fun ParticipantWaitingScreen(
                     )
                     Spacer(Modifier.height(16.dp))
                     Text(
-                        "Le chef va bientôt envoyer un test.\nVous serez notifié automatiquement.",
+                        if (uiState.isGroupActive) {
+                            "Le chef va bientôt envoyer un test.\nVous serez notifié automatiquement."
+                        } else {
+                            "Le groupe est fermé.\nAucun test n'est disponible."
+                        },
                         style = MaterialTheme.typography.bodyMedium,
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                     )
                 }
             } else {
-                Spacer(Modifier.height(16.dp)) // Space between status card and test list
+                Spacer(Modifier.height(16.dp))
                 Text(
                     "Tests disponibles:",
                     style = MaterialTheme.typography.titleMedium,
@@ -306,6 +438,7 @@ fun ParticipantWaitingScreen(
                     contentPadding = PaddingValues(bottom = 8.dp)
                 ) {
                     items(uiState.availableTests) { test ->
+                        Log.d("ParticipantWaitingScreen", "Rendering test: $test")
                         TestCard(
                             title = test.title,
                             questionCount = test.questionCount,
@@ -318,7 +451,6 @@ fun ParticipantWaitingScreen(
                 }
             }
 
-            // Кнопка выхода из группы
             OutlinedButton(
                 onClick = { showLeaveDialog = true },
                 modifier = Modifier.fillMaxWidth(),
@@ -328,7 +460,7 @@ fun ParticipantWaitingScreen(
             ) {
                 Icon(
                     Icons.Default.ExitToApp,
-                    null,
+                    contentDescription = null,
                     modifier = Modifier.size(18.dp)
                 )
                 Spacer(Modifier.width(8.dp))
@@ -337,7 +469,7 @@ fun ParticipantWaitingScreen(
         }
     }
 
-    // Диалог подтверждения выхода
+    // Leave group confirmation dialog
     if (showLeaveDialog) {
         AlertDialog(
             onDismissRequest = { showLeaveDialog = false },
@@ -385,13 +517,6 @@ fun ParticipantWaitingScreen(
             }
         )
     }
-
-    // Snackbar для ошибок
-    if (registrationUiState.error != null) {
-        LaunchedEffect(registrationUiState.error) {
-            // Можно добавить Snackbar если нужно
-        }
-    }
 }
 
 @Composable
@@ -413,7 +538,7 @@ fun TestCard(
         ) {
             Icon(
                 Icons.Default.Assignment,
-                null,
+                contentDescription = null,
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(32.dp)
             )
