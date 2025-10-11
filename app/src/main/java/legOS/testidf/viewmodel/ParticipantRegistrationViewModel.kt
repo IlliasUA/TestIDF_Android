@@ -37,13 +37,49 @@ class ParticipantRegistrationViewModel : ViewModel() {
                 Log.d("ParticipantRegistrationVM", "==============================================")
                 Log.d("ParticipantRegistrationVM", "🔐 Attempting to join group with code: $groupCode")
 
-                // Проверяем существование пользователя
-                val currentUserId = auth.currentUser?.uid
+                // ИСПРАВЛЕНИЕ: Проверяем аутентификацию и создаем пользователя если нужно
+                var currentUserId = auth.currentUser?.uid
+
                 if (currentUserId == null) {
-                    Log.e("ParticipantRegistrationVM", "❌ User not authenticated")
+                    Log.d("ParticipantRegistrationVM", "⚠️ User not authenticated - creating anonymous user")
+
+                    try {
+                        val authResult = auth.signInAnonymously().await()
+                        currentUserId = authResult.user?.uid
+
+                        Log.d("ParticipantRegistrationVM", "✅ Anonymous user created: $currentUserId")
+
+                        // Создаем документ пользователя в Firestore
+                        if (currentUserId != null) {
+                            val userData = hashMapOf(
+                                "name" to participantName,
+                                "role" to "participant",
+                                "createdAt" to com.google.firebase.Timestamp.now()
+                            )
+
+                            firestore.collection("users")
+                                .document(currentUserId)
+                                .set(userData)
+                                .await()
+
+                            Log.d("ParticipantRegistrationVM", "✅ User document created in Firestore")
+                        }
+                    } catch (e: Exception) {
+                        Log.e("ParticipantRegistrationVM", "❌ Failed to create anonymous user", e)
+                        _uiState.value = _uiState.value.copy(
+                            isLoading = false,
+                            error = "Erreur d'authentification: ${e.message}"
+                        )
+                        onComplete(false, null)
+                        return@launch
+                    }
+                }
+
+                if (currentUserId == null) {
+                    Log.e("ParticipantRegistrationVM", "❌ User ID is still null after authentication")
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
-                        error = "Utilisateur non authentifié"
+                        error = "Impossible de créer un utilisateur"
                     )
                     onComplete(false, null)
                     return@launch
@@ -51,13 +87,31 @@ class ParticipantRegistrationViewModel : ViewModel() {
 
                 Log.d("ParticipantRegistrationVM", "Current user ID: $currentUserId")
 
-                // Обновляем имя пользователя в Firestore
-                firestore.collection("users")
-                    .document(currentUserId)
-                    .update("name", participantName)
-                    .await()
+                // Обновляем имя пользователя в Firestore (на случай если документ уже существует)
+                try {
+                    firestore.collection("users")
+                        .document(currentUserId)
+                        .update("name", participantName)
+                        .await()
 
-                Log.d("ParticipantRegistrationVM", "✅ User name updated to: $participantName")
+                    Log.d("ParticipantRegistrationVM", "✅ User name updated to: $participantName")
+                } catch (e: Exception) {
+                    // Если документ не существует, создаем его
+                    Log.w("ParticipantRegistrationVM", "⚠️ User document doesn't exist, creating...")
+
+                    val userData = hashMapOf(
+                        "name" to participantName,
+                        "role" to "participant",
+                        "createdAt" to com.google.firebase.Timestamp.now()
+                    )
+
+                    firestore.collection("users")
+                        .document(currentUserId)
+                        .set(userData)
+                        .await()
+
+                    Log.d("ParticipantRegistrationVM", "✅ User document created")
+                }
 
                 // Ищем группу по коду
                 val groupQuery = firestore.collection("groups")

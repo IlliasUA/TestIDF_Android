@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.delay
 import legOS.testidf.data.UserSession
+import legOS.testidf.data.UserSession.groupId
 import java.util.UUID
 
 data class TakeTestUiState(
@@ -162,6 +163,7 @@ class TakeTestViewModel(private val sessionId: String) : ViewModel() {
                 val resultData = hashMapOf(
                     "resultId" to resultId,
                     "sessionId" to sessionId,
+                    "groupId" to groupId, // КРИТИЧЕСКИ ВАЖНО
                     "participantId" to userId,
                     "participantName" to userName,
                     "answers" to detailedAnswers,

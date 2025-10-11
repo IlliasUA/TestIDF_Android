@@ -18,8 +18,21 @@ data class AvailableTest(
     val timeLimit: Int = 0
 )
 
+data class TestResult(
+    val sessionId: String = "",
+    val sessionTitle: String = "",
+    val participantId: String = "",
+    val participantName: String = "",
+    val score: Int = 0,
+    val totalQuestions: Int = 0,
+    val percentage: Double = 0.0,
+    val completedAt: com.google.firebase.Timestamp? = null
+)
+
 data class ParticipantWaitingUiState(
     val availableTests: List<AvailableTest> = emptyList(),
+    val testResults: List<TestResult> = emptyList(),
+    val isLoadingResults: Boolean = false,
     val isGroupActive: Boolean = true,
     val groupClosedMessage: String? = null
 )
@@ -30,6 +43,7 @@ class ParticipantWaitingViewModel : ViewModel() {
     private var notificationListener: ListenerRegistration? = null
     private var groupListener: ListenerRegistration? = null
     private var groupClosureListener: ListenerRegistration? = null
+    private var resultsListener: ListenerRegistration? = null
 
     private val _uiState = MutableStateFlow(ParticipantWaitingUiState())
     val uiState: StateFlow<ParticipantWaitingUiState> = _uiState
@@ -156,7 +170,7 @@ class ParticipantWaitingViewModel : ViewModel() {
 
                     Log.d("ParticipantWaitingVM", "✅ UI State updated: isGroupActive = false")
                 } else {
-                    // ДОБАВЛЕНО: Проверяем поле isActive
+                    // Проверяем поле isActive
                     val isActive = snapshot.getBoolean("isActive") ?: true
 
                     Log.d("ParticipantWaitingVM", "Group isActive field: $isActive")
@@ -176,12 +190,8 @@ class ParticipantWaitingViewModel : ViewModel() {
                 }
             }
 
-        // Слушаем уведомления о закрытии группы (остается без изменений)
+        // Слушаем уведомления о закрытии группы
         Log.d("ParticipantWaitingVM", "Setting up closure notification listener...")
-        Log.d("ParticipantWaitingVM", "Query parameters:")
-        Log.d("ParticipantWaitingVM", "  recipientId = $userId")
-        Log.d("ParticipantWaitingVM", "  type = GROUP_CLOSED")
-        Log.d("ParticipantWaitingVM", "  isRead = false")
 
         groupClosureListener = firestore.collection("notifications")
             .whereEqualTo("recipientId", userId)
@@ -200,28 +210,16 @@ class ParticipantWaitingViewModel : ViewModel() {
                     Log.d("ParticipantWaitingVM", "⚠️⚠️⚠️ FOUND ${snapshots.size()} CLOSURE NOTIFICATIONS!")
 
                     snapshots.documents.forEach { doc ->
-                        Log.d("ParticipantWaitingVM", "Processing notification:")
-                        Log.d("ParticipantWaitingVM", "  Notification ID: ${doc.id}")
-                        Log.d("ParticipantWaitingVM", "  Type: ${doc.getString("type")}")
-                        Log.d("ParticipantWaitingVM", "  Message: ${doc.getString("message")}")
-
                         val message = doc.getString("message") ?: "Le groupe n'est plus actif"
-
-                        Log.d("ParticipantWaitingVM", "🔄 Updating UI state...")
 
                         _uiState.value = _uiState.value.copy(
                             isGroupActive = false,
                             groupClosedMessage = message
                         )
 
-                        Log.d("ParticipantWaitingVM", "✅ UI State updated:")
-                        Log.d("ParticipantWaitingVM", "  isGroupActive = ${_uiState.value.isGroupActive}")
-                        Log.d("ParticipantWaitingVM", "  groupClosedMessage = ${_uiState.value.groupClosedMessage}")
-
                         // Отмечаем уведомление как прочитанное
                         viewModelScope.launch {
                             try {
-                                Log.d("ParticipantWaitingVM", "Marking notification as read...")
                                 doc.reference.update("isRead", true).await()
                                 Log.d("ParticipantWaitingVM", "✅ Notification marked as read")
                             } catch (e: Exception) {
@@ -229,8 +227,6 @@ class ParticipantWaitingViewModel : ViewModel() {
                             }
                         }
                     }
-                } else {
-                    Log.d("ParticipantWaitingVM", "No closure notifications found")
                 }
             }
 
@@ -238,14 +234,170 @@ class ParticipantWaitingViewModel : ViewModel() {
         Log.d("ParticipantWaitingVM", "==============================================")
     }
 
+    // ОБНОВЛЕННАЯ ФУНКЦИЯ: Загрузка только последних результатов
+    fun startListeningForResults() {
+        val groupId = UserSession.groupId
+
+        Log.d("ParticipantWaitingVM", "========================================")
+        Log.d("ParticipantWaitingVM", "📊 Setting up results listener")
+        Log.d("ParticipantWaitingVM", "Group ID: $groupId")
+
+        if (groupId == null) {
+            Log.e("ParticipantWaitingVM", "❌ groupId is NULL - cannot load results")
+            return
+        }
+
+        _uiState.value = _uiState.value.copy(isLoadingResults = true)
+
+        resultsListener?.remove()
+
+        // Загружаем все результаты, затем фильтруем только последнюю сессию
+        resultsListener = firestore.collection("test_results")
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    Log.e("ParticipantWaitingVM", "❌ Error listening to results", error)
+                    _uiState.value = _uiState.value.copy(isLoadingResults = false)
+                    return@addSnapshotListener
+                }
+
+                Log.d("ParticipantWaitingVM", "📊 All results snapshot received")
+                Log.d("ParticipantWaitingVM", "Total results: ${snapshot?.size() ?: 0}")
+
+                if (snapshot != null && !snapshot.isEmpty) {
+                    viewModelScope.launch {
+                        val results = mutableListOf<TestResult>()
+                        var latestSessionTimestamp: com.google.firebase.Timestamp? = null
+                        var latestSessionId: String? = null
+
+                        // ШАГ 1: Найти последнюю сессию группы
+                        for (doc in snapshot.documents) {
+                            val sessionId = doc.getString("sessionId") ?: continue
+                            val completedAt = doc.getTimestamp("completedAt") ?: continue
+
+                            try {
+                                val sessionDoc = firestore.collection("test_sessions")
+                                    .document(sessionId)
+                                    .get()
+                                    .await()
+
+                                if (!sessionDoc.exists()) continue
+
+                                val sessionGroupId = sessionDoc.getString("groupId")
+
+                                // Проверяем принадлежность к нашей группе
+                                if (sessionGroupId == groupId) {
+                                    // Находим последнюю сессию
+                                    if (latestSessionTimestamp == null || completedAt > latestSessionTimestamp) {
+                                        latestSessionTimestamp = completedAt
+                                        latestSessionId = sessionId
+                                    }
+                                }
+                            } catch (e: Exception) {
+                                Log.e("ParticipantWaitingVM", "❌ Error checking session", e)
+                            }
+                        }
+
+                        Log.d("ParticipantWaitingVM", "Latest session ID: $latestSessionId")
+                        Log.d("ParticipantWaitingVM", "Latest session timestamp: $latestSessionTimestamp")
+
+                        if (latestSessionId == null) {
+                            Log.d("ParticipantWaitingVM", "No sessions found for this group")
+                            _uiState.value = _uiState.value.copy(
+                                testResults = emptyList(),
+                                isLoadingResults = false
+                            )
+                            return@launch
+                        }
+
+                        // ШАГ 2: Загружаем только результаты последней сессии
+                        for (doc in snapshot.documents) {
+                            val sessionId = doc.getString("sessionId")
+
+                            // Пропускаем результаты НЕ последней сессии
+                            if (sessionId != latestSessionId) {
+                                continue
+                            }
+
+                            try {
+                                val sessionDoc = firestore.collection("test_sessions")
+                                    .document(sessionId)
+                                    .get()
+                                    .await()
+
+                                if (!sessionDoc.exists()) continue
+
+                                val sessionTitle = sessionDoc.getString("title") ?: "Test"
+                                val participantId = doc.getString("participantId") ?: continue
+                                val score = (doc.getLong("score") ?: 0).toInt()
+                                val totalQuestions = (doc.getLong("totalQuestions") ?: 0).toInt()
+                                val percentage = if (totalQuestions > 0) {
+                                    (score.toDouble() / totalQuestions) * 100
+                                } else 0.0
+                                val completedAt = doc.getTimestamp("completedAt")
+
+                                // Получаем имя участника
+                                val userDoc = firestore.collection("users")
+                                    .document(participantId)
+                                    .get()
+                                    .await()
+
+                                val participantName = userDoc.getString("name") ?: "Participant"
+
+                                results.add(
+                                    TestResult(
+                                        sessionId = sessionId,
+                                        sessionTitle = sessionTitle,
+                                        participantId = participantId,
+                                        participantName = participantName,
+                                        score = score,
+                                        totalQuestions = totalQuestions,
+                                        percentage = percentage,
+                                        completedAt = completedAt
+                                    )
+                                )
+
+                                Log.d("ParticipantWaitingVM", "  Added: $participantName - $score/$totalQuestions")
+
+                            } catch (e: Exception) {
+                                Log.e("ParticipantWaitingVM", "❌ Error processing result", e)
+                            }
+                        }
+
+                        // Сортируем по проценту (лучшие сверху)
+                        val sortedResults = results.sortedByDescending { it.percentage }
+
+                        Log.d("ParticipantWaitingVM", "========================================")
+                        Log.d("ParticipantWaitingVM", "✅ Loaded ${sortedResults.size} results for latest session")
+                        sortedResults.forEach { result ->
+                            Log.d("ParticipantWaitingVM", "  - ${result.participantName}: ${result.score}/${result.totalQuestions} (${result.sessionTitle})")
+                        }
+                        Log.d("ParticipantWaitingVM", "========================================")
+
+                        _uiState.value = _uiState.value.copy(
+                            testResults = sortedResults,
+                            isLoadingResults = false
+                        )
+                    }
+                } else {
+                    Log.d("ParticipantWaitingVM", "No results found in database")
+                    _uiState.value = _uiState.value.copy(
+                        testResults = emptyList(),
+                        isLoadingResults = false
+                    )
+                }
+            }
+    }
+
     fun stopListening() {
         Log.d("ParticipantWaitingVM", "🛑 Stopping all listeners")
         notificationListener?.remove()
         groupListener?.remove()
         groupClosureListener?.remove()
+        resultsListener?.remove()
         notificationListener = null
         groupListener = null
         groupClosureListener = null
+        resultsListener = null
         Log.d("ParticipantWaitingVM", "✅ All listeners stopped")
     }
 

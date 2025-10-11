@@ -7,13 +7,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
@@ -28,6 +32,8 @@ import legOS.testidf.viewmodel.ParticipantRegistrationViewModel
 import legOS.testidf.viewmodel.ParticipantWaitingViewModel
 import java.io.IOException
 import java.io.InputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Composable
 fun ParticipantWaitingScreen(
@@ -43,6 +49,7 @@ fun ParticipantWaitingScreen(
 
     var showLeaveDialog by remember { mutableStateOf(false) }
     var showGroupClosedDialog by remember { mutableStateOf(false) }
+    var selectedTab by rememberSaveable { mutableStateOf(0) }
 
     val backgroundImage = remember {
         try {
@@ -55,84 +62,33 @@ fun ParticipantWaitingScreen(
         }
     }
 
-    // Start listening for notifications and group status
     LaunchedEffect(Unit) {
         val userId = UserSession.userId
-        Log.d("ParticipantWaitingScreen", "==============================================")
         Log.d("ParticipantWaitingScreen", "🚀 ParticipantWaitingScreen started")
-        Log.d("ParticipantWaitingScreen", "User ID: $userId")
-        Log.d("ParticipantWaitingScreen", "Group ID: ${UserSession.groupId}")
+        Log.d("ParticipantWaitingScreen", "User ID: $userId, Group ID: ${UserSession.groupId}")
 
         if (userId != null) {
             waitingViewModel.startListeningForTests(userId)
             waitingViewModel.startListeningForGroupStatus()
+            waitingViewModel.startListeningForResults()
             Log.d("ParticipantWaitingScreen", "✅ Listeners started")
-        } else {
-            Log.e("ParticipantWaitingScreen", "❌ User ID is null!")
         }
-        Log.d("ParticipantWaitingScreen", "==============================================")
     }
 
-    // Monitor group status changes
     LaunchedEffect(uiState.isGroupActive) {
-        Log.d("ParticipantWaitingScreen", "==============================================")
-        Log.d("ParticipantWaitingScreen", "📊 UI STATE CHANGED")
-        Log.d("ParticipantWaitingScreen", "isGroupActive: ${uiState.isGroupActive}")
-        Log.d("ParticipantWaitingScreen", "groupClosedMessage: ${uiState.groupClosedMessage}")
-        Log.d("ParticipantWaitingScreen", "showGroupClosedDialog BEFORE: $showGroupClosedDialog")
-
         if (!uiState.isGroupActive) {
-            Log.d("ParticipantWaitingScreen", "⚠️⚠️⚠️ GROUP IS NOT ACTIVE - SHOWING DIALOG")
             showGroupClosedDialog = true
-            Log.d("ParticipantWaitingScreen", "showGroupClosedDialog AFTER: $showGroupClosedDialog")
         }
-        Log.d("ParticipantWaitingScreen", "==============================================")
-    }
-
-    // Monitor dialog state
-    LaunchedEffect(showGroupClosedDialog) {
-        Log.d("ParticipantWaitingScreen", "🔔 showGroupClosedDialog changed to: $showGroupClosedDialog")
     }
 
     DisposableEffect(Unit) {
         onDispose {
-            Log.d("ParticipantWaitingScreen", "🛑 ParticipantWaitingScreen disposed - stopping listeners")
             waitingViewModel.stopListening()
         }
     }
 
-    // DEBUG INFO - TEMPORARY
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.errorContainer)
-            .padding(4.dp)
-    ) {
-        Text(
-            "DEBUG: User=${UserSession.userId}",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onErrorContainer
-        )
-        Text(
-            "DEBUG: Group=${UserSession.groupId}",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onErrorContainer
-        )
-        Text(
-            "DEBUG: isGroupActive=${uiState.isGroupActive}",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onErrorContainer
-        )
-        Text(
-            "DEBUG: showDialog=$showGroupClosedDialog",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onErrorContainer
-        )
-    }
-
     // Group closure dialog
     if (showGroupClosedDialog) {
-        Log.d("ParticipantWaitingScreen", "🎭 Rendering GROUP CLOSED DIALOG")
         AlertDialog(
             onDismissRequest = { showGroupClosedDialog = false },
             icon = {
@@ -159,11 +115,10 @@ fun ParticipantWaitingScreen(
                         uiState.groupClosedMessage ?: "Le chef a quitté la session",
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
-                        color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
                     Text(
-                        "La compétition est maintenant terminée. Vous pouvez rester sur cette page или quitter quand vous le souhaitez.",
+                        "La compétition est maintenant terminée. Vous pouvez rester sur cette page ou quitter quand vous le souhaitez.",
                         style = MaterialTheme.typography.bodyMedium,
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
@@ -172,313 +127,41 @@ fun ParticipantWaitingScreen(
             },
             confirmButton = {
                 Button(
-                    onClick = {
-                        Log.d("ParticipantWaitingScreen", "User clicked 'OK'")
-                        showGroupClosedDialog = false
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary
-                    )
+                    onClick = { showGroupClosedDialog = false },
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("OK", style = MaterialTheme.typography.bodyLarge)
+                    Text("OK")
                 }
-            },
-            containerColor = MaterialTheme.colorScheme.surface
+            }
         )
     }
 
-    // Main UI - displayed regardless of group status
+    // Main UI
     if (isLandscape) {
-        // LANDSCAPE MODE
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .then(
-                    backgroundImage?.let {
-                        Modifier.paint(
-                            painter = BitmapPainter(it),
-                            contentScale = ContentScale.Crop
-                        )
-                    } ?: Modifier.background(MaterialTheme.colorScheme.background)
-                )
-                .systemBarsPadding()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .weight(0.4f)
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                Column {
-                    Text(
-                        "Bienvenue, ${UserSession.userName}!",
-                        style = MaterialTheme.typography.headlineMedium,
-                        modifier = Modifier.padding(bottom = 16.dp)
-                    )
-                }
-
-                OutlinedButton(
-                    onClick = { showLeaveDialog = true },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.outlinedButtonColors(
-                        contentColor = MaterialTheme.colorScheme.error
-                    )
-                ) {
-                    Icon(
-                        Icons.Default.ExitToApp,
-                        contentDescription = null,
-                        modifier = Modifier.size(18.dp)
-                    )
-                    Spacer(Modifier.width(8.dp))
-                    Text("Quitter le groupe")
-                }
-            }
-
-            Column(
-                modifier = Modifier
-                    .weight(0.6f)
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.Top
-            ) {
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
-                    )
-                ) {
-                    Row(
-                        modifier = Modifier.padding(16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        if (uiState.isGroupActive && uiState.availableTests.isEmpty()) {
-                            CircularProgressIndicator(modifier = Modifier.size(24.dp))
-                            Spacer(Modifier.width(16.dp))
-                            Text(
-                                "En attente d'un test...",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        } else if (!uiState.isGroupActive) {
-                            Text(
-                                "Le groupe est fermé.",
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
-                            )
-                        } else {
-                            Icon(
-                                Icons.Default.Notifications,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                            Spacer(Modifier.width(16.dp))
-                            Text(
-                                "${uiState.availableTests.size} test(s) disponible(s)",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
-                    }
-                }
-
-                Spacer(Modifier.height(16.dp))
-
-                if (uiState.availableTests.isEmpty()) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Top
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.HourglassEmpty,
-                            contentDescription = null,
-                            modifier = Modifier.size(64.dp),
-                            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
-                        )
-                        Spacer(Modifier.height(16.dp))
-                        Text(
-                            if (uiState.isGroupActive) {
-                                "Le chef va bientôt envoyer un test.\nVous serez notifié automatiquement."
-                            } else {
-                                "Le groupe est fermé.\nAucun test n'est disponible."
-                            },
-                            style = MaterialTheme.typography.bodyMedium,
-                            textAlign = TextAlign.Center,
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                        )
-                    }
-                } else {
-                    Text(
-                        "Tests disponibles:",
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(bottom = 8.dp)
-                    )
-
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(1f),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        contentPadding = PaddingValues(bottom = 8.dp)
-                    ) {
-                        items(uiState.availableTests) { test ->
-                            Log.d("ParticipantWaitingScreen", "Rendering test: $test")
-                            TestCard(
-                                title = test.title,
-                                questionCount = test.questionCount,
-                                timeLimit = test.timeLimit,
-                                onStartClick = {
-                                    navController.navigate("take_test/${test.sessionId}")
-                                }
-                            )
-                        }
-                    }
-                }
-            }
-        }
+        LandscapeLayout(
+            uiState = uiState,
+            onStartTest = { sessionId -> navController.navigate("take_test/$sessionId") },
+            onLeaveClick = { showLeaveDialog = true },
+            backgroundImage = backgroundImage
+        )
     } else {
-        // PORTRAIT MODE
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .then(
-                    backgroundImage?.let {
-                        Modifier.paint(
-                            painter = BitmapPainter(it),
-                            contentScale = ContentScale.Crop
-                        )
-                    } ?: Modifier.background(MaterialTheme.colorScheme.background)
-                )
-                .systemBarsPadding()
-                .padding(16.dp)
-        ) {
-            Text(
-                "Bienvenue, ${UserSession.userName}!",
-                style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
-                )
-            ) {
-                Row(
-                    modifier = Modifier.padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    if (uiState.isGroupActive && uiState.availableTests.isEmpty()) {
-                        CircularProgressIndicator(modifier = Modifier.size(24.dp))
-                        Spacer(Modifier.width(16.dp))
-                        Text(
-                            "En attente d'un test...",
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                    } else if (!uiState.isGroupActive) {
-                        Text(
-                            "Le groupe est fermé.",
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
-                    } else {
-                        Icon(
-                            Icons.Default.Notifications,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                        Spacer(Modifier.width(16.dp))
-                        Text(
-                            "${uiState.availableTests.size} test(s) disponible(s)",
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                    }
-                }
-            }
-
-            if (uiState.availableTests.isEmpty()) {
-                Spacer(Modifier.weight(1f))
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.HourglassEmpty,
-                        contentDescription = null,
-                        modifier = Modifier.size(64.dp),
-                        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
-                    )
-                    Spacer(Modifier.height(16.dp))
-                    Text(
-                        if (uiState.isGroupActive) {
-                            "Le chef va bientôt envoyer un test.\nVous serez notifié automatiquement."
-                        } else {
-                            "Le groupe est fermé.\nAucun test n'est disponible."
-                        },
-                        style = MaterialTheme.typography.bodyMedium,
-                        textAlign = TextAlign.Center,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                    )
-                }
-            } else {
-                Spacer(Modifier.height(16.dp))
-                Text(
-                    "Tests disponibles:",
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    contentPadding = PaddingValues(bottom = 8.dp)
-                ) {
-                    items(uiState.availableTests) { test ->
-                        Log.d("ParticipantWaitingScreen", "Rendering test: $test")
-                        TestCard(
-                            title = test.title,
-                            questionCount = test.questionCount,
-                            timeLimit = test.timeLimit,
-                            onStartClick = {
-                                navController.navigate("take_test/${test.sessionId}")
-                            }
-                        )
-                    }
-                }
-            }
-
-            OutlinedButton(
-                onClick = { showLeaveDialog = true },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor = MaterialTheme.colorScheme.error
-                )
-            ) {
-                Icon(
-                    Icons.Default.ExitToApp,
-                    contentDescription = null,
-                    modifier = Modifier.size(18.dp)
-                )
-                Spacer(Modifier.width(8.dp))
-                Text("Quitter le groupe")
-            }
-        }
+        PortraitLayout(
+            selectedTab = selectedTab,
+            onTabSelected = { selectedTab = it },
+            uiState = uiState,
+            onStartTest = { sessionId -> navController.navigate("take_test/$sessionId") },
+            onLeaveClick = { showLeaveDialog = true },
+            backgroundImage = backgroundImage
+        )
     }
 
-    // Leave group confirmation dialog
+    // Leave confirmation dialog
     if (showLeaveDialog) {
         AlertDialog(
             onDismissRequest = { showLeaveDialog = false },
             title = { Text("Quitter le groupe?") },
             text = {
-                Text(
-                    "Êtes-vous sûr de vouloir quitter? Vous devrez entrer à nouveau le code du groupe pour rejoindre.",
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                Text("Êtes-vous sûr de vouloir quitter? Vous devrez entrer à nouveau le code du groupe pour rejoindre.")
             },
             confirmButton = {
                 Button(
@@ -498,24 +181,454 @@ fun ParticipantWaitingScreen(
                     enabled = !registrationUiState.isLoading
                 ) {
                     if (registrationUiState.isLoading) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(16.dp),
-                            color = MaterialTheme.colorScheme.onError
-                        )
+                        CircularProgressIndicator(modifier = Modifier.size(16.dp))
                         Spacer(Modifier.width(8.dp))
                     }
                     Text("Quitter")
                 }
             },
             dismissButton = {
-                TextButton(
-                    onClick = { showLeaveDialog = false },
-                    enabled = !registrationUiState.isLoading
-                ) {
+                TextButton(onClick = { showLeaveDialog = false }) {
                     Text("Annuler")
                 }
             }
         )
+    }
+}
+
+@Composable
+fun PortraitLayout(
+    selectedTab: Int,
+    onTabSelected: (Int) -> Unit,
+    uiState: legOS.testidf.viewmodel.ParticipantWaitingUiState,
+    onStartTest: (String) -> Unit,
+    onLeaveClick: () -> Unit,
+    backgroundImage: androidx.compose.ui.graphics.ImageBitmap?
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .then(
+                backgroundImage?.let {
+                    Modifier.paint(
+                        painter = BitmapPainter(it),
+                        contentScale = ContentScale.Crop
+                    )
+                } ?: Modifier.background(MaterialTheme.colorScheme.background)
+            )
+            .systemBarsPadding()
+            .padding(16.dp)
+    ) {
+        Text(
+            "Bienvenue, ${UserSession.userName}!",
+            style = MaterialTheme.typography.headlineMedium,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
+        TabRow(
+            selectedTabIndex = selectedTab,
+            modifier = Modifier.fillMaxWidth(),
+            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.0f)
+        ) {
+            Tab(
+                selected = selectedTab == 0,
+                onClick = { onTabSelected(0) },
+                text = {
+                    Text(
+                        "Tests",
+                        color = if (selectedTab == 0)
+                            MaterialTheme.colorScheme.primary
+                        else
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                    )
+                },
+                icon = {
+                    Icon(
+                        Icons.Default.Assignment,
+                        null,
+                        tint = if (selectedTab == 0)
+                            MaterialTheme.colorScheme.primary
+                        else
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                    )
+                }
+            )
+            Tab(
+                selected = selectedTab == 1,
+                onClick = { onTabSelected(1) },
+                text = {
+                    Text(
+                        "Résultats",
+                        color = if (selectedTab == 1)
+                            MaterialTheme.colorScheme.primary
+                        else
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                    )
+                },
+                icon = {
+                    Icon(
+                        Icons.Default.Leaderboard,
+                        null,
+                        tint = if (selectedTab == 1)
+                            MaterialTheme.colorScheme.primary
+                        else
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                    )
+                }
+            )
+        }
+
+        Spacer(Modifier.height(16.dp))
+
+        Box(modifier = Modifier.weight(1f)) {
+            when (selectedTab) {
+                0 -> TestsTab(
+                    availableTests = uiState.availableTests,
+                    isGroupActive = uiState.isGroupActive,
+                    onStartTest = onStartTest
+                )
+                1 -> ResultsTab(
+                    testResults = uiState.testResults,
+                    isLoading = uiState.isLoadingResults
+                )
+            }
+        }
+
+        Spacer(Modifier.height(8.dp))
+
+        OutlinedButton(
+            onClick = onLeaveClick,
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.outlinedButtonColors(
+                contentColor = MaterialTheme.colorScheme.error
+            )
+        ) {
+            Icon(Icons.Default.ExitToApp, null, modifier = Modifier.size(18.dp))
+            Spacer(Modifier.width(8.dp))
+            Text("Quitter le groupe")
+        }
+    }
+}
+
+@Composable
+fun LandscapeLayout(
+    uiState: legOS.testidf.viewmodel.ParticipantWaitingUiState,
+    onStartTest: (String) -> Unit,
+    onLeaveClick: () -> Unit,
+    backgroundImage: androidx.compose.ui.graphics.ImageBitmap?
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .then(
+                backgroundImage?.let {
+                    Modifier.paint(
+                        painter = BitmapPainter(it),
+                        contentScale = ContentScale.Crop
+                    )
+                } ?: Modifier.background(MaterialTheme.colorScheme.background)
+            )
+            .systemBarsPadding()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        // ЛЕВАЯ ЧАСТЬ - Résultats
+        Card(
+            modifier = Modifier
+                .weight(0.5f)
+                .fillMaxHeight(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.2f)
+            )
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(bottom = 12.dp)
+                ) {
+                    Icon(
+                        Icons.Default.Leaderboard,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(28.dp)
+                    )
+                    Spacer(Modifier.width(12.dp))
+                    Text(
+                        "Résultats",
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+
+                Divider(modifier = Modifier.padding(bottom = 12.dp))
+
+                if (uiState.isLoadingResults) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                } else if (uiState.testResults.isEmpty()) {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            Icons.Default.Assessment,
+                            contentDescription = null,
+                            modifier = Modifier.size(48.dp),
+                            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+                        )
+                        Spacer(Modifier.height(12.dp))
+                        Text(
+                            "Aucun résultat disponible",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                } else {
+                    // Группируем и показываем результаты
+                    val groupedResults = uiState.testResults.groupBy { it.sessionTitle }
+
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        groupedResults.forEach { (sessionTitle, results) ->
+                            item {
+                                Text(
+                                    sessionTitle,
+                                    style = MaterialTheme.typography.titleMedium,
+                                    color = MaterialTheme.colorScheme.secondary,
+                                    modifier = Modifier.padding(vertical = 8.dp)
+                                )
+                            }
+
+                            itemsIndexed(results.sortedByDescending { it.percentage }) { index, result ->
+                                ResultCard(result = result, position = index + 1)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // ПРАВАЯ ЧАСТЬ - Tests
+        Card(
+            modifier = Modifier
+                .weight(0.5f)
+                .fillMaxHeight(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.2f)
+            )
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(bottom = 12.dp)
+                    ) {
+                        Icon(
+                            Icons.Default.Assignment,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(28.dp)
+                        )
+                        Spacer(Modifier.width(12.dp))
+                        Text(
+                            "Tests",
+                            style = MaterialTheme.typography.titleLarge,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+
+                    Divider(modifier = Modifier.padding(bottom = 12.dp))
+
+                    Text(
+                        "Bienvenue, ${UserSession.userName}!",
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
+
+                    // Контент Tests
+                    if (uiState.availableTests.isEmpty()) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(1f),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Icon(
+                                Icons.Default.HourglassEmpty,
+                                contentDescription = null,
+                                modifier = Modifier.size(48.dp),
+                                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+                            )
+                            Spacer(Modifier.height(12.dp))
+                            Text(
+                                if (uiState.isGroupActive) {
+                                    "Le chef va bientôt envoyer un test.\nVous serez notifié automatiquement."
+                                } else {
+                                    "Le groupe est fermé.\nAucun test n'est disponible."
+                                },
+                                style = MaterialTheme.typography.bodyMedium,
+                                textAlign = TextAlign.Center,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                            )
+                        }
+                    } else {
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(1f),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            items(uiState.availableTests) { test ->
+                                TestCard(
+                                    title = test.title,
+                                    questionCount = test.questionCount,
+                                    timeLimit = test.timeLimit,
+                                    onStartClick = { onStartTest(test.sessionId) }
+                                )
+                            }
+                        }
+                    }
+                }
+
+                Spacer(Modifier.height(16.dp))
+
+                OutlinedButton(
+                    onClick = onLeaveClick,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
+                    Icon(Icons.Default.ExitToApp, null, modifier = Modifier.size(18.dp))
+                    Spacer(Modifier.width(8.dp))
+                    Text("Quitter le groupe")
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TestsTab(
+    availableTests: List<legOS.testidf.viewmodel.AvailableTest>,
+    isGroupActive: Boolean,
+    onStartTest: (String) -> Unit
+) {
+    if (availableTests.isEmpty()) {
+        Column(
+            modifier = Modifier.fillMaxSize().padding(32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                Icons.Default.HourglassEmpty,
+                contentDescription = null,
+                modifier = Modifier.size(64.dp),
+                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+            )
+            Spacer(Modifier.height(16.dp))
+            Text(
+                if (isGroupActive) {
+                    "Le chef va bientôt envoyer un test.\nVous serez notifié automatiquement."
+                } else {
+                    "Le groupe est fermé.\nAucun test n'est disponible."
+                },
+                style = MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+            )
+        }
+    } else {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(bottom = 8.dp)
+        ) {
+            items(availableTests) { test ->
+                TestCard(
+                    title = test.title,
+                    questionCount = test.questionCount,
+                    timeLimit = test.timeLimit,
+                    onStartClick = { onStartTest(test.sessionId) }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun ResultsTab(
+    testResults: List<legOS.testidf.viewmodel.TestResult>,
+    isLoading: Boolean
+) {
+    if (isLoading) {
+        Box(
+            modifier = Modifier.fillMaxSize().padding(32.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+    } else if (testResults.isEmpty()) {
+        Column(
+            modifier = Modifier.fillMaxSize().padding(32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                Icons.Default.Assessment,
+                contentDescription = null,
+                modifier = Modifier.size(64.dp),
+                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+            )
+            Spacer(Modifier.height(16.dp))
+            Text(
+                "Aucun résultat disponible",
+                style = MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+            )
+        }
+    } else {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(bottom = 8.dp)
+        ) {
+            val groupedResults = testResults.groupBy { it.sessionTitle }
+
+            groupedResults.forEach { (sessionTitle, results) ->
+                item {
+                    Text(
+                        text = sessionTitle,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(vertical = 8.dp)
+                    )
+                }
+
+                itemsIndexed(results.sortedByDescending { it.percentage }) { index, result ->
+                    ResultCard(result = result, position = index + 1)
+                }
+            }
+        }
     }
 }
 
@@ -544,10 +657,7 @@ fun TestCard(
             )
             Spacer(Modifier.width(16.dp))
             Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    title,
-                    style = MaterialTheme.typography.titleMedium
-                )
+                Text(title, style = MaterialTheme.typography.titleMedium)
                 Text(
                     "$questionCount questions • ${timeLimit}s/question",
                     style = MaterialTheme.typography.bodySmall,
@@ -556,6 +666,131 @@ fun TestCard(
             }
             Button(onClick = onStartClick) {
                 Text("Commencer")
+            }
+        }
+    }
+}
+
+@Composable
+fun ResultCard(
+    result: legOS.testidf.viewmodel.TestResult,
+    position: Int
+) {
+    val dateFormat = remember { SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()) }
+    val formattedDate = result.completedAt?.toDate()?.let { dateFormat.format(it) } ?: ""
+
+    // Цвета медалей
+    val medalColors = when (position) {
+        1 -> listOf(Color(0xFFFFD700), Color(0xFFFFA500)) // Золотой
+        2 -> listOf(Color(0xFFC0C0C0), Color(0xFF808080)) // Серебряный
+        3 -> listOf(Color(0xFFCD7F32), Color(0xFF8B4513)) // Бронзовый
+        else -> null
+    }
+
+    val scoreColor = when {
+        result.percentage >= 80 -> MaterialTheme.colorScheme.tertiary
+        result.percentage >= 50 -> MaterialTheme.colorScheme.primary
+        else -> MaterialTheme.colorScheme.error
+    }
+
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = if (medalColors != null) {
+                MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.1f)
+            } else {
+                MaterialTheme.colorScheme.surfaceVariant
+            }
+        )
+    ) {
+        Box {
+            // Градиент для топ-3
+            if (medalColors != null) {
+                Box(
+                    modifier = Modifier
+                        .matchParentSize()
+                        .background(
+                            Brush.horizontalGradient(
+                                colors = medalColors.map { it.copy(alpha = 0.2f) }
+                            )
+                        )
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Позиция с медалью
+                Box(
+                    modifier = Modifier.size(48.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (medalColors != null) {
+                        Box(
+                            modifier = Modifier
+                                .size(48.dp)
+                                .background(
+                                    Brush.radialGradient(medalColors),
+                                    shape = androidx.compose.foundation.shape.CircleShape
+                                ),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "#$position",
+                                style = MaterialTheme.typography.titleLarge,
+                                color = Color.White
+                            )
+                        }
+                    } else {
+                        Text(
+                            text = "#$position",
+                            style = MaterialTheme.typography.titleLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                        )
+                    }
+                }
+
+                Spacer(Modifier.width(16.dp))
+
+                Icon(
+                    Icons.Default.Person,
+                    contentDescription = null,
+                    modifier = Modifier.size(40.dp),
+                    tint = if (medalColors != null) medalColors[0] else MaterialTheme.colorScheme.onSurfaceVariant
+                )
+
+                Spacer(Modifier.width(16.dp))
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        result.participantName,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Text(
+                        formattedDate,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                    )
+                }
+
+                Spacer(Modifier.width(16.dp))
+
+                Column(horizontalAlignment = Alignment.End) {
+                    Text(
+                        "${result.score}/${result.totalQuestions}",
+                        style = MaterialTheme.typography.titleLarge,
+                        color = scoreColor
+                    )
+                    Text(
+                        "${String.format("%.1f", result.percentage)}%",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = scoreColor.copy(alpha = 0.7f)
+                    )
+                }
             }
         }
     }
