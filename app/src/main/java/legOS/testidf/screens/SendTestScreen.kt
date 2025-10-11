@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.compose.animation.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -35,16 +36,17 @@ import legOS.testidf.viewmodel.Participant
 import legOS.testidf.viewmodel.SendTestViewModel
 import java.io.IOException
 import java.io.InputStream
-import java.util.UUID
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TestSession(
-    val sessionId: String,
+    val id: String,
     val title: String,
     val questionCount: Int,
-    val timeLimit: Int
+    val timeLimit: Int,
+    val createdAt: com.google.firebase.Timestamp? = null,
+    val testNumber: Int = 0
 ) : Parcelable
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -68,6 +70,7 @@ fun SendTestScreen(
     var showDeleteConfirmDialog by remember { mutableStateOf<String?>(null) }
     var showExitConfirmDialog by remember { mutableStateOf(false) }
     var showSuccessMessage by remember { mutableStateOf(false) }
+    var isLoadingTests by remember { mutableStateOf(false) }
 
     val backgroundImage = remember {
         try {
@@ -80,41 +83,80 @@ fun SendTestScreen(
         }
     }
 
-    suspend fun loadTests() {
-        try {
-            val groupId = UserSession.groupId
-            Log.d("SendTestScreen", "Loading tests for group: $groupId")
+    fun loadTests() {
+        scope.launch {
+            isLoadingTests = true
 
-            if (groupId != null) {
-                val allSessions = firestore.collection("test_sessions")
+            try {
+                Log.d("SendTestScreen", "==============================================")
+                Log.d("SendTestScreen", "📚 Loading tests for session: $sessionId")
+
+                val groupId = UserSession.groupId
+                if (groupId == null) {
+                    Log.e("SendTestScreen", "Group ID is null")
+                    isLoadingTests = false
+                    return@launch
+                }
+
+                Log.d("SendTestScreen", "Group ID: $groupId")
+
+                // Загружаем все тесты группы
+                val sessionsSnapshot = firestore.collection("test_sessions")
                     .whereEqualTo("groupId", groupId)
                     .get()
                     .await()
 
-                availableTests = allSessions.documents
-                    .filter { it.getString("status") == "ready" }
-                    .mapNotNull { doc ->
-                        val title = doc.getString("title")
-                        val questionRefs = doc.get("questionRefs") as? List<*> ?: emptyList<Any>()
-                        val timeLimit = doc.getLong("timeLimit")?.toInt() ?: 15
+                Log.d("SendTestScreen", "Found ${sessionsSnapshot.documents.size} test sessions")
 
-                        if (!title.isNullOrEmpty() && questionRefs.isNotEmpty()) {
-                            TestSession(
-                                sessionId = doc.id,
-                                title = title,
-                                questionCount = questionRefs.size,
-                                timeLimit = timeLimit
-                            )
-                        } else null
-                    }
+                val tests = mutableListOf<TestSession>()
 
-                Log.d("SendTestScreen", "Loaded ${availableTests.size} tests")
+                sessionsSnapshot.documents.forEach { doc ->
+                    val id = doc.id
+                    val title = doc.getString("title") ?: "Test sans titre"
+                    val questionRefs = doc.get("questionRefs") as? List<*> ?: emptyList<Any>()
+                    val timeLimit = (doc.getLong("timeLimit") ?: 15).toInt()
+                    val createdAt = doc.getTimestamp("createdAt")
+
+                    Log.d("SendTestScreen", "Loaded test: $id - $title (${questionRefs.size} questions)")
+
+                    tests.add(
+                        TestSession(
+                            id = id,
+                            title = title,
+                            questionCount = questionRefs.size,
+                            timeLimit = timeLimit,
+                            createdAt = createdAt
+                        )
+                    )
+                }
+
+                // Сортируем по времени создания и добавляем номера
+                val sortedTests = tests.sortedBy { it.createdAt }
+
+                val numberedTests = sortedTests.mapIndexed { index, test ->
+                    val testNumber = index + 1
+                    test.copy(
+                        title = "Test personnalisé №$testNumber - ${test.title}",
+                        testNumber = testNumber
+                    )
+                }
+
+                availableTests = numberedTests
+
+                Log.d("SendTestScreen", "✅ Loaded ${numberedTests.size} tests with numbers")
+                numberedTests.forEachIndexed { index, test ->
+                    Log.d("SendTestScreen", "  Test ${index + 1}: ${test.title}")
+                }
+                Log.d("SendTestScreen", "==============================================")
+
+                isLoadingTests = false
+
+            } catch (e: Exception) {
+                Log.e("SendTestScreen", "❌ Error loading tests", e)
+                isLoadingTests = false
             }
-        } catch (e: Exception) {
-            Log.e("SendTestScreen", "Error loading tests", e)
         }
     }
-
 
     suspend fun deleteGroupSession() {
         try {
@@ -128,7 +170,7 @@ fun SendTestScreen(
                 return
             }
 
-            // 1. Помечаем группу как неактивную СНАЧАЛА
+            // 1. Помечаем группу как неактивную
             try {
                 firestore.collection("groups")
                     .document(groupId)
@@ -140,7 +182,6 @@ fun SendTestScreen(
                 Log.e("SendTestScreen", "❌ Error marking group as inactive", e)
             }
 
-            // Небольшая задержка чтобы изменение успело распространиться
             kotlinx.coroutines.delay(500)
 
             // 2. Получаем список участников
@@ -157,11 +198,8 @@ fun SendTestScreen(
             val participantIds = groupDoc.get("participantIds") as? List<String> ?: emptyList()
 
             Log.d("SendTestScreen", "📋 Found ${participantIds.size} participants")
-            participantIds.forEachIndexed { index, id ->
-                Log.d("SendTestScreen", "  Participant ${index + 1}: $id")
-            }
 
-            // 3. Отправляем уведомления КАЖДОМУ участнику
+            // 3. Отправляем уведомления
             if (participantIds.isNotEmpty()) {
                 Log.d("SendTestScreen", "📤 Sending ${participantIds.size} notifications...")
 
@@ -176,21 +214,18 @@ fun SendTestScreen(
                             "isRead" to false
                         )
 
-                        val docRef = firestore.collection("notifications")
+                        firestore.collection("notifications")
                             .add(notificationData)
                             .await()
 
-                        Log.d("SendTestScreen", "✅ Notification ${index + 1}/${participantIds.size} created: ${docRef.id}")
+                        Log.d("SendTestScreen", "✅ Notification ${index + 1}/${participantIds.size} created")
 
                     } catch (e: Exception) {
                         Log.e("SendTestScreen", "❌ Failed to send notification to $participantId", e)
                     }
                 }
 
-                Log.d("SendTestScreen", "⏳ Waiting 2 seconds for notifications to propagate...")
                 kotlinx.coroutines.delay(2000)
-            } else {
-                Log.w("SendTestScreen", "⚠️ No participants to notify")
             }
 
             // 4. Удаляем тестовые сессии
@@ -200,7 +235,6 @@ fun SendTestScreen(
                 .get()
                 .await()
 
-            Log.d("SendTestScreen", "Found ${sessions.documents.size} sessions")
             sessions.documents.forEach { session ->
                 firestore.collection("test_sessions").document(session.id).delete().await()
             }
@@ -217,7 +251,6 @@ fun SendTestScreen(
             e.printStackTrace()
         }
     }
-
 
     LaunchedEffect(Unit) {
         viewModel.loadSession(sessionId)
@@ -289,7 +322,7 @@ fun SendTestScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("      ", style = MaterialTheme.typography.titleLarge)
+                    Text("Tests (${availableTests.size})", style = MaterialTheme.typography.titleLarge)
 
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         IconButton(onClick = { scope.launch { loadTests() } }) {
@@ -301,7 +334,7 @@ fun SendTestScreen(
                         }
 
                         Button(onClick = {
-                            val testName = "Test ${System.currentTimeMillis()}"
+                            val testName = "Chef"
                             navController.currentBackStackEntry?.savedStateHandle?.set("testName", testName)
                             navController.navigate("creation_online")
                         }) {
@@ -358,9 +391,9 @@ fun SendTestScreen(
                         items(availableTests) { test ->
                             TestCard(
                                 test = test,
-                                isSelected = selectedTestId == test.sessionId,
-                                onSelect = { selectedTestId = test.sessionId },
-                                onDelete = { showDeleteConfirmDialog = test.sessionId }
+                                isSelected = selectedTestId == test.id,
+                                onSelect = { selectedTestId = test.id },
+                                onDelete = { showDeleteConfirmDialog = test.id }
                             )
                         }
                     }
@@ -467,7 +500,7 @@ fun SendTestScreen(
 
             Button(
                 onClick = {
-                    val testName = "Test ${System.currentTimeMillis()}"
+                    val testName = "Chef"
                     navController.currentBackStackEntry?.savedStateHandle?.set("testName", testName)
                     navController.navigate("creation_online")
                 },
@@ -536,9 +569,9 @@ fun SendTestScreen(
                                 items(availableTests) { test ->
                                     TestCard(
                                         test = test,
-                                        isSelected = selectedTestId == test.sessionId,
-                                        onSelect = { selectedTestId = test.sessionId },
-                                        onDelete = { showDeleteConfirmDialog = test.sessionId }
+                                        isSelected = selectedTestId == test.id,
+                                        onSelect = { selectedTestId = test.id },
+                                        onDelete = { showDeleteConfirmDialog = test.id }
                                     )
                                 }
                             }
@@ -651,15 +684,23 @@ fun SendTestScreen(
                 Button(
                     onClick = {
                         scope.launch {
-                            FirebaseFirestore.getInstance()
-                                .collection("test_sessions")
-                                .document(testId)
-                                .delete()
-                                .await()
+                            try {
+                                FirebaseFirestore.getInstance()
+                                    .collection("test_sessions")
+                                    .document(testId)
+                                    .delete()
+                                    .await()
 
-                            availableTests = availableTests.filter { it.sessionId != testId }
-                            if (selectedTestId == testId) selectedTestId = null
-                            showDeleteConfirmDialog = null
+                                // Перезагружаем тесты чтобы пересчитать номера
+                                loadTests()
+
+                                if (selectedTestId == testId) {
+                                    selectedTestId = null
+                                }
+                                showDeleteConfirmDialog = null
+                            } catch (e: Exception) {
+                                Log.e("SendTestScreen", "Error deleting test", e)
+                            }
                         }
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
@@ -680,23 +721,20 @@ fun SendTestScreen(
             title = {
                 Text(
                     "Quitter vers le menu principal ?",
-                    style = MaterialTheme.typography.headlineSmall,
-                    color = MaterialTheme.colorScheme.onSurface
+                    style = MaterialTheme.typography.headlineSmall
                 )
             },
             text = {
                 Text(
                     "Cela supprimera la session de groupe actuelle. Cette action est irréversible.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface
+                    style = MaterialTheme.typography.bodyMedium
                 )
             },
             confirmButton = {
                 Button(
                     onClick = {
                         scope.launch {
-                            Log.d("SendTestScreen", "User confirmed exit - starting group deletion")
-                            deleteGroupSession() // ✅ УБЕДИТЕСЬ ЧТО ЭТО ВЫЗЫВАЕТСЯ
+                            deleteGroupSession()
                             showExitConfirmDialog = false
                             navController.navigate("test_menu") {
                                 popUpTo("test_menu") { inclusive = true }
@@ -720,11 +758,15 @@ fun SendTestScreen(
 @Composable
 fun TestCard(test: TestSession, isSelected: Boolean, onSelect: () -> Unit, onDelete: () -> Unit) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onSelect),
         colors = CardDefaults.cardColors(
-            containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant
-        ),
-        onClick = onSelect
+            containerColor = if (isSelected)
+                MaterialTheme.colorScheme.primaryContainer
+            else
+                MaterialTheme.colorScheme.surfaceVariant
+        )
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(12.dp),
@@ -732,12 +774,22 @@ fun TestCard(test: TestSession, isSelected: Boolean, onSelect: () -> Unit, onDel
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                Text(test.title, style = MaterialTheme.typography.titleMedium)
+                Text(
+                    test.title,
+                    style = MaterialTheme.typography.titleMedium
+                )
                 Spacer(Modifier.height(4.dp))
-                Text("${test.questionCount} questions • ${test.timeLimit}s/question", style = MaterialTheme.typography.bodySmall)
+                Text(
+                    "${test.questionCount} questions • ${test.timeLimit}s/question",
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
             IconButton(onClick = onDelete) {
-                Icon(Icons.Default.Close, "Supprimer", tint = MaterialTheme.colorScheme.error)
+                Icon(
+                    Icons.Default.Delete,
+                    "Supprimer",
+                    tint = MaterialTheme.colorScheme.error
+                )
             }
         }
     }
@@ -746,7 +798,10 @@ fun TestCard(test: TestSession, isSelected: Boolean, onSelect: () -> Unit, onDel
 @Composable
 fun ParticipantItem(participant: Participant) {
     Card(modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Icon(Icons.Default.Person, null, tint = MaterialTheme.colorScheme.primary)
             Spacer(Modifier.width(12.dp))
             Text(participant.name)
