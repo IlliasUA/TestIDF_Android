@@ -187,16 +187,16 @@ private fun MainMenuCompactLayout(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(scrollState) // Добавляем прокрутку для маленьких экранов
+            .verticalScroll(scrollState)
             .padding(horizontal = horizontalPadding, vertical = verticalPadding),
         verticalArrangement = if (isCompactHeight) Arrangement.SpaceBetween else Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Верхний спейсер (адаптивный) - увеличиваем для сдвига вниз
+        // Верхний спейсер (увеличиваем для сдвига вниз)
         if (!isCompactHeight) {
-            Spacer(Modifier.height(screenHeight * 0.28f)) // Увеличено с 0.22f до 0.28f
+            Spacer(Modifier.height(screenHeight * 0.35f)) // Увеличено с 0.28f до 0.35f
         } else {
-            Spacer(Modifier.height(32.dp)) // Увеличено с 24dp до 32dp
+            Spacer(Modifier.height(40.dp)) // Увеличено с 32.dp до 40.dp
         }
 
         // Заголовок (скрываем на очень маленьких экранах)
@@ -218,7 +218,6 @@ private fun MainMenuCompactLayout(
 
         // Кнопки меню
         if (isLandscape && screenWidth > 600.dp) {
-            // Горизонтальное расположение для широких экранов в ландшафте
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(
@@ -247,7 +246,6 @@ private fun MainMenuCompactLayout(
                 )
             }
         } else {
-            // Вертикальное расположение
             Column(
                 verticalArrangement = Arrangement.spacedBy(buttonSpacing),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -274,11 +272,11 @@ private fun MainMenuCompactLayout(
             }
         }
 
-        // Нижний спейсер (адаптивный)
+        // Нижний спейсер (уменьшаем, чтобы избежать обрезки)
         if (!isCompactHeight) {
-            Spacer(Modifier.height(screenHeight * 0.05f))
+            Spacer(Modifier.height(screenHeight * 0.03f)) // Уменьшено с 0.05f до 0.03f
         } else {
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.height(4.dp)) // Уменьшено с 8.dp до 4.dp
         }
 
         // Информация о версии
@@ -343,11 +341,11 @@ private fun MainMenuLargeLayout(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Верхний спейсер - увеличиваем для сдвига вниз
+            // Верхний спейсер (увеличиваем для сдвига вниз)
             if (!isCompactHeight) {
-                Spacer(Modifier.height(screenHeight * 0.28f)) // Увеличено с 0.22f до 0.28f
+                Spacer(Modifier.height(screenHeight * 0.35f)) // Увеличено с 0.28f до 0.35f
             } else {
-                Spacer(Modifier.height(40.dp)) // Увеличено с 32dp до 40dp
+                Spacer(Modifier.height(48.dp)) // Увеличено с 40.dp до 48.dp
             }
 
             // Кнопки меню
@@ -383,11 +381,11 @@ private fun MainMenuLargeLayout(
                 )
             }
 
-            // Нижний спейсер
+            // Нижний спейсер (уменьшаем, чтобы избежать обрезки)
             if (!isCompactHeight) {
-                Spacer(Modifier.height(screenHeight * 0.08f))
+                Spacer(Modifier.height(screenHeight * 0.05f)) // Уменьшено с 0.08f до 0.05f
             } else {
-                Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.height(12.dp)) // Уменьшено с 16.dp до 12.dp
             }
 
             // Информация о версии
@@ -434,31 +432,30 @@ private fun MenuButton(
         onClick = onClick,
         modifier = modifier
             .height(
-                // Возвращаем исходную высоту
                 if (isCompact) 48.dp else 56.dp
             )
             .padding(vertical = if (isCompact) 2.dp else 4.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary
+            containerColor = Color(0xFF607D8B),
+            contentColor = Color.White,
         ),
         shape = MaterialTheme.shapes.medium,
         contentPadding = PaddingValues(
             horizontal = if (isCompact) 16.dp else 20.dp,
-            vertical = if (isCompact) 8.dp else 12.dp    // Разумные вертикальные отступы
+            vertical = if (isCompact) 8.dp else 12.dp
         )
     ) {
         Text(
             text = text,
             style = MaterialTheme.typography.bodyLarge.copy(
                 fontSize = when {
-                    isCompact -> 17.sp // Уменьшено на 35% с 26.sp (26 * 0.65 = 16.9)
-                    text.length > 20 -> 17.sp // Уменьшено на 35% с 26.sp
-                    else -> 18.sp // Уменьшено на 35% с 28.sp (28 * 0.65 = 18.2)
+                    isCompact -> 17.sp
+                    text.length > 20 -> 17.sp
+                    else -> 18.sp
                 }
             ),
             textAlign = TextAlign.Center,
-            maxLines = if (text.length > 20) 2 else 1 // Разрешаем перенос для длинного текста
+            maxLines = if (text.length > 20) 2 else 1
         )
     }
 }
