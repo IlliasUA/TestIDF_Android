@@ -300,7 +300,7 @@ private fun CatalogLandscapeLayout(
                             .fillMaxWidth()
                             .padding(bottom = 12.dp),
                         colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer
+                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.1f)
                         )
                     ) {
                         Text(
@@ -618,7 +618,7 @@ private fun CatalogPortraitLayout(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.1f)
                 )
             ) {
                 Text(

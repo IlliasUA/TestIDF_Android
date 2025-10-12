@@ -329,7 +329,7 @@ private val legalSections = listOf(
         subsections = listOf(
             Subsection(
                 subtitle = "Introduction",
-                content = "L'application \"Arsenal Quiz\" est une application éducative conçue pour fournir des tests informatifs et éducatifs sur les équipements militaires. Cette Politique de confidentialité explique comment nous gérons les données dans le cadre de l'utilisation de l'Application. L'Application fonctionne hors ligne et ne collecte, ne stocke ni ne traite aucune donnée personnelle des utilisateurs."
+                content = "L'application \"Tanks Hunter: Quiz\" est une application éducative conçue pour fournir des tests informatifs et éducatifs sur les équipements militaires. Cette Politique de confidentialité explique comment nous gérons les données dans le cadre de l'utilisation de l'Application. L'Application fonctionne hors ligne et ne collecte, ne stocke ni ne traite aucune donnée personnelle des utilisateurs."
             ),
             Subsection(
                 subtitle = "Données collectées",
@@ -349,7 +349,7 @@ private val legalSections = listOf(
             ),
             Subsection(
                 subtitle = "Contactez-nous",
-                content = "Si vous avez des questions concernant cette Politique de confidentialité, veuillez nous contacter à l'adresse suivante : support@arsenal-quiz.com."
+                content = "Si vous avez des questions concernant cette Politique de confidentialité, veuillez nous contacter à l'adresse suivante : support@tankshunterquiz.com"
             )
         )
     ),
@@ -358,7 +358,7 @@ private val legalSections = listOf(
         subsections = listOf(
             Subsection(
                 subtitle = "Acceptation des conditions",
-                content = "En téléchargeant, installant et utilisant l'application Arsenal Quiz (\"l'Application\"), vous acceptez d'être lié par les présentes Conditions générales d'utilisation (\"Conditions\"). Si vous n'acceptez pas ces Conditions, veuillez ne pas utiliser l'Application."
+                content = "En téléchargeant, installant et utilisant l'application Tanks Hunter: Quiz (\"l'Application\"), vous acceptez d'être lié par les présentes Conditions générales d'utilisation (\"Conditions\"). Si vous n'acceptez pas ces Conditions, veuillez ne pas utiliser l'Application."
             ),
             Subsection(
                 subtitle = "Description de l'Application",
@@ -386,7 +386,7 @@ private val legalSections = listOf(
             ),
             Subsection(
                 subtitle = "Contactez-nous",
-                content = "Pour toute question concernant ces Conditions, veuillez nous contacter à : support@arsenal-quiz.com."
+                content = "Pour toute question concernant ces Conditions, veuillez nous contacter à : support@tankshunterquiz.com"
             )
         )
     ),
@@ -395,7 +395,7 @@ private val legalSections = listOf(
         subsections = listOf(
             Subsection(
                 subtitle = "Licence d'utilisation",
-                content = "L'application Arsenal Quiz (\"l'Application\") est concédée sous licence, et non vendue, à l'utilisateur pour une utilisation personnelle et non commerciale conformément aux présentes conditions."
+                content = "L'application Tanks Hunter: Quiz (\"l'Application\") est concédée sous licence, et non vendue, à l'utilisateur pour une utilisation personnelle et non commerciale conformément aux présentes conditions."
             ),
             Subsection(
                 subtitle = "Étendue de la licence",
@@ -420,7 +420,7 @@ private val legalSections = listOf(
         subsections = listOf(
             Subsection(
                 subtitle = "",
-                content = "Pour toute question, commentaire ou demande concernant l'application \"Arsenal Quiz\", veuillez nous contacter à l'adresse suivante :\n\nEmail : support@arsenal-quiz.com\n\nNous nous efforçons de répondre à toutes les demandes dans les plus brefs délais."
+                content = "Pour toute question, commentaire ou demande concernant l'application \"Tanks Hunter: Quiz\", veuillez nous contacter à l'adresse suivante :\n\nEmail : support@tankshunterquiz.com\n\nNous nous efforçons de répondre à toutes les demandes dans les plus brefs délais."
             )
         )
     ),
@@ -429,11 +429,11 @@ private val legalSections = listOf(
         subsections = listOf(
             Subsection(
                 subtitle = "Contenu de l'Application",
-                content = "L'application \"Arsenal Quiz\" fournit des tests éducatifs et informatifs sur les équipements militaires. Le contenu, y compris les textes et les images, est fourni à des fins éducatives et informatives uniquement. Nous ne garantissons pas l'exactitude, l'exhaustivité ou l'actualité des informations contenues dans l'Application."
+                content = "L'application \"Tanks Hunter: Quiz\" fournit des tests éducatifs et informatifs sur les équipements militaires. Le contenu, y compris les textes et les images, est fourni à des fins éducatives et informatives uniquement. Nous ne garantissons pas l'exactitude, l'exhaustivité ou l'actualité des informations contenues dans l'Application."
             ),
             Subsection(
                 subtitle = "Sources des contenus",
-                content = "Les textes et images utilisés dans l'Application proviennent de sources publiques disponibles sur Internet. Bien que nous ayons pris soin de sélectionner des contenus libres de droits ou utilisés conformément à la législation applicable, nous ne pouvons garantir que tout le contenu est exempt de droits d'auteur ou d'autres restrictions. Si vous pensez que du contenu de l'Application viole vos droits, veuillez nous contacter à support@arsenal-quiz.com pour résoudre la situation."
+                content = "Les textes et images utilisés dans l'Application proviennent de sources publiques disponibles sur Internet. Bien que nous ayons pris soin de sélectionner des contenus libres de droits ou utilisés conformément à la législation applicable, nous ne pouvons garantir que tout le contenu est exempt de droits d'auteur ou d'autres restrictions. Si vous pensez que du contenu de l'Application viole vos droits, veuillez nous contacter à support@tankshunterquiz.com pour résoudre la situation."
             ),
             Subsection(
                 subtitle = "Responsabilité",
@@ -445,7 +445,7 @@ private val legalSections = listOf(
             ),
             Subsection(
                 subtitle = "Contact",
-                content = "Pour toute réclamation ou question concernant cette Clause de non-responsabilité, veuillez nous contacter à : support@arsenal-quiz.com."
+                content = "Pour toute réclamation ou question concernant cette Clause de non-responsabilité, veuillez nous contacter à : support@tankshunterquiz.com"
             )
         )
     ),

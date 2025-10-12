@@ -4,7 +4,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/char_icon"
-        android:label="@string/app_name"
+        android:label="Tanks Hunter: Quiz"
         android:roundIcon="@mipmap/char_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestIDF">
