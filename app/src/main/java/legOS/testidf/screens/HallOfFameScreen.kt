@@ -135,7 +135,7 @@ private fun HallOfFameCompactLayout(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Salle d'honneur",
+            text = "Panthéon",
             style = MaterialTheme.typography.headlineSmall,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onBackground,
@@ -186,7 +186,7 @@ private fun HallOfFameLargeLayout(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Salle d'honneur",
+                text = "Panthéon",
                 style = MaterialTheme.typography.headlineMedium,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground,

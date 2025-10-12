@@ -31,6 +31,7 @@ import legOS.testidf.screens.CustomResultsScreen
 import legOS.testidf.screens.CustomTestScreen
 import legOS.testidf.screens.CustomTimeSelectionScreen
 import legOS.testidf.screens.HallOfFameScreen
+import legOS.testidf.screens.HelpScreen
 import legOS.testidf.screens.InfoScreen
 import legOS.testidf.screens.MainMenuScreen
 import legOS.testidf.screens.MoreInfoScreen
@@ -185,6 +186,9 @@ fun AppNavigation() {
                 val questionCount = backStackEntry.arguments?.getString("questionCount") ?: "0"
                 val timeLimit = backStackEntry.arguments?.getString("timeLimit") ?: "10"
                 CustomResultsScreen(navController, questionCount, timeLimit)
+            }
+            composable("help_screen") {
+                HelpScreen(navController = navController)
             }
         }
     }
