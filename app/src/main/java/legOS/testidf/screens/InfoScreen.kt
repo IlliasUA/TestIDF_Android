@@ -104,7 +104,7 @@ private fun InfoCompactLayout(navController: NavController, isLandscape: Boolean
         // Заголовки
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp) // Отступ между заголовками
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
                 text = "Tanks Hunter: Quiz (v 1.0)",
@@ -117,7 +117,7 @@ private fun InfoCompactLayout(navController: NavController, isLandscape: Boolean
                 style = MaterialTheme.typography.headlineSmall,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = 16.dp) // Отступ снизу для сохранения расстояния до контента
+                modifier = Modifier.padding(bottom = 16.dp)
             )
         }
 
@@ -131,30 +131,37 @@ private fun InfoCompactLayout(navController: NavController, isLandscape: Boolean
                     .graphicsLayer {
                         compositingStrategy = CompositingStrategy.Offscreen
                     }
-                    .drawWithContent {
-                        drawContent()
+                    .run {
+                        if (!isLandscape) {
+                            // Применяем градиент только в вертикальной ориентации
+                            this.drawWithContent {
+                                drawContent()
 
-                        val fadeHeight = 100.dp.toPx()
+                                val fadeHeight = 100.dp.toPx()
 
-                        // Верхний градиент
-                        drawRect(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(Color.Transparent, Color.Black),
-                                startY = 0f,
-                                endY = fadeHeight
-                            ),
-                            blendMode = BlendMode.DstIn
-                        )
+                                // Верхний градиент
+                                drawRect(
+                                    brush = Brush.verticalGradient(
+                                        colors = listOf(Color.Transparent, Color.Black),
+                                        startY = 0f,
+                                        endY = fadeHeight
+                                    ),
+                                    blendMode = BlendMode.DstIn
+                                )
 
-                        // Нижний градиент
-                        drawRect(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(Color.Black, Color.Transparent),
-                                startY = size.height - fadeHeight,
-                                endY = size.height
-                            ),
-                            blendMode = BlendMode.DstIn
-                        )
+                                // Нижний градиент
+                                drawRect(
+                                    brush = Brush.verticalGradient(
+                                        colors = listOf(Color.Black, Color.Transparent),
+                                        startY = size.height - fadeHeight,
+                                        endY = size.height
+                                    ),
+                                    blendMode = BlendMode.DstIn
+                                )
+                            }
+                        } else {
+                            this // В горизонтальной ориентации градиент не применяется
+                        }
                     },
                 contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -179,82 +186,85 @@ private fun InfoLargeLayout(navController: NavController, isLandscape: Boolean) 
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 32.dp, vertical = 32.dp),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
+        horizontalArrangement = Arrangement.spacedBy(24.dp)
     ) {
+        // Левая часть - текст с прокруткой (60%)
+        Box(
+            modifier = Modifier
+                .weight(0.6f)
+                .fillMaxHeight()
+        ) {
+            LazyColumn(
+                state = listState,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .graphicsLayer {
+                        compositingStrategy = CompositingStrategy.Offscreen
+                    }
+                    .drawWithContent {
+                        drawContent()
+
+                        val fadeHeight = 120.dp.toPx()
+
+                        // Верхний градиент
+                        drawRect(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(Color.Transparent, Color.Black),
+                                startY = 0f,
+                                endY = fadeHeight
+                            ),
+                            blendMode = BlendMode.DstIn
+                        )
+
+                        // Нижний градиент
+                        drawRect(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(Color.Black, Color.Transparent),
+                                startY = size.height - fadeHeight,
+                                endY = size.height
+                            ),
+                            blendMode = BlendMode.DstIn
+                        )
+                    },
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                items(legalSections.size) { index ->
+                    LegalSectionItem(legalSections[index], isLargeScreen = true)
+                }
+            }
+        }
+
+        // Правая часть - заголовки и кнопка (40%)
         Column(
             modifier = Modifier
-                .weight(1f)
-                .padding(end = if (isLandscape) 32.dp else 0.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .weight(0.4f)
+                .fillMaxHeight(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            // Заголовки
+            // Верхняя часть - заголовки
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(8.dp) // Отступ между заголовками
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.padding(top = 32.dp)
             ) {
                 Text(
                     text = "Tanks Hunter: Quiz (v 1.0)",
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineSmall,
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onBackground
                 )
                 Text(
                     text = "Information générales",
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineSmall,
                     textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier.padding(bottom = 24.dp) // Отступ снизу для сохранения расстояния до контента
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             }
 
-            Box(
-                modifier = Modifier.weight(1f)
-            ) {
-                LazyColumn(
-                    state = listState,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .graphicsLayer {
-                            compositingStrategy = CompositingStrategy.Offscreen
-                        }
-                        .drawWithContent {
-                            drawContent()
-
-                            val fadeHeight = 120.dp.toPx()
-
-                            // Верхний градиент
-                            drawRect(
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(Color.Transparent, Color.Black),
-                                    startY = 0f,
-                                    endY = fadeHeight
-                                ),
-                                blendMode = BlendMode.DstIn
-                            )
-
-                            // Нижний градиент
-                            drawRect(
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(Color.Black, Color.Transparent),
-                                    startY = size.height - fadeHeight,
-                                    endY = size.height
-                                ),
-                                blendMode = BlendMode.DstIn
-                            )
-                        },
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    items(legalSections.size) { index ->
-                        LegalSectionItem(legalSections[index], isLargeScreen = true)
-                    }
-                }
-            }
-
-            Spacer(Modifier.height(24.dp))
-
-            ReturnButton(navController, Modifier.fillMaxWidth(0.6f))
+            // Нижняя часть - кнопка возврата
+            ReturnButton(navController, Modifier.fillMaxWidth(0.7f))
         }
     }
 }
@@ -390,7 +400,7 @@ private val legalSections = listOf(
             ),
             Subsection(
                 subtitle = "Description de l'Application",
-                content = "L'Application propose des tests éducatifs et informatifs sur les équipements militaires, organisés en plusieurs catégories, avec un test final. L'Application fonctionne hors ligne et ne nécessite pas de connexion Internet."
+                content = "L'Application propose des tests éducatifs et informatifs sur les équipements militaires, organisés en plusieurs catégories, avec un test final. L'Application fonctionne principalement hors ligne et ne nécessite pas de connexion Internet pour la plupart de ses fonctionnalités. Cependant, le mode \"Test collectif\" nécessite une connexion Internet stable pour permettre le jeu multijoueur en temps réel, la synchronisation des résultats et la gestion des sessions de groupe."
             ),
             Subsection(
                 subtitle = "Utilisation autorisée",
@@ -465,7 +475,7 @@ private val legalSections = listOf(
             ),
             Subsection(
                 subtitle = "Responsabilité",
-                content = "Dans la mesure permise par la loi, l'équipe de développement d'Arsenal Quiz ne sera pas responsable des dommages directs, indirects, accessoires, spéciaux ou consécutifs découlant de l'utilisation ou de l'incapacité à utiliser l'Application. L'Application est fournie \"telle quelle\", sans garantie d'aucune sorte, expresse ou implicite."
+                content = "Dans la mesure permise par la loi, l'équipe de développement de \"Tanks Hunter: Quiz\" ne sera pas responsable des dommages directs, indirects, accessoires, spéciaux ou consécutifs découlant de l'utilisation ou de l'incapacité à utiliser l'Application. L'Application est fournie \"telle quelle\", sans garantie d'aucune sorte, expresse ou implicite."
             ),
             Subsection(
                 subtitle = "Utilisation à vos propres risques",
@@ -473,7 +483,7 @@ private val legalSections = listOf(
             ),
             Subsection(
                 subtitle = "Contact",
-                content = "Pour toute réclamation ou question concernant cette Clause de non-responsabilité, veuillez nous contacter à : tanks.hunterquiz@gmail.com. Si vous souhaitez rester informé des mises à jour ou poser une question, rejoignez notre groupe Telegram : t.me/Tanks_Hunter"
+                content = "Pour toute réclamation ou question concernant cette Clause de non-responsabilité, veuillez nous contacter à : tanks.hunterquiz@gmail.com \n\nSi vous souhaitez rester informé des mises à jour ou poser une question, rejoignez notre groupe Telegram : t.me/Tanks_Hunter"
             )
         )
     ),

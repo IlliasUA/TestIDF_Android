@@ -286,7 +286,7 @@ private fun MainMenuCompactLayout(
             modifier = Modifier.padding(bottom = if (isLandscape) 2.dp else 4.dp) // Меньший отступ в горизонтальной ориентации
         ) {
             Text(
-                text = "© 2025 IlliasUA. All Rights Reserved.",
+                text = "© 2025 IliaUA. All Rights Reserved.",
                 style = MaterialTheme.typography.bodySmall.copy(
                     fontSize = when {
                         isCompactHeight -> 8.sp
@@ -398,7 +398,7 @@ private fun MainMenuLargeLayout(
                 modifier = Modifier.padding(bottom = if (isLandscape) 2.dp else 4.dp) // Меньший отступ в горизонтальной ориентации
             ) {
                 Text(
-                    text = "© 2025 IlliasUA. All Rights Reserved.",
+                    text = "© 2025 IliaUA. All Rights Reserved.",
                     style = MaterialTheme.typography.bodySmall.copy(
                         fontSize = when {
                             isCompactHeight -> 10.sp
