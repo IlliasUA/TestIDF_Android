@@ -101,13 +101,25 @@ private fun InfoCompactLayout(navController: NavController, isLandscape: Boolean
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Information générales",
-            style = MaterialTheme.typography.headlineSmall,
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
+        // Заголовки
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp) // Отступ между заголовками
+        ) {
+            Text(
+                text = "Tanks Hunter: Quiz (v 1.0)",
+                style = MaterialTheme.typography.headlineSmall,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+            Text(
+                text = "Information générales",
+                style = MaterialTheme.typography.headlineSmall,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.padding(bottom = 16.dp) // Отступ снизу для сохранения расстояния до контента
+            )
+        }
 
         Box(
             modifier = Modifier.weight(1f)
@@ -176,13 +188,25 @@ private fun InfoLargeLayout(navController: NavController, isLandscape: Boolean) 
                 .padding(end = if (isLandscape) 32.dp else 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Information générales",
-                style = MaterialTheme.typography.headlineMedium,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = 24.dp)
-            )
+            // Заголовки
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(8.dp) // Отступ между заголовками
+            ) {
+                Text(
+                    text = "Tanks Hunter: Quiz (v 1.0)",
+                    style = MaterialTheme.typography.headlineMedium,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+                Text(
+                    text = "Information générales",
+                    style = MaterialTheme.typography.headlineMedium,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.padding(bottom = 24.dp) // Отступ снизу для сохранения расстояния до контента
+                )
+            }
 
             Box(
                 modifier = Modifier.weight(1f)
@@ -329,19 +353,23 @@ private val legalSections = listOf(
         subsections = listOf(
             Subsection(
                 subtitle = "Introduction",
-                content = "L'application \"Tanks Hunter: Quiz\" est une application éducative conçue pour fournir des tests informatifs et éducatifs sur les équipements militaires. Cette Politique de confidentialité explique comment nous gérons les données dans le cadre de l'utilisation de l'Application. L'Application fonctionne hors ligne et ne collecte, ne stocke ni ne traite aucune donnée personnelle des utilisateurs."
+                content = "L'application \"Tanks Hunter: Quiz\" est une application éducative conçue pour fournir des tests informatifs et éducatifs sur les équipements militaires. Cette Politique de confidentialité explique comment nous gérons les données dans le cadre de l'utilisation de l'Application."
             ),
             Subsection(
                 subtitle = "Données collectées",
-                content = "L'Application ne collecte aucune donnée personnelle identifiable, telle que le nom, l'adresse e-mail, l'emplacement ou toute autre information personnelle. Elle ne nécessite pas d'accès à Internet pour fonctionner et n'envoie aucune donnée à des serveurs externes."
+                content = "L'Application fonctionne principalement hors ligne et ne collecte généralement aucune donnée personnelle identifiable. Cependant, dans le mode \"Test collectif\", les données suivantes sont stockées sur nos serveurs :\n\n- Le nom d'utilisateur saisi par le participant\n- L'heure de création de la session de test\n- Les résultats des tests effectués dans ce mode\n\nCes données sont nécessaires pour permettre le fonctionnement du mode multijoueur et la comparaison des résultats entre les participants. Aucune autre information personnelle telle que l'adresse e-mail, l'emplacement ou d'autres données sensibles n'est collectée."
             ),
             Subsection(
                 subtitle = "Utilisation des données",
-                content = "Étant donné que l'Application ne collecte aucune donnée, aucune information n'est utilisée, partagée ou transmise à des tiers."
+                content = "Les données collectées dans le mode \"Test collectif\" sont utilisées uniquement pour :\n\n- Afficher les résultats des participants dans les sessions de groupe\n- Permettre la comparaison des scores entre les utilisateurs\n- Gérer les sessions de test en temps réel\n\nCes informations ne sont pas partagées avec des tiers à des fins commerciales et sont conservées uniquement le temps nécessaire au fonctionnement du mode collectif."
             ),
             Subsection(
                 subtitle = "Sécurité",
-                content = "L'Application est conçue pour fonctionner localement sur votre appareil. Aucun mécanisme de collecte de données n'est intégré, ce qui garantit qu'aucune donnée personnelle n'est exposée à des risques."
+                content = "Nous prenons des mesures raisonnables pour protéger les données stockées dans le cadre du mode \"Test collectif\". Les données sont transmises et stockées de manière sécurisée. Cependant, aucune méthode de transmission sur Internet ou de stockage électronique n'est totalement sécurisée, et nous ne pouvons garantir une sécurité absolue."
+            ),
+            Subsection(
+                subtitle = "Confidentialité des enfants",
+                content = "L'Application n'est pas recommandée aux enfants de moins de 14 ans. Nous ne collectons pas sciemment de données personnelles auprès d'enfants de moins de 14 ans. Si vous êtes parent ou tuteur et que vous pensez que votre enfant nous a fourni des informations personnelles, veuillez nous contacter à tanks.hunterquiz@gmail.com afin que nous puissions prendre les mesures appropriées."
             ),
             Subsection(
                 subtitle = "Modifications de la politique de confidentialité",
@@ -349,7 +377,7 @@ private val legalSections = listOf(
             ),
             Subsection(
                 subtitle = "Contactez-nous",
-                content = "Si vous avez des questions concernant cette Politique de confidentialité, veuillez nous contacter à l'adresse suivante : support@tankshunterquiz.com"
+                content = "Si vous avez des questions concernant cette Politique de confidentialité, veuillez nous contacter à l'adresse suivante : tanks.hunterquiz@gmail.com"
             )
         )
     ),
@@ -386,7 +414,7 @@ private val legalSections = listOf(
             ),
             Subsection(
                 subtitle = "Contactez-nous",
-                content = "Pour toute question concernant ces Conditions, veuillez nous contacter à : support@tankshunterquiz.com"
+                content = "Pour toute question concernant ces Conditions, veuillez nous contacter à : tanks.hunterquiz@gmail.com"
             )
         )
     ),
@@ -420,7 +448,7 @@ private val legalSections = listOf(
         subsections = listOf(
             Subsection(
                 subtitle = "",
-                content = "Pour toute question, commentaire ou demande concernant l'application \"Tanks Hunter: Quiz\", veuillez nous contacter à l'adresse suivante :\n\nEmail : support@tankshunterquiz.com\n\nNous nous efforçons de répondre à toutes les demandes dans les plus brefs délais."
+                content = "Pour toute question, commentaire ou demande concernant l'application \"Tanks Hunter: Quiz\", veuillez nous contacter à l'adresse suivante :\n\nEmail : tanks.hunterquiz@gmail.com\n\nNous nous efforçons de répondre à toutes les demandes dans les plus brefs délais."
             )
         )
     ),
@@ -433,7 +461,7 @@ private val legalSections = listOf(
             ),
             Subsection(
                 subtitle = "Sources des contenus",
-                content = "Les textes et images utilisés dans l'Application proviennent de sources publiques disponibles sur Internet. Bien que nous ayons pris soin de sélectionner des contenus libres de droits ou utilisés conformément à la législation applicable, nous ne pouvons garantir que tout le contenu est exempt de droits d'auteur ou d'autres restrictions. Si vous pensez que du contenu de l'Application viole vos droits, veuillez nous contacter à support@tankshunterquiz.com pour résoudre la situation."
+                content = "Les textes et images utilisés dans l'Application proviennent de sources publiques disponibles sur Internet. Bien que nous ayons pris soin de sélectionner des contenus libres de droits ou utilisés conformément à la législation applicable, nous ne pouvons garantir que tout le contenu est exempt de droits d'auteur ou d'autres restrictions. Si vous pensez que du contenu de l'Application viole vos droits, veuillez nous contacter à tanks.hunterquiz@gmail.com pour résoudre la situation."
             ),
             Subsection(
                 subtitle = "Responsabilité",
@@ -445,7 +473,7 @@ private val legalSections = listOf(
             ),
             Subsection(
                 subtitle = "Contact",
-                content = "Pour toute réclamation ou question concernant cette Clause de non-responsabilité, veuillez nous contacter à : support@tankshunterquiz.com"
+                content = "Pour toute réclamation ou question concernant cette Clause de non-responsabilité, veuillez nous contacter à : tanks.hunterquiz@gmail.com. Si vous souhaitez rester informé des mises à jour ou poser une question, rejoignez notre groupe Telegram : t.me/Tanks_Hunter"
             )
         )
     ),
