@@ -1,5 +1,7 @@
 package legOS.testidf.screens
 
+import legOS.testidf.withRandomImage
+import legOS.testidf.getRandomImageForQuestion
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
@@ -67,7 +69,7 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
 
     // Используем rememberSaveable для сохранения вопросов
     val questions = rememberSaveable {
-        when (category) {
+        val baseQuestions = when (category) {
             "tanks" -> Test_Data.QUESTION
             "artillery" -> Art_Data.QUESTION
             "recon" -> Recon_Data.QUESTION
@@ -76,7 +78,13 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
             "bm2" -> Test_bm2.QUESTION
             "final" -> buildFinalTestQuestions()
             else -> Test_Data.QUESTION
-        }.shuffled().take(if (category == "final") 40 else if (category == "bm2") 20 else 10)
+        }
+
+        // Применяем случайный выбор изображений и перемешиваем
+        baseQuestions
+            .map { it.withRandomImage() } // Случайное изображение для каждого вопроса
+            .shuffled()
+            .take(if (category == "final") 40 else if (category == "bm2") 20 else 10)
     }
 
     val totalQuestions = questions.size

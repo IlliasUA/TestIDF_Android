@@ -4,7 +4,7 @@ object Test_bm2 {
     val QUESTION = listOf(
         Question(
             image = "bm2_question1.webp",
-            additionalImages = listOf("reco1_extra2.jpg", "reco1_extra3.jpg", "reco1_extra4.jpg"),
+            additionalImages = listOf("bm2_question1_extra1.jpg", "bm2_question1_extra2.jpg", "bm2_question1_extra3.jpg"),
             correct = "BRDM-2",
             options = listOf("BTR-D", "BMO-T", "BTR-60", "BRDM-2"),
             category = "bm2",

@@ -6,6 +6,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import legOS.testidf.screens.CreationItem
+import legOS.testidf.getRandomImageForQuestion
+import com.example.quizapp.*
 import java.util.UUID
 
 class FirebaseRepository {
@@ -15,6 +17,7 @@ class FirebaseRepository {
 
     /**
      * Создает тестовую сессию из выбранных элементов CreationScreen
+     * с случайным выбором изображений для каждого вопроса
      */
     suspend fun createTestSessionFromCreation(
         adminId: String,
@@ -24,30 +27,63 @@ class FirebaseRepository {
         timeLimit: Int
     ): Result<String> {
         return try {
-            Log.d("FirebaseRepo", "=== START createTestSessionFromCreation ===")
+            Log.d("FirebaseRepo", "========================================")
+            Log.d("FirebaseRepo", "🚀 START createTestSessionFromCreation")
+            Log.d("FirebaseRepo", "Admin ID: $adminId")
+            Log.d("FirebaseRepo", "Group ID: $groupId")
+            Log.d("FirebaseRepo", "Title: $title")
+            Log.d("FirebaseRepo", "Selected items: ${selectedItems.size}")
+            Log.d("FirebaseRepo", "Time limit: $timeLimit seconds")
 
             val sessionId = UUID.randomUUID().toString()
             Log.d("FirebaseRepo", "Generated sessionId: $sessionId")
 
-            // Преобразуем CreationItem в легковесные ссылки
-            val questionRefs = selectedItems.map { item ->
+            // Преобразуем CreationItem в questionRefs с СЛУЧАЙНЫМ выбором изображений
+            val questionRefs = selectedItems.mapNotNull { item ->
+                Log.d("FirebaseRepo", "📝 Processing item: ${item.name} (${item.category})")
+
+                // Находим оригинальный Question из базы данных
+                val question = findQuestionByNameAndCategory(item.name, item.category)
+
+                if (question == null) {
+                    Log.e("FirebaseRepo", "⚠️ Question not found: ${item.name} in ${item.category}")
+                    return@mapNotNull null
+                }
+
+                // 🎲 КЛЮЧЕВАЯ ЛОГИКА: Выбираем случайное изображение
+                // Функция getRandomImageForQuestion автоматически:
+                // 1. Берет все доступные изображения (image + additionalImages)
+                // 2. Исключает запрещенные изображения из EXCLUDED_IMAGES
+                // 3. Возвращает случайное из оставшихся
+                val selectedImage = getRandomImageForQuestion(question)
+
+                Log.d("FirebaseRepo", "✅ Selected random image for ${item.name}: $selectedImage")
+                Log.d("FirebaseRepo", "   Available images: ${question.image}${if (!question.additionalImages.isNullOrEmpty()) " + ${question.additionalImages.size} extra" else ""}")
+
+                // Возвращаем данные для сохранения на сервер
                 hashMapOf(
-                    "name" to item.name,
+                    "name" to question.correct,
                     "category" to item.category,
-                    "imagePath" to item.mainImage
+                    "imagePath" to selectedImage  // 🎯 Сохраняем выбранное случайное изображение
                 )
             }
-            Log.d("FirebaseRepo", "Created ${questionRefs.size} question refs")
+
+            if (questionRefs.isEmpty()) {
+                Log.e("FirebaseRepo", "❌ No valid questions found after processing")
+                return Result.failure(Exception("No valid questions found"))
+            }
+
+            Log.d("FirebaseRepo", "✅ Prepared ${questionRefs.size} question references with random images")
 
             // Получаем участников группы
-            Log.d("FirebaseRepo", "Fetching group: $groupId")
+            Log.d("FirebaseRepo", "📋 Fetching group participants: $groupId")
             val groupDoc = firestore.collection("groups")
                 .document(groupId)
                 .get()
                 .await()
 
             val participantIds = groupDoc.get("participantIds") as? List<String> ?: emptyList()
-            Log.d("FirebaseRepo", "Found ${participantIds.size} participants")
+            Log.d("FirebaseRepo", "👥 Found ${participantIds.size} participants")
 
             // Создаем документ сессии
             val sessionData = hashMapOf(
@@ -55,21 +91,31 @@ class FirebaseRepository {
                 "groupId" to groupId,
                 "adminId" to adminId,
                 "title" to title,
-                "questionRefs" to questionRefs,
+                "questionRefs" to questionRefs,  // 📦 Сохраняем со случайными изображениями
                 "participantIds" to participantIds,
                 "status" to "ready",
                 "timeLimit" to timeLimit,
                 "createdAt" to Timestamp.now()
             )
 
-            Log.d("FirebaseRepo", "Writing to Firestore...")
+            Log.d("FirebaseRepo", "💾 Writing session to Firestore...")
+            Log.d("FirebaseRepo", "Question refs preview:")
+            questionRefs.take(3).forEachIndexed { index, ref ->
+                Log.d("FirebaseRepo", "  $index. ${ref["name"]} → ${ref["imagePath"]}")
+            }
+            if (questionRefs.size > 3) {
+                Log.d("FirebaseRepo", "  ... and ${questionRefs.size - 3} more")
+            }
+
             firestore.collection("test_sessions")
                 .document(sessionId)
                 .set(sessionData)
                 .await()
 
-            Log.d("FirebaseRepo", "✅ Session created successfully")
-            Log.d("FirebaseRepo", "=== END createTestSessionFromCreation ===")
+            Log.d("FirebaseRepo", "✅ Session created successfully!")
+            Log.d("FirebaseRepo", "Session ID: $sessionId")
+            Log.d("FirebaseRepo", "All participants will see the SAME randomly selected images")
+            Log.d("FirebaseRepo", "========================================")
 
             Result.success(sessionId)
 
@@ -78,6 +124,24 @@ class FirebaseRepository {
             Log.e("FirebaseRepo", "Error message: ${e.message}")
             Log.e("FirebaseRepo", "Error stack: ${e.stackTraceToString()}")
             Result.failure(e)
+        }
+    }
+
+    /**
+     * Находит вопрос по имени и категории в локальных данных
+     */
+    private fun findQuestionByNameAndCategory(name: String, category: String): Question? {
+        return when (category) {
+            "Chars" -> Test_Data.QUESTION.find { it.correct == name }
+            "Artillerie" -> Art_Data.QUESTION.find { it.correct == name }
+            "Aviation" -> Air_Data.QUESTION.find { it.correct == name }
+            "Génie" -> Genie_Data.QUESTION.find { it.correct == name }
+            "Reconnaissance" -> Recon_Data.QUESTION.find { it.correct == name }
+            "Militaire" -> Test_bm2.QUESTION.find { it.correct == name }
+            else -> {
+                Log.e("FirebaseRepo", "❌ Unknown category: $category")
+                null
+            }
         }
     }
 
@@ -121,7 +185,7 @@ class FirebaseRepository {
                 "groupId" to groupId,
                 "adminId" to adminId,
                 "name" to groupName,
-                "groupCode" to groupCode,  // ДОБАВЛЕНО
+                "groupCode" to groupCode,
                 "participantIds" to emptyList<String>(),
                 "createdAt" to Timestamp.now()
             )
@@ -132,7 +196,7 @@ class FirebaseRepository {
                 .await()
 
             Log.d("FirebaseRepo", "Group created with code: $groupCode")
-            Result.success(Pair(groupId, groupCode))  // Возвращаем и ID, и код
+            Result.success(Pair(groupId, groupCode))
 
         } catch (e: Exception) {
             Result.failure(e)
@@ -147,17 +211,16 @@ class FirebaseRepository {
             .joinToString("")
     }
 
-
     // Модели данных
-data class User(
-    val userId: String = "",
-    val email: String = "",
-    val name: String = "",
-    val role: UserRole = UserRole.PARTICIPANT
-)
+    data class User(
+        val userId: String = "",
+        val email: String = "",
+        val name: String = "",
+        val role: UserRole = UserRole.PARTICIPANT
+    )
 
-enum class UserRole {
-    ADMIN,
-    PARTICIPANT
+    enum class UserRole {
+        ADMIN,
+        PARTICIPANT
     }
 }

@@ -530,7 +530,15 @@ private fun QuestionImage(
     val animatedOffsetY by animateFloatAsState(offsetY, tween(300))
 
     val context = LocalContext.current
-    val imagePath = remember(question) { question.image }
+
+    // ИСПРАВЛЕНИЕ: question.image уже содержит полный путь с папкой
+    // Например: "tank_images/tank_t90_extra2.jpg"
+    val imagePath = remember(question) {
+        question.image
+    }
+
+    Log.d("TakeTestScreen", "Loading image: $imagePath")
+
     val bitmap = loadImageFromAssets(context, imagePath)
 
     bitmap?.let {
@@ -573,7 +581,7 @@ private fun QuestionImage(
                 }
         )
     } ?: Text(
-        text = "Image non disponible",
+        text = "Image non disponible: $imagePath",
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.error
     )

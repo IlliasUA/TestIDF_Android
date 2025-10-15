@@ -73,8 +73,37 @@ class TakeTestViewModel(private val sessionId: String) : ViewModel() {
                     val category = ref["category"] as? String ?: return@mapNotNull null
                     val imagePath = ref["imagePath"] as? String
 
+                    Log.d("TakeTestVM", "=== Processing question ===")
+                    Log.d("TakeTestVM", "Name: $name")
+                    Log.d("TakeTestVM", "Category: $category")
+                    Log.d("TakeTestVM", "ImagePath from server: $imagePath")
+
                     val question = findQuestionByNameAndCategory(name, category)
-                    question?.copy(image = imagePath ?: question.image)
+
+                    if (question == null) {
+                        Log.e("TakeTestVM", "Question NOT FOUND for name=$name, category=$category")
+                        return@mapNotNull null
+                    }
+
+                    Log.d("TakeTestVM", "Original question.image: ${question.image}")
+
+                    // ИСПРАВЛЕНИЕ: Добавляем папку категории к пути с сервера
+                    val finalQuestion = if (imagePath != null && imagePath.isNotEmpty()) {
+                        val imageFolder = getImageFolder(category)
+                        val fullPath = "$imageFolder/$imagePath"
+                        Log.d("TakeTestVM", "Server imagePath: $imagePath")
+                        Log.d("TakeTestVM", "Image folder: $imageFolder")
+                        Log.d("TakeTestVM", "Full path: $fullPath")
+                        question.copy(image = fullPath)
+                    } else {
+                        Log.d("TakeTestVM", "Using original question.image: ${question.image}")
+                        question
+                    }
+
+                    Log.d("TakeTestVM", "Final question.image: ${finalQuestion.image}")
+                    Log.d("TakeTestVM", "========================")
+
+                    finalQuestion
                 }
 
                 _uiState.value = TakeTestUiState(
@@ -87,6 +116,9 @@ class TakeTestViewModel(private val sessionId: String) : ViewModel() {
                 _timeRemaining.intValue = timeLimit
 
                 Log.d("TakeTestVM", "Loaded ${questions.size} questions for session $sessionId")
+                questions.forEachIndexed { index, q ->
+                    Log.d("TakeTestVM", "  $index. ${q.correct} - ${q.image}")
+                }
 
                 startTimer()
             } catch (e: Exception) {
@@ -163,7 +195,7 @@ class TakeTestViewModel(private val sessionId: String) : ViewModel() {
                 val resultData = hashMapOf(
                     "resultId" to resultId,
                     "sessionId" to sessionId,
-                    "groupId" to groupId, // КРИТИЧЕСКИ ВАЖНО
+                    "groupId" to groupId,
                     "participantId" to userId,
                     "participantName" to userName,
                     "answers" to detailedAnswers,
@@ -252,6 +284,18 @@ class TakeTestViewModel(private val sessionId: String) : ViewModel() {
             "Reconnaissance" -> Recon_Data.QUESTION.find { it.correct == name }
             "Militaire" -> Test_bm2.QUESTION.find { it.correct == name }
             else -> null
+        }
+    }
+
+    private fun getImageFolder(category: String): String {
+        return when (category) {
+            "Chars" -> "tank_images"
+            "Artillerie" -> "artillery_images"
+            "Aviation" -> "air_images"
+            "Génie" -> "genie_images"
+            "Reconnaissance" -> "recon_images"
+            "Militaire" -> "bm2_images"
+            else -> "tank_images"
         }
     }
 }
