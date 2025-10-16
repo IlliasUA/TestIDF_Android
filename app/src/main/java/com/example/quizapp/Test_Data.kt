@@ -667,7 +667,7 @@ object Test_Data {
         ),
         Question(
             image = "char41.jpg",
-            additionalImages = listOf("char40_extra1.jpg", "char40_extra2.jpg", "char40_extra3.jpg"),
+            additionalImages = listOf("char40_extra1.jpg", "char40_extra2.webp", "char40_extra3.jpg"),
             correct = "TYPE-98",
             options = listOf("T-80", "TYPE-98", "T-72", "TYPE-99"),
             category = "chars",
