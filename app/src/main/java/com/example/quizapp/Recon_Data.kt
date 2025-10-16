@@ -382,7 +382,7 @@ object Recon_Data {
         ),
         Question(
             image = "reco26.jpg",
-            additionalImages = listOf("reco25_extra1.jpg", "reco25_extra2.jpg", "reco25_extra3.jpg", "reco25_extra4.jpg"),
+            additionalImages = listOf("reco25_extra1.jpg", "reco25_extra2.jpg", "reco25_extra3.jpg", "reco25_extra4.webp"),
             correct = "AAV",
             options = listOf("AAV", "Foxhound_Ocelot", "Higuard", "ACV-1"),
             description = """

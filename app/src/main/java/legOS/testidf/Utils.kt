@@ -38,7 +38,8 @@ private val EXCLUDED_IMAGES = setOf(
     "bm2_question38_extra2.webp",
     "bm2_question38_extra3.jpg",
     "bm2_question2_extra1.jpg",
-    "bm2_question2_extra2.jpg"
+    "bm2_question2_extra2.jpg",
+    "art5_extra3.jpg"
 )
 
 /**
