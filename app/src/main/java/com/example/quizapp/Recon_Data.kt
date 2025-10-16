@@ -3,7 +3,7 @@ package com.example.quizapp
 object Recon_Data {
     val QUESTION = listOf(
         Question(
-            image = "reco1.jpg",
+            image = "reco1.webp",
             additionalImages = listOf("reco1_extra1.jpg", "reco1_extra2.jpg", "reco1_extra3.jpg", "reco1_extra4.jpg"),
             correct = "BRDM-2",
             options = listOf("BRDM-2", "BTR-60", "BTR-70", "VAB"),
@@ -19,7 +19,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco2.jpg",
+            image = "reco2.webp",
             additionalImages = listOf("reco2_extra1.jpg", "reco2_extra2.webp", "reco2_extra3.jpg", "reco2_extra4.webp"),
             correct = "Dingo",
             options = listOf("Fuchs", "Eagle V", "Humvee", "Dingo"),
@@ -60,7 +60,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco5.jpg",
+            image = "reco5.webp",
             additionalImages = listOf("reco5_extra1.jpg", "reco5_extra2.jpg", "reco5_extra3.jpg", "reco5_extra4.jpg"),
             correct = "Serval",
             options = listOf("Serval", "Griffon", "Fennek", "Fuchs"),
@@ -77,7 +77,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco6.jpg",
+            image = "reco6.webp",
             additionalImages = listOf("reco6_extra1.jpg", "reco6_extra2.jpg", "reco6_extra3.jpg", "reco6_extra4.jpg"),
             correct = "GAZ 2330 Tigr",
             options = listOf("ZFB-05", "Komatsu LAV", "Eagle V", "GAZ 2330 Tigr"),
@@ -92,7 +92,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco7.jpg",
+            image = "reco7.webp",
             additionalImages = listOf("reco7_extra1.jpg", "reco7_extra2.jpg", "reco7_extra3.jpg", "reco7_extra4.webp"),
             correct = "URO Vamtac",
             options = listOf("Humvee", "Tigre", "URO Vamtac", "Grizzly"),
@@ -106,7 +106,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco8.jpg",
+            image = "reco8.webp",
             additionalImages = listOf("reco8_extra1.jpg"),
             correct = "VBL",
             options = listOf("VBL", "Cobra", "ZFB-05", "Komatsu LAV"),
@@ -366,7 +366,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco25.jpg",
+            image = "reco25.webp",
             additionalImages = listOf("reco25_extra1.jpg", "reco25_extra2.jpg", "reco25_extra3.jpg", "reco25_extra4.webp"),
             correct = "AAV",
             options = listOf("VCR", "AAV", "Lasar-3", "ACV-1"),
@@ -413,7 +413,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco28.jpg",
+            image = "reco28.webp",
             additionalImages = listOf("reco10_extra1.jpg", "reco10_extra2.jpg", "reco10_extra3.jpg", "reco10_extra4.webp"),
             correct = "Grizzly",
             options = listOf("Grizzly", "Jackal", "GRF Vector", "K-1"),
@@ -427,7 +427,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco29.jpg",
+            image = "reco29.webp",
             additionalImages = listOf("reco29_extra1.jpg", "reco29_extra2.webp", "reco29_extra3.webp", "reco29_extra4.webp"),
             correct = "Jackal",
             options = listOf("Grizzly", "Jackal", "GRF Vector", "K-1"),
@@ -458,7 +458,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco31.jpg",
+            image = "reco31.webp",
             additionalImages = listOf("reco30_extra1.jpg", "reco30_extra2.jpg", "reco30_extra3.jpg", "reco30_extra4.webp"),
             correct = "ZTD-05",
             options = listOf("BMD-1", "BMP-1", "ZTD-05", "ZBD-05"),
@@ -522,7 +522,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco35.jpg",
+            image = "reco35.webp",
             additionalImages = listOf("reco35_extra1.jpg", "reco35_extra2.jpg", "reco35_extra3.jpg", "reco27_extra4.jpg"),
             correct = "Namer",
             options = listOf("Achzarit", "Pandur-2", "ULAN-30", "Namer"),
@@ -559,7 +559,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco37.jpg",
+            image = "reco37.webp",
             additionalImages = listOf("reco37_extra1.jpg", "reco37_extra2.jpg", "reco37_extra3.jpg", "reco37_extra4.jpg"),
             correct = "Marder",
             options = listOf("Warrior", "Bradley", "Marder", "Puma"),
@@ -576,7 +576,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco38.jpg",
+            image = "reco38.webp",
             additionalImages = listOf("reco38_extra1.jpg", "reco38_extra2.jpg", "reco38_extra3.jpg", "reco38_extra4.jpg"),
             correct = "Puma",
             options = listOf("Warrior", "Bradley", "Marder", "Puma"),
@@ -663,7 +663,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco43.jpg",
+            image = "reco43.webp",
             additionalImages = listOf("reco17_extra1.jpg", "reco17_extra2.jpg", "reco17_extra3.jpg", "reco17_extra4.jpg"),
             correct = "XA-180",
             options = listOf("XA-180", "Boxer", "Freccia", "BMR600"),
@@ -1002,7 +1002,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco64.jpg",
+            image = "reco64.webp",
             additionalImages = listOf("reco64_extra1.jpg", "reco64_extra2.jpg", "reco64_extra3.jpg"),
             correct = "ZBD-05",
             options = listOf("BMD-2", "BMP-2", "ZBD-05", "ZTD-05"),
@@ -1019,7 +1019,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco65.jpg",
+            image = "reco65.webp",
             additionalImages = listOf("reco65_extra1.jpg", "reco65_extra2.jpg", "reco65_extra3.jpg", "reco65_extra4.jpg"),
             correct = "BMD-1",
             options = listOf("BMD-1", "BMD-2", "ZBD-05", "ZTD-05"),
@@ -1034,7 +1034,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco66.jpg",
+            image = "reco66.webp",
             additionalImages = listOf("reco66_extra1.jpg", "reco66_extra2.jpg", "reco66_extra3.jpg", "reco66_extra4.jpg"),
             correct = "BMD-2",
             options = listOf("BMD-1", "BMD-2", "ZBD-05", "ZTD-05"),
@@ -1070,7 +1070,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco68.jpg",
+            image = "reco68.webp",
             additionalImages = listOf("reco68_extra1.jpg", "reco68_extra2.jpg", "reco68_extra3.jpg", "reco68_extra4.jpg"),
             correct = "BMD-4",
             options = listOf("BMP-2", "BMP-3", "BMD-3", "BMD-4"),
@@ -1166,7 +1166,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco73.jpg",
+            image = "reco73.webp",
             additionalImages = listOf("reco73_extra1.jpg", "reco73_extra2.jpg", "reco73_extra3.jpg", "reco73_extra4.jpg"),
             correct = "BMP-3",
             options = listOf("BMP-2", "BMP-3", "BMD-3", "BMD-4"),
@@ -1251,7 +1251,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco78.jpg",
+            image = "reco78.webp",
             additionalImages = listOf("reco78_extra1.jpg", "reco78_extra2.jpg", "reco78_extra3.jpg", "reco78_extra4.webp"),
             correct = "BTR-80",
             options = listOf("BTR-60", "BTR-70", "BTR-80", "BTR-80A"),
@@ -1589,7 +1589,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco98.jpg",
+            image = "reco98.webp",
             additionalImages = listOf("reco98_extra1.jpg", "reco98_extra2.jpg", "reco98_extra3.jpg", "reco98_extra4.jpg"),
             correct = "BTR-4 Bucephale",
             options = listOf("Ural Typhoon", "BTR-80A", "BTR-4 Bucephale", "MTLB"),
@@ -1638,7 +1638,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco101.jpg",
+            image = "reco101.webp",
             additionalImages = listOf("reco89_extra1.jpg", "reco89_extra2.jpg", "reco89_extra3.jpg", "reco89_extra4.jpg"),
             correct = "BMP-Terminator",
             options = listOf("ULAN-30", "Achzarit", "Namer", "BMP-Terminator"),
@@ -1687,7 +1687,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco104.jpg",
+            image = "reco104.webp",
             additionalImages = listOf("reco103_extra1.jpg", "reco103_extra2.jpg", "reco103_extra3.jpg", "reco103_extra4.jpg"),
             correct = "ACV-1",
             options = listOf("ACV-1", "Boomerang", "VBCI", "Higuard"),
@@ -1787,7 +1787,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco110.jpg",
+            image = "reco110.webp",
             additionalImages = listOf("reco110_extra1.jpg", "reco110_extra2.jpg", "reco110_extra3.jpg", "reco110_extra4.jpg"),
             correct = "BRM-3K",
             options = listOf("BTR-D", "BRM-3K", "2S25 Sprut", "BMP-Terminator"),
@@ -1824,7 +1824,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco112.jpg",
+            image = "reco112.webp",
             additionalImages = listOf("reco111_extra1.jpg", "reco111_extra2.jpg", "reco111_extra3.jpg", "reco111_extra4.jpg"),
             correct = "BTR-D",
             options = listOf("BTR-D", "BRM-3K Rys", "2S25 Sprut", "BMP-Terminator"),
@@ -1843,7 +1843,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco113.jpg",
+            image = "reco113.webp",
             additionalImages = listOf("reco113_extra1.jpg", "reco113_extra2.webp", "reco113_extra3.jpg", "reco113_extra4.webp"),
             correct = "Patria",
             options = listOf("Eitan", "Fennek", "Patria", "Fuchs"),
@@ -1888,7 +1888,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco116.jpg",
+            image = "reco116.webp",
             additionalImages = listOf("reco116_extra1.jpg", "reco116_extra2.jpg", "reco116_extra3.jpg", "reco116_extra4.jpg"),
             correct = "ERC-90 Sagaie",
             options = listOf("AMX-10RC", "ERC-90 Sagaie", "AMX-13", "Aravis"),
@@ -1918,7 +1918,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco118.jpg",
+            image = "reco118.webp",
             additionalImages = listOf("reco118_extra1.jpg", "reco118_extra2.jpg", "reco118_extra3.jpg", "reco118_extra4.jpg"),
             correct = "Scimitar",
             options = listOf("Scorpion", "Scimitar", "Warrior", "Wiesel"),
@@ -1933,7 +1933,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco120.jpg",
+            image = "reco120.webp",
             additionalImages = listOf("reco120_extra1.jpg", "reco120_extra2.jpg", "reco120_extra3.webp", "reco120_extra4.webp"),
             correct = "GRF Vector",
             options = listOf("Grizzly", "GRF Vector", "Jackal", "LMV Lince"),
@@ -1999,7 +1999,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco124.jpg",
+            image = "reco124.webp",
             additionalImages = listOf("reco124_extra1.webp", "reco124_extra2.jpg", "reco124_extra3.jpg", "reco124_extra4.jpg"),
             correct = "Lazar-3",
             options = listOf("Typhoon-K", "ACV-1", "Lazar-3", "LAV-25"),
@@ -2017,7 +2017,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco125.jpg",
+            image = "reco125.webp",
             additionalImages = listOf("reco124_extra1.webp", "reco124_extra2.jpg", "reco124_extra3.jpg", "reco124_extra4.jpg"),
             correct = "Lazar-3",
             options = listOf("Typhoon-K", "ACV-1", "Lazar-3", "LAV-25"),
@@ -2069,7 +2069,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco128.jpg",
+            image = "reco128.webp",
             additionalImages = listOf("reco128_extra1.jpg", "reco128_extra2.jpg", "reco128_extra3.jpg", "reco128_extra4.jpg"),
             correct = "Luchs",
             options = listOf("Lazar-3", "BTR-D", "Luchs", "LAV-25"),
@@ -2086,7 +2086,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco129.jpg",
+            image = "reco129.webp",
             additionalImages = listOf("reco129_extra1.jpg", "reco129_extra2.jpg", "reco129_extra3.jpg", "reco129_extra4.jpg"),
             correct = "Pars-3",
             options = listOf("Foxhound", "Pars-3", "FV430 Bulldog", "Piranha V"),
@@ -2102,7 +2102,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco130.jpg",
+            image = "reco130.webp",
             additionalImages = listOf("reco113_extra1.jpg", "reco113_extra2.webp", "reco113_extra3.jpg", "reco113_extra4.webp"),
             correct = "Patria",
             options = listOf("Patria", "Aravis", "Centauro", "Freccia"),
@@ -2115,7 +2115,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco131.jpg",
+            image = "reco131.webp",
             additionalImages = listOf("reco131_extra1.jpg", "reco131_extra2.webp", "reco131_extra3.webp", "reco131_extra4.jpg"),
             correct = "LAV-25",
             options = listOf("Patria", "Centauro", "Foxhound", "LAV-25"),
@@ -2131,7 +2131,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco132.jpg",
+            image = "reco132.webp",
             additionalImages = listOf("reco132_extra1.jpg", "reco132_extra2.jpg", "reco132_extra3.jpg", "reco132_extra4.jpg"),
             correct = "Titus",
             options = listOf("Serval", "Foxhound", "Titus", "Higuard"),
@@ -2162,7 +2162,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco135.jpg",
+            image = "reco135.webp",
             additionalImages = listOf("reco135_extra1.jpg", "reco135_extra2.jpg", "reco135_extra3.jpg", "reco135_extra4.jpg"),
             correct = "Griffon",
             options = listOf("Higuard", "Griffon", "Aravis", "Foxhound"),
@@ -2193,7 +2193,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco137.jpg",
+            image = "reco137.webp",
             additionalImages = listOf("reco137_extra1.jpg", "reco137_extra2.jpg", "reco137_extra3.jpg", "reco137_extra4.jpg"),
             correct = "VCR Panhard",
             options = listOf("Patria", "VCR Panhard", "ERC90 Sagaie", "Luchs"),
@@ -2210,7 +2210,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco138.jpg",
+            image = "reco138.webp",
             additionalImages = listOf("reco137_extra1.jpg", "reco137_extra2.jpg", "reco137_extra3.jpg", "reco137_extra4.jpg"),
             correct = "VCR Panhard",
             options = listOf("Patria", "VCR Panhard", "ERC90 Sagaie", "Luchs"),
@@ -2227,7 +2227,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco139.jpg",
+            image = "reco139.webp",
             additionalImages = listOf("reco139_extra1.jpg"),
             correct = "GBC 180",
             options = listOf("URAL 4320", "VCR Panhard", "TRM 2000", "GBC 180"),
@@ -2241,7 +2241,7 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco140.jpg",
+            image = "reco140.webp",
             additionalImages = listOf("reco140_extra1.jpg", "reco140_extra2.jpg"),
             correct = "ACMAT VT4",
             options = listOf("Ford Ranger", "GAS Tiger", "ACMAT VT4", "Peugeot P4"),
@@ -2266,8 +2266,8 @@ object Recon_Data {
             category = "recon"
         ),
         Question(
-            image = "reco141.jpg",
-            additionalImages = listOf("reco141_extra1.jpg", "reco141_extra2.jpg"),
+            image = "reco141.webp",
+            additionalImages = listOf("reco141_extra1.webp", "reco141_extra2.webp"),
             correct = "Peugeot P4",
             options = listOf("Ford Ranger", "GAS Tiger", "ACMAT VT4", "Peugeot P4"),
             description = """
@@ -2341,7 +2341,7 @@ object Recon_Data {
         ),
         Question(
             image = "reco146.webp",
-            additionalImages = listOf("reco146_extra1.webp", "reco146_extra2.jpg", "reco146_extra3.jpg", "reco146_extra4.jpg"),
+            additionalImages = listOf("reco146_extra1.webp", "reco146_extra2.jpg", "reco146_extra3.webp", "reco146_extra4.webp"),
             correct = "URAL-4320",
             options = listOf("URAL Typhoon", "GBC-180", "URAL-4320", "GAZ 2330 Tigr"),
             description = """
