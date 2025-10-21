@@ -550,7 +550,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question36.webp",
-            additionalImages = listOf("bm2_question36_extra1.webp", "bm2_question36_extra2.webp", "bm2_question36_extra3.jpg", "bm2_question36_extra4.jpg"),
+            additionalImages = listOf("bm2_question36_extra1.webp", "bm2_question36_extra2.webp", "bm2_question36_extra3.webp", "bm2_question36_extra4.jpg"),
             correct = "M-60",
             options = listOf("AMX-30", "Chieftain", "Magach-7", "M-60"),
             category = "bm2",
@@ -567,7 +567,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question37.jpg",
-            additionalImages = listOf("bm2_question37_extra1.jpg", "bm2_question37_extra2.webp", "bm2_question37_extra3.webp"),
+            additionalImages = listOf("bm2_question37_extra1.webp", "bm2_question37_extra2.webp", "bm2_question37_extra3.webp"),
             correct = "Leopard-1",
             options = listOf("AMX-30", "Leopard-1", "Challenger-2", "M1A1 Abrams"),
             category = "bm2",
@@ -585,7 +585,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question38.webp",
-            additionalImages = listOf("bm2_question38_extra1.jpg", "bm2_question38_extra2.webp", "bm2_question38_extra3.jpg"),
+            additionalImages = listOf("bm2_question38_extra1.webp", "bm2_question38_extra2.webp", "bm2_question38_extra3.webp"),
             correct = "Leopard-2",
             options = listOf("Leclerc", "Leopard-1", "Challenger-2", "Leopard-2"),
             category = "bm2",
@@ -599,7 +599,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question39.webp",
-            additionalImages = listOf("bm2_question39_extra1.jpg", "bm2_question39_extra2.jpg", "bm2_question39_extra3.webp"),
+            additionalImages = listOf("bm2_question39_extra1.jpg", "bm2_question39_extra2.webp", "bm2_question39_extra3.webp"),
             correct = "Chieftain",
             options = listOf("Challenger-1", "Chieftain", "Leopard-1", "Challenger-2"),
             category = "bm2",
@@ -781,7 +781,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question50.webp",
-            additionalImages = listOf("bm2_question50_extra1.webp", "bm2_question50_extra2.jpg", "bm2_question50_extra3.jpg"),
+            additionalImages = listOf("bm2_question50_extra1.webp", "bm2_question50_extra2.webp", "bm2_question50_extra3.jpg"),
             correct = "SPG-9",
             options = listOf("AT-5", "RPG-7", "AT-7", "SPG-9"),
             category = "bm2",
@@ -970,7 +970,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question62.webp",
-            additionalImages = listOf("bm2_question62_extra1.jpg", "bm2_question62_extra2.webp", "bm2_question62_extra3.jpg"),
+            additionalImages = listOf("bm2_question62_extra1.webp", "bm2_question62_extra2.webp", "bm2_question62_extra3.jpg"),
             correct = "2A-36",
             options = listOf("2A-29", "152-D20", "2A-36", "130 M-46"),
             category = "bm2",
@@ -1014,7 +1014,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question65.jpg",
-            additionalImages = listOf("bm2_question65_extra1.jpg", "bm2_question65_extra2.jpg", "bm2_question65_extra3.jpg"),
+            additionalImages = listOf("bm2_question65_extra1.jpg", "bm2_question65_extra2.jpg", "bm2_question65_extra3.webp"),
             correct = "130 M-46",
             options = listOf("122 D-30", "130 M-46", "152 D-20", "155 M-577"),
             category = "bm2",
@@ -1042,7 +1042,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question67.webp",
-            additionalImages = listOf("bm2_question67_extra1.jpg", "bm2_question67_extra2.jpg", "bm2_question67_extra3.jpg"),
+            additionalImages = listOf("bm2_question67_extra1.jpg", "bm2_question67_extra2.jpg", "bm2_question67_extra3.webp"),
             correct = "155 M-777",
             options = listOf("122 D-30", "2A-36", "152 D-20", "155 M-777"),
             category = "bm2",
@@ -1056,7 +1056,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question68.webp",
-            additionalImages = listOf("bm2_question68_extra1.webp", "bm2_question68_extra2.jpg", "bm2_question68_extra3.webp"),
+            additionalImages = listOf("bm2_question68_extra1.webp", "bm2_question68_extra2.webp", "bm2_question68_extra3.webp"),
             correct = "152 D-20",
             options = listOf("122 D-30", "2A-36", "152 D-20", "155 M-777"),
             category = "bm2",
@@ -1103,7 +1103,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question71.webp",
-            additionalImages = listOf("bm2_question71_extra1.jpg", "bm2_question71_extra2.webp", "bm2_question71_extra3.jpg"),
+            additionalImages = listOf("bm2_question71_extra1.jpg", "bm2_question71_extra2.webp", "bm2_question71_extra3.webp"),
             correct = "BM-27 Uragan",
             options = listOf("BM-21 Grad", "BM-27 Uragan", "BM-30 Smerch", "M-270 MLRS"),
             category = "bm2",
@@ -1207,7 +1207,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question78.webp",
-            additionalImages = listOf("bm2_question78_extra1.webp", "bm2_question78_extra2.jpg", "bm2_question78_extra3.webp"),
+            additionalImages = listOf("bm2_question78_extra1.webp", "bm2_question78_extra2.webp", "bm2_question78_extra3.webp"),
             correct = "PZM",
             options = listOf("PZM", "PMM-2", "MDK-2", "PTS"),
             category = "bm2",
@@ -1259,7 +1259,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question82.webp",
-            additionalImages = listOf("bm2_question82_extra1.jpg", "bm2_question82_extra2.jpg", "bm2_question82_extra3.jpg"),
+            additionalImages = listOf("bm2_question82_extra1.webp", "bm2_question82_extra2.webp", "bm2_question82_extra3.jpg"),
             correct = "M-136 Volcano",
             options = listOf("UR-77 Meteorit", "M-270 MLRS", "M-136 Volcano", "Roland-2"),
             category = "bm2",
@@ -1274,7 +1274,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question83.jpg",
-            additionalImages = listOf("bm2_question83_extra1.jpg", "bm2_question83_extra2.jpg", "bm2_question83_extra3.webp"),
+            additionalImages = listOf("bm2_question83_extra1.jpg", "bm2_question83_extra2.webp", "bm2_question83_extra3.webp"),
             correct = "KMT-5",
             options = listOf("UR-77", "KMT-5", "TMM-3", "Roland-2"),
             category = "bm2",
@@ -1301,7 +1301,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question85.jpg",
-            additionalImages = listOf("bm2_question85_extra1.webp", "bm2_question85_extra2.jpg", "bm2_question85_extra3.jpg"),
+            additionalImages = listOf("bm2_question85_extra1.webp", "bm2_question85_extra2.jpg", "bm2_question85_extra3.webp"),
             correct = "MTU-72",
             options = listOf("PTS-2", "UMZ-3", "MTU-72", "TMM-3"),
             category = "bm2",
@@ -1329,7 +1329,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question87.jpg",
-            additionalImages = listOf("bm2_question87_extra1.jpg", "bm2_question87_extra2.jpg", "bm2_question87_extra3.jpg"),
+            additionalImages = listOf("bm2_question87_extra1.webp", "bm2_question87_extra2.jpg", "bm2_question87_extra3.jpg"),
             correct = "TMM-6",
             options = listOf("PTS-2", "TMM-3", "MTU-72", "TMM-6"),
             category = "bm2",
@@ -1354,7 +1354,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question89.jpg",
-            additionalImages = listOf("bm2_question89_extra1.jpg", "bm2_question89_extra2.jpg", "bm2_question89_extra3.jpg"),
+            additionalImages = listOf("bm2_question89_extra1.webp", "bm2_question89_extra2.jpg", "bm2_question89_extra3.jpg"),
             correct = "Souvim",
             options = listOf("PTS-2", "TMM-3", "Souvim", "TMM-6"),
             category = "bm2",
@@ -1382,7 +1382,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question91.webp",
-            additionalImages = listOf("bm2_question91_extra1.webp", "bm2_question91_extra2.jpg", "bm2_question91_extra3.jpg"),
+            additionalImages = listOf("bm2_question91_extra1.webp", "bm2_question91_extra2.webp", "bm2_question91_extra3.jpg"),
             correct = "1S91 Straight Flush",
             options = listOf("9K31 Strela", "9K33 Osa", "1V18 Klyon", "1S91 Straight Flush"),
             category = "bm2",
@@ -1455,7 +1455,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question96.jpg",
-            additionalImages = listOf("bm2_question96_extra1.jpg", "bm2_question96_extra2.jpg", "bm2_question96_extra3.webp"),
+            additionalImages = listOf("bm2_question96_extra1.webp", "bm2_question96_extra2.jpg", "bm2_question96_extra3.webp"),
             correct = "SA-6",
             options = listOf("SA-6", "SA-7", "SA-8", "Roland-2"),
             category = "bm2",
@@ -1498,7 +1498,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question99.webp",
-            additionalImages = listOf("bm2_question99_extra1.jpg", "bm2_question99_extra2.jpg", "bm2_question99_extra3.jpg"),
+            additionalImages = listOf("bm2_question99_extra1.webp", "bm2_question99_extra2.jpg", "bm2_question99_extra3.jpg"),
             correct = "Roland-2",
             options = listOf("SA-6", "SA-7", "SA-8", "Roland-2"),
             category = "bm2",
@@ -1513,7 +1513,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question100.jpg",
-            additionalImages = listOf("bm2_question100_extra1.jpg", "bm2_question100_extra2.jpg", "bm2_question100_extra3.jpg"),
+            additionalImages = listOf("bm2_question100_extra1.jpg", "bm2_question100_extra2.jpg", "bm2_question100_extra3.webp"),
             correct = "2S-6 Tunguska",
             options = listOf("SA-6", "SA-7", "2S-6 Tunguska", "96K6 Pantsir-S"),
             category = "bm2",
@@ -1612,7 +1612,7 @@ object Test_bm2 {
         ),
         Question(
             image = "bm2_question106.jpg",
-            additionalImages = listOf("bm2_question106_extra1.jpg", "bm2_question106_extra2.jpg", "bm2_question106_extra3.jpg"),
+            additionalImages = listOf("bm2_question106_extra1.jpg", "bm2_question106_extra2.webp", "bm2_question106_extra3.webp"),
             correct = "UH-1",
             options = listOf("UH-1", "H225-M", "UH-60", "Caracal"),
             category = "bm2",

@@ -3,7 +3,7 @@ package com.example.quizapp
 object Test_Data {
     val QUESTION = listOf(
         Question(
-            image = "char1.jpg",
+            image = "char1.webp",
             additionalImages = listOf("char1_extra1.jpg", "char1_extra2.jpg"),
             correct = "Abrams",
             options = listOf("Abrams", "Leopard-2", "Challenger-2", "M-109 Paladin"),
@@ -107,7 +107,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char7.jpg",
+            image = "char7.webp",
             additionalImages = listOf("char7_extra1.jpg", "char7_extra2.jpg", "char7_extra3.jpg"),
             correct = "Leopard-1",
             options = listOf("Ariete", "Tigre", "Panther", "Leopard-1"),
@@ -242,7 +242,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char15.jpg",
+            image = "char15.webp",
             additionalImages = listOf("char15_extra1.jpg", "char15_extra2.jpg", "char15_extra3.jpg", "char15_extra4.webp"),
             correct = "T-72",
             options = listOf("T-64", "T-72", "T-80", "T-90"),
@@ -307,7 +307,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char19.jpg",
+            image = "char19.webp",
             additionalImages = listOf("char18_extra1.jpg", "char18_extra2.jpg", "char18_extra3.jpg"),
             correct = "AMX-30",
             options = listOf("AMX-30", "AMX-10RC", "Leclerc", "M-60"),
@@ -325,7 +325,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char20.jpg",
+            image = "char20.webp",
             additionalImages = listOf("char18_extra1.jpg", "char18_extra2.jpg", "char18_extra3.jpg"),
             correct = "AMX-30",
             options = listOf("Magach-7", "AMX-30", "Abrams", "M-60"),
@@ -453,7 +453,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char28.jpg",
+            image = "char28.webp",
             additionalImages = listOf("char28_extra1.jpg", "char28_extra2.jpg"),
             correct = "Arjun MK1",
             options = listOf("Arjun MK1", "TYPE-98", "TYPE-99", "K-1"),
@@ -542,7 +542,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char33.jpg",
+            image = "char33.webp",
             additionalImages = listOf("char33_extra1.jpg", "char33_extra2.jpg"),
             correct = "Merkava-3",
             options = listOf("Merkava-3", "Merkava-4", "Challenger-1", "Challenger-2"),
@@ -652,7 +652,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char40.jpg",
+            image = "char40.webp",
             additionalImages = listOf("char40_extra1.jpg", "char40_extra2.webp", "char40_extra3.jpg"),
             correct = "TYPE-98",
             options = listOf("T-72", "T-80", "TYPE-98", "TYPE-99"),
@@ -666,7 +666,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char41.jpg",
+            image = "char41.webp",
             additionalImages = listOf("char40_extra1.jpg", "char40_extra2.webp", "char40_extra3.jpg"),
             correct = "TYPE-98",
             options = listOf("T-80", "TYPE-98", "T-72", "TYPE-99"),
@@ -715,7 +715,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char44.jpg",
+            image = "char44.webp",
             additionalImages = listOf("char44_extra1.jpg", "char44_extra2.jpg", "char44_extra3.jpg"),
             correct = "Merkava-1",
             options = listOf("Merkava-1", "Merkava-2", "Merkava-3", "Merkava-4"),
@@ -783,7 +783,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char49.jpg",
+            image = "char49.webp",
             additionalImages = listOf("char13_extra1.jpg", "char13_extra2.jpg", "char13_extra3.jpg"),
             correct = "T-62",
             options = listOf("T-55", "T-62", "T-64", "T-72"),
@@ -855,7 +855,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char54.jpg",
+            image = "char54.webp",
             additionalImages = listOf("char31_extra1.jpg", "char31_extra2.jpg", "char31_extra3.jpg"),
             correct = "K-1 Type 88",
             options = listOf("Arjun MK1", "Leclerc", "K-1 Type 88", "K-2 Black Panther"),
@@ -873,7 +873,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char55.jpg",
+            image = "char55.webp",
             additionalImages = listOf("char55_extra1.webp", "char55_extra2.webp", "char55_extra3.webp"),
             correct = "Leclerc",
             options = listOf("K-2 Black Panther", "M1A1 Abrams", "Leclerc", "Challenger-2"),
@@ -939,7 +939,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char59.jpg",
+            image = "char59.webp",
             additionalImages = listOf("char59_extra1.webp", "char59_extra2.webp", "char59_extra3.jpg"),
             correct = "Strv-103",
             options = listOf("Strv-103", "Scorpion", "Wiesel", "Merkava-1"),
@@ -1005,7 +1005,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char63.jpg",
+            image = "char63.webp",
             additionalImages = listOf("char63_extra1.webp", "char63_extra2.webp", "char63_extra3.webp"),
             correct = "Type 16 MCV",
             options = listOf("Jaguar", "Centauro", "Type 16 MCV", "Freccia"),
@@ -1022,7 +1022,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char64.jpg",
+            image = "char64.webp",
             additionalImages = listOf("char64_extra1.jpg", "char64_extra2.jpg", "char64_extra3.webp", "char64_extra4.jpg"),
             correct = "ZTL-11",
             options = listOf("ZTL-11", "TR-85", "Type 16 MCV", "TYPE-98"),

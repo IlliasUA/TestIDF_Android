@@ -31,7 +31,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie3.jpg",
+            image = "genie3.webp",
             additionalImages = listOf("genie3_extra1.jpg", "genie3_extra2.jpg", "genie3_extra3.jpg", "genie3_extra4.jpg"),
             correct = "Buffalo",
             options = listOf("SPRAT", "Buffalo", "MDK-2", "GSP"),
@@ -45,7 +45,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie4.jpg",
+            image = "genie4.webp",
             additionalImages = listOf("genie4_extra1.webp", "genie4_extra2.jpg", "genie4_extra3.webp", "genie4_extra4.jpg"),
             correct = "DACHS",
             options = listOf("GMZ", "Buffalo", "DACHS", "Biber"),
@@ -60,7 +60,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie5.jpg",
+            image = "genie5.webp",
             additionalImages = listOf("genie4_extra1.webp", "genie4_extra2.jpg", "genie4_extra3.webp", "genie4_extra4.jpg"),
             correct = "DACHS",
             options = listOf("SPRAT", "M9 ACE", "PZM-3", "DACHS"),
@@ -75,7 +75,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie8.jpg",
+            image = "genie8.webp",
             additionalImages = listOf("genie8_extra1.webp", "genie8_extra2.jpg", "genie8_extra3.webp", "genie8_extra4.jpg"),
             correct = "GSP",
             options = listOf("GMZ", "PTS", "GSP", "M3 Amphibius"),
@@ -138,7 +138,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie13.jpg",
+            image = "genie13.webp",
             additionalImages = listOf("genie12_extra1.jpg", "genie12_extra2.webp", "genie12_extra3.webp", "genie12_extra4.jpg", "genie12_extra5.jpg"),
             correct = "M3 Amphibius",
             options = listOf("GMZ", "M3 Amphibius", "EFA", "PTS"),
@@ -168,7 +168,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie15.jpg",
+            image = "genie15.webp",
             additionalImages = listOf("genie14_extra1.webp", "genie14_extra2.webp", "genie14_extra3.webp", "genie14_extra4.webp"),
             correct = "M9 ACE",
             options = listOf("M9 ACE", "Buffalo", "PZM-3", "DACHS"),
@@ -185,7 +185,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie16.jpg",
+            image = "genie16.webp",
             additionalImages = listOf("genie14_extra1.webp", "genie14_extra2.webp", "genie14_extra3.webp", "genie14_extra4.webp"),
             correct = "M9 ACE",
             options = listOf("DACHS", "M9 ACE", "PZM-3", "GSP"),
@@ -202,7 +202,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie17.jpg",
+            image = "genie17.webp",
             additionalImages = listOf("genie17_extra1.webp", "genie17_extra2.webp", "genie17_extra3.webp"),
             correct = "MDK-2",
             options = listOf("PZM-3", "PMM-2", "MDK-2", "PTS"),
@@ -236,7 +236,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie20.jpg",
+            image = "genie20.webp",
             additionalImages = listOf("genie19_extra1.jpg", "genie19_extra2.webp", "genie19_extra3.jpg"),
             correct = "PMM-2",
             options = listOf("EFA", "PMM-2", "M3 Amphibius", "SPRAT"),
@@ -248,7 +248,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie21.jpg",
+            image = "genie21.webp",
             additionalImages = listOf("genie21_extra1.jpg", "genie21_extra2.jpg", "genie21_extra3.jpg", "genie21_extra4.jpg"),
             correct = "PTS",
             options = listOf("PTS", "M3 Amphibius", "Biber", "GMZ"),
@@ -260,7 +260,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie22.jpg",
+            image = "genie22.webp",
             additionalImages = listOf("genie21_extra1.jpg", "genie21_extra2.jpg", "genie21_extra3.jpg", "genie21_extra4.jpg"),
             correct = "PTS",
             options = listOf("PTS", "M3 Amphibius", "Biber", "EFA"),
@@ -272,7 +272,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie23.jpg",
+            image = "genie23.webp",
             additionalImages = listOf("genie21_extra1.jpg", "genie21_extra2.jpg", "genie21_extra3.jpg", "genie21_extra4.jpg"),
             correct = "PTS",
             options = listOf("IRM-2", "SPRAT", "Biber", "PTS"),
@@ -284,7 +284,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie25.jpg",
+            image = "genie25.webp",
             additionalImages = listOf("genie25_extra1.jpg", "genie25_extra2.jpg", "genie25_extra3.webp"),
             correct = "AMX-30 EBG",
             options = listOf("AMX-30 SDPMAC", "AMX-30 EBG", "DACHS", "M9 ACE"),
@@ -296,7 +296,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie26.jpg",
+            image = "genie26.webp",
             additionalImages = listOf("genie26_extra1.jpg", "genie26_extra2.jpg", "genie26_extra3.jpg"),
             correct = "AMX-30 EBG SDPMAC",
             options = listOf("AMX-30 EBG SDPMAC", "AMX-30 EBG", "TC-910", "M9 ACE"),
@@ -377,7 +377,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie32.jpg",
+            image = "genie32.webp",
             additionalImages = listOf("genie32.jpg"),
             correct = "Manitou",
             options = listOf("TNA", "Manitou", "TC-910", "DACHS"),
@@ -389,7 +389,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie33.jpg",
+            image = "genie33.webp",
             additionalImages = listOf("genie33_extra1.jpg", "genie33_extra2.webp", "genie33_extra3.jpg"),
             correct = "PPLD",
             options = listOf("PPLD", "PVP", "URAL-4320", "GSP"),
@@ -417,7 +417,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie35.jpg",
+            image = "genie35.webp",
             additionalImages = listOf("genie35_extra1.jpg"),
             correct = "TC-910",
             options = listOf("EGAME", "EGRAP", "Manitou", "TC-910"),
@@ -439,7 +439,7 @@ object Genie_Data {
             category = "genie"
         ),
         Question(
-            image = "genie37.jpg",
+            image = "genie37.webp",
             additionalImages = listOf("genie34_extra1.jpg", "genie34_extra2.jpg", "genie34_extra3.jpg", "genie34_extra4.jpg"),
             correct = "VDM Souvim",
             options = listOf("TNA", "VDM Souvim", "EGRAP", "EGAME"),
