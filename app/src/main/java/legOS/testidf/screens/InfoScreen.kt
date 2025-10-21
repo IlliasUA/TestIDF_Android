@@ -379,7 +379,7 @@ private val legalSections = listOf(
             ),
             Subsection(
                 subtitle = "Confidentialité des enfants",
-                content = "L'Application n'est pas recommandée aux enfants de moins de 14 ans. Nous ne collectons pas sciemment de données personnelles auprès d'enfants de moins de 14 ans. Si vous êtes parent ou tuteur et que vous pensez que votre enfant nous a fourni des informations personnelles, veuillez nous contacter à tanks.hunterquiz@gmail.com afin que nous puissions prendre les mesures appropriées."
+                content = "L'Application n'est pas recommandée aux enfants de moins de 13 ans. Nous ne collectons pas sciemment de données personnelles auprès d'enfants de moins de 14 ans. Si vous êtes parent ou tuteur et que vous pensez que votre enfant nous a fourni des informations personnelles, veuillez nous contacter à tanks.hunterquiz@gmail.com afin que nous puissions prendre les mesures appropriées."
             ),
             Subsection(
                 subtitle = "Modifications de la politique de confidentialité",
@@ -412,7 +412,7 @@ private val legalSections = listOf(
             ),
             Subsection(
                 subtitle = "Paiement",
-                content = "L'Application est disponible à l'achat via le Google Play Store. Le prix est indiqué dans le magasin d'applications. Aucun abonnement ou achat intégré n'est requis."
+                content = "L'Application est disponible par abonnement annuel payant via le Google Play Store. Le prix de l'abonnement annuel est indiqué dans le magasin d'applications. L'abonnement se renouvelle automatiquement à la fin de chaque période annuelle, sauf si vous l'annulez au moins 24 heures avant la fin de la période en cours."
             ),
             Subsection(
                 subtitle = "Limitation de responsabilité",
