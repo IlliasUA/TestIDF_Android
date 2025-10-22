@@ -47,6 +47,11 @@ import legOS.testidf.screens.TestMenuScreen
 import legOS.testidf.screens.TestScreen
 import legOS.testidf.screens.TimeSelectionScreen
 import java.io.IOException
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
+import legOS.testidf.screens.*
+import legOS.testidf.viewmodel.SubscriptionViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +62,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     contentColor = MaterialTheme.colorScheme.onBackground
                 ) {
-                    AppNavigation()
+                    AppNavigationWithSubscription()
                 }
             }
         }
@@ -65,8 +70,12 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppNavigation() {
+fun AppNavigationWithSubscription(
+    subscriptionViewModel: SubscriptionViewModel = viewModel()
+) {
     val navController = rememberNavController()
+    val subscriptionState by subscriptionViewModel.uiState.collectAsState()
+
     Box(modifier = Modifier.fillMaxSize()) {
         // Фоновое изображение с прозрачностью 75%
         val context = LocalContext.current
@@ -89,7 +98,20 @@ fun AppNavigation() {
             )
         }
 
-        NavHost(navController, startDestination = "main_menu") {
+        // Определяем стартовый маршрут на основе статуса подписки
+        val startDestination = when {
+            subscriptionState.isLoading -> "subscription" // Показываем экран загрузки
+            subscriptionState.isActive -> "main_menu" // Подписка активна - главное меню
+            else -> "subscription" // Нет подписки - экран подписки
+        }
+
+        NavHost(navController, startDestination = startDestination) {
+            // Экран подписки (должен быть доступен всегда)
+            composable("subscription") {
+                SubscriptionScreen(navController, subscriptionViewModel)
+            }
+
+            // Все остальные маршруты (защищены подпиской)
             composable("creation") {
                 CreationScreen(
                     navController = navController,
@@ -172,7 +194,6 @@ fun AppNavigation() {
             }
             composable("info_screen") { InfoScreen(navController) }
             composable("catalog") { CatalogScreen(navController) }
-            composable("creation") { CreationScreen(navController = navController) }
             composable("custom_time_selection/{questionCount}") { backStackEntry ->
                 val questionCount = backStackEntry.arguments?.getString("questionCount") ?: "0"
                 CustomTimeSelectionScreen(navController = navController, questionCount = questionCount)

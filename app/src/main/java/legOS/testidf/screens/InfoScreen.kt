@@ -412,7 +412,7 @@ private val legalSections = listOf(
             ),
             Subsection(
                 subtitle = "Paiement",
-                content = "L'Application est disponible à l'achat via le Google Play Store. Le prix est indiqué dans le magasin d'applications. Aucun abonnement ou achat intégré n'est requis."
+                content = "L'Application est disponible via un abonnement annuel sur le Google Play Store. Le prix de l'abonnement est indiqué dans le magasin d'applications. L'abonnement se renouvelle automatiquement chaque année et peut être annulé à tout moment dans les paramètres Google Play."
             ),
             Subsection(
                 subtitle = "Limitation de responsabilité",
