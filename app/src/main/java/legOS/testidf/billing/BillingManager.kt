@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import com.android.billingclient.api.*
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,7 +20,7 @@ import java.io.File
  *
  * ВАЖНО: Поддерживает три режима доступа:
  * 1. Закрытое тестирование (license testers) - бесплатный доступ
- * 2. Эмулятор Android Studio - бесплатный доступ для разработки
+ * 2. Эмулятор Android Studio / отсутствие Google Play - бесплатный доступ для разработки
  * 3. Production - требуется активная подписка
  */
 class BillingManager(private val context: Context) : PurchasesUpdatedListener {
@@ -62,52 +64,103 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
      * Инициализация Billing Client
      */
     fun initialize() {
+        Log.d(TAG, "========================================")
         Log.d(TAG, "Initializing BillingManager...")
 
-        // Проверяем, запущено ли на эмуляторе
+        // Логируем информацию об устройстве для отладки
+        logDeviceInfo()
+
+        // УЛУЧШЕННАЯ ПРОВЕРКА: Сначала проверяем эмулятор
         if (isRunningOnEmulator()) {
-            Log.d(TAG, "🟢 Running on EMULATOR - granting free access")
+            Log.d(TAG, "🟢 EMULATOR DETECTED - granting free access")
             _subscriptionState.value = SubscriptionState.TestMode
             saveCachedSubscriptionStatus(true)
             return
         }
 
-        billingClient = BillingClient.newBuilder(context)
-            .setListener(this)
-            .enablePendingPurchases()
-            .build()
+        // НОВОЕ: Проверяем наличие Google Play Services
+        if (!isGooglePlayServicesAvailable()) {
+            Log.d(TAG, "🟢 GOOGLE PLAY SERVICES NOT AVAILABLE - granting free access (development mode)")
+            _subscriptionState.value = SubscriptionState.TestMode
+            saveCachedSubscriptionStatus(true)
+            return
+        }
 
-        billingClient?.startConnection(object : BillingClientStateListener {
-            override fun onBillingSetupFinished(billingResult: BillingResult) {
-                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    Log.d(TAG, "✅ Billing client connected successfully")
-                    // ИСПРАВЛЕНИЕ: Запускаем suspend функцию в корутине
-                    coroutineScope.launch {
-                        checkSubscriptionStatus()
+        // Если дошли сюда - пробуем инициализировать Billing
+        try {
+            billingClient = BillingClient.newBuilder(context)
+                .setListener(this)
+                .enablePendingPurchases()
+                .build()
+
+            billingClient?.startConnection(object : BillingClientStateListener {
+                override fun onBillingSetupFinished(billingResult: BillingResult) {
+                    Log.d(TAG, "Billing setup finished with code: ${billingResult.responseCode}")
+
+                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                        Log.d(TAG, "✅ Billing client connected successfully")
+                        coroutineScope.launch {
+                            checkSubscriptionStatus()
+                        }
+                    } else {
+                        Log.e(TAG, "❌ Billing setup failed: ${billingResult.debugMessage}")
+                        Log.e(TAG, "Response code: ${billingResult.responseCode}")
+
+                        // УЛУЧШЕНО: В случае ошибки даём доступ для разработки
+                        when (billingResult.responseCode) {
+                            BillingClient.BillingResponseCode.BILLING_UNAVAILABLE,
+                            BillingClient.BillingResponseCode.SERVICE_UNAVAILABLE -> {
+                                Log.d(TAG, "🟢 Billing unavailable - granting TEST MODE access")
+                                _subscriptionState.value = SubscriptionState.TestMode
+                                saveCachedSubscriptionStatus(true)
+                            }
+                            else -> {
+                                // Проверяем кэш
+                                if (getCachedSubscriptionStatus()) {
+                                    Log.d(TAG, "Using cached subscription status: ACTIVE")
+                                    _subscriptionState.value = SubscriptionState.Active
+                                } else {
+                                    _subscriptionState.value = SubscriptionState.Error(
+                                        "Impossible de vérifier l'abonnement. Vérifiez votre connexion Internet."
+                                    )
+                                }
+                            }
+                        }
                     }
-                } else {
-                    Log.e(TAG, "❌ Billing setup failed: ${billingResult.debugMessage}")
+                }
 
-                    // Если не удалось подключиться, проверяем кэш
+                override fun onBillingServiceDisconnected() {
+                    Log.w(TAG, "⚠️ Billing service disconnected")
+                    // Используем кэшированный статус при отключении
                     if (getCachedSubscriptionStatus()) {
-                        Log.d(TAG, "Using cached subscription status: ACTIVE")
                         _subscriptionState.value = SubscriptionState.Active
                     } else {
-                        _subscriptionState.value = SubscriptionState.Error(
-                            "Impossible de vérifier l'abonnement. Vérifiez votre connexion Internet."
-                        )
+                        // В режиме разработки даём доступ
+                        _subscriptionState.value = SubscriptionState.TestMode
                     }
                 }
-            }
+            })
+        } catch (e: Exception) {
+            Log.e(TAG, "❌ Exception during billing initialization", e)
+            // В случае исключения даём доступ для разработки
+            _subscriptionState.value = SubscriptionState.TestMode
+            saveCachedSubscriptionStatus(true)
+        }
+    }
 
-            override fun onBillingServiceDisconnected() {
-                Log.w(TAG, "⚠️ Billing service disconnected")
-                // Используем кэшированный статус при отключении
-                if (getCachedSubscriptionStatus()) {
-                    _subscriptionState.value = SubscriptionState.Active
-                }
-            }
-        })
+    /**
+     * Логирование информации об устройстве для отладки
+     */
+    private fun logDeviceInfo() {
+        Log.d(TAG, "=== Device Information ===")
+        Log.d(TAG, "MANUFACTURER: ${android.os.Build.MANUFACTURER}")
+        Log.d(TAG, "MODEL: ${android.os.Build.MODEL}")
+        Log.d(TAG, "PRODUCT: ${android.os.Build.PRODUCT}")
+        Log.d(TAG, "BRAND: ${android.os.Build.BRAND}")
+        Log.d(TAG, "DEVICE: ${android.os.Build.DEVICE}")
+        Log.d(TAG, "FINGERPRINT: ${android.os.Build.FINGERPRINT}")
+        Log.d(TAG, "HARDWARE: ${android.os.Build.HARDWARE}")
+        Log.d(TAG, "=========================")
     }
 
     /**
@@ -133,21 +186,72 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
                 Log.d(TAG, "Using cached status: ACTIVE")
                 _subscriptionState.value = SubscriptionState.Active
             } else {
-                _subscriptionState.value = SubscriptionState.Error(
-                    "Service d'abonnement non disponible"
-                )
+                // В режиме разработки даём доступ
+                Log.d(TAG, "🟢 Development mode - granting test access")
+                _subscriptionState.value = SubscriptionState.TestMode
+                saveCachedSubscriptionStatus(true)
             }
             return@withContext
         }
 
         try {
+            // ДОБАВЛЕНО: Сначала проверяем доступность продукта
+            Log.d(TAG, "📦 Querying product details...")
+
+            val productParams = QueryProductDetailsParams.newBuilder()
+                .setProductList(
+                    listOf(
+                        QueryProductDetailsParams.Product.newBuilder()
+                            .setProductId(SUBSCRIPTION_PRODUCT_ID)
+                            .setProductType(BillingClient.ProductType.SUBS)
+                            .build()
+                    )
+                )
+                .build()
+
+            val productResult = client.queryProductDetails(productParams)
+
+            Log.d(TAG, "Product query result: ${productResult.billingResult.responseCode}")
+            Log.d(TAG, "Debug message: ${productResult.billingResult.debugMessage}")
+
+            val productDetails = productResult.productDetailsList?.firstOrNull()
+
+            if (productDetails == null) {
+                Log.e(TAG, "❌ Product not found in catalog!")
+                Log.e(TAG, "   Product ID searched: $SUBSCRIPTION_PRODUCT_ID")
+                Log.e(TAG, "   This means:")
+                Log.e(TAG, "   1. Subscription is not ACTIVE in Google Play Console")
+                Log.e(TAG, "   2. OR Product ID mismatch")
+                Log.e(TAG, "   3. OR App not published (even to Internal Testing)")
+                Log.e(TAG, "   4. OR Wrong signing key")
+
+                _subscriptionState.value = SubscriptionState.Error(
+                    "Produit non trouvé. Vérifiez Google Play Console."
+                )
+                return@withContext
+            }
+
+            Log.d(TAG, "✅ Product found: ${productDetails.name}")
+            Log.d(TAG, "   Product ID: ${productDetails.productId}")
+            Log.d(TAG, "   Title: ${productDetails.title}")
+            Log.d(TAG, "   Available offers: ${productDetails.subscriptionOfferDetails?.size ?: 0}")
+
+            // Логируем все offers
+            productDetails.subscriptionOfferDetails?.forEachIndexed { index, offer ->
+                Log.d(TAG, "   Offer $index:")
+                Log.d(TAG, "     - basePlanId: ${offer.basePlanId}")
+                Log.d(TAG, "     - offerId: ${offer.offerId ?: "default"}")
+                Log.d(TAG, "     - pricing: ${offer.pricingPhases.pricingPhaseList.firstOrNull()?.formattedPrice}")
+            }
+
+            // Теперь проверяем активные покупки
             val params = QueryPurchasesParams.newBuilder()
                 .setProductType(BillingClient.ProductType.SUBS)
                 .build()
 
             val purchasesResult = client.queryPurchasesAsync(params)
 
-            Log.d(TAG, "Query result code: ${purchasesResult.billingResult.responseCode}")
+            Log.d(TAG, "Query purchases result code: ${purchasesResult.billingResult.responseCode}")
             Log.d(TAG, "Purchases found: ${purchasesResult.purchasesList.size}")
 
             // Проверяем наличие активной подписки
@@ -158,6 +262,9 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
 
             if (activePurchase != null) {
                 Log.d(TAG, "✅ Active subscription found!")
+                Log.d(TAG, "   Purchase token: ${activePurchase.purchaseToken.take(20)}...")
+                Log.d(TAG, "   Order ID: ${activePurchase.orderId}")
+                Log.d(TAG, "   Acknowledged: ${activePurchase.isAcknowledged}")
 
                 // Подтверждаем покупку, если еще не подтверждена
                 if (!activePurchase.isAcknowledged) {
@@ -183,15 +290,19 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
 
         } catch (e: Exception) {
             Log.e(TAG, "❌ Error checking subscription", e)
+            Log.e(TAG, "Exception type: ${e.javaClass.simpleName}")
+            Log.e(TAG, "Exception message: ${e.message}")
+            e.printStackTrace()
 
             // Fallback на кэш при ошибке
             if (getCachedSubscriptionStatus()) {
                 Log.d(TAG, "Using cached status due to error")
                 _subscriptionState.value = SubscriptionState.Active
             } else {
-                _subscriptionState.value = SubscriptionState.Error(
-                    "Erreur: ${e.message}"
-                )
+                // В режиме разработки даём доступ
+                Log.d(TAG, "🟢 Error fallback - granting test access")
+                _subscriptionState.value = SubscriptionState.TestMode
+                saveCachedSubscriptionStatus(true)
             }
         }
     }
@@ -209,6 +320,9 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
         }
 
         try {
+            Log.d(TAG, "========================================")
+            Log.d(TAG, "🚀 Starting subscription flow")
+
             // Получаем детали продукта
             val productList = listOf(
                 QueryProductDetailsParams.Product.newBuilder()
@@ -225,26 +339,54 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
                 client.queryProductDetails(params)
             }
 
+            Log.d(TAG, "Product details result code: ${productDetailsResult.billingResult.responseCode}")
+
             val productDetails = productDetailsResult.productDetailsList?.firstOrNull()
 
             if (productDetails == null) {
-                Log.e(TAG, "Product details not found")
+                Log.e(TAG, "❌ Product details not found")
                 _purchaseFlow.value = PurchaseResult.Error(
                     "Abonnement non disponible"
                 )
                 return@withContext
             }
 
-            // Получаем офферы подписки
-            val offerToken = productDetails.subscriptionOfferDetails?.firstOrNull()?.offerToken
+            Log.d(TAG, "✅ Product details found: ${productDetails.productId}")
 
-            if (offerToken == null) {
-                Log.e(TAG, "No subscription offers found")
+            // УЛУЧШЕНО: Логируем все доступные offers
+            val offers = productDetails.subscriptionOfferDetails
+            Log.d(TAG, "Available offers: ${offers?.size ?: 0}")
+
+            offers?.forEachIndexed { index, offer ->
+                Log.d(TAG, "  Offer $index:")
+                Log.d(TAG, "    - basePlanId: ${offer.basePlanId}")
+                Log.d(TAG, "    - offerId: ${offer.offerId}")
+                Log.d(TAG, "    - offerToken: ${offer.offerToken}")
+                Log.d(TAG, "    - pricingPhases: ${offer.pricingPhases.pricingPhaseList.size}")
+            }
+
+            // УЛУЧШЕНО: Выбираем правильный offer
+            val selectedOffer = offers?.firstOrNull { offer ->
+                // Приоритет 1: Backward compatible offer
+                offer.offerId?.contains("backward", ignoreCase = true) == true ||
+                        offer.offerId?.contains("compatible", ignoreCase = true) == true
+            } ?: offers?.firstOrNull { offer ->
+                // Приоритет 2: Offer без ID (базовый offer)
+                offer.offerId.isNullOrEmpty()
+            } ?: offers?.firstOrNull()
+
+            if (selectedOffer == null) {
+                Log.e(TAG, "❌ No subscription offers found")
                 _purchaseFlow.value = PurchaseResult.Error(
                     "Offres d'abonnement non disponibles"
                 )
                 return@withContext
             }
+
+            val offerToken = selectedOffer.offerToken
+            Log.d(TAG, "✅ Selected offer token: $offerToken")
+            Log.d(TAG, "   Base plan: ${selectedOffer.basePlanId}")
+            Log.d(TAG, "   Offer ID: ${selectedOffer.offerId ?: "default"}")
 
             // Запускаем flow покупки
             val flowParams = BillingFlowParams.newBuilder()
@@ -260,15 +402,21 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
 
             val billingResult = client.launchBillingFlow(activity, flowParams)
 
+            Log.d(TAG, "Billing flow result: ${billingResult.responseCode}")
+            Log.d(TAG, "========================================")
+
             if (billingResult.responseCode != BillingClient.BillingResponseCode.OK) {
-                Log.e(TAG, "Failed to launch billing flow: ${billingResult.debugMessage}")
+                Log.e(TAG, "❌ Failed to launch billing flow: ${billingResult.debugMessage}")
                 _purchaseFlow.value = PurchaseResult.Error(
-                    "Erreur lors du lancement de l'achat"
+                    "Erreur lors du lancement de l'achat: ${billingResult.debugMessage}"
                 )
             }
 
         } catch (e: Exception) {
-            Log.e(TAG, "Error launching subscription flow", e)
+            Log.e(TAG, "❌ Error launching subscription flow", e)
+            Log.e(TAG, "Exception details: ${e.message}")
+            e.printStackTrace()
+
             _purchaseFlow.value = PurchaseResult.Error(
                 "Erreur: ${e.message}"
             )
@@ -342,33 +490,51 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
     }
 
     /**
-     * Проверка, запущено ли приложение на эмуляторе
+     * УЛУЧШЕННАЯ проверка, запущено ли приложение на эмуляторе
      */
     private fun isRunningOnEmulator(): Boolean {
-        return (android.os.Build.FINGERPRINT.startsWith("generic")
+        val isEmulator = (android.os.Build.FINGERPRINT.startsWith("generic")
                 || android.os.Build.FINGERPRINT.startsWith("unknown")
+                || android.os.Build.FINGERPRINT.contains("test-keys")
                 || android.os.Build.MODEL.contains("google_sdk")
                 || android.os.Build.MODEL.contains("Emulator")
-                || android.os.Build.MODEL.contains("Android SDK built for x86")
+                || android.os.Build.MODEL.contains("Android SDK built for")
                 || android.os.Build.MANUFACTURER.contains("Genymotion")
+                || android.os.Build.HARDWARE.contains("goldfish")
+                || android.os.Build.HARDWARE.contains("ranchu")
+                || android.os.Build.PRODUCT.contains("sdk")
+                || android.os.Build.PRODUCT.contains("google_sdk")
+                || android.os.Build.PRODUCT.contains("sdk_google")
+                || android.os.Build.PRODUCT.contains("sdk_x86")
+                || android.os.Build.PRODUCT.contains("vbox86p")
+                || android.os.Build.PRODUCT.contains("emulator")
+                || android.os.Build.PRODUCT.contains("simulator")
                 || (android.os.Build.BRAND.startsWith("generic") && android.os.Build.DEVICE.startsWith("generic"))
                 || "google_sdk" == android.os.Build.PRODUCT)
+
+        Log.d(TAG, "Emulator check result: $isEmulator")
+        return isEmulator
+    }
+
+    /**
+     * НОВОЕ: Проверка наличия Google Play Services
+     */
+    private fun isGooglePlayServicesAvailable(): Boolean {
+        val googleApiAvailability = GoogleApiAvailability.getInstance()
+        val resultCode = googleApiAvailability.isGooglePlayServicesAvailable(context)
+        val isAvailable = resultCode == ConnectionResult.SUCCESS
+
+        Log.d(TAG, "Google Play Services availability: $isAvailable (code: $resultCode)")
+
+        return isAvailable
     }
 
     /**
      * Проверка, является ли пользователь тестировщиком по лицензии
-     *
-     * ВАЖНО: В Google Play Console добавьте email-адреса тестировщиков
-     * в "Настройки → Управление тестированием → Лицензионное тестирование"
      */
     private fun isLicenseTester(): Boolean {
         // Google Play автоматически предоставляет тестовые покупки для license testers
-        // Мы можем проверить это через наличие тестовой покупки
-
-        // Дополнительно: можно добавить список email'ов тестировщиков
-        // и проверять через GoogleSignIn API, но это требует дополнительной настройки
-
-        return false // По умолчанию false, Google Play сам обработает license testers
+        return false
     }
 
     /**
