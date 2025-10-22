@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "998378985449",
+    "project_id": "arsenal-quiz-competition",
+    "storage_bucket": "arsenal-quiz-competition.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998378985449:android:fbfedc4b073ca536639d78",
+        "android_client_info": {
+          "package_name": "legOS.testidf"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7DbthEgBCPLeKEnZ5x7Wl9MTltuDAYPI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

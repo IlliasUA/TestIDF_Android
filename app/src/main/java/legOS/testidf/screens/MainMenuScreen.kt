@@ -187,16 +187,16 @@ private fun MainMenuCompactLayout(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(scrollState) // Добавляем прокрутку для маленьких экранов
+            .verticalScroll(scrollState)
             .padding(horizontal = horizontalPadding, vertical = verticalPadding),
         verticalArrangement = if (isCompactHeight) Arrangement.SpaceBetween else Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Верхний спейсер (адаптивный) - увеличиваем для сдвига вниз
+        // Верхний спейсер (без изменений)
         if (!isCompactHeight) {
-            Spacer(Modifier.height(screenHeight * 0.28f)) // Увеличено с 0.22f до 0.28f
+            Spacer(Modifier.height(screenHeight * 0.35f))
         } else {
-            Spacer(Modifier.height(32.dp)) // Увеличено с 24dp до 32dp
+            Spacer(Modifier.height(40.dp))
         }
 
         // Заголовок (скрываем на очень маленьких экранах)
@@ -216,9 +216,8 @@ private fun MainMenuCompactLayout(
             )
         }
 
-        // Кнопки меню
+        // Кнопки меню (без изменений)
         if (isLandscape && screenWidth > 600.dp) {
-            // Горизонтальное расположение для широких экранов в ландшафте
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(
@@ -247,26 +246,25 @@ private fun MainMenuCompactLayout(
                 )
             }
         } else {
-            // Вертикальное расположение
             Column(
                 verticalArrangement = Arrangement.spacedBy(buttonSpacing),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 MenuButton(
-                    text = "TEST D'IDENTIFICATION",
+                    text = "TESTS",
                     onClick = { navController.navigate("test_menu") },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
                 )
                 MenuButton(
-                    text = "Info",
+                    text = "INFO",
                     onClick = { navController.navigate("info_screen") },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
                 )
                 MenuButton(
-                    text = "Quitter",
+                    text = "QUITTER",
                     onClick = { showQuitConfirmation.value = true },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
@@ -274,40 +272,43 @@ private fun MainMenuCompactLayout(
             }
         }
 
-        // Нижний спейсер (адаптивный)
-        if (!isCompactHeight) {
-            Spacer(Modifier.height(screenHeight * 0.05f))
+        // Нижний спейсер (увеличиваем для вертикальной ориентации)
+        if (isLandscape) {
+            Spacer(Modifier.weight(1f)) // Прижимаем текст к нижней границе в горизонтальной ориентации
         } else {
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.weight(1f).height(screenHeight * 0.05f)) // Дополнительный сдвиг вниз в вертикальной ориентации
         }
 
-        // Информация о версии
+        // Юридический текст
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(2.dp)
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+            modifier = Modifier.padding(bottom = if (isLandscape) 2.dp else 4.dp) // Меньший отступ в горизонтальной ориентации
         ) {
             Text(
-                text = "Beta 1.0",
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    fontSize = when {
-                        isCompactHeight -> 12.sp
-                        screenHeight < 600.dp -> 14.sp
-                        else -> 16.sp
-                    }
-                ),
-                color = MaterialTheme.colorScheme.onBackground
-            )
-
-            Text(
-                text = "IlliasUA",
+                text = "© 2025 IliaUA. All Rights Reserved.",
                 style = MaterialTheme.typography.bodySmall.copy(
                     fontSize = when {
-                        isCompactHeight -> 10.sp
-                        screenHeight < 600.dp -> 12.sp
-                        else -> 14.sp
+                        isCompactHeight -> 8.sp
+                        screenHeight < 600.dp -> 10.sp
+                        else -> 12.sp
                     }
                 ),
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = "By using this app, you agree to our Privacy Policy and Terms of Use, which are specified in the \"Info\" section.",
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontSize = when {
+                        isCompactHeight -> 5.sp // Уменьшено на 40% с 8.sp (8 * 0.6 ≈ 4.8)
+                        screenHeight < 600.dp -> 6.sp // Уменьшено на 40% с 10.sp (10 * 0.6 = 6)
+                        else -> 7.sp // Уменьшено на 40% с 12.sp (12 * 0.6 ≈ 7.2)
+                    }
+                ),
+                color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 16.dp) // Отступы для длинного текста
             )
         }
     }
@@ -343,14 +344,14 @@ private fun MainMenuLargeLayout(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Верхний спейсер - увеличиваем для сдвига вниз
+            // Верхний спейсер (без изменений)
             if (!isCompactHeight) {
-                Spacer(Modifier.height(screenHeight * 0.28f)) // Увеличено с 0.22f до 0.28f
+                Spacer(Modifier.height(screenHeight * 0.35f))
             } else {
-                Spacer(Modifier.height(40.dp)) // Увеличено с 32dp до 40dp
+                Spacer(Modifier.height(48.dp))
             }
 
-            // Кнопки меню
+            // Кнопки меню (без изменений)
             Column(
                 verticalArrangement = Arrangement.spacedBy(
                     if (isCompactHeight) 12.dp else 16.dp
@@ -383,40 +384,43 @@ private fun MainMenuLargeLayout(
                 )
             }
 
-            // Нижний спейсер
-            if (!isCompactHeight) {
-                Spacer(Modifier.height(screenHeight * 0.08f))
+            // Нижний спейсер (увеличиваем для вертикальной ориентации)
+            if (isLandscape) {
+                Spacer(Modifier.weight(1f)) // Прижимаем текст к нижней границе в горизонтальной ориентации
             } else {
-                Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.weight(1f).height(screenHeight * 0.05f)) // Дополнительный сдвиг вниз в вертикальной ориентации
             }
 
-            // Информация о версии
+            // Юридический текст
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.padding(bottom = if (isLandscape) 2.dp else 4.dp) // Меньший отступ в горизонтальной ориентации
             ) {
                 Text(
-                    text = "Beta 1.0",
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontSize = when {
-                            isCompactHeight -> 14.sp
-                            screenHeight < 700.dp -> 16.sp
-                            else -> 18.sp
-                        }
-                    ),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-
-                Text(
-                    text = "IlliasUA",
+                    text = "© 2025 IliaUA. All Rights Reserved.",
                     style = MaterialTheme.typography.bodySmall.copy(
                         fontSize = when {
-                            isCompactHeight -> 12.sp
-                            screenHeight < 700.dp -> 14.sp
-                            else -> 16.sp
+                            isCompactHeight -> 10.sp
+                            screenHeight < 700.dp -> 12.sp
+                            else -> 14.sp
                         }
                     ),
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onBackground,
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    text = "By using this app, you agree to our Privacy Policy and Terms of Use, which are specified in the \"Info\" section.",
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontSize = when {
+                            isCompactHeight -> 6.sp // Уменьшено на 40% с 10.sp (10 * 0.6 = 6)
+                            screenHeight < 700.dp -> 7.sp // Уменьшено на 40% с 12.sp (12 * 0.6 ≈ 7.2)
+                            else -> 8.sp // Уменьшено на 40% с 14.sp (14 * 0.6 ≈ 8.4)
+                        }
+                    ),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(horizontal = 16.dp) // Отступы для длинного текста
                 )
             }
         }
@@ -434,31 +438,30 @@ private fun MenuButton(
         onClick = onClick,
         modifier = modifier
             .height(
-                // Возвращаем исходную высоту
                 if (isCompact) 48.dp else 56.dp
             )
             .padding(vertical = if (isCompact) 2.dp else 4.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary
+            containerColor = Color(0xFF607D8B),
+            contentColor = Color.White,
         ),
         shape = MaterialTheme.shapes.medium,
         contentPadding = PaddingValues(
             horizontal = if (isCompact) 16.dp else 20.dp,
-            vertical = if (isCompact) 8.dp else 12.dp    // Разумные вертикальные отступы
+            vertical = if (isCompact) 8.dp else 12.dp
         )
     ) {
         Text(
             text = text,
             style = MaterialTheme.typography.bodyLarge.copy(
                 fontSize = when {
-                    isCompact -> 17.sp // Уменьшено на 35% с 26.sp (26 * 0.65 = 16.9)
-                    text.length > 20 -> 17.sp // Уменьшено на 35% с 26.sp
-                    else -> 18.sp // Уменьшено на 35% с 28.sp (28 * 0.65 = 18.2)
+                    isCompact -> 17.sp
+                    text.length > 20 -> 17.sp
+                    else -> 18.sp
                 }
             ),
             textAlign = TextAlign.Center,
-            maxLines = if (text.length > 20) 2 else 1 // Разрешаем перенос для длинного текста
+            maxLines = if (text.length > 20) 2 else 1
         )
     }
 }

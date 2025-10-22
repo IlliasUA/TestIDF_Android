@@ -3,8 +3,8 @@ package com.example.quizapp
 object Air_Data {
     val QUESTION = listOf(
         Question(
-            image = "air1.jpg",
-            additionalImages = listOf("air1_extra1.jpg", "air1_extra2.jpg", "air1_extra3.jpg"),
+            image = "air1.webp",
+            additionalImages = listOf("air1_extra1.webp", "air1_extra2.jpg", "air1_extra3.jpg"),
             correct = "AH-1W Super Cobra",
             options = listOf("AH-1W Super Cobra", "Apache AH64", "KA-50 Black Shark", "Changhe Z-10"),
             description = """
@@ -18,7 +18,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air2.jpg",
+            image = "air2.webp",
             additionalImages = listOf("air2_extra1.jpg", "air2_extra2.jpg", "air2_extra3.jpg", "air2_extra4.jpg"),
             correct = "Apache AH64",
             options = listOf("AH-1W Super Cobra", "Apache AH64", "A129 Mangusta", "Changhe Z-10"),
@@ -39,7 +39,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air3.jpg",
+            image = "air3.webp",
             additionalImages = listOf("air2_extra1.jpg", "air2_extra2.jpg", "air2_extra3.jpg", "air2_extra4.jpg"),
             correct = "Apache AH64",
             options = listOf("AH-1W Super Cobra", "Apache AH64", "A129 Mangusta", "Changhe Z-10"),
@@ -81,7 +81,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air5.jpg",
+            image = "air5.webp",
             additionalImages = listOf("air5_extra1.jpg", "air5_extra2.jpg", "air5_extra3.jpg", "air5_extra4.jpg"),
             correct = "CH-47 Chinook",
             options = listOf("Stallion CH-53", "UH-60 Black Hawk", "CH-47 Chinook", "SA 330 PUMA"),
@@ -129,7 +129,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air9.jpg",
+            image = "air9.webp",
             additionalImages = listOf("air9_extra1.jpg", "air9_extra2.jpg", "air9_extra3.jpg", "air9_extra4.jpg"),
             correct = "KA-52 Alligator",
             options = listOf("KA-50 Black Shark", "Changhe Z-10", "AH-1W Super Cobra", "KA-52 Alligator"),
@@ -148,7 +148,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air10.jpg",
+            image = "air10.webp",
             additionalImages = listOf("air10_extra1.jpg", "air10_extra2.jpg", "air10_extra3.jpg", "air10_extra4.jpg", "air10_extra5.jpg"),
             correct = "MI-8",
             options = listOf("MI-8", "MI-24", "MI-26", "MI-28"),
@@ -210,7 +210,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air13.jpg",
+            image = "air13.webp",
             additionalImages = listOf("air12_extra1.jpg", "air12_extra2.jpg", "air12_extra3.jpg", "air12_extra4.jpg"),
             correct = "MI-26",
             options = listOf("Stallion CH-53", "Changhe Z-20", "MI-26", "MI-35"),
@@ -226,7 +226,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air14.jpg",
+            image = "air14.webp",
             additionalImages = listOf("air14_extra1.jpg", "air14_extra2.jpg", "air14_extra3.jpg", "air14_extra4.jpg"),
             correct = "MI-28",
             options = listOf("Changhe Z-10", "MI-28", "KA-50 Black Shark", "AH-1W Super Cobra"),
@@ -248,7 +248,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air15.jpg",
+            image = "air15.webp",
             additionalImages = listOf("air14_extra1.jpg", "air14_extra2.jpg", "air14_extra3.jpg", "air14_extra4.jpg"),
             correct = "MI-28",
             options = listOf("MI-8", "MI-24", "MI-26", "MI-28"),
@@ -299,7 +299,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air17.jpg",
+            image = "air17.webp",
             additionalImages = listOf("air17_extra1.jpg", "air17_extra2.jpg", "air17_extra3.jpg", "air17_extra4.jpg", "air17_extra5.jpg"),
             correct = "Stallion CH-53",
             options = listOf("Stallion CH-53", "MI-26", "KA-27 Helix", "SA 330 PUMA"),
@@ -315,7 +315,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air18.jpg",
+            image = "air18.webp",
             additionalImages = listOf("air17_extra1.jpg", "air17_extra2.jpg", "air17_extra3.jpg", "air17_extra4.jpg", "air17_extra5.jpg"),
             correct = "Stallion CH-53",
             options = listOf("Stallion CH-53", "MI-26", "KA-27 Helix", "SA 330 PUMA"),
@@ -349,7 +349,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air20.jpg",
+            image = "air20.webp",
             additionalImages = listOf("air19_extra1.jpg", "air19_extra2.jpg", "air19_extra3.jpg", "air19_extra4.jpg"),
             correct = "UH-60 Black Hawk",
             options = listOf("Stallion CH-53", "Changhe Z-20", "UH-60 Black Hawk", "Caracal H225 M"),
@@ -367,7 +367,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air21.jpg",
+            image = "air21.webp",
             additionalImages = listOf("air21_extra1.jpg", "air21_extra2.jpg", "air21_extra3.jpg", "air21_extra4.jpg"),
             correct = "A129 Mangusta",
             options = listOf("AH-1W Super Cobra", "Apache AH64", "A129 Mangusta", "Tigr HAD"),
@@ -389,7 +389,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air22.jpg",
+            image = "air22.webp",
             additionalImages = listOf("air21_extra1.jpg", "air21_extra2.jpg", "air21_extra3.jpg", "air21_extra4.jpg"),
             correct = "A129 Mangusta",
             options = listOf("AH-1W Super Cobra", "CSH-2 Rooivalk", "A129 Mangusta", "Tigr HAD"),
@@ -412,7 +412,7 @@ object Air_Data {
         ),
         Question(
             image = "air23.jpg",
-            additionalImages = listOf("air23_extra1.jpg", "air23_extra2.jpg", "air23_extra3.jpg", "air23_extra4.jpg"),
+            additionalImages = listOf("air23_extra1.jpg", "air23_extra2.webp", "air23_extra3.jpg", "air23_extra4.jpg"),
             correct = "A330 Phénix",
             options = listOf("C-5 Galaxy", "A330 Phénix", "IL-76 Ilyushin", "A400M Atlas"),
             description = """
@@ -425,7 +425,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air24.jpg",
+            image = "air24.webp",
             additionalImages = listOf("air24_extra1.jpg", "air24_extra2.jpg", "air24_extra3.jpg", "air24_extra4.jpg"),
             correct = "A400M Atlas",
             options = listOf("C-160 Transall", "A330 Phénix", "C-130J Super Hercules", "A400M Atlas"),
@@ -443,7 +443,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air26.jpg",
+            image = "air26.webp",
             additionalImages = listOf("air26_extra1.jpg", "air26_extra2.jpg", "air26_extra3.jpg"),
             correct = "C-130J Super Hercules",
             options = listOf("A400M Atlas", "C-160 Transall", "C-130J Super Hercules", "IL-76 Ilyushin"),
@@ -458,7 +458,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air27.jpg",
+            image = "air27.webp",
             additionalImages = listOf("air27_extra1.jpg", "air27_extra2.jpg", "air27_extra3.jpg"),
             correct = "C-160 Transall",
             options = listOf("C-130J Super Hercules", "A400M Atlas", "A330 Phénix", "C-160 Transall"),
@@ -475,7 +475,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air28.jpg",
+            image = "air28.webp",
             additionalImages = listOf("air28_extra1.jpg", "air28_extra2.jpg", "air28_extra3.jpg", "air28_extra4.jpg"),
             correct = "Caracal H225M",
             options = listOf("Caracal H225M", "UH-60 Black Hawk", "Stallion CH-53", "SA 330 PUMA"),
@@ -488,7 +488,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air29.jpg",
+            image = "air29.webp",
             additionalImages = listOf("air29_extra1.jpg", "air29_extra2.jpg"),
             correct = "Casa CN-235",
             options = listOf("C-160 Transall", "Casa CN-235", "AWACS", "C-130J Super Hercules"),
@@ -504,7 +504,7 @@ object Air_Data {
         ),
         Question(
             image = "air30.jpg",
-            additionalImages = listOf("air30_extra1.jpg", "air30_extra2.jpg", "air30_extra3.jpg", "air30_extra4.jpg"),
+            additionalImages = listOf("air30_extra1.jpg", "air30_extra2.jpg", "air30_extra3.jpg", "air30_extra4.webp"),
             correct = "Changhe Z-20",
             options = listOf("UH-60 Black Hawk", "FENNEC AS555", "KA-52 Alligator", "Changhe Z-20"),
             description = """
@@ -519,8 +519,8 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air31.jpg",
-            additionalImages = listOf("air31_extra1.jpg", "air31_extra2.jpg", "air31_extra3.jpg"),
+            image = "air31.webp",
+            additionalImages = listOf("air31_extra1.webp", "air31_extra2.jpg", "air31_extra3.jpg"),
             correct = "Changhe Z-10",
             options = listOf("AH-1 Cobra", "Apache AH64", "Changhe Z-10", "A129 Mangusta"),
             description = """
@@ -541,8 +541,8 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air32.jpg",
-            additionalImages = listOf("air31_extra1.jpg", "air31_extra2.jpg", "air31_extra3.jpg"),
+            image = "air32.webp",
+            additionalImages = listOf("air31_extra1.webp", "air31_extra2.jpg", "air31_extra3.jpg"),
             correct = "Changhe Z-10",
             options = listOf("Changhe Z-10", "Apache AH64", "CSH-2 Rooivalk", "Tigr HAD"),
             description = """
@@ -593,7 +593,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air35.jpg",
+            image = "air35.webp",
             additionalImages = listOf("air35_extra1.jpg", "air35_extra2.jpg", "air35_extra3.jpg", "air33_extra4.jpg"),
             correct = "F-35 Lightning",
             options = listOf("F-16 Fighting Falcon", "F-22 Raptor", "F-35 Lightning", "Typhoon"),
@@ -617,7 +617,7 @@ object Air_Data {
         ),
         Question(
             image = "air36.jpg",
-            additionalImages = listOf("air36_extra3.jpg"),
+            additionalImages = listOf("air36_extra3.webp"),
             correct = "FENNEC AS555",
             options = listOf("Gazelle", "FENNEC AS555", "Caracal H225 M", "AH-6 Little Bird"),
             description = """
@@ -631,7 +631,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air37.jpg",
+            image = "air37.webp",
             additionalImages = listOf("air37_extra1.jpg", "air37_extra2.jpg"),
             correct = "Gazelle",
             options = listOf("Gazelle", "FENNEC AS555", "Caracal H225 M", "AH-6 Little Bird"),
@@ -667,7 +667,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air39.jpg",
+            image = "air39.webp",
             additionalImages = listOf("air39_extra1.jpg", "air39_extra2.jpg", "air39_extra3.jpg"),
             correct = "KA-27 Helix",
             options = listOf("Stallion CH-53", "KA-27 Helix", "CH-47 Chinook", "KA-52 Alligator"),
@@ -699,7 +699,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air41.jpg",
+            image = "air41.webp",
             additionalImages = listOf("air41_extra1.jpg", "air41_extra2.jpg", "air41_extra3.jpg", "air41_extra4.jpg", "air41_extra5.jpg"),
             correct = "MIG-29",
             options = listOf("Chengdu J-10", "SU-27", "MIG-29", "SU-57"),
@@ -712,7 +712,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air42.jpg",
+            image = "air42.webp",
             additionalImages = listOf("air42_extra1.jpg", "air42_extra2.jpg", "air42_extra3.jpg", "air42_extra4.jpg", "air42_extra5.jpg"),
             correct = "MIG-31",
             options = listOf("Panavia Tornado", "Chengdu J-10", "SU-24", "MIG-31"),
@@ -734,7 +734,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air43.jpg",
+            image = "air43.webp",
             additionalImages = listOf("air43_extra1.jpg", "air43_extra2.jpg", "air43_extra3.jpg", "air43_extra4.jpg"),
             correct = "Mirage 2000",
             options = listOf("Typhoon", "Mirage 2000", "MIG-35", "SU-57"),
@@ -750,7 +750,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air44.jpg",
+            image = "air44.webp",
             additionalImages = listOf("air44_extra1.jpg"),
             correct = "MQ-9 Reaper",
             options = listOf("MQ-9 Reaper", "S-70 Okhotnik-B", "Falco EVO", "Pilatus PC-21"),
@@ -762,7 +762,7 @@ object Air_Data {
         ),
         Question(
             image = "air46.jpg",
-            additionalImages = listOf("air46_extra1.jpg", "air46_extra2.jpg"),
+            additionalImages = listOf("air46_extra1.webp", "air46_extra2.jpg"),
             correct = "Panavia Tornado",
             options = listOf("F-16 Fighting Falcon", "SU-24", "Typhoon", "Panavia Tornado"),
             description = """
@@ -778,8 +778,8 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air47.jpg",
-            additionalImages = listOf("air47_extra1.jpg"),
+            image = "air47.webp",
+            additionalImages = listOf("air47_extra1.webp"),
             correct = "Pilatus PC-21",
             options = listOf("Falco EVO", "Wing Loong", "Pilatus PC-21", "Panavia Tornado"),
             description = """
@@ -790,7 +790,7 @@ object Air_Data {
         ),
         Question(
             image = "air48.jpg",
-            additionalImages = listOf("air48_extra1.jpg", "air48_extra2.jpg", "air48_extra3.jpg"),
+            additionalImages = listOf("air48_extra1.jpg", "air48_extra2.webp", "air48_extra3.jpg"),
             correct = "Rafale F-4",
             options = listOf("Mirage 2000", "Rafale F-4", "Typhoon", "Panavia Tornado"),
             description = """
@@ -808,7 +808,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air49.jpg",
+            image = "air49.webp",
             additionalImages = listOf("air49_extra1.jpg"),
             correct = "S-70 Okhotnik-B",
             options = listOf("MQ-9 Reaper", "S-70 Okhotnik-B", "Falco EVO", "Wing Loong"),
@@ -819,8 +819,8 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air50.jpg",
-            additionalImages = listOf("air50_extra1.jpg", "air50_extra2.jpg", "air50_extra3.jpg"),
+            image = "air50.webp",
+            additionalImages = listOf("air50_extra1.webp", "air50_extra2.webp", "air50_extra3.jpg"),
             correct = "SA 330 PUMA",
             options = listOf("SA 330 PUMA", "Stallion CH-53", "KA-27 Helix", "FENNEC AS555"),
             description = """
@@ -840,7 +840,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air51.jpg",
+            image = "air51.webp",
             additionalImages = listOf("air51_extra1.jpg", "air51_extra2.jpg", "air51_extra3.jpg"),
             correct = "SU-27",
             options = listOf("SU-27", "SU-57", "MIG-31", "Chengdu J-10"),
@@ -859,7 +859,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air52.jpg",
+            image = "air52.webp",
             additionalImages = listOf("air52_extra1.jpg", "air52_extra2.jpg", "air52_extra3.jpg", "air41_extra4.jpg", "air52_extra5.jpg"),
             correct = "Su-57",
             options = listOf("Rafale F4", "F-22 Raptor", "F-35 Lightning", "Su-57"),
@@ -878,7 +878,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air53.jpg",
+            image = "air53.webp",
             additionalImages = listOf("air53_extra1.jpg", "air53_extra2.jpg", "air53_extra3.jpg", "air53_extra4.jpg", "air53_extra5.jpg"),
             correct = "Tigr HAD",
             options = listOf("Changhe Z-10", "Tigr HAD", "A129 Mangusta", "Apache AH64"),
@@ -950,7 +950,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air56.jpg",
+            image = "air56.webp",
             additionalImages = listOf("air56_extra1.jpg", "air56_extra2.jpg", "air56_extra3.jpg", "air56_extra4.jpg"),
             correct = "Chengdu J-10",
             options = listOf("F-16 Fighting Falcon", "SU-24", "Panavia Tornado", "Chengdu J-10"),
@@ -962,7 +962,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air57.jpg",
+            image = "air57.webp",
             additionalImages = listOf("air57_extra1.jpg", "air57_extra2.jpg", "air57_extra3.jpg", "air57_extra4.jpg"),
             correct = "MIG-35",
             options = listOf("MIG-35", "SU-57", "Chengdu J-10", "F-16 Fighting Falcon"),
@@ -979,7 +979,7 @@ object Air_Data {
         ),
         Question(
             image = "air58.jpg",
-            additionalImages = listOf("air58_extra1.jpg", "air58_extra2.jpg"),
+            additionalImages = listOf("air58_extra1.webp", "air58_extra2.jpg"),
             correct = "Wing Loong",
             options = listOf("MQ-9 Reaper", "S-70 Okhotnik-B", "Falco EVO", "Wing Loong"),
             description = """
@@ -1006,7 +1006,7 @@ object Air_Data {
             category = "air"
         ),
         Question(
-            image = "air60.jpg",
+            image = "air60.webp",
             additionalImages = listOf("air60_extra1.jpg", "air60_extra2.jpg", "air60_extra3.jpg", "air60_extra4.jpg"),
             correct = "Rockwell B-1 Lancer",
             options = listOf("Mirage 4", "Rockwell B-1 Lancer", "TU-22M Backfire", "Xian H-6"),
@@ -1129,7 +1129,7 @@ object Air_Data {
         ),
         Question(
             image = "air67.jpg",
-            additionalImages = listOf("air67_extra1.jpg", "air67_extra2.jpg", "air67_extra3.jpg"),
+            additionalImages = listOf("air67_extra1.jpg", "air67_extra2.webp", "air67_extra3.webp"),
             correct = "NH90 Caïman",
             options = listOf("H225M Caracal", "NH90 Caïman", "MI-24", "SA 330 PUMA"),
             description = """

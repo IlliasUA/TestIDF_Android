@@ -34,7 +34,7 @@ fun ConfirmationFinalTestScreen(navController: NavController, playerName: String
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     // Load the background image (with error handling)
-    val backgroundImage = runCatching { loadImageFromAssets(context, "images/background_2.jpg") }
+    val backgroundImage = runCatching { loadImageFromAssets(context, "images/background_6.png") }
         .getOrNull()
 
     // Choose layout based on screen size and orientation

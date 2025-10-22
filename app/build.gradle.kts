@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose") version "2.1.20"
+    id("com.google.gms.google-services") // Добавить эту строку
     id("kotlin-parcelize")
 }
 
@@ -30,6 +31,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
@@ -45,6 +47,9 @@ android {
 
 dependencies {
     // Compose BOM для согласованности версий
+    implementation("androidx.compose.ui:ui-graphics:1.6.8")
+    implementation("androidx.compose.material3:material3:1.3.0")
+    implementation("androidx.compose.material:material-icons-extended:1.6.8")
     implementation(platform("androidx.compose:compose-bom:2024.09.03"))
     implementation("androidx.activity:activity-compose")
     implementation("androidx.compose.material3:material3")
@@ -65,4 +70,19 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2024.09.03"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+
+    // Firebase BOM (Bill of Materials) - управляет версиями
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+
+    // Firebase Authentication
+    implementation("com.google.firebase:firebase-auth-ktx")
+
+    // Cloud Firestore
+    implementation("com.google.firebase:firebase-firestore-ktx")
+
+    // Firebase Cloud Messaging (для уведомлений)
+    implementation("com.google.firebase:firebase-messaging-ktx")
+
+    // Coroutines для Firebase
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 }

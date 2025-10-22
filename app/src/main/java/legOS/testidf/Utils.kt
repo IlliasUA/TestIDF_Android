@@ -15,6 +15,69 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import kotlin.random.Random
+
+/**
+ * Список исключенных изображений, которые не должны показываться в тестах
+ */
+private val EXCLUDED_IMAGES = setOf(
+    "air23_extra4.jpg",
+    "air33_extra4.jpg",
+    "air35_extra3.jpg",
+    "air41_extra4.jpg",
+    "air52_extra5.jpg",
+    "air55_extra5.jpg",
+    "air60_extra3.jpg",
+    "reco27_extra4.jpg",
+    "reco114_extra4.jpg",
+    "bm2_question96_extra2.jpg",
+    "bm2_question91_extra3.jpg",
+    "bm2_question85_extra3.webp",
+    "bm2_question58_extra3.jpg",
+    "bm2_question38_extra1.webp",
+    "bm2_question38_extra2.webp",
+    "bm2_question38_extra3.webp",
+    "bm2_question2_extra1.jpg",
+    "bm2_question2_extra2.jpg",
+    "art5_extra3.jpg"
+)
+
+/**
+ * Выбирает случайное изображение для вопроса из основного изображения или дополнительных,
+ * исключая запрещенные изображения
+ */
+fun getRandomImageForQuestion(question: Question): String {
+    // Собираем все доступные изображения
+    val availableImages = mutableListOf<String>()
+
+    // Добавляем основное изображение, если оно не в списке исключений
+    if (question.image !in EXCLUDED_IMAGES) {
+        availableImages.add(question.image)
+    }
+
+    // Добавляем дополнительные изображения, исключая запрещенные
+    question.additionalImages?.forEach { imageName ->
+        if (imageName !in EXCLUDED_IMAGES) {
+            availableImages.add(imageName)
+        }
+    }
+
+    // Если нет доступных изображений, возвращаем основное (на случай ошибки)
+    if (availableImages.isEmpty()) {
+        return question.image
+    }
+
+    // Возвращаем случайное изображение из доступных
+    return availableImages.random()
+}
+
+/**
+ * Создает копию вопроса с случайно выбранным изображением
+ */
+fun Question.withRandomImage(): Question {
+    val selectedImage = getRandomImageForQuestion(this)
+    return this.copy(image = selectedImage)
+}
 
 fun loadScores(context: Context): List<Pair<String, Int>> {
     val file = File(context.getExternalFilesDir(null), "hall_of_fame.txt")

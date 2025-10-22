@@ -35,7 +35,6 @@ import coil.compose.AsyncImage
 import com.example.quizapp.Question
 import legOS.testidf.R
 import legOS.testidf.loadImageFromAssets
-import legOS.testidf.getImagePath
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -61,7 +60,10 @@ fun MoreInfoScreen(navController: NavController, category: String, index: Int, t
         return
     }
 
-    Log.d("MoreInfoScreen", "Displaying question at index $index: ${currentQuestion.image}, category: $category, additionalImages: ${currentQuestion.additionalImages}")
+    Log.d("MoreInfoScreen", "Displaying question at index $index")
+    Log.d("MoreInfoScreen", "Main image: ${currentQuestion.image}")
+    Log.d("MoreInfoScreen", "Category: $category")
+    Log.d("MoreInfoScreen", "Additional images: ${currentQuestion.additionalImages}")
 
     // Load background image
     val backgroundImage = loadImageFromAssets(context, "images/background_2.jpg")
@@ -71,7 +73,6 @@ fun MoreInfoScreen(navController: NavController, category: String, index: Int, t
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Display background image - заполняет весь экран включая системные панели
         backgroundImage?.let {
             Image(
                 painter = BitmapPainter(it.asImageBitmap()),
@@ -81,17 +82,14 @@ fun MoreInfoScreen(navController: NavController, category: String, index: Int, t
             )
         }
 
-        // Контент с безопасными отступами поверх фона
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .systemBarsPadding() // Применяем отступы только к контенту
+                .systemBarsPadding()
         ) {
-            // Выбираем компоновку в зависимости от ориентации
             if (isLandscape) {
                 MoreInfoLandscapeLayout(navController, category, currentQuestion, index)
             } else {
-                // Для портретного режима используем старую логику
                 when (windowSizeClass.widthSizeClass) {
                     WindowWidthSizeClass.Compact -> {
                         MoreInfoCompactLayout(navController, category, currentQuestion, index, false)
@@ -105,7 +103,103 @@ fun MoreInfoScreen(navController: NavController, category: String, index: Int, t
     }
 }
 
-// Новый компонент для горизонтального режима
+/**
+ * Возвращает список всех путей изображений, исключая изображение показанное в тесте
+ * question.image содержит изображение, которое УЖЕ было показано в тесте (может быть случайным)
+ */
+private fun getAllImagePaths(question: Question, category: String): List<String> {
+    // Изображение, которое было показано в тесте
+    val shownImageName = question.image
+
+    Log.d("MoreInfoScreen", "=== getAllImagePaths ===")
+    Log.d("MoreInfoScreen", "Category: $category")
+    Log.d("MoreInfoScreen", "Question: ${question.correct}")
+    Log.d("MoreInfoScreen", "Image shown in test: $shownImageName")
+
+    // Получаем оригинальный Question для доступа ко ВСЕМ изображениям
+    val originalQuestion = findOriginalQuestion(question.correct, category)
+
+    if (originalQuestion == null) {
+        Log.e("MoreInfoScreen", "❌ Could not find original question for: ${question.correct}")
+        return emptyList()
+    }
+
+    // Для финального теста используем оригинальную категорию вопроса
+    val actualCategory = if (category == "final") {
+        getQuestionCategory(question.correct)
+    } else {
+        category
+    }
+
+    Log.d("MoreInfoScreen", "Actual category: $actualCategory")
+
+    val imageFolder = getImageFolder(actualCategory)
+    val allImages = mutableListOf<String>()
+
+    // 1. Добавляем ОРИГИНАЛЬНОЕ основное изображение (если оно не было показано)
+    if (originalQuestion.image != shownImageName) {
+        val mainImagePath = "$imageFolder/${originalQuestion.image}"
+        allImages.add(mainImagePath)
+        Log.d("MoreInfoScreen", "✅ Added original main image: $mainImagePath")
+    } else {
+        Log.d("MoreInfoScreen", "⏭️ Skipping main image (was shown in test)")
+    }
+
+    // 2. Добавляем дополнительные изображения (исключая показанное)
+    originalQuestion.additionalImages?.filterNotNull()?.forEach { additionalImage ->
+        if (additionalImage != shownImageName) {
+            val additionalPath = "$imageFolder/$additionalImage"
+            allImages.add(additionalPath)
+            Log.d("MoreInfoScreen", "✅ Added additional image: $additionalPath")
+        } else {
+            Log.d("MoreInfoScreen", "⏭️ Skipping additional image (was shown in test): $additionalImage")
+        }
+    }
+
+    Log.d("MoreInfoScreen", "Total images (excluding shown): ${allImages.size}")
+    Log.d("MoreInfoScreen", "======================")
+    return allImages
+}
+
+/**
+ * Определяет категорию вопроса по его имени
+ */
+private fun getQuestionCategory(questionName: String): String {
+    return when {
+        com.example.quizapp.Test_Data.QUESTION.any { it.correct == questionName } -> "tanks"
+        com.example.quizapp.Art_Data.QUESTION.any { it.correct == questionName } -> "artillery"
+        com.example.quizapp.Air_Data.QUESTION.any { it.correct == questionName } -> "air"
+        com.example.quizapp.Genie_Data.QUESTION.any { it.correct == questionName } -> "genie"
+        com.example.quizapp.Recon_Data.QUESTION.any { it.correct == questionName } -> "recon"
+        com.example.quizapp.Test_bm2.QUESTION.any { it.correct == questionName } -> "bm2"
+        else -> "tanks" // fallback
+    }
+}
+
+/**
+ * Находит оригинальный вопрос по имени и категории
+ */
+private fun findOriginalQuestion(name: String, category: String): Question? {
+    return when (category) {
+        "tanks" -> com.example.quizapp.Test_Data.QUESTION.find { it.correct == name }
+        "artillery" -> com.example.quizapp.Art_Data.QUESTION.find { it.correct == name }
+        "recon" -> com.example.quizapp.Recon_Data.QUESTION.find { it.correct == name }
+        "genie" -> com.example.quizapp.Genie_Data.QUESTION.find { it.correct == name }
+        "air" -> com.example.quizapp.Air_Data.QUESTION.find { it.correct == name }
+        "bm2" -> com.example.quizapp.Test_bm2.QUESTION.find { it.correct == name }
+        "final" -> {
+            // Для финального теста пробуем найти в любой категории
+            com.example.quizapp.Test_Data.QUESTION.find { it.correct == name }
+                ?: com.example.quizapp.Art_Data.QUESTION.find { it.correct == name }
+                ?: com.example.quizapp.Air_Data.QUESTION.find { it.correct == name }
+                ?: com.example.quizapp.Genie_Data.QUESTION.find { it.correct == name }
+                ?: com.example.quizapp.Recon_Data.QUESTION.find { it.correct == name }
+                ?: com.example.quizapp.Test_bm2.QUESTION.find { it.correct == name }
+        }
+        else -> null
+    }
+}
+
 @Composable
 private fun MoreInfoLandscapeLayout(
     navController: NavController,
@@ -119,56 +213,36 @@ private fun MoreInfoLandscapeLayout(
             .padding(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Левая часть - изображения (занимает всю левую половину)
+        // Левая часть - изображения
         Box(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxHeight(),
             contentAlignment = Alignment.Center
         ) {
-            // Вертикальная прокрутка изображений
+            val allImagePaths = getAllImagePaths(question, category)
+
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 contentPadding = PaddingValues(8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Главное изображение
-                item {
-                    val mainImagePath = getImagePath(category, question)
+                items(allImagePaths) { imagePath ->
                     AsyncImage(
-                        model = "file:///android_asset/$mainImagePath",
-                        contentDescription = "Main Image",
+                        model = "file:///android_asset/$imagePath",
+                        contentDescription = "Image",
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 200.dp, max = 300.dp),
                         contentScale = ContentScale.Fit,
-                        placeholder = painterResource(legOS.testidf.R.drawable.placeholder)
+                        placeholder = painterResource(R.drawable.placeholder)
                     )
-                }
-
-                // Дополнительные изображения
-                if (category in listOf("final", "bm2")) {
-                    items(question.additionalImages?.filterNotNull() ?: emptyList()) { additionalImagePath ->
-                        val originalCategory = question.category ?: category
-                        val imageFolder = getImageFolder(originalCategory)
-                        val fullAdditionalPath = "$imageFolder/$additionalImagePath"
-                        Log.d("MoreInfoScreen", "Loading additional image: $fullAdditionalPath")
-                        AsyncImage(
-                            model = "file:///android_asset/$fullAdditionalPath",
-                            contentDescription = "Additional Image",
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .heightIn(min = 200.dp, max = 300.dp),
-                            contentScale = ContentScale.Fit,
-                            placeholder = painterResource(legOS.testidf.R.drawable.placeholder)
-                        )
-                    }
                 }
             }
         }
 
-        // Правая часть - текст и управление (занимает правую половину)
+        // Правая часть - текст и управление
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -177,23 +251,17 @@ private fun MoreInfoLandscapeLayout(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Заголовок
             Text(
-                text = if (category in listOf("final", "bm2")) {
-                    "Réponse correcte: ${question.correct}"
-                } else {
-                    "Plus d'infos - Question ${index + 1}"
-                },
+                text = "Réponse correcte: ${question.correct}",
                 style = MaterialTheme.typography.headlineSmall.copy(
-                    color = if (category in listOf("final", "bm2")) Color(0xFF006400) else MaterialTheme.colorScheme.onBackground,
-                    fontWeight = if (category in listOf("final", "bm2")) FontWeight.SemiBold else FontWeight.Normal,
+                    color = Color(0xFF006400),
+                    fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp
                 ),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            // Прокручиваемый текст
             Box(
                 modifier = Modifier
                     .weight(1f)
@@ -223,7 +291,6 @@ private fun MoreInfoLandscapeLayout(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Кнопка возврата
             ReturnButton(navController, Modifier.fillMaxWidth(0.8f))
         }
     }
@@ -244,20 +311,18 @@ private fun MoreInfoCompactLayout(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = if (category in listOf("final", "bm2")) {
-                "Réponse correcte: ${question.correct}"
-            } else {
-                "Plus d'infos - Question ${index + 1}"
-            },
+            text = "Réponse correcte: ${question.correct}",
             style = MaterialTheme.typography.headlineSmall.copy(
-                color = if (category in listOf("final", "bm2")) Color(0xFF006400) else MaterialTheme.colorScheme.onBackground,
-                fontWeight = if (category in listOf("final", "bm2")) FontWeight.SemiBold else FontWeight.Normal
+                color = Color(0xFF006400),
+                fontWeight = FontWeight.SemiBold
             ),
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // Horizontal scrolling images
+        // Горизонтальная прокрутка изображений
+        val allImagePaths = getAllImagePaths(question, category)
+
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
@@ -265,41 +330,21 @@ private fun MoreInfoCompactLayout(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = PaddingValues(horizontal = 8.dp)
         ) {
-            item {
-                val mainImagePath = getImagePath(category, question)
+            items(allImagePaths) { imagePath ->
                 AsyncImage(
-                    model = "file:///android_asset/$mainImagePath",
-                    contentDescription = "Main Image",
+                    model = "file:///android_asset/$imagePath",
+                    contentDescription = "Image",
                     modifier = Modifier.size(
                         width = if (isLandscape) 350.dp else 416.dp,
                         height = if (isLandscape) 260.dp else 286.dp
                     ),
                     contentScale = ContentScale.Fit,
-                    placeholder = painterResource(legOS.testidf.R.drawable.placeholder)
+                    placeholder = painterResource(R.drawable.placeholder)
                 )
-            }
-
-            if (category in listOf("final", "bm2")) {
-                items(question.additionalImages?.filterNotNull() ?: emptyList()) { additionalImagePath ->
-                    val originalCategory = question.category ?: category
-                    val imageFolder = getImageFolder(originalCategory)
-                    val fullAdditionalPath = "$imageFolder/$additionalImagePath"
-                    Log.d("MoreInfoScreen", "Loading additional image: $fullAdditionalPath")
-                    AsyncImage(
-                        model = "file:///android_asset/$fullAdditionalPath",
-                        contentDescription = "Additional Image",
-                        modifier = Modifier.size(
-                            width = if (isLandscape) 350.dp else 416.dp,
-                            height = if (isLandscape) 260.dp else 286.dp
-                        ),
-                        contentScale = ContentScale.Fit,
-                        placeholder = painterResource(legOS.testidf.R.drawable.placeholder)
-                    )
-                }
             }
         }
 
-        // Scrollable text
+        // Прокручиваемый текст
         Box(
             modifier = Modifier
                 .weight(1f)
@@ -354,18 +399,16 @@ private fun MoreInfoLargeLayout(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = if (category in listOf("final", "bm2")) {
-                    "Réponse correcte: ${question.correct}"
-                } else {
-                    "Plus d'infos - Question ${index + 1}"
-                },
+                text = "Réponse correcte: ${question.correct}",
                 style = MaterialTheme.typography.headlineMedium.copy(
-                    color = if (category in listOf("final", "bm2")) Color(0xFF006400) else MaterialTheme.colorScheme.onBackground,
-                    fontWeight = if (category in listOf("final", "bm2")) FontWeight.SemiBold else FontWeight.Normal
+                    color = Color(0xFF006400),
+                    fontWeight = FontWeight.SemiBold
                 ),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(bottom = 24.dp)
             )
+
+            val allImagePaths = getAllImagePaths(question, category)
 
             LazyRow(
                 modifier = Modifier
@@ -374,37 +417,17 @@ private fun MoreInfoLargeLayout(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 contentPadding = PaddingValues(horizontal = 16.dp)
             ) {
-                item {
-                    val mainImagePath = getImagePath(category, question)
+                items(allImagePaths) { imagePath ->
                     AsyncImage(
-                        model = "file:///android_asset/$mainImagePath",
-                        contentDescription = "Main Image",
+                        model = "file:///android_asset/$imagePath",
+                        contentDescription = "Image",
                         modifier = Modifier.size(
                             width = if (isLandscape) 480.dp else 585.dp,
                             height = if (isLandscape) 390.dp else 455.dp
                         ),
                         contentScale = ContentScale.Fit,
-                        placeholder = painterResource(legOS.testidf.R.drawable.placeholder)
+                        placeholder = painterResource(R.drawable.placeholder)
                     )
-                }
-
-                if (category in listOf("final", "bm2")) {
-                    items(question.additionalImages?.filterNotNull() ?: emptyList()) { additionalImagePath ->
-                        val originalCategory = question.category ?: category
-                        val imageFolder = getImageFolder(originalCategory)
-                        val fullAdditionalPath = "$imageFolder/$additionalImagePath"
-                        Log.d("MoreInfoScreen", "Loading additional image: $fullAdditionalPath")
-                        AsyncImage(
-                            model = "file:///android_asset/$fullAdditionalPath",
-                            contentDescription = "Additional Image",
-                            modifier = Modifier.size(
-                                width = if (isLandscape) 500.dp else 585.dp,
-                                height = if (isLandscape) 390.dp else 455.dp
-                            ),
-                            contentScale = ContentScale.Fit,
-                            placeholder = painterResource(legOS.testidf.R.drawable.placeholder)
-                        )
-                    }
                 }
             }
 
@@ -458,7 +481,9 @@ private fun ReturnButton(navController: NavController, modifier: Modifier) {
     }
 }
 
-// Helper function for image folder (unchanged)
+/**
+ * Возвращает папку с изображениями для категории
+ */
 private fun getImageFolder(category: String): String {
     return when (category) {
         "tanks" -> "tank_images"

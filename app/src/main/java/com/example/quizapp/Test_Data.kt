@@ -3,7 +3,7 @@ package com.example.quizapp
 object Test_Data {
     val QUESTION = listOf(
         Question(
-            image = "char1.jpg",
+            image = "char1.webp",
             additionalImages = listOf("char1_extra1.jpg", "char1_extra2.jpg"),
             correct = "Abrams",
             options = listOf("Abrams", "Leopard-2", "Challenger-2", "M-109 Paladin"),
@@ -35,7 +35,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char3.jpg",
+            image = "char3.webp",
             additionalImages = listOf("char3_extra1.jpg", "char3_extra2.jpg", "char3_extra3.jpg"),
             correct = "Challenger-1",
             options = listOf("Chieftain", "Abrams", "M-60", "Challenger-1"),
@@ -52,7 +52,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char4.jpg",
+            image = "char4.webp",
             additionalImages = listOf("char4_extra1.jpg", "char4_extra2.jpg", "char4_extra3.jpg"),
             correct = "Challenger-2",
             options = listOf("Leclerc", "Leopard-2", "Challenger-2", "Abrams"),
@@ -71,8 +71,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char5.jpg",
-            additionalImages = listOf("char5_extra1.jpg", "char5_extra2.jpg", "char5_extra3.jpg"),
+            image = "char5.webp",
+            additionalImages = listOf("char5_extra1.jpg", "char5_extra2.jpg", "char5_extra3.webp"),
             correct = "Chieftain",
             options = listOf("Challenger-1", "Chieftain", "Leopard-1", "Challenger-2"),
             category = "chars",
@@ -90,7 +90,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char6.jpg",
+            image = "char6.webp",
             additionalImages = listOf("char6_extra1.jpg", "char6_extra2.jpg"),
             correct = "Leopard-2",
             options = listOf("Leopard-2", "PZH-2000", "Leopard-1", "Abrams"),
@@ -107,8 +107,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char7.jpg",
-            additionalImages = listOf("char7_extra1.jpg", "char7_extra2.jpg"),
+            image = "char7.webp",
+            additionalImages = listOf("char7_extra1.jpg", "char7_extra2.jpg", "char7_extra3.jpg"),
             correct = "Leopard-1",
             options = listOf("Ariete", "Tigre", "Panther", "Leopard-1"),
             category = "chars",
@@ -126,8 +126,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char8.jpg",
-            additionalImages = listOf("char8_extra1.jpg", "char8_extra2.jpg", "char8_extra3.jpg"),
+            image = "char8.webp",
+            additionalImages = listOf("char8_extra1.webp", "char8_extra2.jpg", "char8_extra3.jpg"),
             correct = "T-55",
             options = listOf("T-55", "T-62", "T-64", "T-72"),
             category = "chars",
@@ -160,8 +160,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char10.jpg",
-            additionalImages = listOf("char10_extra1.jpg", "char10_extra2.jpg"),
+            image = "char10.webp",
+            additionalImages = listOf("char10_extra1.webp", "char10_extra2.webp"),
             correct = "Magach-7",
             options = listOf("Merkava-3", "Magach-7", "M-60", "Chieftain"),
             category = "chars",
@@ -175,7 +175,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char11.jpg",
+            image = "char11.webp",
             additionalImages = listOf("char11_extra1.jpg", "char11_extra2.jpg"),
             correct = "Merkava-4",
             options = listOf("Merkava-3", "Merkava-4", "Magach-7", "Abrams"),
@@ -211,7 +211,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char13.jpg",
+            image = "char13.webp",
             additionalImages = listOf("char13_extra1.jpg", "char13_extra2.jpg", "char13_extra3.jpg"),
             correct = "T-62",
             options = listOf("T-55", "T-62", "T-64", "T-72"),
@@ -242,8 +242,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char15.jpg",
-            additionalImages = listOf("char15_extra1.jpg", "char15_extra2.jpg", "char15_extra3.jpg", "char15_extra4.jpg"),
+            image = "char15.webp",
+            additionalImages = listOf("char15_extra1.jpg", "char15_extra2.jpg", "char15_extra3.jpg", "char15_extra4.webp"),
             correct = "T-72",
             options = listOf("T-64", "T-72", "T-80", "T-90"),
             category = "chars",
@@ -258,7 +258,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char16.jpg",
+            image = "char16.webp",
             additionalImages = listOf("char16_extra1.jpg", "char16_extra2.jpg", "char16_extra3.jpg"),
             correct = "T-80",
             options = listOf("T-64", "T-72", "T-80", "T-90"),
@@ -273,7 +273,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char17.jpg",
+            image = "char17.webp",
             additionalImages = listOf("char17_extra1.jpg", "char17_extra2.jpg", "char17_extra3.jpg"),
             correct = "T-90",
             options = listOf("T-64", "T-72", "T-80", "T-90"),
@@ -307,7 +307,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char19.jpg",
+            image = "char19.webp",
             additionalImages = listOf("char18_extra1.jpg", "char18_extra2.jpg", "char18_extra3.jpg"),
             correct = "AMX-30",
             options = listOf("AMX-30", "AMX-10RC", "Leclerc", "M-60"),
@@ -325,7 +325,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char20.jpg",
+            image = "char20.webp",
             additionalImages = listOf("char18_extra1.jpg", "char18_extra2.jpg", "char18_extra3.jpg"),
             correct = "AMX-30",
             options = listOf("Magach-7", "AMX-30", "Abrams", "M-60"),
@@ -359,7 +359,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char22.jpg",
+            image = "char22.webp",
             additionalImages = listOf("char9_extra1.jpg", "char9_extra2.jpg"),
             correct = "M-60",
             options = listOf("AMX-30", "T-64", "Leopard-1", "M-60"),
@@ -391,7 +391,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char24.jpg",
+            image = "char24.webp",
             additionalImages = listOf("char16_extra1.jpg", "char16_extra2.jpg", "char16_extra3.jpg"),
             correct = "T-80",
             options = listOf("T-64", "T-72", "T-80", "T-90"),
@@ -406,7 +406,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char25.jpg",
+            image = "char25.webp",
             additionalImages = listOf("char6_extra1.jpg", "char6_extra2.jpg"),
             correct = "Leopard-2",
             options = listOf("Leclerc", "Leopard-2", "Leopard-1", "Ariete"),
@@ -438,7 +438,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char27.jpg",
+            image = "char27.webp",
             additionalImages = listOf("char16_extra1.jpg", "char16_extra2.jpg", "char16_extra3.jpg"),
             correct = "T-80",
             options = listOf("T-64", "T-72", "T-80", "T-90"),
@@ -453,7 +453,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char28.jpg",
+            image = "char28.webp",
             additionalImages = listOf("char28_extra1.jpg", "char28_extra2.jpg"),
             correct = "Arjun MK1",
             options = listOf("Arjun MK1", "TYPE-98", "TYPE-99", "K-1"),
@@ -468,8 +468,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char29.jpg",
-            additionalImages = listOf("char5_extra1.jpg", "char5_extra2.jpg", "char5_extra3.jpg"),
+            image = "char29.webp",
+            additionalImages = listOf("char5_extra1.jpg", "char5_extra2.jpg", "char5_extra3.webp"),
             correct = "Chieftain",
             options = listOf("Challenger-1", "Leopard-1", "Leopard-2", "Chieftain"),
             category = "chars",
@@ -487,8 +487,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char30.jpg",
-            additionalImages = listOf("char5_extra1.jpg", "char5_extra2.jpg", "char5_extra3.jpg"),
+            image = "char30.webp",
+            additionalImages = listOf("char5_extra1.jpg", "char5_extra2.jpg", "char5_extra3.webp"),
             correct = "Chieftain",
             options = listOf("Chieftain", "Abrams", "Leclerc", "Challenger-1"),
             category = "chars",
@@ -524,7 +524,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char32.jpg",
+            image = "char32.webp",
             additionalImages = listOf("char31_extra1.jpg", "char31_extra2.jpg", "char31_extra3.jpg"),
             correct = "K-1",
             options = listOf("Arjun MK1", "K-1", "TYPE-99", "Abrams"),
@@ -542,7 +542,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char33.jpg",
+            image = "char33.webp",
             additionalImages = listOf("char33_extra1.jpg", "char33_extra2.jpg"),
             correct = "Merkava-3",
             options = listOf("Merkava-3", "Merkava-4", "Challenger-1", "Challenger-2"),
@@ -556,7 +556,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char34.jpg",
+            image = "char34.webp",
             additionalImages = listOf("char33_extra1.jpg", "char33_extra2.jpg"),
             correct = "Merkava-3",
             options = listOf("Merkava-3", "Merkava-4", "Challenger-1", "Challenger-2"),
@@ -570,7 +570,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char35.jpg",
+            image = "char35.webp",
             additionalImages = listOf("char35_extra1.jpg", "char35_extra2.jpg", "char35_extra3.jpg"),
             correct = "PT-91",
             options = listOf("ZTZ-99", "TYPE-98", "PT-91", "T-64"),
@@ -586,7 +586,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char36.jpg",
+            image = "char36.webp",
             additionalImages = listOf("char13_extra1.jpg", "char13_extra2.jpg", "char13_extra3.jpg"),
             correct = "T-62",
             options = listOf("T-55", "T-62", "T-64", "T-72"),
@@ -599,7 +599,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char37.jpg",
+            image = "char37.webp",
             additionalImages = listOf("char14_extra1.jpg", "char14_extra2.jpg", "char14_extra3.jpg"),
             correct = "T-64",
             options = listOf("T-55", "T-62", "T-64", "T-72"),
@@ -618,7 +618,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char38.jpg",
+            image = "char38.webp",
             additionalImages = listOf("char14_extra1.jpg", "char14_extra2.jpg", "char14_extra3.jpg"),
             correct = "T-64",
             options = listOf("T-55", "T-62", "T-64", "T-72"),
@@ -637,7 +637,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char39.jpg",
+            image = "char39.webp",
             additionalImages = listOf("char39_extra1.jpg", "char39_extra2.jpg", "char39_extra3.jpg", "char39_extra4.jpg"),
             correct = "TYPE-10",
             options = listOf("Leopard-2", "K-1", "TYPE-10", "Abrams"),
@@ -652,8 +652,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char40.jpg",
-            additionalImages = listOf("char40_extra1.jpg", "char40_extra2.jpg", "char40_extra3.jpg"),
+            image = "char40.webp",
+            additionalImages = listOf("char40_extra1.jpg", "char40_extra2.webp", "char40_extra3.jpg"),
             correct = "TYPE-98",
             options = listOf("T-72", "T-80", "TYPE-98", "TYPE-99"),
             category = "chars",
@@ -666,8 +666,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char41.jpg",
-            additionalImages = listOf("char40_extra1.jpg", "char40_extra2.jpg", "char40_extra3.jpg"),
+            image = "char41.webp",
+            additionalImages = listOf("char40_extra1.jpg", "char40_extra2.webp", "char40_extra3.jpg"),
             correct = "TYPE-98",
             options = listOf("T-80", "TYPE-98", "T-72", "TYPE-99"),
             category = "chars",
@@ -680,8 +680,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char42.jpg",
-            additionalImages = listOf("char42_extra1.jpg", "char42_extra2.jpg", "char42_extra3.jpg", "char42_extra4.jpg"),
+            image = "char42.webp",
+            additionalImages = listOf("char42_extra1.webp", "char42_extra2.webp", "char42_extra3.webp", "char42_extra4.webp"),
             correct = "TYPE-99",
             options = listOf("T-72", "TYPE-10", "TYPE-98", "TYPE-99"),
             category = "chars",
@@ -715,7 +715,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char44.jpg",
+            image = "char44.webp",
             additionalImages = listOf("char44_extra1.jpg", "char44_extra2.jpg", "char44_extra3.jpg"),
             correct = "Merkava-1",
             options = listOf("Merkava-1", "Merkava-2", "Merkava-3", "Merkava-4"),
@@ -731,7 +731,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char45.jpg",
+            image = "char45.webp",
             additionalImages = listOf("char39_extra1.jpg", "char39_extra2.jpg", "char39_extra3.jpg", "char39_extra4.jpg"),
             correct = "TYPE-10",
             options = listOf("TYPE-10", "K-1", "Leclerc", "Arjun MK1"),
@@ -746,7 +746,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char46.jpg",
+            image = "char46.webp",
             additionalImages = listOf("char7_extra1.jpg", "char7_extra2.jpg"),
             correct = "Leopard-1",
             options = listOf("TYPE-10", "Challenger-1", "Leopard-1", "Leopard-2"),
@@ -765,25 +765,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char47.jpg",
-            additionalImages = listOf("char6_extra1.jpg", "char6_extra2.jpg"),
-            correct = "Leopard-2A7",
-            options = listOf("Leclerc", "K-1", "M1A1 Abrams", "Leopard-2A7"),
-            category = "chars",
-            description = """
-                Le Leopard 2 est un char de combat allemand, développé dans les années 1970. 
-                Versions : Leopard 2A0 (1979), Leopard 2A1 (1982), Leopard 2A2 (1983), Leopard 2A3 (1984), 
-                Leopard 2A4 (1985), Leopard 2A5 (2000), Leopard 2A6 (2001), Leopard 2A7 (2014), 
-                Leopard 2A7V (2021), Leopard 2A8 (2023). 
-                Canon : 120 mm. 
-                Mitrailleuse : 7,62 mm. 
-                Equipage : 4.
-            """.trimIndent(),
-            moreInfo = null
-        ),
-        Question(
             image = "char48.jpg",
-            additionalImages = listOf("char8_extra1.jpg", "char8_extra2.jpg", "char8_extra3.jpg"),
+            additionalImages = listOf("char8_extra1.webp", "char8_extra2.jpg", "char8_extra3.jpg"),
             correct = "T-55",
             options = listOf("T-55", "T-62", "T-64", "T-72"),
             category = "chars",
@@ -800,7 +783,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char49.jpg",
+            image = "char49.webp",
             additionalImages = listOf("char13_extra1.jpg", "char13_extra2.jpg", "char13_extra3.jpg"),
             correct = "T-62",
             options = listOf("T-55", "T-62", "T-64", "T-72"),
@@ -813,7 +796,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char50.jpg",
+            image = "char50.webp",
             additionalImages = listOf("char13_extra1.jpg", "char13_extra2.jpg", "char13_extra3.jpg"),
             correct = "T-62",
             options = listOf("T-55", "T-62", "T-64", "T-72"),
@@ -826,7 +809,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char51.jpg",
+            image = "char51.webp",
             additionalImages = listOf("char14_extra1.jpg", "char14_extra2.jpg", "char14_extra3.jpg"),
             correct = "T-64",
             options = listOf("T-62", "T-64", "T-72", "T-80"),
@@ -872,7 +855,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char54.jpg",
+            image = "char54.webp",
             additionalImages = listOf("char31_extra1.jpg", "char31_extra2.jpg", "char31_extra3.jpg"),
             correct = "K-1 Type 88",
             options = listOf("Arjun MK1", "Leclerc", "K-1 Type 88", "K-2 Black Panther"),
@@ -890,8 +873,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char55.jpg",
-            additionalImages = listOf("char55_extra1.jpg", "char55_extra2.jpg", "char55_extra3.jpg", "char55_extra3.jpg"),
+            image = "char55.webp",
+            additionalImages = listOf("char55_extra1.webp", "char55_extra2.webp", "char55_extra3.webp"),
             correct = "Leclerc",
             options = listOf("K-2 Black Panther", "M1A1 Abrams", "Leclerc", "Challenger-2"),
             category = "chars",
@@ -908,7 +891,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char56.jpg",
+            image = "char56.webp",
             additionalImages = listOf("char56_extra1.jpg", "char56_extra2.jpg", "char56_extra3.jpg"),
             correct = "TR-85",
             options = listOf("VT-4", "TR-85", "TYPE-98", "ZTZ-99"),
@@ -925,8 +908,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char57.jpg",
-            additionalImages = listOf("char57_extra1.jpg", "char57_extra2.jpg", "char57_extra3.jpg", "char57_extra4.jpg"),
+            image = "char57.webp",
+            additionalImages = listOf("char57_extra1.webp", "char57_extra2.webp", "char57_extra3.webp", "char57_extra4.webp", "char57_extra5.webp"),
             correct = "VT-4",
             options = listOf("VT-4", "TR-85", "TYPE-98", "ZTZ-99"),
             category = "chars",
@@ -941,7 +924,7 @@ object Test_Data {
         ),
         Question(
             image = "char58.jpg",
-            additionalImages = listOf("char58_extra1.jpg"),
+            additionalImages = listOf("char58_extra1.webp"),
             correct = "Jaguar",
             options = listOf("K-2 Black Panther", "Jaguar", "Griffon", "Serval"),
             category = "chars",
@@ -956,8 +939,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char59.jpg",
-            additionalImages = listOf("char59_extra1.jpg", "char59_extra2.jpg", "char59_extra3.jpg"),
+            image = "char59.webp",
+            additionalImages = listOf("char59_extra1.webp", "char59_extra2.webp", "char59_extra3.jpg"),
             correct = "Strv-103",
             options = listOf("Strv-103", "Scorpion", "Wiesel", "Merkava-1"),
             category = "chars",
@@ -973,7 +956,7 @@ object Test_Data {
         ),
         Question(
             image = "char60.jpg",
-            additionalImages = listOf("char59_extra1.jpg", "char59_extra2.jpg", "char59_extra3.jpg"),
+            additionalImages = listOf("char59_extra1.webp", "char59_extra2.webp", "char59_extra3.jpg"),
             correct = "Strv-103",
             options = listOf("Strv-103", "Scorpion", "Wiesel", "Merkava-1"),
             category = "chars",
@@ -988,7 +971,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char61.jpg",
+            image = "char61.webp",
             additionalImages = listOf("char61_extra1.jpg", "char61_extra2.jpg", "char61_extra3.jpg"),
             correct = "T-14 Armata",
             options = listOf("VT-4", "TR-85", "T-14 Armata", "K-2 Black Panther"),
@@ -1005,7 +988,7 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char62.jpg",
+            image = "char62.webp",
             additionalImages = listOf("char61_extra1.jpg", "char61_extra2.jpg", "char61_extra3.jpg"),
             correct = "T-14 Armata",
             options = listOf("VT-4", "TR-85", "T-14 Armata", "K-2 Black Panther"),
@@ -1022,8 +1005,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char63.jpg",
-            additionalImages = listOf("char63_extra1.jpg", "char63_extra2.jpg", "char63_extra3.jpg"),
+            image = "char63.webp",
+            additionalImages = listOf("char63_extra1.webp", "char63_extra2.webp", "char63_extra3.webp"),
             correct = "Type 16 MCV",
             options = listOf("Jaguar", "Centauro", "Type 16 MCV", "Freccia"),
             category = "chars",
@@ -1039,8 +1022,8 @@ object Test_Data {
             moreInfo = null
         ),
         Question(
-            image = "char64.jpg",
-            additionalImages = listOf("char64_extra1.jpg", "char64_extra2.jpg", "char64_extra3.jpg", "char64_extra4.jpg"),
+            image = "char64.webp",
+            additionalImages = listOf("char64_extra1.jpg", "char64_extra2.jpg", "char64_extra3.webp", "char64_extra4.jpg"),
             correct = "ZTL-11",
             options = listOf("ZTL-11", "TR-85", "Type 16 MCV", "TYPE-98"),
             category = "chars",

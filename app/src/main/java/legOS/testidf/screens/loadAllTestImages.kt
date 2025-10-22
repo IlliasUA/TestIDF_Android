@@ -14,6 +14,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
@@ -57,12 +58,12 @@ fun CatalogScreen(navController: NavController) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
     var searchQuery by rememberSaveable { mutableStateOf("") }
-    var searchResults by rememberSaveable { mutableStateOf<List<SearchResult>>(emptyList()) }
+    var searchResults by remember { mutableStateOf<List<SearchResult>>(emptyList()) }
     var isSearching by remember { mutableStateOf(false) }
 
     val backgroundImage = remember {
         try {
-            context.assets.open("images/background_3.jpg").use { inputStream ->
+            context.assets.open("images/background_2.jpg").use { inputStream ->
                 BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
             }
         } catch (e: IOException) {
@@ -71,22 +72,25 @@ fun CatalogScreen(navController: NavController) {
         }
     }
 
-    fun performSearch(query: String) {
-        if (query.isBlank()) {
+    // Автоматический поиск при изменении запроса
+    LaunchedEffect(searchQuery) {
+        if (searchQuery.isBlank()) {
             searchResults = emptyList()
-            return
+            isSearching = false
+        } else {
+            isSearching = true
+            // Небольшая задержка для избежания слишком частых поисков
+            kotlinx.coroutines.delay(300)
+            try {
+                val results = searchInAirData(searchQuery.trim(), context)
+                searchResults = results
+                Log.d("CatalogScreen", "Auto-search for '$searchQuery' found ${results.size} results")
+            } catch (e: Exception) {
+                Log.e("CatalogScreen", "Error during auto-search", e)
+                searchResults = emptyList()
+            }
+            isSearching = false
         }
-
-        isSearching = true
-        try {
-            val results = searchInAirData(query.trim(), context)
-            searchResults = results
-            Log.d("CatalogScreen", "Search for '$query' found ${results.size} results")
-        } catch (e: Exception) {
-            Log.e("CatalogScreen", "Error during search", e)
-            searchResults = emptyList()
-        }
-        isSearching = false
     }
 
     if (isLandscape) {
@@ -98,7 +102,6 @@ fun CatalogScreen(navController: NavController) {
             backgroundImage = backgroundImage,
             keyboardController = keyboardController,
             onQueryChange = { searchQuery = it },
-            onSearch = { performSearch(searchQuery) },
             onClear = {
                 searchQuery = ""
                 searchResults = emptyList()
@@ -114,7 +117,6 @@ fun CatalogScreen(navController: NavController) {
             backgroundImage = backgroundImage,
             keyboardController = keyboardController,
             onQueryChange = { searchQuery = it },
-            onSearch = { performSearch(searchQuery) },
             onClear = {
                 searchQuery = ""
                 searchResults = emptyList()
@@ -135,7 +137,6 @@ private fun CatalogLandscapeLayout(
     backgroundImage: androidx.compose.ui.graphics.ImageBitmap?,
     keyboardController: androidx.compose.ui.platform.SoftwareKeyboardController?,
     onQueryChange: (String) -> Unit,
-    onSearch: () -> Unit,
     onClear: () -> Unit,
     context: Context
 ) {
@@ -165,6 +166,20 @@ private fun CatalogLandscapeLayout(
                     .fillMaxHeight()
             ) {
                 when {
+                    isSearching -> {
+                        Column(
+                            modifier = Modifier.align(Alignment.Center),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            CircularProgressIndicator(modifier = Modifier.size(48.dp))
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(
+                                text = "Recherche en cours...",
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
                     searchResults.isEmpty() && searchQuery.isBlank() -> {
                         Column(
                             modifier = Modifier.align(Alignment.Center),
@@ -178,7 +193,7 @@ private fun CatalogLandscapeLayout(
                             )
                             Spacer(modifier = Modifier.height(16.dp))
                             Text(
-                                text = "Entrez le nom pour commencer la recherche",
+                                text = "Commencez à taper pour rechercher",
                                 style = MaterialTheme.typography.bodyLarge,
                                 textAlign = TextAlign.Center,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -187,7 +202,7 @@ private fun CatalogLandscapeLayout(
                     }
                     searchResults.isEmpty() && searchQuery.isNotBlank() && !isSearching -> {
                         Text(
-                            text = "Aucun trouvé pour \"$searchQuery\"",
+                            text = "Aucun résultat pour \"$searchQuery\"",
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center,
                             color = MaterialTheme.colorScheme.error,
@@ -198,7 +213,7 @@ private fun CatalogLandscapeLayout(
                         LazyColumn(
                             modifier = Modifier.fillMaxSize(),
                             verticalArrangement = Arrangement.spacedBy(6.dp),
-                            contentPadding = PaddingValues(top = 8.dp) // Выравнивание с правой частью
+                            contentPadding = PaddingValues(top = 8.dp)
                         ) {
                             items(searchResults) { result ->
                                 SearchResultLandscapeCard(result = result, context = context)
@@ -208,7 +223,7 @@ private fun CatalogLandscapeLayout(
                 }
             }
 
-            // Правая часть - поисковая строка и кнопки
+            // Правая часть - поисковая строка
             Column(
                 modifier = Modifier
                     .weight(0.6f)
@@ -216,104 +231,92 @@ private fun CatalogLandscapeLayout(
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Search Bar
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 12.dp, top = 8.dp), // Выравнивание с LazyColumn
-                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-                ) {
-                    OutlinedTextField(
-                        value = searchQuery,
-                        onValueChange = onQueryChange,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
-                        placeholder = { Text("Entrez ici") },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.Search,
-                                contentDescription = "Search"
-                            )
-                        },
-                        trailingIcon = {
-                            if (searchQuery.isNotEmpty()) {
-                                IconButton(onClick = onClear) {
-                                    Icon(
-                                        imageVector = Icons.Default.Clear,
-                                        contentDescription = "Effacer"
-                                    )
-                                }
-                            }
-                        },
-                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                        keyboardActions = KeyboardActions(
-                            onSearch = {
-                                onSearch()
-                                keyboardController?.hide()
-                            }
-                        ),
-                        singleLine = true
-                    )
-                }
-
-                // Buttons Row
+                // Search Bar с кнопкой возврата СПРАВА
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        .padding(top = 8.dp, bottom = 12.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Button(
+                    Card(
+                        modifier = Modifier.weight(1f),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                    ) {
+                        OutlinedTextField(
+                            value = searchQuery,
+                            onValueChange = onQueryChange,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            placeholder = { Text("Recherche...") },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = "Search"
+                                )
+                            },
+                            trailingIcon = {
+                                if (searchQuery.isNotEmpty()) {
+                                    IconButton(onClick = onClear) {
+                                        Icon(
+                                            imageVector = Icons.Default.Clear,
+                                            contentDescription = "Effacer"
+                                        )
+                                    }
+                                }
+                            },
+                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                            keyboardActions = KeyboardActions(
+                                onDone = {
+                                    keyboardController?.hide()
+                                }
+                            ),
+                            singleLine = true
+                        )
+                    }
+
+                    // Кнопка возврата - стрелка вправо
+                    IconButton(
                         onClick = {
                             navController.navigate("test_menu") {
                                 popUpTo("test_menu") { inclusive = false }
                             }
-                        },
-                        modifier = Modifier.weight(1f)
+                        }
                     ) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = null,
-                            modifier = Modifier.size(14.dp)
-                        )
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(
-                            "Retour",
-                            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
+                            Icons.Default.ArrowForward,
+                            contentDescription = "Retour",
+                            tint = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.size(28.dp)
                         )
                     }
+                }
 
-                    Button(
-                        onClick = {
-                            onSearch()
-                            keyboardController?.hide()
-                        },
-                        modifier = Modifier.weight(0.6f),
-                        enabled = searchQuery.isNotBlank() && !isSearching
+                // Информация о результатах
+                if (searchQuery.isNotBlank() && !isSearching && searchResults.isNotEmpty()) {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 12.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.1f)
+                        )
                     ) {
-                        if (isSearching) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(14.dp),
-                                strokeWidth = 2.dp
-                            )
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text(
-                                "...",
-                                style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
-                            )
-                        } else {
-                            Text(
-                                "Ok",
-                                style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
-                            )
-                        }
+                        Text(
+                            text = "${searchResults.size} résultat${if (searchResults.size > 1) "s" else ""} trouvé${if (searchResults.size > 1) "s" else ""}",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            modifier = Modifier.padding(12.dp),
+                            textAlign = TextAlign.Center
+                        )
                     }
                 }
             }
         }
     }
 }
+
 
 // Компонент для горизонтального режима (без изменений, для контекста)
 @Composable
@@ -411,7 +414,6 @@ private fun SearchResultLandscapeCard(
     }
 }
 
-// Остальной код без изменений
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun SearchResultCard(
@@ -529,7 +531,6 @@ private fun CatalogPortraitLayout(
     backgroundImage: androidx.compose.ui.graphics.ImageBitmap?,
     keyboardController: androidx.compose.ui.platform.SoftwareKeyboardController?,
     onQueryChange: (String) -> Unit,
-    onSearch: () -> Unit,
     onClear: () -> Unit,
     context: Context
 ) {
@@ -548,93 +549,109 @@ private fun CatalogPortraitLayout(
     ) {
         Spacer(modifier = Modifier.height(16.dp))
 
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-        ) {
-            OutlinedTextField(
-                value = searchQuery,
-                onValueChange = onQueryChange,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                placeholder = { Text("Entrez ici") },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = "Search"
-                    )
-                },
-                trailingIcon = {
-                    if (searchQuery.isNotEmpty()) {
-                        IconButton(onClick = onClear) {
-                            Icon(
-                                imageVector = Icons.Default.Clear,
-                                contentDescription = "Effacer"
-                            )
-                        }
-                    }
-                },
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                keyboardActions = KeyboardActions(
-                    onSearch = {
-                        onSearch()
-                        keyboardController?.hide()
-                    }
-                ),
-                singleLine = true
-            )
-        }
-
+        // Search Bar с кнопкой возврата слева
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Button(
+            // Кнопка возврата - стрелка влево
+            IconButton(
                 onClick = {
                     navController.navigate("test_menu") {
                         popUpTo("test_menu") { inclusive = false }
                     }
-                },
-                modifier = Modifier.weight(1f)
+                }
             ) {
                 Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = null,
-                    modifier = Modifier.size(16.dp)
+                    Icons.Default.ArrowBack,
+                    contentDescription = "Retour",
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.size(28.dp)
                 )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text("Retour")
             }
 
-            Button(
-                onClick = {
-                    onSearch()
-                    keyboardController?.hide()
-                },
+            Card(
                 modifier = Modifier.weight(1f),
-                enabled = searchQuery.isNotBlank() && !isSearching
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
-                if (isSearching) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(16.dp),
-                        strokeWidth = 2.dp
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text("Recherche...")
-                } else {
-                    Text("Ok")
-                }
+                OutlinedTextField(
+                    value = searchQuery,
+                    onValueChange = onQueryChange,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    placeholder = { Text("Recherche...") },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = "Search"
+                        )
+                    },
+                    trailingIcon = {
+                        if (searchQuery.isNotEmpty()) {
+                            IconButton(onClick = onClear) {
+                                Icon(
+                                    imageVector = Icons.Default.Clear,
+                                    contentDescription = "Effacer"
+                                )
+                            }
+                        }
+                    },
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            keyboardController?.hide()
+                        }
+                    ),
+                    singleLine = true
+                )
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        // Информация о результатах
+        if (searchQuery.isNotBlank() && !isSearching && searchResults.isNotEmpty()) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.1f)
+                )
+            ) {
+                Text(
+                    text = "${searchResults.size} résultat${if (searchResults.size > 1) "s" else ""} trouvé${if (searchResults.size > 1) "s" else ""}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp),
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
 
         when {
+            isSearching -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        CircularProgressIndicator(modifier = Modifier.size(48.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = "Recherche en cours...",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+            }
             searchResults.isEmpty() && searchQuery.isBlank() -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -649,7 +666,7 @@ private fun CatalogPortraitLayout(
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = "Entrez le nom pour commencer la recherche",
+                            text = "Commencez à taper pour rechercher",
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -663,7 +680,7 @@ private fun CatalogPortraitLayout(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Aucun trouvé pour \"$searchQuery\"",
+                        text = "Aucun résultat pour \"$searchQuery\"",
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.error
@@ -687,6 +704,9 @@ private fun CatalogPortraitLayout(
 }
 
 private fun searchInAirData(query: String, context: Context): List<SearchResult> {
+    // Если запрос пустой, возвращаем пустой список
+    if (query.isBlank()) return emptyList()
+
     val airDataQuestions = Air_Data.QUESTION
     val artDataQuestions = Art_Data.QUESTION
     val genieDataQuestions = Genie_Data.QUESTION
@@ -695,127 +715,162 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
     val bm2DataQuestions = Test_bm2.QUESTION
 
     val results = mutableListOf<SearchResult>()
-    val queryLower = query.lowercase()
 
+    // Нормализуем запрос: удаляем пробелы, тире и переводим в нижний регистр
+    val normalizedQuery = query.lowercase().replace(" ", "").replace("-", "").replace("_", "").trim()
+
+    // Создаем карту для сортировки по релевантности
+    val relevanceMap = mutableMapOf<SearchResult, Int>()
+
+    // Функция для нормализации имени
+    fun normalizeName(name: String): String {
+        return name.lowercase().replace(" ", "").replace("-", "").replace("_", "")
+    }
+
+    // Функция для добавления элемента с расчетом релевантности
+    fun addItemWithRelevance(
+        name: String,
+        description: String,
+        mainImagePath: String,
+        additionalImagePaths: List<String>
+    ) {
+        if (results.none { it.aircraftName == name }) {
+            val normalizedName = normalizeName(name)
+            val originalNameLower = name.lowercase()
+
+            // Расчет релевантности
+            val relevance = when {
+                // Точное совпадение (игнорируя пробелы и тире)
+                normalizedName == normalizedQuery -> 100
+
+                // Точное совпадение с оригинальным запросом
+                originalNameLower == query.lowercase() -> 95
+
+                // Начинается с запроса (нормализованного)
+                normalizedName.startsWith(normalizedQuery) -> 90
+
+                // Начинается с оригинального запроса
+                originalNameLower.startsWith(query.lowercase()) -> 85
+
+                // Содержит полную последовательность символов
+                normalizedName.contains(normalizedQuery) -> 70
+
+                // Проверка по частям слова
+                else -> {
+                    // Разбиваем оригинальное имя на слова
+                    val words = originalNameLower.split(" ", "-", "_")
+
+                    // Проверяем, начинается ли какое-то слово с запроса
+                    val startsWithQuery = words.any { it.startsWith(query.lowercase()) }
+                    if (startsWithQuery) {
+                        65
+                    } else {
+                        // Проверяем, содержится ли запрос в каком-то слове
+                        val containsQuery = words.any { it.contains(query.lowercase()) }
+                        if (containsQuery) {
+                            60
+                        } else {
+                            // Последовательный поиск символов (для опечаток)
+                            var searchIndex = 0
+                            val queryChars = normalizedQuery.toCharArray()
+                            var allFound = true
+
+                            for (char in queryChars) {
+                                val found = normalizedName.indexOf(char, searchIndex)
+                                if (found == -1) {
+                                    allFound = false
+                                    break
+                                }
+                                searchIndex = found + 1
+                            }
+
+                            // Если все символы найдены в последовательности
+                            if (allFound) 40 else 0
+                        }
+                    }
+                }
+            }
+
+            if (relevance > 0) {
+                val item = SearchResult(
+                    aircraftName = name,
+                    description = description,
+                    mainImage = mainImagePath,
+                    additionalImages = additionalImagePaths
+                )
+                results.add(item)
+                relevanceMap[item] = relevance
+            }
+        }
+    }
+
+    // Поиск в Air Data
     airDataQuestions.forEach { question ->
-        if (question.correct.lowercase().contains(queryLower)) {
-            if (results.none { it.aircraftName == question.correct }) {
-                val mainImagePath = "air_images/${question.image}"
-                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "air_images/$it" }
-
-                results.add(
-                    SearchResult(
-                        aircraftName = question.correct,
-                        description = question.description ?: "Description non disponible",
-                        mainImage = mainImagePath,
-                        additionalImages = additionalImagePaths
-                    )
-                )
-
-                Log.d("searchInAirData", "Found air match: ${question.correct} with ${question.additionalImages?.size?.plus(1)} images")
-            }
-        }
+        addItemWithRelevance(
+            name = question.correct,
+            description = question.description ?: "Description non disponible",
+            mainImagePath = "air_images/${question.image}",
+            additionalImagePaths = (question.additionalImages ?: emptyList()).map { "air_images/$it" }
+        )
     }
 
+    // Поиск в Artillery Data
     artDataQuestions.forEach { question ->
-        if (question.correct.lowercase().contains(queryLower)) {
-            if (results.none { it.aircraftName == question.correct }) {
-                val mainImagePath = "artillery_images/${question.image}"
-                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "artillery_images/$it" }
-
-                results.add(
-                    SearchResult(
-                        aircraftName = question.correct,
-                        description = question.description ?: "Description non disponible",
-                        mainImage = mainImagePath,
-                        additionalImages = additionalImagePaths
-                    )
-                )
-
-                Log.d("searchInAirData", "Found artillery match: ${question.correct} with ${question.additionalImages?.size?.plus(1)} images")
-            }
-        }
+        addItemWithRelevance(
+            name = question.correct,
+            description = question.description ?: "Description non disponible",
+            mainImagePath = "artillery_images/${question.image}",
+            additionalImagePaths = (question.additionalImages ?: emptyList()).map { "artillery_images/$it" }
+        )
     }
 
+    // Поиск в Genie Data
     genieDataQuestions.forEach { question ->
-        if (question.correct.lowercase().contains(queryLower)) {
-            if (results.none { it.aircraftName == question.correct }) {
-                val mainImagePath = "genie_images/${question.image}"
-                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "genie_images/$it" }
-
-                results.add(
-                    SearchResult(
-                        aircraftName = question.correct,
-                        description = question.description ?: "Description non disponible",
-                        mainImage = mainImagePath,
-                        additionalImages = additionalImagePaths
-                    )
-                )
-
-                Log.d("searchInAirData", "Found genie match: ${question.correct} with ${question.additionalImages?.size?.plus(1)} images")
-            }
-        }
+        addItemWithRelevance(
+            name = question.correct,
+            description = question.description ?: "Description non disponible",
+            mainImagePath = "genie_images/${question.image}",
+            additionalImagePaths = (question.additionalImages ?: emptyList()).map { "genie_images/$it" }
+        )
     }
 
+    // Поиск в Recon Data
     reconDataQuestions.forEach { question ->
-        if (question.correct.lowercase().contains(queryLower)) {
-            if (results.none { it.aircraftName == question.correct }) {
-                val mainImagePath = "recon_images/${question.image}"
-                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "recon_images/$it" }
-
-                results.add(
-                    SearchResult(
-                        aircraftName = question.correct,
-                        description = question.description ?: "Description non disponible",
-                        mainImage = mainImagePath,
-                        additionalImages = additionalImagePaths
-                    )
-                )
-
-                Log.d("searchInAirData", "Found recon match: ${question.correct} with ${question.additionalImages?.size?.plus(1)} images")
-            }
-        }
+        addItemWithRelevance(
+            name = question.correct,
+            description = question.description ?: "Description non disponible",
+            mainImagePath = "recon_images/${question.image}",
+            additionalImagePaths = (question.additionalImages ?: emptyList()).map { "recon_images/$it" }
+        )
     }
 
+    // Поиск в Tank Data
     tankDataQuestions.forEach { question ->
-        if (question.correct.lowercase().contains(queryLower)) {
-            if (results.none { it.aircraftName == question.correct }) {
-                val mainImagePath = "tank_images/${question.image}"
-                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "tank_images/$it" }
-
-                results.add(
-                    SearchResult(
-                        aircraftName = question.correct,
-                        description = question.description ?: "Description non disponible",
-                        mainImage = mainImagePath,
-                        additionalImages = additionalImagePaths
-                    )
-                )
-
-                Log.d("searchInAirData", "Found tank match: ${question.correct} with ${question.additionalImages?.size?.plus(1)} images")
-            }
-        }
+        addItemWithRelevance(
+            name = question.correct,
+            description = question.description ?: "Description non disponible",
+            mainImagePath = "tank_images/${question.image}",
+            additionalImagePaths = (question.additionalImages ?: emptyList()).map { "tank_images/$it" }
+        )
     }
 
+    // Поиск в BM2 Data
     bm2DataQuestions.forEach { question ->
-        if (question.correct.lowercase().contains(queryLower)) {
-            if (results.none { it.aircraftName == question.correct }) {
-                val mainImagePath = "bm2_images/${question.image}"
-                val additionalImagePaths = (question.additionalImages ?: emptyList()).map { "bm2_images/$it" }
-
-                results.add(
-                    SearchResult(
-                        aircraftName = question.correct,
-                        description = question.description ?: "Description non disponible",
-                        mainImage = mainImagePath,
-                        additionalImages = additionalImagePaths
-                    )
-                )
-
-                Log.d("searchInAirData", "Found bm2 match: ${question.correct} with ${question.additionalImages?.size?.plus(1)} images")
-            }
-        }
+        addItemWithRelevance(
+            name = question.correct,
+            description = question.description ?: "Description non disponible",
+            mainImagePath = "bm2_images/${question.image}",
+            additionalImagePaths = (question.additionalImages ?: emptyList()).map { "bm2_images/$it" }
+        )
     }
 
-    return results
+    // Сортируем результаты по релевантности (от большей к меньшей)
+    val sortedResults = results.sortedByDescending { relevanceMap[it] ?: 0 }
+
+    Log.d("searchInAirData", "Search for '$query' found ${sortedResults.size} results")
+    sortedResults.take(5).forEach { result ->
+        Log.d("searchInAirData", "  - ${result.aircraftName} (relevance: ${relevanceMap[result]})")
+    }
+
+    return sortedResults
 }

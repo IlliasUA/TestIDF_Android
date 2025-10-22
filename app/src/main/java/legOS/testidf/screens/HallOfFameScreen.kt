@@ -135,7 +135,7 @@ private fun HallOfFameCompactLayout(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Salle d'honneur",
+            text = "Panthéon",
             style = MaterialTheme.typography.headlineSmall,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onBackground,
@@ -176,44 +176,55 @@ private fun HallOfFameLargeLayout(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 32.dp, vertical = 32.dp),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
+        horizontalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        Column(
+        // Левая часть - результаты пользователей (50%)
+        Box(
             modifier = Modifier
-                .weight(1f)
-                .padding(end = if (isLandscape) 32.dp else 0.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .weight(0.5f)
+                .fillMaxHeight()
         ) {
-            Text(
-                text = "Salle d'honneur",
-                style = MaterialTheme.typography.headlineMedium,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = 24.dp)
-            )
-
             if (scores.isEmpty()) {
                 Text(
                     text = "Aucun score disponible",
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier.padding(24.dp)
+                    modifier = Modifier.align(Alignment.Center)
                 )
             } else {
                 LazyColumn(
-                    modifier = Modifier.weight(1f),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(scores.size) { index ->
                         ScoreCard(index, scores[index], isLargeScreen = true)
                     }
                 }
             }
+        }
 
-            Spacer(Modifier.height(24.dp))
+        // Правая часть - заголовок и кнопка (50%)
+        Column(
+            modifier = Modifier
+                .weight(0.5f)
+                .fillMaxHeight(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            // Верхняя часть - заголовок "Panthéon"
+            Text(
+                text = "Panthéon",
+                style = MaterialTheme.typography.headlineLarge.copy(
+                    fontSize = 40.sp
+                ),
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.padding(top = 32.dp)
+            )
 
-            ReturnButton(navController, Modifier.fillMaxWidth(0.6f))
+            // Нижняя часть - кнопка "Retour"
+            ReturnButton(navController, Modifier.fillMaxWidth(0.7f))
         }
     }
 }

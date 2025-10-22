@@ -63,7 +63,7 @@ fun ResultsScreen(navController: NavController, category: String, timeLimit: Int
     }
 
     // Load the background image
-    val backgroundImage = loadImageFromAssets(context, "images/background_3.jpg")
+    val backgroundImage = loadImageFromAssets(context, "images/background_6.png")
 
     // Выбираем компоновку в зависимости от ориентации
     if (isLandscape) {
@@ -203,7 +203,7 @@ private fun ResultsLandscapeLayout(
             modifier = Modifier
                 .weight(0.5f)
                 .fillMaxHeight()
-                .padding(end = 32.dp, top = 8.dp, bottom = 8.dp), // Увеличен отступ справа с 24dp до 32dp
+                .padding(end = 32.dp, top = 8.dp, bottom = 8.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -218,7 +218,7 @@ private fun ResultsLandscapeLayout(
             // Дополнительная информация о результатах
             Card(
                 modifier = Modifier
-                    .fillMaxWidth(0.85f) // Уменьшена ширина с 100% до 85%
+                    .fillMaxWidth(0.85f)
                     .padding(bottom = 20.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
@@ -249,10 +249,21 @@ private fun ResultsLandscapeLayout(
             Column(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth(0.85f) // Уменьшена ширина с 100% до 85%
+                modifier = Modifier.fillMaxWidth(0.85f)
             ) {
                 Button(
-                    onClick = { navController.navigate("time_selection/$category") },
+                    onClick = {
+                        if (category == "final") {
+                            // ДЛЯ FINAL TEST: Переход на PlayerNameScreen
+                            Log.d("ResultsScreen", "Recommencer Final Test - navigating to player_name")
+                            navController.navigate("player_name") {
+                                popUpTo("test_menu") { inclusive = false }
+                            }
+                        } else {
+                            // ДЛЯ ДРУГИХ КАТЕГОРИЙ: Переход на time_selection
+                            navController.navigate("time_selection/$category")
+                        }
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(44.dp),
@@ -389,7 +400,18 @@ private fun ResultsPortraitLayout(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Button(
-                onClick = { navController.navigate("time_selection/$category") },
+                onClick = {
+                    if (category == "final") {
+                        // ДЛЯ FINAL TEST: Переход на PlayerNameScreen
+                        Log.d("ResultsScreen", "Recommencer Final Test - navigating to PlayerNameScreen")
+                        navController.navigate("player_name") {
+                            popUpTo("test_menu") { inclusive = false }
+                        }
+                    } else {
+                        // ДЛЯ ДРУГИХ КАТЕГОРИЙ: Переход на time_selection
+                        navController.navigate("time_selection/$category")
+                    }
+                },
                 modifier = Modifier
                     .weight(1f)
                     .height(56.dp),

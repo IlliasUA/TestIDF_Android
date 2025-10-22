@@ -1,5 +1,8 @@
 package legOS.testidf.screens
 
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.collectAsState
+import legOS.testidf.viewmodel.CreationViewModel
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
@@ -35,8 +38,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.quizapp.*
 import kotlinx.parcelize.Parcelize
+import legOS.testidf.data.UserSession
 import java.io.IOException
 
+
+enum class CreationMode {
+    OFFLINE,  // Одиночный режим - старая версия
+    ONLINE    // Коллективный режим - с Firebase
+}
 @Parcelize
 data class CreationItem(
     val name: String,
@@ -48,7 +57,11 @@ data class CreationItem(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreationScreen(navController: NavController) {
+fun CreationScreen(
+    navController: NavController,
+    mode: CreationMode = CreationMode.OFFLINE,  // По умолчанию офлайн
+    viewModel: CreationViewModel = viewModel()
+) {
     val context = LocalContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
     val configuration = LocalConfiguration.current
@@ -58,10 +71,12 @@ fun CreationScreen(navController: NavController) {
     var searchResults by rememberSaveable { mutableStateOf<List<CreationItem>>(emptyList()) }
     var selectedItems by rememberSaveable { mutableStateOf<List<CreationItem>>(emptyList()) }
     var showSelectedItems by rememberSaveable { mutableStateOf(false) }
+    // Подписка на состояние ViewModel
+    val uiState by viewModel.uiState.collectAsState()
 
     val backgroundImage = remember {
         try {
-            context.assets.open("images/background_3.jpg").use { inputStream ->
+            context.assets.open("images/background_2.jpg").use { inputStream ->
                 BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
             }
         } catch (e: IOException) {
@@ -88,18 +103,50 @@ fun CreationScreen(navController: NavController) {
     }
 
     fun navigateToCustomTest() {
-        try {
-            TestDataHolder.selectedItems = selectedItems
-            Log.d("CreationScreen", "Saved ${selectedItems.size} items to TestDataHolder")
-            navController.currentBackStackEntry?.savedStateHandle?.set("selectedItems", selectedItems)
-            selectedItems.forEachIndexed { index, item ->
-                Log.d("CreationScreen", "Item $index: ${item.name} (${item.category})")
+        when (mode) {
+            CreationMode.OFFLINE -> {
+                // ОФЛАЙН РЕЖИМ - старая логика без Firebase
+                try {
+                    TestDataHolder.selectedItems = selectedItems
+                    Log.d("CreationScreen", "Saved ${selectedItems.size} items to TestDataHolder (OFFLINE)")
+
+                    selectedItems.forEachIndexed { index, item ->
+                        Log.d("CreationScreen", "Item $index: ${item.name} (${item.category})")
+                    }
+
+                    // Переход к выбору времени (старый экран)
+                    navController.currentBackStackEntry?.savedStateHandle?.set("selectedItems", selectedItems)
+                    navController.navigate("custom_time_selection/${selectedItems.size}")
+
+                } catch (e: Exception) {
+                    Log.e("CreationScreen", "Error navigating to custom test (OFFLINE)", e)
+                }
             }
-            navController.navigate("custom_time_selection/${selectedItems.size}")
-        } catch (e: Exception) {
-            Log.e("CreationScreen", "Error navigating to custom test", e)
+
+            CreationMode.ONLINE -> {
+                Log.d("CreationScreen", "Starting online test creation")
+
+                viewModel.createTestSession(
+                    selectedItems = selectedItems,
+                    timeLimit = 15
+                ) { sessionId ->
+                    Log.d("CreationScreen", "✅ Success callback received: $sessionId")
+
+                    // Переход к экрану отправки теста
+                    try {
+                        navController.navigate("send_test/$sessionId") {
+                            // Не очищаем backstack для возможности возврата
+                        }
+
+                        Log.d("CreationScreen", "Navigation initiated to send_test/$sessionId")
+                    } catch (e: Exception) {
+                        Log.e("CreationScreen", "Navigation error", e)
+                    }
+                }
+            }
         }
     }
+
 
     if (isLandscape) {
         // ГОРИЗОНТАЛЬНАЯ ОРИЕНТАЦИЯ
@@ -269,7 +316,6 @@ fun CreationScreen(navController: NavController) {
                             )
                         }
 
-                        // Buttons Row
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -278,28 +324,15 @@ fun CreationScreen(navController: NavController) {
                         ) {
                             Button(
                                 onClick = {
-                                    navController.navigate("test_menu") {
-                                        popUpTo("test_menu") { inclusive = false }
-                                    }
-                                },
-                                modifier = Modifier.weight(1f)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.ArrowBack,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(14.dp)
-                                )
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text(
-                                    "Retour",
-                                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
-                                )
+                                    navController.navigateUp() // Просто возвращается на предыдущий экран
+                                }) {
+                                Icon(Icons.Default.ArrowBack, "Retour")
                             }
 
                             Button(
-                                onClick = { showSelectedItems = !showSelectedItems },
-                                modifier = Modifier.weight(1f),
-                                enabled = selectedItems.size >= 4,
+                                onClick = { navigateToCustomTest() },  // ИСПРАВЛЕНО: здесь была ошибка
+                                modifier = Modifier.weight(1f),  // ИСПРАВЛЕНО: было fillMaxWidth()
+                                enabled = selectedItems.size >= 4 && (mode == CreationMode.OFFLINE || !uiState.isLoading),
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = if (selectedItems.size >= 4)
                                         Color(0xFF4CAF50)
@@ -307,12 +340,25 @@ fun CreationScreen(navController: NavController) {
                                         MaterialTheme.colorScheme.surfaceVariant
                                 )
                             ) {
+                                if (mode == CreationMode.ONLINE && uiState.isLoading) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.size(16.dp),
+                                        color = MaterialTheme.colorScheme.onPrimary,
+                                        strokeWidth = 2.dp
+                                    )
+                                    Spacer(Modifier.width(8.dp))
+                                }
                                 Text(
-                                    "Sélection" + if (selectedItems.isNotEmpty()) " (${selectedItems.size})" else "",
+                                    when {
+                                        mode == CreationMode.ONLINE && uiState.isLoading -> "Création..."
+                                        mode == CreationMode.ONLINE -> "Créer Test en Ligne (${selectedItems.size})"
+                                        else -> "Créer Test (${selectedItems.size})"
+                                    },
                                     style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
                                 )
                             }
                         }
+
 
                         // Badge for selected items count
                         if (selectedItems.isNotEmpty()) {
@@ -387,16 +433,24 @@ fun CreationScreen(navController: NavController) {
                                 Button(
                                     onClick = { navigateToCustomTest() },
                                     modifier = Modifier.fillMaxWidth(),
-                                    enabled = selectedItems.size >= 4,
+                                    enabled = selectedItems.size >= 4 && !uiState.isLoading,
                                     colors = ButtonDefaults.buttonColors(
-                                        containerColor = if (selectedItems.size >= 4)
+                                        containerColor = if (selectedItems.size >= 4 && !uiState.isLoading)
                                             Color(0xFF4CAF50)
                                         else
                                             MaterialTheme.colorScheme.surfaceVariant
                                     )
                                 ) {
+                                    if (uiState.isLoading) {
+                                        CircularProgressIndicator(
+                                            modifier = Modifier.size(16.dp),
+                                            color = MaterialTheme.colorScheme.onPrimary,
+                                            strokeWidth = 2.dp
+                                        )
+                                        Spacer(Modifier.width(8.dp))
+                                    }
                                     Text(
-                                        "Créer Test (${selectedItems.size})",
+                                        if (uiState.isLoading) "Création..." else "Créer Test (${selectedItems.size})",
                                         style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
                                     )
                                 }
@@ -508,24 +562,14 @@ fun CreationScreen(navController: NavController) {
                 ) {
                     Button(
                         onClick = {
-                            navController.navigate("test_menu") {
-                                popUpTo("test_menu") { inclusive = false }
-                            }
-                        },
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = null,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Retour")
+                            navController.navigateUp() // Просто возвращается на предыдущий экран
+                        }) {
+                        Icon(Icons.Default.ArrowBack, "Retour")
                     }
 
                     Button(
-                        onClick = { showSelectedItems = !showSelectedItems },
-                        modifier = Modifier.weight(1f),
+                        onClick = { showSelectedItems = !showSelectedItems },  // ИСПРАВЛЕНО
+                        modifier = Modifier.weight(1f),  // ИСПРАВЛЕНО: было fillMaxWidth()
                         enabled = selectedItems.size >= 4,
                         colors = ButtonDefaults.buttonColors(
                             containerColor = if (selectedItems.size >= 4)
@@ -534,11 +578,22 @@ fun CreationScreen(navController: NavController) {
                                 MaterialTheme.colorScheme.surfaceVariant
                         )
                     ) {
-                        Text("Sélection")
-                        if (selectedItems.isNotEmpty()) {
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text("(${selectedItems.size})")
+                        if (mode == CreationMode.ONLINE && uiState.isLoading) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(16.dp),
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                strokeWidth = 2.dp
+                            )
+                            Spacer(Modifier.width(8.dp))
                         }
+                        Text(
+                            when {
+                                mode == CreationMode.ONLINE && uiState.isLoading -> "Création..."
+                                mode == CreationMode.ONLINE -> "Créer Test en Ligne (${selectedItems.size})"
+                                else -> "Créer Test (${selectedItems.size})"
+                            },
+                            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
+                        )
                     }
                 }
 
@@ -651,15 +706,22 @@ fun CreationScreen(navController: NavController) {
                         Button(
                             onClick = { navigateToCustomTest() },
                             modifier = Modifier.fillMaxWidth(),
-                            enabled = selectedItems.size >= 4,
+                            enabled = selectedItems.size >= 4 && !uiState.isLoading,
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = if (selectedItems.size >= 4)
+                                containerColor = if (selectedItems.size >= 4 && !uiState.isLoading)
                                     Color(0xFF4CAF50)
                                 else
                                     MaterialTheme.colorScheme.surfaceVariant
                             )
                         ) {
-                            Text("Créer Test (${selectedItems.size})")
+                            if (uiState.isLoading) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(20.dp),
+                                    color = MaterialTheme.colorScheme.onPrimary
+                                )
+                                Spacer(Modifier.width(8.dp))
+                            }
+                            Text(if (uiState.isLoading) "Création..." else "Créer Test (${selectedItems.size})")
                         }
                     }
                 }

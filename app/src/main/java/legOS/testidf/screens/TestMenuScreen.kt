@@ -9,14 +9,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Help
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,7 +33,6 @@ import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import java.io.IOException
-import kotlin.math.min
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -44,12 +43,12 @@ fun TestMenuScreen(navController: NavController) {
     val density = LocalDensity.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
-    // Адаптивные размеры экрана
     val screenHeightDp = with(density) { configuration.screenHeightDp.dp }
     val screenWidthDp = with(density) { configuration.screenWidthDp.dp }
     val isCompactHeight = screenHeightDp < 600.dp || windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
 
-    // Load background image (same as MainMenuScreen for consistency)
+    var selectedTab by remember { mutableStateOf(2) }
+
     val backgroundImage: ImageBitmap? = remember {
         try {
             context.assets.open("images/background.png").use { inputStream ->
@@ -61,7 +60,50 @@ fun TestMenuScreen(navController: NavController) {
         }
     }
 
-    // Сбрасываем состояние при входе на экран
+    val iconRetour = remember {
+        try {
+            context.assets.open("images/icon_retourn.png").use { inputStream ->
+                BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
+            }
+        } catch (e: IOException) {
+            Log.e("TestMenuScreen", "Error loading icon_retourn.png", e)
+            null
+        }
+    }
+
+    val iconCategories = remember {
+        try {
+            context.assets.open("images/icon_categorie.png").use { inputStream ->
+                BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
+            }
+        } catch (e: IOException) {
+            Log.e("TestMenuScreen", "Error loading icon_categorie.png", e)
+            null
+        }
+    }
+
+    val iconModes = remember {
+        try {
+            context.assets.open("images/icon_modes.png").use { inputStream ->
+                BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
+            }
+        } catch (e: IOException) {
+            Log.e("TestMenuScreen", "Error loading icon_modes.png", e)
+            null
+        }
+    }
+
+    val iconRechercher = remember {
+        try {
+            context.assets.open("images/icon_recherche.png").use { inputStream ->
+                BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
+            }
+        } catch (e: IOException) {
+            Log.e("TestMenuScreen", "Error loading icon_recherche.png", e)
+            null
+        }
+    }
+
     LaunchedEffect(Unit) {
         Log.d("TestMenuScreen", "Screen launched/relaunched - resetting state")
     }
@@ -71,7 +113,6 @@ fun TestMenuScreen(navController: NavController) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Display background image - заполняет весь экран включая системные панели
         backgroundImage?.let { image: ImageBitmap ->
             Image(
                 bitmap = image,
@@ -81,53 +122,432 @@ fun TestMenuScreen(navController: NavController) {
             )
         }
 
-        // Контент с безопасными отступами поверх фона
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .systemBarsPadding() // Применяем отступы только к контенту
-        ) {
-            when (windowSizeClass.widthSizeClass) {
-                WindowWidthSizeClass.Compact -> {
-                    TestMenuCompactLayout(
+        if (isLandscape) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .systemBarsPadding()
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                ) {
+                    TabContent(
+                        selectedTab = selectedTab,
                         navController = navController,
+                        windowSizeClass = windowSizeClass,
                         isLandscape = isLandscape,
                         isCompactHeight = isCompactHeight,
                         screenWidth = screenWidthDp,
                         screenHeight = screenHeightDp
                     )
+
+                    // Кнопка помощи в правом верхнем углу
+                    FloatingActionButton(
+                        onClick = { navController.navigate("help_screen") },
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(16.dp)
+                            .size(56.dp),
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    ) {
+                        Icon(
+                            Icons.Default.Help,
+                            contentDescription = "Aide",
+                            modifier = Modifier.size(32.dp)
+                        )
+                    }
                 }
-                WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
-                    TestMenuLargeLayout(
+
+                SideTabBar(
+                    selectedTab = selectedTab,
+                    onTabSelected = { tab ->
+                        if (tab == 0) {
+                            navController.navigate("main_menu")
+                        } else {
+                            selectedTab = tab
+                        }
+                    },
+                    iconRetour = iconRetour,
+                    iconCategories = iconCategories,
+                    iconModes = iconModes,
+                    iconRechercher = iconRechercher
+                )
+            }
+        } else {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .systemBarsPadding()
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                ) {
+                    TabContent(
+                        selectedTab = selectedTab,
                         navController = navController,
+                        windowSizeClass = windowSizeClass,
                         isLandscape = isLandscape,
                         isCompactHeight = isCompactHeight,
                         screenWidth = screenWidthDp,
                         screenHeight = screenHeightDp
                     )
+
+                    // Кнопка помощи в правом верхнем углу
+                    FloatingActionButton(
+                        onClick = { navController.navigate("help_screen") },
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(16.dp)
+                            .size(56.dp),
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    ) {
+                        Icon(
+                            Icons.Default.Help,
+                            contentDescription = "Aide",
+                            modifier = Modifier.size(32.dp)
+                        )
+                    }
                 }
+
+                BottomTabBar(
+                    selectedTab = selectedTab,
+                    onTabSelected = { tab ->
+                        if (tab == 0) {
+                            navController.navigate("main_menu")
+                        } else {
+                            selectedTab = tab
+                        }
+                    },
+                    iconRetour = iconRetour,
+                    iconCategories = iconCategories,
+                    iconModes = iconModes,
+                    iconRechercher = iconRechercher
+                )
             }
         }
     }
 }
 
 @Composable
-private fun TestMenuCompactLayout(
+private fun TabContent(
+    selectedTab: Int,
+    navController: NavController,
+    windowSizeClass: androidx.compose.material3.windowsizeclass.WindowSizeClass,
+    isLandscape: Boolean,
+    isCompactHeight: Boolean,
+    screenWidth: Dp,
+    screenHeight: Dp
+) {
+    when (selectedTab) {
+        1 -> { // Catégories
+            when (windowSizeClass.widthSizeClass) {
+                WindowWidthSizeClass.Compact -> {
+                    CategoriesCompactLayout(
+                        navController = navController,
+                        isLandscape = isLandscape,
+                        isCompactHeight = isCompactHeight,
+                        screenWidth = screenWidth,
+                        screenHeight = screenHeight
+                    )
+                }
+                WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
+                    CategoriesLargeLayout(
+                        navController = navController,
+                        isLandscape = isLandscape,
+                        isCompactHeight = isCompactHeight,
+                        screenWidth = screenWidth,
+                        screenHeight = screenHeight
+                    )
+                }
+            }
+        }
+        2 -> { // Modes
+            when (windowSizeClass.widthSizeClass) {
+                WindowWidthSizeClass.Compact -> {
+                    ModesCompactLayout(
+                        navController = navController,
+                        isLandscape = isLandscape,
+                        isCompactHeight = isCompactHeight,
+                        screenWidth = screenWidth,
+                        screenHeight = screenHeight
+                    )
+                }
+                WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
+                    ModesLargeLayout(
+                        navController = navController,
+                        isLandscape = isLandscape,
+                        isCompactHeight = isCompactHeight,
+                        screenWidth = screenWidth,
+                        screenHeight = screenHeight
+                    )
+                }
+            }
+        }
+        3 -> { // Rechercher
+            LaunchedEffect(Unit) {
+                navController.navigate("catalog")
+            }
+        }
+    }
+}
+
+@Composable
+private fun BottomTabBar(
+    selectedTab: Int,
+    onTabSelected: (Int) -> Unit,
+    iconRetour: ImageBitmap?,
+    iconCategories: ImageBitmap?,
+    iconModes: ImageBitmap?,
+    iconRechercher: ImageBitmap?
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(70.dp),
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f), // ИЗМЕНЕНО: один цвет
+        shadowElevation = 8.dp
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 4.dp, horizontal = 4.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            TabBarItem(
+                icon = iconRetour,
+                label = "Retour",
+                isSelected = false,
+                onClick = { onTabSelected(0) },
+                iconSize = 32.dp
+            )
+
+            TabBarItem(
+                icon = iconCategories,
+                label = "Catégories",
+                isSelected = selectedTab == 1,
+                onClick = { onTabSelected(1) },
+                iconSize = 32.dp
+            )
+
+            TabBarItem(
+                icon = iconModes,
+                label = "Modes",
+                isSelected = selectedTab == 2,
+                onClick = { onTabSelected(2) },
+                iconSize = 32.dp
+            )
+
+            TabBarItem(
+                icon = iconRechercher,
+                label = "Rechercher",
+                isSelected = selectedTab == 3,
+                onClick = { onTabSelected(3) },
+                iconSize = 32.dp
+            )
+        }
+    }
+}
+
+@Composable
+private fun SideTabBar(
+    selectedTab: Int,
+    onTabSelected: (Int) -> Unit,
+    iconRetour: ImageBitmap?,
+    iconCategories: ImageBitmap?,
+    iconModes: ImageBitmap?,
+    iconRechercher: ImageBitmap?
+) {
+    Surface(
+        modifier = Modifier
+            .width(75.dp)
+            .fillMaxHeight(),
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f), // ИЗМЕНЕНО: один цвет
+        shadowElevation = 8.dp
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+                .padding(horizontal = 2.dp, vertical = 16.dp),
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            SideTabBarItem(
+                icon = iconRetour,
+                label = "Retour",
+                isSelected = false,
+                onClick = { onTabSelected(0) },
+                iconSize = 32.dp
+            )
+
+            SideTabBarItem(
+                icon = iconCategories,
+                label = "Catégories",
+                isSelected = selectedTab == 1,
+                onClick = { onTabSelected(1) },
+                iconSize = 32.dp
+            )
+
+            SideTabBarItem(
+                icon = iconModes,
+                label = "Modes",
+                isSelected = selectedTab == 2,
+                onClick = { onTabSelected(2) },
+                iconSize = 32.dp
+            )
+
+            SideTabBarItem(
+                icon = iconRechercher,
+                label = "Rechercher",
+                isSelected = selectedTab == 3,
+                onClick = { onTabSelected(3) },
+                iconSize = 32.dp
+            )
+        }
+    }
+}
+
+@Composable
+private fun TabBarItem(
+    icon: ImageBitmap?,
+    label: String,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    iconSize: Dp
+) {
+    Column(
+        modifier = Modifier
+            .width(70.dp)
+            .fillMaxHeight()
+            .padding(vertical = 2.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        IconButton(
+            onClick = onClick,
+            modifier = Modifier.size(iconSize + 6.dp)
+        ) {
+            if (icon != null) {
+                Image(
+                    bitmap = icon,
+                    contentDescription = label,
+                    modifier = Modifier
+                        .size(iconSize)
+                        .then(
+                            if (isSelected) {
+                                Modifier.background(
+                                    color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+                                    shape = MaterialTheme.shapes.small
+                                )
+                            } else {
+                                Modifier
+                            }
+                        )
+                        .padding(2.dp),
+                    contentScale = ContentScale.Fit
+                )
+            }
+        }
+
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelSmall.copy(
+                fontSize = 9.sp
+            ),
+            color = if (isSelected) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+            },
+            textAlign = TextAlign.Center,
+            maxLines = 1,
+            modifier = Modifier.padding(horizontal = 2.dp)
+        )
+    }
+}
+
+@Composable
+private fun SideTabBarItem(
+    icon: ImageBitmap?,
+    label: String,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    iconSize: Dp
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(75.dp)
+            .padding(horizontal = 2.dp, vertical = 2.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        IconButton(
+            onClick = onClick,
+            modifier = Modifier.size(iconSize + 6.dp)
+        ) {
+            if (icon != null) {
+                Image(
+                    bitmap = icon,
+                    contentDescription = label,
+                    modifier = Modifier
+                        .size(iconSize)
+                        .then(
+                            if (isSelected) {
+                                Modifier.background(
+                                    color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+                                    shape = MaterialTheme.shapes.small
+                                )
+                            } else {
+                                Modifier
+                            }
+                        )
+                        .padding(2.dp),
+                    contentScale = ContentScale.Fit
+                )
+            }
+        }
+
+        Spacer(Modifier.height(2.dp))
+
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelSmall.copy(
+                fontSize = 8.sp
+            ),
+            color = if (isSelected) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+            },
+            textAlign = TextAlign.Center,
+            maxLines = 2,
+            modifier = Modifier.padding(horizontal = 2.dp)
+        )
+    }
+}
+
+// ВКЛАДКА CATÉGORIES
+@Composable
+private fun CategoriesCompactLayout(
     navController: NavController,
     isLandscape: Boolean,
     isCompactHeight: Boolean,
     screenWidth: Dp,
     screenHeight: Dp
 ) {
-    // Создаем новое состояние прокрутки при каждом входе на экран
     val scrollState = rememberScrollState()
 
-    // Сбрасываем прокрутку в начало при входе на экран
     LaunchedEffect(Unit) {
         scrollState.animateScrollTo(0)
     }
 
-    // Адаптивные отступы
     val horizontalPadding = min(16.dp, screenWidth * 0.04f)
     val verticalPadding = if (isCompactHeight) 8.dp else min(24.dp, screenHeight * 0.03f)
     val buttonSpacing = if (isCompactHeight) 6.dp else 8.dp
@@ -136,17 +556,15 @@ private fun TestMenuCompactLayout(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .padding(horizontal = horizontalPadding, vertical = verticalPadding),
+            .padding(horizontal = horizontalPadding, vertical = verticalPadding)
+            .padding(top = 72.dp), // Отступ для кнопки помощи
         verticalArrangement = if (isCompactHeight) Arrangement.Top else Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-
         if (!isCompactHeight) {
             Spacer(Modifier.height(if (isLandscape) 8.dp else 12.dp))
         }
 
-        // Основные кнопки категорий
         Column(
             verticalArrangement = Arrangement.spacedBy(buttonSpacing),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -156,231 +574,295 @@ private fun TestMenuCompactLayout(
                 "Artillerie" to "artillery",
                 "Reconnaissance" to "recon",
                 "Génie" to "genie",
-                "Avion/Hélicoptère" to "air",
-                "TEST BM2" to "bm2",
-                "TEST FINAL" to "final"
+                "Avion/Hélicoptère" to "air"
             ).forEach { (text, category) ->
                 CategoryButton(
                     text = text,
                     category = category,
                     navController = navController,
-                    modifier = Modifier.fillMaxWidth(0.9f),
-                    isTertiary = category in listOf("bm2", "final"),
-                    isCompact = isCompactHeight
-                )
-            }
-
-            // Дополнительное пространство перед кнопками действий
-            Spacer(Modifier.height(if (isCompactHeight) 8.dp else 12.dp))
-
-            // Кнопки поиска и создания
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                ReturnButton(
-                    navController = navController,
-                    modifier = Modifier.weight(1f),
-                    route = "catalog",
-                    text = "🔍",
-                    color = Color(0xFF4CAF50),
-                    isCompact = isCompactHeight
-                )
-                ReturnButton(
-                    navController = navController,
-                    modifier = Modifier.weight(1f),
-                    route = "creation",
-                    text = "Creation",
-                    color = Color(0xFF4CAF50),
-                    isCompact = isCompactHeight
-                )
-            }
-
-            // Дополнительное пространство
-            Spacer(Modifier.height(buttonSpacing))
-
-            // Кнопки возврата и зала славы
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                ReturnButton(
-                    navController = navController,
-                    modifier = Modifier.weight(1f),
-                    route = "main_menu",
-                    text = "Retour",
-                    color = Color(0xFF8B0000),
-                    isCompact = isCompactHeight
-                )
-                ReturnButton(
-                    navController = navController,
-                    modifier = Modifier.weight(1f),
-                    route = "hall_of_fame",
-                    text = "🏆",
-                    color = Color(0xFFFFFF00),
+                    modifier = Modifier.fillMaxWidth(1f),
                     isCompact = isCompactHeight
                 )
             }
         }
 
-        // Нижний отступ для обеспечения прокрутки
         Spacer(Modifier.height(if (isCompactHeight) 16.dp else 24.dp))
     }
 }
 
 @Composable
-private fun TestMenuLargeLayout(
+private fun CategoriesLargeLayout(
     navController: NavController,
     isLandscape: Boolean,
     isCompactHeight: Boolean,
     screenWidth: Dp,
     screenHeight: Dp
 ) {
-    // Создаем новое состояние прокрутки при каждом входе на экран
     val scrollState = rememberScrollState()
 
-    // Сбрасываем прокрутку в начало при входе на экран
     LaunchedEffect(Unit) {
         scrollState.animateScrollTo(0)
     }
 
-    // Адаптивные отступы
     val horizontalPadding = min(32.dp, screenWidth * 0.05f)
     val verticalPadding = min(32.dp, screenHeight * 0.04f)
 
-    Row(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .padding(horizontal = horizontalPadding, vertical = verticalPadding),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
+            .padding(horizontal = horizontalPadding, vertical = verticalPadding)
+            .padding(top = 72.dp), // Отступ для кнопки помощи
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(if (isCompactHeight) 8.dp else 12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
+            ) {
+                listOf(
+                    "Chars de combat" to "tanks",
+                    "Artillerie" to "artillery",
+                    "Reconnaissance" to "recon"
+                ).forEach { (text, category) ->
+                    CategoryButton(
+                        text = text,
+                        category = category,
+                        navController = navController,
+                        modifier = Modifier.fillMaxWidth(1f),
+                        isCompact = isCompactHeight
+                    )
+                }
+            }
+
+            Spacer(Modifier.width(16.dp))
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(if (isCompactHeight) 8.dp else 12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
+            ) {
+                listOf(
+                    "Génie" to "genie",
+                    "Avion/Hélicoptère" to "air"
+                ).forEach { (text, category) ->
+                    CategoryButton(
+                        text = text,
+                        category = category,
+                        navController = navController,
+                        modifier = Modifier.fillMaxWidth(1f),
+                        isCompact = isCompactHeight
+                    )
+                }
+            }
+        }
+
+        Spacer(Modifier.height(if (isCompactHeight) 16.dp else 24.dp))
+    }
+}
+
+// ВКЛАДКА MODES
+@Composable
+private fun ModesCompactLayout(
+    navController: NavController,
+    isLandscape: Boolean,
+    isCompactHeight: Boolean,
+    screenWidth: Dp,
+    screenHeight: Dp
+) {
+    val scrollState = rememberScrollState()
+
+    LaunchedEffect(Unit) {
+        scrollState.animateScrollTo(0)
+    }
+
+    val horizontalPadding = min(16.dp, screenWidth * 0.04f)
+    val verticalPadding = if (isCompactHeight) 8.dp else min(24.dp, screenHeight * 0.03f)
+    val buttonSpacing = if (isCompactHeight) 6.dp else 8.dp
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState)
+            .padding(horizontal = horizontalPadding, vertical = verticalPadding)
+            .padding(top = 72.dp), // Отступ для кнопки помощи
+        verticalArrangement = if (isCompactHeight) Arrangement.Top else Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        if (!isCompactHeight) {
+            Spacer(Modifier.height(if (isLandscape) 8.dp else 12.dp))
+        }
+
         Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(end = if (isLandscape) min(32.dp, screenWidth * 0.04f) else 0.dp),
+            verticalArrangement = Arrangement.spacedBy(buttonSpacing),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            ModeButton(
+                text = "Test avancé",
+                onClick = { navController.navigate("time_selection/bm2") },
+                modifier = Modifier.fillMaxWidth(1f),
+                isCompact = isCompactHeight
+            )
 
+            ModeButton(
+                text = "Test final",
+                onClick = { navController.navigate("player_name") },
+                modifier = Modifier.fillMaxWidth(1f),
+                isCompact = isCompactHeight
+            )
 
-            // Основные кнопки в две колонки
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                // Левая колонка
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(if (isCompactHeight) 8.dp else 12.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    listOf(
-                        "Chars de combat" to "tanks",
-                        "Artillerie" to "artillery",
-                        "Reconnaissance" to "recon",
-                        "Génie" to "genie",
-                        "Avion/Hélicoptère" to "air"
-                    ).forEach { (text, category) ->
-                        CategoryButton(
-                            text = text,
-                            category = category,
-                            navController = navController,
-                            modifier = Modifier.fillMaxWidth(0.9f),
-                            isTertiary = false,
-                            isCompact = isCompactHeight
-                        )
-                    }
-                }
+            ModeButton(
+                text = "Test collectif",
+                onClick = { navController.navigate("competition") },
+                modifier = Modifier.fillMaxWidth(1f),
+                isCompact = isCompactHeight
+            )
 
-                Spacer(Modifier.width(16.dp))
+            ModeButton(
+                text = "Creation",
+                onClick = { navController.navigate("creation") },
+                modifier = Modifier.fillMaxWidth(1f),
+                isCompact = isCompactHeight
+            )
 
-                // Правая колонка
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(if (isCompactHeight) 8.dp else 12.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    listOf(
-                        "TEST BM2" to "bm2",
-                        "TEST FINAL" to "final"
-                    ).forEach { (text, category) ->
-                        CategoryButton(
-                            text = text,
-                            category = category,
-                            navController = navController,
-                            modifier = Modifier.fillMaxWidth(0.9f),
-                            isTertiary = true,
-                            isCompact = isCompactHeight
-                        )
-                    }
-                }
-            }
-
-            // Дополнительные кнопки
             Spacer(Modifier.height(if (isCompactHeight) 8.dp else 12.dp))
 
-            // Кнопки поиска и создания
-            Row(
+            Button(
+                onClick = { navController.navigate("hall_of_fame") },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                ReturnButton(
-                    navController = navController,
-                    modifier = Modifier.weight(1f),
-                    route = "catalog",
-                    text = "🔍",
-                    color = Color(0xFF4CAF50),
-                    isCompact = isCompactHeight
+                    .fillMaxWidth(0.9f)
+                    .height(if (isCompactHeight) 44.dp else 52.dp)
+                    .padding(vertical = if (isCompactHeight) 2.dp else 4.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFFFFF00),
+                    contentColor = Color.Black
+                ),
+                shape = MaterialTheme.shapes.medium,
+                contentPadding = PaddingValues(
+                    horizontal = if (isCompactHeight) 8.dp else 12.dp,
+                    vertical = if (isCompactHeight) 6.dp else 8.dp
                 )
-                ReturnButton(
-                    navController = navController,
-                    modifier = Modifier.weight(1f),
-                    route = "creation",
-                    text = "Creation",
-                    color = Color(0xFF4CAF50),
-                    isCompact = isCompactHeight
+            ) {
+                Text(
+                    text = "🏆 Panthéon",
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        fontSize = if (isCompactHeight) 12.sp else 15.sp
+                    ),
+                    textAlign = TextAlign.Center
                 )
             }
-
-            Spacer(Modifier.height(if (isCompactHeight) 6.dp else 8.dp))
-
-            // Кнопки возврата и зала славы
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                ReturnButton(
-                    navController = navController,
-                    modifier = Modifier.weight(1f),
-                    route = "main_menu",
-                    text = "Retour",
-                    color = Color(0xFF8B0000),
-                    isCompact = isCompactHeight
-                )
-                ReturnButton(
-                    navController = navController,
-                    modifier = Modifier.weight(1f),
-                    route = "hall_of_fame",
-                    text = "🏆",
-                    color = Color(0xFFFFFF00),
-                    isCompact = isCompactHeight
-                )
-            }
-
-            // Нижний отступ для обеспечения прокрутки
-            Spacer(Modifier.height(if (isCompactHeight) 16.dp else 24.dp))
         }
+
+        Spacer(Modifier.height(if (isCompactHeight) 16.dp else 24.dp))
+    }
+}
+
+@Composable
+private fun ModesLargeLayout(
+    navController: NavController,
+    isLandscape: Boolean,
+    isCompactHeight: Boolean,
+    screenWidth: Dp,
+    screenHeight: Dp
+) {
+    val scrollState = rememberScrollState()
+
+    LaunchedEffect(Unit) {
+        scrollState.animateScrollTo(0)
+    }
+
+    val horizontalPadding = min(32.dp, screenWidth * 0.05f)
+    val verticalPadding = min(32.dp, screenHeight * 0.04f)
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState)
+            .padding(horizontal = horizontalPadding, vertical = verticalPadding)
+            .padding(top = 72.dp), // Отступ для кнопки помощи
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(if (isCompactHeight) 8.dp else 12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
+            ) {
+                ModeButton(
+                    text = "Test avancé",
+                    onClick = { navController.navigate("time_selection/bm2") },
+                    modifier = Modifier.fillMaxWidth(1f),
+                    isCompact = isCompactHeight
+                )
+
+                ModeButton(
+                    text = "Test final",
+                    onClick = { navController.navigate("player_name") },
+                    modifier = Modifier.fillMaxWidth(1f),
+                    isCompact = isCompactHeight
+                )
+            }
+
+            Spacer(Modifier.width(16.dp))
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(if (isCompactHeight) 8.dp else 12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
+            ) {
+                ModeButton(
+                    text = "Test collectif",
+                    onClick = { navController.navigate("competition") },
+                    modifier = Modifier.fillMaxWidth(1f),
+                    isCompact = isCompactHeight
+                )
+
+                ModeButton(
+                    text = "Creation",
+                    onClick = { navController.navigate("creation") },
+                    modifier = Modifier.fillMaxWidth(1f),
+                    isCompact = isCompactHeight
+                )
+            }
+        }
+
+        Spacer(Modifier.height(if (isCompactHeight) 12.dp else 16.dp))
+
+        Button(
+            onClick = { navController.navigate("hall_of_fame") },
+            modifier = Modifier
+                .fillMaxWidth(0.45f)
+                .height(if (isCompactHeight) 44.dp else 52.dp)
+                .padding(vertical = if (isCompactHeight) 2.dp else 4.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFFFF00),
+                contentColor = Color.Black
+            ),
+            shape = MaterialTheme.shapes.medium,
+            contentPadding = PaddingValues(
+                horizontal = if (isCompactHeight) 8.dp else 12.dp,
+                vertical = if (isCompactHeight) 6.dp else 8.dp
+            )
+        ) {
+            Text(
+                text = "🏆 Panthéon",
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontSize = if (isCompactHeight) 12.sp else 15.sp
+                ),
+                textAlign = TextAlign.Center
+            )
+        }
+
+        Spacer(Modifier.height(if (isCompactHeight) 16.dp else 24.dp))
     }
 }
 
@@ -390,7 +872,6 @@ private fun CategoryButton(
     category: String,
     navController: NavController,
     modifier: Modifier,
-    isTertiary: Boolean,
     isCompact: Boolean = false
 ) {
     Button(
@@ -411,16 +892,8 @@ private fun CategoryButton(
             )
             .padding(vertical = if (isCompact) 2.dp else 4.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (isTertiary) {
-                MaterialTheme.colorScheme.tertiary.copy(alpha = 0.8f)
-            } else {
-                MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
-            },
-            contentColor = if (isTertiary) {
-                MaterialTheme.colorScheme.onTertiary
-            } else {
-                MaterialTheme.colorScheme.onPrimary
-            }
+            containerColor = Color(0xFF607D8B), // ИЗМЕНЕНО
+            contentColor = Color.White
         ),
         shape = MaterialTheme.shapes.medium,
         contentPadding = PaddingValues(
@@ -444,33 +917,31 @@ private fun CategoryButton(
 }
 
 @Composable
-private fun ReturnButton(
-    navController: NavController,
-    modifier: Modifier,
-    route: String,
+private fun ModeButton(
     text: String,
-    color: Color,
+    onClick: () -> Unit,
+    modifier: Modifier,
     isCompact: Boolean = false
 ) {
     Button(
-        onClick = { navController.navigate(route) },
+        onClick = onClick,
         modifier = modifier
             .height(if (isCompact) 44.dp else 52.dp)
             .padding(vertical = if (isCompact) 2.dp else 4.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = color.copy(alpha = 0.8f),
-            contentColor = if (color == Color(0xFFFFFF00)) Color.Black else Color.White
+            containerColor = Color(0xFF607D8B), // ИЗМЕНЕНО
+            contentColor = Color.White
         ),
         shape = MaterialTheme.shapes.medium,
         contentPadding = PaddingValues(
-            horizontal = if (isCompact) 8.dp else 12.dp,
-            vertical = if (isCompact) 6.dp else 8.dp
+            horizontal = if (isCompact) 8.dp else 16.dp,
+            vertical = if (isCompact) 8.dp else 12.dp
         )
     ) {
         Text(
             text = text,
             style = MaterialTheme.typography.bodyLarge.copy(
-                fontSize = if (isCompact) 12.sp else 15.sp
+                fontSize = if (isCompact) 13.sp else 16.sp
             ),
             textAlign = TextAlign.Center
         )
