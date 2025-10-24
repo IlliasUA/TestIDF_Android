@@ -47,11 +47,6 @@ import legOS.testidf.screens.TestMenuScreen
 import legOS.testidf.screens.TestScreen
 import legOS.testidf.screens.TimeSelectionScreen
 import java.io.IOException
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.viewmodel.compose.viewModel
-import legOS.testidf.screens.*
-import legOS.testidf.viewmodel.SubscriptionViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +57,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     contentColor = MaterialTheme.colorScheme.onBackground
                 ) {
-                    AppNavigationWithSubscription()
+                    AppNavigation()
                 }
             }
         }
@@ -70,11 +65,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppNavigationWithSubscription(
-    subscriptionViewModel: SubscriptionViewModel = viewModel()
-) {
+fun AppNavigation() {
     val navController = rememberNavController()
-    val subscriptionState by subscriptionViewModel.uiState.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Фоновое изображение с прозрачностью 75%
@@ -98,20 +90,8 @@ fun AppNavigationWithSubscription(
             )
         }
 
-        // Определяем стартовый маршрут на основе статуса подписки
-        val startDestination = when {
-            subscriptionState.isLoading -> "subscription" // Показываем экран загрузки
-            subscriptionState.isActive -> "main_menu" // Подписка активна - главное меню
-            else -> "subscription" // Нет подписки - экран подписки
-        }
-
-        NavHost(navController, startDestination = startDestination) {
-            // Экран подписки (должен быть доступен всегда)
-            composable("subscription") {
-                SubscriptionScreen(navController, subscriptionViewModel)
-            }
-
-            // Все остальные маршруты (защищены подпиской)
+        // Навигация - стартуем сразу с главного меню
+        NavHost(navController, startDestination = "main_menu") {
             composable("creation") {
                 CreationScreen(
                     navController = navController,

@@ -2,11 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="legOS.testidf">
 
-    <!-- Разрешение для интернета (для проверки подписки) -->
+    <!-- Разрешение для интернета (для Firebase) -->
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- Разрешение для Google Play Billing -->
-    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:allowBackup="true"

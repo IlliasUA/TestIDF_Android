@@ -14,7 +14,7 @@ android {
         applicationId = "legOS.testidf"
         minSdk = 24
         targetSdk = 35
-        versionCode = 5
+        versionCode = 6
         versionName = "1.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -74,10 +74,6 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
-
-    // ===== ДОБАВЛЕНО: Google Play Billing для подписок =====
-    implementation("com.android.billingclient:billing-ktx:7.1.1")
-    // =======================================================
 
     // Тесты
     testImplementation("junit:junit:4.13.2")
