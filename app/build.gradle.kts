@@ -14,8 +14,8 @@ android {
         applicationId = "legOS.testidf"
         minSdk = 24
         targetSdk = 35
-        versionCode = 5
-        versionName = "1.1"
+        versionCode = 6  // Увеличена версия для нового релиза
+        versionName = "1.2"  // Обновлена версия
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -59,6 +59,20 @@ dependencies {
     // Activity Compose
     implementation("androidx.activity:activity-compose:1.9.0")
 
+    // ===== ИСПРАВЛЕНИЕ GOOGLE PLAY WARNINGS =====
+
+    // ИСПРАВЛЕНИЕ 1: Явное указание актуальной версии androidx.fragment
+    // Устраняет предупреждение: "В вашем приложении используется устаревшая версия SDK androidx.fragment:fragment"
+    // Обновлено с 1.0.0 до 1.8.5 (стабильная версия на декабрь 2024)
+    implementation("androidx.fragment:fragment-ktx:1.8.5")
+
+    // ИСПРАВЛЕНИЕ 2: Явное указание актуальной версии reCAPTCHA Enterprise
+    // Устраняет КРИТИЧЕСКУЮ уязвимость безопасности
+    // Google требует версию 18.4.0+, используем последнюю стабильную 18.6.1
+    implementation("com.google.android.recaptcha:recaptcha:18.6.1")
+
+    // ============================================
+
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.8.0")
 
@@ -75,9 +89,8 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
 
-    // ===== ДОБАВЛЕНО: Google Play Billing для подписок =====
+    // Google Play Billing для подписок
     implementation("com.android.billingclient:billing-ktx:7.1.1")
-    // =======================================================
 
     // Тесты
     testImplementation("junit:junit:4.13.2")
