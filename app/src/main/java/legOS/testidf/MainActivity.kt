@@ -3,6 +3,7 @@ package legOS.testidf
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
+import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -28,10 +29,16 @@ import androidx.navigation.navArgument
 import legOS.testidf.screens.*
 import legOS.testidf.viewmodel.SubscriptionViewModel
 import java.io.IOException
-import android.content.Context
-import legOS.testidf.util.LocaleManager
 
 class MainActivity : ComponentActivity() {
+
+    /**
+     * НОВОЕ: Переопределяем attachBaseContext для применения языка
+     */
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(LocaleManager.applyLanguage(newBase))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,13 +47,6 @@ class MainActivity : ComponentActivity() {
 
         // ✅ НОВОЕ: Настраиваем window для правильной работы с системными панелями
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        /**
-         * НОВОЕ: Переопределяем attachBaseContext для применения языка
-         */
-        override fun attachBaseContext(newBase: Context) {
-            super.attachBaseContext(LocaleManager.applyLanguage(newBase))
-        }
 
         setContent {
             MaterialTheme {

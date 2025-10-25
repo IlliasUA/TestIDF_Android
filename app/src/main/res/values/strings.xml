@@ -1,3 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Tanks_Hunter_Quiz">TestIDF</string>
+    <!-- Nom de l'application -->
+    <string name="app_name">Tanks Hunter: Quiz</string>
+
+    <!-- Menu principal -->
+    <string name="main_menu_title">Menu Principal</string>
+    <string name="menu_button">MENU</string>
+    <string name="info_button">INFO</string>
+    <string name="quit_button">QUITTER</string>
+    <string name="quit_confirmation_title">Confirmation</string>
+    <string name="quit_confirmation_message">Voulez-vous vraiment quitter l\'application ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="copyright">© 2025 IliaUA. All Rights Reserved.</string>
+    <string name="privacy_notice">By using this app, you agree to our Privacy Policy and Terms of Use, which are specified in the \"Info\" section.</string>
+
+    <!-- Menu de test -->
+    <string name="return_tab">Retour</string>
+    <string name="categories_tab">Catégories</string>
+    <string name="modes_tab">Modes</string>
+    <string name="search_tab">Rechercher</string>
+    <string name="news_tab">News</string>
+    <string name="help_button">Aide</string>
+
+    <!-- Catégories -->
+    <string name="category_tanks">Chars de combat</string>
+    <string name="category_artillery">Artillerie</string>
+    <string name="category_recon">Reconnaissance</string>
+    <string name="category_engineer">Génie</string>
+    <string name="category_air">Avion/Hélicoptère</string>
+
+    <!-- Modes -->
+    <string name="mode_advanced">Test avancé</string>
+    <string name="mode_final">Test final</string>
+    <string name="mode_collective">Test collectif</string>
+    <string name="mode_creation">Creation</string>
+    <string name="hall_of_fame">🏆 Panthéon</string>
+
+    <!-- Sélection de temps -->
+    <string name="time_selection_title">Sélectionnez le temps par question</string>
+    <string name="seconds">%d secondes</string>
+    <string name="back_button">Retour</string>
+    <string name="continue_button">Continuer</string>
+
+    <!-- Nom du joueur -->
+    <string name="enter_name_title">Entrez votre nom</string>
+    <string name="name_label">Nom</string>
+    <string name="player_label">Joueur:</string>
+
+    <!-- Test collectif -->
+    <string name="competition_title">Choisissez votre rôle</string>
+    <string name="competition_mode">Mode Compétition</string>
+    <string name="competition_description">Organisez des tests\npour votre équipe</string>
+    <string name="role_chef">Chef</string>
+    <string name="role_subordinate">Subordonné</string>
+    <string name="beta_warning_title">Version Bêta</string>
+    <string name="beta_warning_message">Le mode Test Collectif est en phase bêta. Des interruptions temporaires peuvent survenir. Nous vous prions de nous excuser pour la gêne occasionnée.</string>
+    <string name="close_button">Fermer</string>
+
+    <!-- Enregistrement administrateur -->
+    <string name="create_group_title">Créer un groupe</string>
+    <string name="your_name_label">Votre nom</string>
+    <string name="your_name_placeholder">Ex: Jean Dupont</string>
+    <string name="group_name_label">Nom du groupe</string>
+    <string name="group_name_placeholder">Ex: Escadron Alpha</string>
+    <string name="create_group_button">Créer le groupe</string>
+    <string name="min_characters">Minimum 2 caractères</string>
+
+    <!-- Dialogue code de groupe -->
+    <string name="group_created_title">Groupe créé!</string>
+    <string name="share_code_message">Partagez ce code avec vos subordonnés :</string>
+    <string name="copy_code_button">Copier le code</string>
+    <string name="code_copied">✓ Code copié!</string>
+    <string name="important_note">⚠️ Notez ce code pour que vos subordonnés puissent rejoindre!</string>
+
+    <!-- Enregistrement participant -->
+    <string name="join_group_title">Rejoindre un groupe</string>
+    <string name="group_code_label">Code du groupe</string>
+    <string name="group_code_placeholder">Ex: ABC123</string>
+    <string name="join_button">Rejoindre</string>
+    <string name="invalid_code">Code de groupe invalide</string>
+    <string name="joined_group">Vous avez rejoint %s!</string>
+
+    <!-- Envoi de test -->
+    <string name="send_test_title">Envoyer un test</string>
+    <string name="group_code_display">Code du groupe: %s</string>
+    <string name="participants_count">%d participants</string>
+    <string name="send_test_button">Envoyer le test</string>
+    <string name="test_sent_success">Test envoyé à %d participants</string>
+    <string name="view_results_button">Voir les résultats</string>
+    <string name="participants_list_title">Participants</string>
+    <string name="no_participants">Aucun participant</string>
+
+    <!-- Attente participant -->
+    <string name="waiting_title">En attente de tests</string>
+    <string name="leave_group_button">Quitter le groupe</string>
+    <string name="no_tests_available">Aucun test disponible</string>
+    <string name="test_available">Test disponible</string>
+    <string name="questions_count">%d questions</string>
+    <string name="time_limit">%d secondes/question</string>
+    <string name="start_test_button">Commencer</string>
+    <string name="results_title">Résultats</string>
+    <string name="your_result">Votre résultat</string>
+    <string name="rank_display">Rang: %d</string>
+    <string name="score_display">%d/%d (%d%%)</string>
+    <string name="no_results">Aucun résultat disponible</string>
+    <string name="group_closed_message">Le chef a quitté la session</string>
+    <string name="return_to_menu">Retour au menu</string>
+
+    <!-- Test terminé -->
+    <string name="test_completed_title">Test terminé!</string>
+    <string name="test_completed_message">Vos résultats ont été envoyés au chef.\nMerci d\'avoir participé!</string>
+
+    <!-- Résultats de session -->
+    <string name="session_results_title">Résultats du test</string>
+    <string name="session_info">%d questions • %d sec/question</string>
+    <string name="no_results_yet">Aucun résultat pour le moment</string>
+    <string name="average_score">Score moyen: %d%%</string>
+    <string name="best_score">Meilleur: %d%%</string>
+    <string name="participant_name">%s</string>
+    <string name="view_details">Voir détails</string>
+
+    <!-- Création -->
+    <string name="creation_title">Créer un test personnalisé</string>
+    <string name="select_items">Sélectionnez au moins 4 éléments</string>
+    <string name="selected_items">%d éléments sélectionnés</string>
+    <string name="time_per_question">Temps par question (secondes)</string>
+    <string name="create_test_button">Créer le test</string>
+    <string name="test_created_success">Test créé avec succès!</string>
+    <string name="min_items_error">Minimum 4 éléments requis pour créer un test</string>
+
+    <!-- Abonnement -->
+    <string name="subscription_title">Tanks Hunter: Quiz</string>
+    <string name="subscription_subtitle">Abonnement annuel</string>
+    <string name="features_title">Fonctionnalités incluses:</string>
+    <string name="feature_categories">✓ Tests par catégories</string>
+    <string name="feature_advanced">✓ Test avancé et final</string>
+    <string name="feature_multiplayer">✓ Mode multijoueur</string>
+    <string name="feature_creation">✓ Création de tests personnalisés</string>
+    <string name="feature_catalog">✓ Catalogue complet</string>
+    <string name="feature_hall_of_fame">✓ Panthéon des meilleurs scores</string>
+    <string name="feature_updates">✓ Mises à jour régulières</string>
+    <string name="subscribe_button">S\'abonner maintenant</string>
+    <string name="subscription_renew_info">L\'abonnement se renouvelle automatiquement chaque année.</string>
+    <string name="subscription_active">Abonnement actif</string>
+    <string name="subscription_active_message">Vous avez accès à toutes les fonctionnalités de l\'application.</string>
+    <string name="test_mode_title">Mode Test</string>
+    <string name="test_mode_message">Vous utilisez une version de test de l\'application.</string>
+    <string name="test_access">Accès test</string>
+    <string name="checking_subscription">Vérification de l\'abonnement...</string>
+    <string name="retry_button">Réessayer</string>
+
+    <!-- Aide -->
+    <string name="help_title">Guide</string>
+
+    <!-- Actualités -->
+    <string name="news_title">📰 Actualités</string>
+
+    <!-- Erreurs communes -->
+    <string name="error_generic">Erreur: %s</string>
+    <string name="error_network">Erreur réseau. Vérifiez votre connexion</string>
+    <string name="error_loading">Erreur de chargement</string>
+    <string name="loading">Chargement...</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuler</string>
+    <string name="confirm">Confirmer</string>
+    <string name="error_title">Erreur</string>
+
+    <!-- Paramètres de langue -->
+    <string name="language_settings_title">Langue</string>
+    <string name="select_language">Sélectionnez une langue</string>
+    <string name="language_restart_note">Le changement de langue nécessite un redémarrage de l\'application</string>
+    <string name="language_info_title">Information</string>
+    <string name="language_info_message">Vous pouvez changer la langue de l\'application à tout moment dans les paramètres.</string>
+    <string name="restart_required_title">Redémarrage requis</string>
+    <string name="restart_required_message">Pour appliquer le changement de langue, l\'application doit être redémarrée.</string>
+    <string name="restart_now">Redémarrer maintenant</string>
+    <string name="restart_later">Plus tard</string>
+    <string name="settings_button">Paramètres</string>
 </resources>

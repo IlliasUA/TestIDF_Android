@@ -26,12 +26,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import legOS.testidf.R
 import java.io.IOException
 import kotlin.math.min
 
@@ -115,43 +117,30 @@ fun MainMenuScreen(navController: NavController) {
             onDismissRequest = { showQuitConfirmation.value = false },
             title = {
                 Text(
-                    stringResource(R.string.quit_confirmation_title), // вместо "Confirmation"
+                    stringResource(R.string.quit_confirmation_title),
                     style = MaterialTheme.typography.headlineSmall
                 )
             },
             text = {
                 Text(
-                    stringResource(R.string.quit_confirmation_message), // вместо "Voulez-vous vraiment quitter l'application ?"
+                    stringResource(R.string.quit_confirmation_message),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center
                 )
             },
             confirmButton = {
-                TextButton(onClick = { /* ... */ }) {
-                    Text(stringResource(R.string.yes)) // вместо "Oui"
+                TextButton(onClick = {
+                    (context as? ComponentActivity)?.finish()
+                }) {
+                    Text(stringResource(R.string.yes))
                 }
             },
             dismissButton = {
-                TextButton(onClick = { /* ... */ }) {
-                    Text(stringResource(R.string.no)) // вместо "Non"
+                TextButton(onClick = { showQuitConfirmation.value = false }) {
+                    Text(stringResource(R.string.no))
                 }
             }
         )
-
-// Копирайт
-        Text(
-            text = stringResource(R.string.copyright),
-            style = MaterialTheme.typography.bodySmall
-        )
-
-        Text(
-            text = stringResource(R.string.privacy_notice),
-            style = MaterialTheme.typography.bodySmall
-        )
-            modifier = Modifier.padding(
-                horizontal = min(16.dp, screenWidthDp * 0.05f),
-                vertical = min(16.dp, screenHeightDp * 0.02f)
-            )
     }
 }
 
@@ -180,7 +169,7 @@ private fun MainMenuCompactLayout(
         verticalArrangement = if (isCompactHeight) Arrangement.SpaceBetween else Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Верхний спейсер (без изменений)
+        // Верхний спейсер
         if (!isCompactHeight) {
             Spacer(Modifier.height(screenHeight * 0.35f))
         } else {
@@ -190,7 +179,7 @@ private fun MainMenuCompactLayout(
         // Заголовок (скрываем на очень маленьких экранах)
         if (!isCompactHeight || screenHeight > 400.dp) {
             Text(
-                text = "", // Оставляем пустым как в оригинале
+                text = "",
                 style = MaterialTheme.typography.headlineSmall.copy(
                     fontSize = when {
                         isCompactHeight -> 16.sp
@@ -204,7 +193,7 @@ private fun MainMenuCompactLayout(
             )
         }
 
-        // Кнопки меню (без изменений)
+        // Кнопки меню
         if (isLandscape && screenWidth > 600.dp) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -260,21 +249,21 @@ private fun MainMenuCompactLayout(
             }
         }
 
-        // Нижний спейсер (увеличиваем для вертикальной ориентации)
+        // Нижний спейсер
         if (isLandscape) {
-            Spacer(Modifier.weight(1f)) // Прижимаем текст к нижней границе в горизонтальной ориентации
+            Spacer(Modifier.weight(1f))
         } else {
-            Spacer(Modifier.weight(1f).height(screenHeight * 0.05f)) // Дополнительный сдвиг вниз в вертикальной ориентации
+            Spacer(Modifier.weight(1f).height(screenHeight * 0.05f))
         }
 
         // Юридический текст
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(2.dp),
-            modifier = Modifier.padding(bottom = if (isLandscape) 2.dp else 4.dp) // Меньший отступ в горизонтальной ориентации
+            modifier = Modifier.padding(bottom = if (isLandscape) 2.dp else 4.dp)
         ) {
             Text(
-                text = "© 2025 IliaUA. All Rights Reserved.",
+                text = stringResource(R.string.copyright),
                 style = MaterialTheme.typography.bodySmall.copy(
                     fontSize = when {
                         isCompactHeight -> 8.sp
@@ -286,17 +275,17 @@ private fun MainMenuCompactLayout(
                 textAlign = TextAlign.Center
             )
             Text(
-                text = "By using this app, you agree to our Privacy Policy and Terms of Use, which are specified in the \"Info\" section.",
+                text = stringResource(R.string.privacy_notice),
                 style = MaterialTheme.typography.bodySmall.copy(
                     fontSize = when {
-                        isCompactHeight -> 5.sp // Уменьшено на 40% с 8.sp (8 * 0.6 ≈ 4.8)
-                        screenHeight < 600.dp -> 6.sp // Уменьшено на 40% с 10.sp (10 * 0.6 = 6)
-                        else -> 7.sp // Уменьшено на 40% с 12.sp (12 * 0.6 ≈ 7.2)
+                        isCompactHeight -> 5.sp
+                        screenHeight < 600.dp -> 6.sp
+                        else -> 7.sp
                     }
                 ),
                 color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(horizontal = 16.dp) // Отступы для длинного текста
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
     }
@@ -332,14 +321,14 @@ private fun MainMenuLargeLayout(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Верхний спейсер (без изменений)
+            // Верхний спейсер
             if (!isCompactHeight) {
                 Spacer(Modifier.height(screenHeight * 0.35f))
             } else {
                 Spacer(Modifier.height(48.dp))
             }
 
-            // Кнопки меню (без изменений)
+            // Кнопки меню
             Column(
                 verticalArrangement = Arrangement.spacedBy(
                     if (isCompactHeight) 12.dp else 16.dp
@@ -353,40 +342,40 @@ private fun MainMenuLargeLayout(
                 }
 
                 MenuButton(
-                    text = "MENU",
+                    text = stringResource(R.string.menu_button),
                     onClick = { navController.navigate("test_menu") },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
                 )
                 MenuButton(
-                    text = "Info",
+                    text = stringResource(R.string.info_button),
                     onClick = { navController.navigate("info_screen") },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
                 )
                 MenuButton(
-                    text = "Quitter",
+                    text = stringResource(R.string.quit_button),
                     onClick = { showQuitConfirmation.value = true },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
                 )
             }
 
-            // Нижний спейсер (увеличиваем для вертикальной ориентации)
+            // Нижний спейсер
             if (isLandscape) {
-                Spacer(Modifier.weight(1f)) // Прижимаем текст к нижней границе в горизонтальной ориентации
+                Spacer(Modifier.weight(1f))
             } else {
-                Spacer(Modifier.weight(1f).height(screenHeight * 0.05f)) // Дополнительный сдвиг вниз в вертикальной ориентации
+                Spacer(Modifier.weight(1f).height(screenHeight * 0.05f))
             }
 
             // Юридический текст
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(4.dp),
-                modifier = Modifier.padding(bottom = if (isLandscape) 2.dp else 4.dp) // Меньший отступ в горизонтальной ориентации
+                modifier = Modifier.padding(bottom = if (isLandscape) 2.dp else 4.dp)
             ) {
                 Text(
-                    text = "© 2025 IliaUA. All Rights Reserved.",
+                    text = stringResource(R.string.copyright),
                     style = MaterialTheme.typography.bodySmall.copy(
                         fontSize = when {
                             isCompactHeight -> 10.sp
@@ -398,17 +387,17 @@ private fun MainMenuLargeLayout(
                     textAlign = TextAlign.Center
                 )
                 Text(
-                    text = "By using this app, you agree to our Privacy Policy and Terms of Use, which are specified in the \"Info\" section.",
+                    text = stringResource(R.string.privacy_notice),
                     style = MaterialTheme.typography.bodySmall.copy(
                         fontSize = when {
-                            isCompactHeight -> 6.sp // Уменьшено на 40% с 10.sp (10 * 0.6 = 6)
-                            screenHeight < 700.dp -> 7.sp // Уменьшено на 40% с 12.sp (12 * 0.6 ≈ 7.2)
-                            else -> 8.sp // Уменьшено на 40% с 14.sp (14 * 0.6 ≈ 8.4)
+                            isCompactHeight -> 6.sp
+                            screenHeight < 700.dp -> 7.sp
+                            else -> 8.sp
                         }
                     ),
                     color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(horizontal = 16.dp) // Отступы для длинного текста
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
         }
