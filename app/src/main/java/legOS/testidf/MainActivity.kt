@@ -28,6 +28,8 @@ import androidx.navigation.navArgument
 import legOS.testidf.screens.*
 import legOS.testidf.viewmodel.SubscriptionViewModel
 import java.io.IOException
+import android.content.Context
+import legOS.testidf.util.LocaleManager
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +40,13 @@ class MainActivity : ComponentActivity() {
 
         // ✅ НОВОЕ: Настраиваем window для правильной работы с системными панелями
         WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        /**
+         * НОВОЕ: Переопределяем attachBaseContext для применения языка
+         */
+        override fun attachBaseContext(newBase: Context) {
+            super.attachBaseContext(LocaleManager.applyLanguage(newBase))
+        }
 
         setContent {
             MaterialTheme {
@@ -196,6 +205,10 @@ fun AppNavigationWithSubscription(
             }
             composable("news_screen") {
                 NewsScreen(navController = navController)
+            }
+            // НОВЫЙ МАРШРУТ - Настройки языка
+            composable("language_settings") {
+                LanguageSettingsScreen(navController)
             }
         }
     }

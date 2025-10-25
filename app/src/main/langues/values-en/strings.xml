@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Application name -->
+    <string name="app_name">Tanks Hunter: Quiz</string>
+
+    <!-- Main menu -->
+    <string name="main_menu_title">Main Menu</string>
+    <string name="menu_button">MENU</string>
+    <string name="info_button">INFO</string>
+    <string name="quit_button">QUIT</string>
+    <string name="quit_confirmation_title">Confirmation</string>
+    <string name="quit_confirmation_message">Do you really want to quit the application?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="copyright">© 2025 IliaUA. All Rights Reserved.</string>
+    <string name="privacy_notice">By using this app, you agree to our Privacy Policy and Terms of Use, which are specified in the \"Info\" section.</string>
+
+    <!-- Test menu -->
+    <string name="return_tab">Back</string>
+    <string name="categories_tab">Categories</string>
+    <string name="modes_tab">Modes</string>
+    <string name="search_tab">Search</string>
+    <string name="news_tab">News</string>
+    <string name="help_button">Help</string>
+
+    <!-- Categories -->
+    <string name="category_tanks">Battle Tanks</string>
+    <string name="category_artillery">Artillery</string>
+    <string name="category_recon">Reconnaissance</string>
+    <string name="category_engineer">Engineering</string>
+    <string name="category_air">Aircraft/Helicopter</string>
+
+    <!-- Modes -->
+    <string name="mode_advanced">Advanced Test</string>
+    <string name="mode_final">Final Test</string>
+    <string name="mode_collective">Collective Test</string>
+    <string name="mode_creation">Creation</string>
+    <string name="hall_of_fame">🏆 Hall of Fame</string>
+
+    <!-- Time selection -->
+    <string name="time_selection_title">Select time per question</string>
+    <string name="seconds">%d seconds</string>
+    <string name="back_button">Back</string>
+    <string name="continue_button">Continue</string>
+
+    <!-- Player name -->
+    <string name="enter_name_title">Enter your name</string>
+    <string name="name_label">Name</string>
+    <string name="player_label">Player:</string>
+
+    <!-- Collective test -->
+    <string name="competition_title">Choose your role</string>
+    <string name="competition_mode">Competition Mode</string>
+    <string name="competition_description">Organize tests\nfor your team</string>
+    <string name="role_chef">Leader</string>
+    <string name="role_subordinate">Participant</string>
+    <string name="beta_warning_title">Beta Version</string>
+    <string name="beta_warning_message">The Collective Test mode is in beta phase. Temporary interruptions may occur. We apologize for any inconvenience.</string>
+    <string name="close_button">Close</string>
+
+    <!-- Admin registration -->
+    <string name="create_group_title">Create a group</string>
+    <string name="your_name_label">Your name</string>
+    <string name="your_name_placeholder">Ex: John Smith</string>
+    <string name="group_name_label">Group name</string>
+    <string name="group_name_placeholder">Ex: Alpha Squad</string>
+    <string name="create_group_button">Create group</string>
+    <string name="min_characters">Minimum 2 characters</string>
+
+    <!-- Group code dialog -->
+    <string name="group_created_title">Group created!</string>
+    <string name="share_code_message">Share this code with your participants:</string>
+    <string name="copy_code_button">Copy code</string>
+    <string name="code_copied">✓ Code copied!</string>
+    <string name="important_note">⚠️ Save this code so your participants can join!</string>
+
+    <!-- Participant registration -->
+    <string name="join_group_title">Join a group</string>
+    <string name="group_code_label">Group code</string>
+    <string name="group_code_placeholder">Ex: ABC123</string>
+    <string name="join_button">Join</string>
+    <string name="invalid_code">Invalid group code</string>
+    <string name="joined_group">You joined %s!</string>
+
+    <!-- Send test -->
+    <string name="send_test_title">Send test</string>
+    <string name="group_code_display">Group code: %s</string>
+    <string name="participants_count">%d participants</string>
+    <string name="send_test_button">Send test</string>
+    <string name="test_sent_success">Test sent to %d participants</string>
+    <string name="view_results_button">View results</string>
+    <string name="participants_list_title">Participants</string>
+    <string name="no_participants">No participants</string>
+
+    <!-- Participant waiting -->
+    <string name="waiting_title">Waiting for tests</string>
+    <string name="leave_group_button">Leave group</string>
+    <string name="no_tests_available">No tests available</string>
+    <string name="test_available">Test available</string>
+    <string name="questions_count">%d questions</string>
+    <string name="time_limit">%d seconds/question</string>
+    <string name="start_test_button">Start</string>
+    <string name="results_title">Results</string>
+    <string name="your_result">Your result</string>
+    <string name="rank_display">Rank: %d</string>
+    <string name="score_display">%d/%d (%d%%)</string>
+    <string name="no_results">No results available</string>
+    <string name="group_closed_message">The leader left the session</string>
+    <string name="return_to_menu">Back to menu</string>
+
+    <!-- Test completed -->
+    <string name="test_completed_title">Test completed!</string>
+    <string name="test_completed_message">Your results have been sent to the leader.\nThank you for participating!</string>
+
+    <!-- Session results -->
+    <string name="session_results_title">Test results</string>
+    <string name="session_info">%d questions • %d sec/question</string>
+    <string name="no_results_yet">No results yet</string>
+    <string name="average_score">Average score: %d%%</string>
+    <string name="best_score">Best: %d%%</string>
+    <string name="participant_name">%s</string>
+    <string name="view_details">View details</string>
+
+    <!-- Creation -->
+    <string name="creation_title">Create a custom test</string>
+    <string name="select_items">Select at least 4 items</string>
+    <string name="selected_items">%d items selected</string>
+    <string name="time_per_question">Time per question (seconds)</string>
+    <string name="create_test_button">Create test</string>
+    <string name="test_created_success">Test created successfully!</string>
+    <string name="min_items_error">Minimum 4 items required to create a test</string>
+
+    <!-- Subscription -->
+    <string name="subscription_title">Tanks Hunter: Quiz</string>
+    <string name="subscription_subtitle">Annual subscription</string>
+    <string name="features_title">Included features:</string>
+    <string name="feature_categories">✓ Tests by categories</string>
+    <string name="feature_advanced">✓ Advanced and final test</string>
+    <string name="feature_multiplayer">✓ Multiplayer mode</string>
+    <string name="feature_creation">✓ Custom test creation</string>
+    <string name="feature_catalog">✓ Complete catalog</string>
+    <string name="feature_hall_of_fame">✓ Hall of Fame</string>
+    <string name="feature_updates">✓ Regular updates</string>
+    <string name="subscribe_button">Subscribe now</string>
+    <string name="subscription_renew_info">The subscription renews automatically every year.</string>
+    <string name="subscription_active">Active subscription</string>
+    <string name="subscription_active_message">You have access to all features of the application.</string>
+    <string name="test_mode_title">Test Mode</string>
+    <string name="test_mode_message">You are using a test version of the application.</string>
+    <string name="test_access">Test access</string>
+    <string name="checking_subscription">Checking subscription...</string>
+    <string name="retry_button">Retry</string>
+
+    <!-- Help -->
+    <string name="help_title">Guide</string>
+
+    <!-- News -->
+    <string name="news_title">📰 News</string>
+
+    <!-- Common errors -->
+    <string name="error_generic">Error: %s</string>
+    <string name="error_network">Network error. Check your connection</string>
+    <string name="error_loading">Loading error</string>
+    <string name="loading">Loading...</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="error_title">Error</string>
+
+    <!-- Language settings -->
+    <string name="language_settings_title">Language</string>
+    <string name="select_language">Select a language</string>
+    <string name="language_restart_note">Changing the language requires restarting the application</string>
+    <string name="language_info_title">Information</string>
+    <string name="language_info_message">You can change the application language at any time in settings.</string>
+    <string name="restart_required_title">Restart required</string>
+    <string name="restart_required_message">To apply the language change, the application must be restarted.</string>
+    <string name="restart_now">Restart now</string>
+    <string name="restart_later">Later</string>
+    <string name="settings_button">Settings</string>
+</resources>

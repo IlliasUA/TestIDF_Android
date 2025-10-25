@@ -115,55 +115,43 @@ fun MainMenuScreen(navController: NavController) {
             onDismissRequest = { showQuitConfirmation.value = false },
             title = {
                 Text(
-                    "Confirmation",
-                    style = MaterialTheme.typography.headlineSmall.copy(
-                        fontSize = if (isCompactHeight) 18.sp else 22.sp
-                    )
+                    stringResource(R.string.quit_confirmation_title), // вместо "Confirmation"
+                    style = MaterialTheme.typography.headlineSmall
                 )
             },
             text = {
                 Text(
-                    "Voulez-vous vraiment quitter l'application ?",
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        fontSize = if (isCompactHeight) 14.sp else 16.sp
-                    ),
+                    stringResource(R.string.quit_confirmation_message), // вместо "Voulez-vous vraiment quitter l'application ?"
+                    style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center
                 )
             },
             confirmButton = {
-                TextButton(
-                    onClick = {
-                        showQuitConfirmation.value = false
-                        (navController.context as? ComponentActivity)?.finish()
-                    },
-                    modifier = Modifier.padding(4.dp)
-                ) {
-                    Text(
-                        "Oui",
-                        style = MaterialTheme.typography.labelLarge.copy(
-                            fontSize = if (isCompactHeight) 14.sp else 16.sp
-                        )
-                    )
+                TextButton(onClick = { /* ... */ }) {
+                    Text(stringResource(R.string.yes)) // вместо "Oui"
                 }
             },
             dismissButton = {
-                TextButton(
-                    onClick = { showQuitConfirmation.value = false },
-                    modifier = Modifier.padding(4.dp)
-                ) {
-                    Text(
-                        "Non",
-                        style = MaterialTheme.typography.labelLarge.copy(
-                            fontSize = if (isCompactHeight) 14.sp else 16.sp
-                        )
-                    )
+                TextButton(onClick = { /* ... */ }) {
+                    Text(stringResource(R.string.no)) // вместо "Non"
                 }
-            },
+            }
+        )
+
+// Копирайт
+        Text(
+            text = stringResource(R.string.copyright),
+            style = MaterialTheme.typography.bodySmall
+        )
+
+        Text(
+            text = stringResource(R.string.privacy_notice),
+            style = MaterialTheme.typography.bodySmall
+        )
             modifier = Modifier.padding(
                 horizontal = min(16.dp, screenWidthDp * 0.05f),
                 vertical = min(16.dp, screenHeightDp * 0.02f)
             )
-        )
     }
 }
 
@@ -227,19 +215,19 @@ private fun MainMenuCompactLayout(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 MenuButton(
-                    text = "MENU",
+                    text = stringResource(R.string.menu_button),
                     onClick = { navController.navigate("test_menu") },
                     modifier = Modifier.weight(1f),
                     isCompact = isCompactHeight
                 )
                 MenuButton(
-                    text = "Info",
+                    text = stringResource(R.string.info_button),
                     onClick = { navController.navigate("info_screen") },
                     modifier = Modifier.weight(1f),
                     isCompact = isCompactHeight
                 )
                 MenuButton(
-                    text = "Quitter",
+                    text = stringResource(R.string.quit_button),
                     onClick = { showQuitConfirmation.value = true },
                     modifier = Modifier.weight(1f),
                     isCompact = isCompactHeight
@@ -252,19 +240,19 @@ private fun MainMenuCompactLayout(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 MenuButton(
-                    text = "MENU",
+                    text = stringResource(R.string.menu_button),
                     onClick = { navController.navigate("test_menu") },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
                 )
                 MenuButton(
-                    text = "INFO",
+                    text = stringResource(R.string.info_button),
                     onClick = { navController.navigate("info_screen") },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
                 )
                 MenuButton(
-                    text = "QUITTER",
+                    text = stringResource(R.string.quit_button),
                     onClick = { showQuitConfirmation.value = true },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
