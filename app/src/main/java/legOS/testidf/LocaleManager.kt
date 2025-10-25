@@ -3,10 +3,6 @@ package legOS.testidf
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.platform.LocalContext
 import java.util.Locale
 
 /**
@@ -46,19 +42,6 @@ object LocaleManager {
     }
 
     /**
-     * Basculer vers l'autre langue
-     */
-    fun toggleLanguage(context: Context): Language {
-        val current = getCurrentLanguage(context)
-        val newLanguage = when (current) {
-            Language.FRENCH -> Language.ENGLISH
-            Language.ENGLISH -> Language.FRENCH
-        }
-        setLanguage(context, newLanguage)
-        return newLanguage
-    }
-
-    /**
      * Mettre à jour les ressources de l'application avec une nouvelle langue
      */
     private fun updateResources(context: Context, languageCode: String): Context {
@@ -84,31 +67,4 @@ object LocaleManager {
         val language = getCurrentLanguage(context)
         return updateResources(context, language.code)
     }
-}
-
-/**
- * CompositionLocal pour accéder à la langue actuelle
- */
-val LocalLanguage = staticCompositionLocalOf { LocaleManager.Language.FRENCH }
-
-/**
- * Wrapper Composable pour appliquer la langue
- */
-@Composable
-fun ProvideLanguage(
-    language: LocaleManager.Language = LocaleManager.Language.FRENCH,
-    content: @Composable () -> Unit
-) {
-    CompositionLocalProvider(LocalLanguage provides language) {
-        content()
-    }
-}
-
-/**
- * Hook pour obtenir la langue actuelle
- */
-@Composable
-fun rememberCurrentLanguage(): LocaleManager.Language {
-    val context = LocalContext.current
-    return LocaleManager.getCurrentLanguage(context)
 }

@@ -10,8 +10,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Language
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
@@ -30,7 +28,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -39,8 +36,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import legOS.testidf.LocaleManager
 import legOS.testidf.R
+import legOS.testidf.components.LanguageButton
 import java.io.IOException
-import kotlin.math.min
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -52,7 +49,7 @@ fun MainMenuScreen(navController: NavController) {
     val density = LocalDensity.current
     val showQuitConfirmation = remember { mutableStateOf(false) }
 
-    // État pour la langue actuelle
+    // Получаем текущий язык
     val currentLanguage = remember { mutableStateOf(LocaleManager.getCurrentLanguage(context)) }
 
     // Tailles adaptatives basées sur la densité de l'écran et la taille de la fenêtre
@@ -78,7 +75,7 @@ fun MainMenuScreen(navController: NavController) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Afficher l'image de fond - remplit tout l'écran y compris les barres système
+        // Afficher l'image de fond
         backgroundImage?.let { image ->
             Image(
                 bitmap = image,
@@ -88,13 +85,13 @@ fun MainMenuScreen(navController: NavController) {
             )
         }
 
-        // Contenu avec marges sécurisées au-dessus du fond
+        // Contenu avec marges sécurisées
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .systemBarsPadding() // Applique les marges uniquement au contenu
+                .systemBarsPadding()
         ) {
-            // Mise en page adaptative en fonction de la taille de l'écran
+            // Mise en page adaptative
             when {
                 windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact -> {
                     MainMenuCompactLayout(
@@ -118,39 +115,18 @@ fun MainMenuScreen(navController: NavController) {
                 }
             }
 
-            // Bouton de changement de langue (coin supérieur droit) - ИСПРАВЛЕННЫЕ ЦВЕТА
-            FloatingActionButton(
-                onClick = {
-                    LocaleManager.toggleLanguage(context)
-                    currentLanguage.value = LocaleManager.getCurrentLanguage(context)
-                    activity?.recreate() // Redémarrer l'activité pour appliquer la langue
+            // Bouton de changement de langue (coin supérieur droit)
+            LanguageButton(
+                currentLanguage = currentLanguage.value,
+                onLanguageChange = { newLanguage ->
+                    LocaleManager.setLanguage(context, newLanguage)
+                    currentLanguage.value = newLanguage
+                    activity?.recreate()
                 },
                 modifier = Modifier
                     .align(Alignment.TopEnd)
                     .padding(16.dp)
-                    .size(56.dp),
-                containerColor = MaterialTheme.colorScheme.primary, // КАК У КНОПКИ GUIDE
-                contentColor = MaterialTheme.colorScheme.onPrimary  // КАК У КНОПКИ GUIDE
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Icon(
-                        Icons.Default.Language,
-                        contentDescription = "Change Language",
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Spacer(Modifier.height(2.dp))
-                    Text(
-                        text = currentLanguage.value.displayName,
-                        style = MaterialTheme.typography.labelSmall.copy(
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                    )
-                }
-            }
+            )
         }
     }
 

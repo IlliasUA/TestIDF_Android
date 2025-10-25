@@ -153,7 +153,9 @@ fun AppNavigationWithSubscription(
             composable("admin_registration") {
                 AdminRegistrationScreen(navController)
             }
-            composable("main_menu") { MainMenuScreen(navController) }
+            composable("main_menu") {
+                MainMenuScreen(navController = navController)
+            }
             composable("test_menu") { TestMenuScreen(navController) }
             composable("time_selection/{category}") { backStackEntry ->
                 val category = backStackEntry.arguments?.getString("category") ?: ""
