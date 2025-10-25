@@ -118,18 +118,19 @@ fun MainMenuScreen(navController: NavController) {
                 }
             }
 
-            // Bouton de changement de langue (coin supérieur droit)
+            // Bouton de changement de langue (coin supérieur droit) - ИСПРАВЛЕННЫЕ ЦВЕТА
             FloatingActionButton(
                 onClick = {
                     LocaleManager.toggleLanguage(context)
+                    currentLanguage.value = LocaleManager.getCurrentLanguage(context)
                     activity?.recreate() // Redémarrer l'activité pour appliquer la langue
                 },
                 modifier = Modifier
                     .align(Alignment.TopEnd)
                     .padding(16.dp)
                     .size(56.dp),
-                containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.9f),
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                containerColor = MaterialTheme.colorScheme.primary, // КАК У КНОПКИ GUIDE
+                contentColor = MaterialTheme.colorScheme.onPrimary  // КАК У КНОПКИ GUIDE
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
