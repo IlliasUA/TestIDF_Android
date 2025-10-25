@@ -14,8 +14,8 @@ android {
         applicationId = "legOS.testidf"
         minSdk = 24
         targetSdk = 35
-        versionCode = 6  // Увеличена версия для нового релиза
-        versionName = "1.2"  // Обновлена версия
+        versionCode = 7  // Увеличена версия для нового релиза с исправлениями
+        versionName = "1.2.1"  // Обновлена версия
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -47,7 +47,7 @@ android {
 
 dependencies {
     // Compose BOM для согласованности версий
-    implementation(platform("androidx.compose:compose-bom:2024.09.03"))
+    implementation(platform("androidx.compose:compose-bom:2024.12.01"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-text")
@@ -56,8 +56,11 @@ dependencies {
     implementation("androidx.compose.material3:material3-window-size-class")
     implementation("androidx.compose.material:material-icons-extended")
 
-    // Activity Compose
-    implementation("androidx.activity:activity-compose:1.9.0")
+    // ОБНОВЛЕНО: Activity Compose с полной поддержкой edge-to-edge для Android 15
+    implementation("androidx.activity:activity-compose:1.9.3")
+
+    // ДОБАВЛЕНО: Core для поддержки WindowCompat и системных отступов
+    implementation("androidx.core:core-ktx:1.15.0")
 
     // ===== ИСПРАВЛЕНИЕ GOOGLE PLAY WARNINGS =====
 
@@ -74,7 +77,7 @@ dependencies {
     // ============================================
 
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.8.0")
+    implementation("androidx.navigation:navigation-compose:2.8.5")
 
     // Coil для загрузки изображений
     implementation("io.coil-kt:coil-compose:2.7.0")
@@ -84,7 +87,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 
     // Firebase BOM (Bill of Materials) - управляет версиями
-    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
@@ -96,7 +99,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.09.03"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.12.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 
     // Debug tools

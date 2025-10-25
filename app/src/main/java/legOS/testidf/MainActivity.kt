@@ -5,57 +5,40 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.view.WindowCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import legOS.testidf.screens.AdminRegistrationScreen
-import legOS.testidf.screens.CatalogScreen
-import legOS.testidf.screens.ChefSessionsScreen
-import legOS.testidf.screens.CompetitionRoleScreen
-import legOS.testidf.screens.ConfirmationFinalTestScreen
-import legOS.testidf.screens.CreationMode
-import legOS.testidf.screens.CreationScreen
-import legOS.testidf.screens.CustomResultsScreen
-import legOS.testidf.screens.CustomTestScreen
-import legOS.testidf.screens.CustomTimeSelectionScreen
-import legOS.testidf.screens.HallOfFameScreen
-import legOS.testidf.screens.HelpScreen
-import legOS.testidf.screens.InfoScreen
-import legOS.testidf.screens.MainMenuScreen
-import legOS.testidf.screens.MoreInfoScreen
-import legOS.testidf.screens.ParticipantRegistrationScreen
-import legOS.testidf.screens.ParticipantWaitingScreen
-import legOS.testidf.screens.PlayerNameScreen
-import legOS.testidf.screens.ResultsScreen
-import legOS.testidf.screens.SendTestScreen
-import legOS.testidf.screens.SessionResultsScreen
-import legOS.testidf.screens.TakeTestScreen
-import legOS.testidf.screens.TestCompletedScreen
-import legOS.testidf.screens.TestMenuScreen
-import legOS.testidf.screens.TestScreen
-import legOS.testidf.screens.TimeSelectionScreen
-import java.io.IOException
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.viewmodel.compose.viewModel
 import legOS.testidf.screens.*
 import legOS.testidf.viewmodel.SubscriptionViewModel
+import java.io.IOException
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // ✅ НОВОЕ: Включаем edge-to-edge для Android 15+
+        enableEdgeToEdge()
+
+        // ✅ НОВОЕ: Настраиваем window для правильной работы с системными панелями
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         setContent {
             MaterialTheme {
                 Surface(
