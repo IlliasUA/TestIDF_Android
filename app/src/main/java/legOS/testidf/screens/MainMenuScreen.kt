@@ -1,5 +1,6 @@
 package legOS.testidf.screens
 
+import android.app.Activity
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.util.Log
@@ -9,6 +10,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Language
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
@@ -27,12 +30,14 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import legOS.testidf.LocaleManager
 import legOS.testidf.R
 import java.io.IOException
 import kotlin.math.min
@@ -41,18 +46,22 @@ import kotlin.math.min
 @Composable
 fun MainMenuScreen(navController: NavController) {
     val context = LocalContext.current
+    val activity = context as? Activity
     val configuration = LocalConfiguration.current
     val windowSizeClass = calculateWindowSizeClass(activity = context as ComponentActivity)
     val density = LocalDensity.current
     val showQuitConfirmation = remember { mutableStateOf(false) }
 
-    // Адаптивные размеры на основе плотности экрана и размера окна
+    // État pour la langue actuelle
+    val currentLanguage = remember { mutableStateOf(LocaleManager.getCurrentLanguage(context)) }
+
+    // Tailles adaptatives basées sur la densité de l'écran et la taille de la fenêtre
     val screenHeightDp = with(density) { configuration.screenHeightDp.dp }
     val screenWidthDp = with(density) { configuration.screenWidthDp.dp }
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     val isCompactHeight = screenHeightDp < 600.dp || windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
 
-    // Load background image with error handling
+    // Charger l'image de fond avec gestion d'erreur
     val backgroundImage = remember {
         try {
             context.assets.open("images/background.png").use { inputStream ->
@@ -69,7 +78,7 @@ fun MainMenuScreen(navController: NavController) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Display background image - заполняет весь экран включая системные панели
+        // Afficher l'image de fond - remplit tout l'écran y compris les barres système
         backgroundImage?.let { image ->
             Image(
                 bitmap = image,
@@ -79,13 +88,13 @@ fun MainMenuScreen(navController: NavController) {
             )
         }
 
-        // Контент с безопасными отступами поверх фона
+        // Contenu avec marges sécurisées au-dessus du fond
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .systemBarsPadding() // Применяем отступы только к контенту
+                .systemBarsPadding() // Applique les marges uniquement au contenu
         ) {
-            // Адаптивная компоновка на основе размера экрана
+            // Mise en page adaptative en fonction de la taille de l'écran
             when {
                 windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact -> {
                     MainMenuCompactLayout(
@@ -108,10 +117,43 @@ fun MainMenuScreen(navController: NavController) {
                     )
                 }
             }
+
+            // Bouton de changement de langue (coin supérieur droit)
+            FloatingActionButton(
+                onClick = {
+                    LocaleManager.toggleLanguage(context)
+                    activity?.recreate() // Redémarrer l'activité pour appliquer la langue
+                },
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(16.dp)
+                    .size(56.dp),
+                containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.9f),
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        Icons.Default.Language,
+                        contentDescription = "Change Language",
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Spacer(Modifier.height(2.dp))
+                    Text(
+                        text = currentLanguage.value.displayName,
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+            }
         }
     }
 
-    // Quit confirmation dialog
+    // Dialogue de confirmation de sortie
     if (showQuitConfirmation.value) {
         AlertDialog(
             onDismissRequest = { showQuitConfirmation.value = false },
@@ -155,7 +197,7 @@ private fun MainMenuCompactLayout(
 ) {
     val scrollState = rememberScrollState()
 
-    // Адаптивные отступы и размеры
+    // Marges et tailles adaptatives
     val horizontalPadding = min(16.dp, screenWidth * 0.04f)
     val verticalPadding = if (isCompactHeight) 8.dp else min(24.dp, screenHeight * 0.03f)
     val buttonSpacing = if (isCompactHeight) 8.dp else 12.dp
@@ -169,14 +211,14 @@ private fun MainMenuCompactLayout(
         verticalArrangement = if (isCompactHeight) Arrangement.SpaceBetween else Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Верхний спейсер
+        // Espaceur supérieur
         if (!isCompactHeight) {
             Spacer(Modifier.height(screenHeight * 0.35f))
         } else {
             Spacer(Modifier.height(40.dp))
         }
 
-        // Заголовок (скрываем на очень маленьких экранах)
+        // Titre (masqué sur les très petits écrans)
         if (!isCompactHeight || screenHeight > 400.dp) {
             Text(
                 text = "",
@@ -193,7 +235,7 @@ private fun MainMenuCompactLayout(
             )
         }
 
-        // Кнопки меню
+        // Boutons du menu
         if (isLandscape && screenWidth > 600.dp) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -212,12 +254,6 @@ private fun MainMenuCompactLayout(
                 MenuButton(
                     text = stringResource(R.string.info_button),
                     onClick = { navController.navigate("info_screen") },
-                    modifier = Modifier.weight(1f),
-                    isCompact = isCompactHeight
-                )
-                MenuButton(
-                    text = stringResource(R.string.settings_button),
-                    onClick = { navController.navigate("language_settings") },
                     modifier = Modifier.weight(1f),
                     isCompact = isCompactHeight
                 )
@@ -247,12 +283,6 @@ private fun MainMenuCompactLayout(
                     isCompact = isCompactHeight
                 )
                 MenuButton(
-                    text = stringResource(R.string.settings_button),
-                    onClick = { navController.navigate("language_settings") },
-                    modifier = Modifier.fillMaxWidth(buttonWidth),
-                    isCompact = isCompactHeight
-                )
-                MenuButton(
                     text = stringResource(R.string.quit_button),
                     onClick = { showQuitConfirmation.value = true },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
@@ -261,14 +291,14 @@ private fun MainMenuCompactLayout(
             }
         }
 
-        // Нижний спейсер
+        // Espaceur inférieur
         if (isLandscape) {
             Spacer(Modifier.weight(1f))
         } else {
             Spacer(Modifier.weight(1f).height(screenHeight * 0.05f))
         }
 
-        // Юридический текст
+        // Texte juridique
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(2.dp),
@@ -314,7 +344,7 @@ private fun MainMenuLargeLayout(
 ) {
     val scrollState = rememberScrollState()
 
-    // Адаптивные отступы
+    // Marges adaptatives
     val horizontalPadding = min(32.dp, screenWidth * 0.05f)
     val verticalPadding = min(32.dp, screenHeight * 0.04f)
 
@@ -333,14 +363,14 @@ private fun MainMenuLargeLayout(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Верхний спейсер
+            // Espaceur supérieur
             if (!isCompactHeight) {
                 Spacer(Modifier.height(screenHeight * 0.35f))
             } else {
                 Spacer(Modifier.height(48.dp))
             }
 
-            // Кнопки меню
+            // Boutons du menu
             Column(
                 verticalArrangement = Arrangement.spacedBy(
                     if (isCompactHeight) 12.dp else 16.dp
@@ -366,12 +396,6 @@ private fun MainMenuLargeLayout(
                     isCompact = isCompactHeight
                 )
                 MenuButton(
-                    text = stringResource(R.string.settings_button),
-                    onClick = { navController.navigate("language_settings") },
-                    modifier = Modifier.fillMaxWidth(buttonWidth),
-                    isCompact = isCompactHeight
-                )
-                MenuButton(
                     text = stringResource(R.string.quit_button),
                     onClick = { showQuitConfirmation.value = true },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
@@ -379,14 +403,14 @@ private fun MainMenuLargeLayout(
                 )
             }
 
-            // Нижний спейсер
+            // Espaceur inférieur
             if (isLandscape) {
                 Spacer(Modifier.weight(1f))
             } else {
                 Spacer(Modifier.weight(1f).height(screenHeight * 0.05f))
             }
 
-            // Юридический текст
+            // Texte juridique
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(4.dp),

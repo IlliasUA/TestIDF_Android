@@ -206,10 +206,6 @@ fun AppNavigationWithSubscription(
             composable("news_screen") {
                 NewsScreen(navController = navController)
             }
-            // НОВЫЙ МАРШРУТ - Настройки языка
-            composable("language_settings") {
-                LanguageSettingsScreen(navController)
-            }
         }
     }
 }

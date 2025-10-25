@@ -166,16 +166,4 @@
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
     <string name="error_title">Error</string>
-
-    <!-- Language settings -->
-    <string name="language_settings_title">Language</string>
-    <string name="select_language">Select a language</string>
-    <string name="language_restart_note">Changing the language requires restarting the application</string>
-    <string name="language_info_title">Information</string>
-    <string name="language_info_message">You can change the application language at any time in settings.</string>
-    <string name="restart_required_title">Restart required</string>
-    <string name="restart_required_message">To apply the language change, the application must be restarted.</string>
-    <string name="restart_now">Restart now</string>
-    <string name="restart_later">Later</string>
-    <string name="settings_button">Settings</string>
 </resources>

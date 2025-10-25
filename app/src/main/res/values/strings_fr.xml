@@ -166,16 +166,4 @@
     <string name="cancel">Annuler</string>
     <string name="confirm">Confirmer</string>
     <string name="error_title">Erreur</string>
-
-    <!-- Paramètres de langue -->
-    <string name="language_settings_title">Langue</string>
-    <string name="select_language">Sélectionnez une langue</string>
-    <string name="language_restart_note">Le changement de langue nécessite un redémarrage de l\'application</string>
-    <string name="language_info_title">Information</string>
-    <string name="language_info_message">Vous pouvez changer la langue de l\'application à tout moment dans les paramètres.</string>
-    <string name="restart_required_title">Redémarrage requis</string>
-    <string name="restart_required_message">Pour appliquer le changement de langue, l\'application doit être redémarrée.</string>
-    <string name="restart_now">Redémarrer maintenant</string>
-    <string name="restart_later">Plus tard</string>
-    <string name="settings_button">Paramètres</string>
 </resources>
