@@ -393,7 +393,7 @@ private fun SideTabBar(
 ) {
     Surface(
         modifier = Modifier
-            .width(75.dp)
+            .width(80.dp)  // Увеличено с 75dp до 80dp
             .fillMaxHeight(),
         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
         shadowElevation = 8.dp
@@ -401,7 +401,7 @@ private fun SideTabBar(
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .padding(horizontal = 2.dp, vertical = 16.dp),
+                .padding(horizontal = 2.dp, vertical = 8.dp),  // Уменьшено с 16dp до 8dp
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -518,7 +518,7 @@ private fun SideTabBarItem(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(75.dp)
+            .height(70.dp)  // Уменьшено с 75dp до 70dp
             .padding(horizontal = 2.dp, vertical = 2.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -554,7 +554,7 @@ private fun SideTabBarItem(
         Text(
             text = label,
             style = MaterialTheme.typography.labelSmall.copy(
-                fontSize = 8.sp
+                fontSize = 9.sp  // Увеличено с 8sp до 9sp для лучшей читаемости
             ),
             color = if (isSelected) {
                 MaterialTheme.colorScheme.primary
