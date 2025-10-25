@@ -227,7 +227,7 @@ private fun MainMenuCompactLayout(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 MenuButton(
-                    text = "TEST D'IDENTIFICATION",
+                    text = "MENU",
                     onClick = { navController.navigate("test_menu") },
                     modifier = Modifier.weight(1f),
                     isCompact = isCompactHeight
@@ -252,7 +252,7 @@ private fun MainMenuCompactLayout(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 MenuButton(
-                    text = "TESTS",
+                    text = "MENU",
                     onClick = { navController.navigate("test_menu") },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
@@ -365,7 +365,7 @@ private fun MainMenuLargeLayout(
                 }
 
                 MenuButton(
-                    text = "TEST D'IDENTIFICATION",
+                    text = "MENU",
                     onClick = { navController.navigate("test_menu") },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
