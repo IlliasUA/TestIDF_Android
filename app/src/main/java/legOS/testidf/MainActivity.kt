@@ -194,6 +194,9 @@ fun AppNavigationWithSubscription(
             composable("help_screen") {
                 HelpScreen(navController = navController)
             }
+            composable("news_screen") {
+                NewsScreen(navController = navController)
+            }
         }
     }
 }

@@ -104,6 +104,17 @@ fun TestMenuScreen(navController: NavController) {
         }
     }
 
+    val iconNews = remember {
+        try {
+            context.assets.open("images/icon_upgrade.png").use { inputStream ->
+                BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
+            }
+        } catch (e: IOException) {
+            Log.e("TestMenuScreen", "Error loading icon_upgrade.png", e)
+            null
+        }
+    }
+
     LaunchedEffect(Unit) {
         Log.d("TestMenuScreen", "Screen launched/relaunched - resetting state")
     }
@@ -173,7 +184,9 @@ fun TestMenuScreen(navController: NavController) {
                     iconRetour = iconRetour,
                     iconCategories = iconCategories,
                     iconModes = iconModes,
-                    iconRechercher = iconRechercher
+                    iconRechercher = iconRechercher,
+                    iconNews = iconNews,
+                    navController = navController
                 )
             }
         } else {
@@ -227,7 +240,9 @@ fun TestMenuScreen(navController: NavController) {
                     iconRetour = iconRetour,
                     iconCategories = iconCategories,
                     iconModes = iconModes,
-                    iconRechercher = iconRechercher
+                    iconRechercher = iconRechercher,
+                    iconNews = iconNews,
+                    navController = navController
                 )
             }
         }
@@ -304,13 +319,15 @@ private fun BottomTabBar(
     iconRetour: ImageBitmap?,
     iconCategories: ImageBitmap?,
     iconModes: ImageBitmap?,
-    iconRechercher: ImageBitmap?
+    iconRechercher: ImageBitmap?,
+    iconNews: ImageBitmap?,
+    navController: NavController
 ) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .height(70.dp),
-        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f), // ИЗМЕНЕНО: один цвет
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
         shadowElevation = 8.dp
     ) {
         Row(
@@ -351,6 +368,14 @@ private fun BottomTabBar(
                 onClick = { onTabSelected(3) },
                 iconSize = 32.dp
             )
+
+            TabBarItem(
+                icon = iconNews,
+                label = "News",
+                isSelected = false,
+                onClick = { navController.navigate("news_screen") },
+                iconSize = 32.dp
+            )
         }
     }
 }
@@ -362,13 +387,15 @@ private fun SideTabBar(
     iconRetour: ImageBitmap?,
     iconCategories: ImageBitmap?,
     iconModes: ImageBitmap?,
-    iconRechercher: ImageBitmap?
+    iconRechercher: ImageBitmap?,
+    iconNews: ImageBitmap?,
+    navController: NavController
 ) {
     Surface(
         modifier = Modifier
             .width(75.dp)
             .fillMaxHeight(),
-        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f), // ИЗМЕНЕНО: один цвет
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
         shadowElevation = 8.dp
     ) {
         Column(
@@ -409,6 +436,14 @@ private fun SideTabBar(
                 onClick = { onTabSelected(3) },
                 iconSize = 32.dp
             )
+
+            SideTabBarItem(
+                icon = iconNews,
+                label = "News",
+                isSelected = false,
+                onClick = { navController.navigate("news_screen") },
+                iconSize = 32.dp
+            )
         }
     }
 }
@@ -423,7 +458,7 @@ private fun TabBarItem(
 ) {
     Column(
         modifier = Modifier
-            .width(70.dp)
+            .width(60.dp)
             .fillMaxHeight()
             .padding(vertical = 2.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -557,7 +592,7 @@ private fun CategoriesCompactLayout(
             .fillMaxSize()
             .verticalScroll(scrollState)
             .padding(horizontal = horizontalPadding, vertical = verticalPadding)
-            .padding(top = 72.dp), // Отступ для кнопки помощи
+            .padding(top = 72.dp),
         verticalArrangement = if (isCompactHeight) Arrangement.Top else Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -612,7 +647,7 @@ private fun CategoriesLargeLayout(
             .fillMaxSize()
             .verticalScroll(scrollState)
             .padding(horizontal = horizontalPadding, vertical = verticalPadding)
-            .padding(top = 72.dp), // Отступ для кнопки помощи
+            .padding(top = 72.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -690,7 +725,7 @@ private fun ModesCompactLayout(
             .fillMaxSize()
             .verticalScroll(scrollState)
             .padding(horizontal = horizontalPadding, vertical = verticalPadding)
-            .padding(top = 72.dp), // Отступ для кнопки помощи
+            .padding(top = 72.dp),
         verticalArrangement = if (isCompactHeight) Arrangement.Top else Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -784,7 +819,7 @@ private fun ModesLargeLayout(
             .fillMaxSize()
             .verticalScroll(scrollState)
             .padding(horizontal = horizontalPadding, vertical = verticalPadding)
-            .padding(top = 72.dp), // Отступ для кнопки помощи
+            .padding(top = 72.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -892,7 +927,7 @@ private fun CategoryButton(
             )
             .padding(vertical = if (isCompact) 2.dp else 4.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFF607D8B), // ИЗМЕНЕНО
+            containerColor = Color(0xFF607D8B),
             contentColor = Color.White
         ),
         shape = MaterialTheme.shapes.medium,
@@ -929,7 +964,7 @@ private fun ModeButton(
             .height(if (isCompact) 44.dp else 52.dp)
             .padding(vertical = if (isCompact) 2.dp else 4.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFF607D8B), // ИЗМЕНЕНО
+            containerColor = Color(0xFF607D8B),
             contentColor = Color.White
         ),
         shape = MaterialTheme.shapes.medium,
