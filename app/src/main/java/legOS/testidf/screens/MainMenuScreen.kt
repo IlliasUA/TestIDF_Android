@@ -216,6 +216,12 @@ private fun MainMenuCompactLayout(
                     isCompact = isCompactHeight
                 )
                 MenuButton(
+                    text = stringResource(R.string.settings_button),
+                    onClick = { navController.navigate("language_settings") },
+                    modifier = Modifier.weight(1f),
+                    isCompact = isCompactHeight
+                )
+                MenuButton(
                     text = stringResource(R.string.quit_button),
                     onClick = { showQuitConfirmation.value = true },
                     modifier = Modifier.weight(1f),
@@ -237,6 +243,12 @@ private fun MainMenuCompactLayout(
                 MenuButton(
                     text = stringResource(R.string.info_button),
                     onClick = { navController.navigate("info_screen") },
+                    modifier = Modifier.fillMaxWidth(buttonWidth),
+                    isCompact = isCompactHeight
+                )
+                MenuButton(
+                    text = stringResource(R.string.settings_button),
+                    onClick = { navController.navigate("language_settings") },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
                 )
@@ -350,6 +362,12 @@ private fun MainMenuLargeLayout(
                 MenuButton(
                     text = stringResource(R.string.info_button),
                     onClick = { navController.navigate("info_screen") },
+                    modifier = Modifier.fillMaxWidth(buttonWidth),
+                    isCompact = isCompactHeight
+                )
+                MenuButton(
+                    text = stringResource(R.string.settings_button),
+                    onClick = { navController.navigate("language_settings") },
                     modifier = Modifier.fillMaxWidth(buttonWidth),
                     isCompact = isCompactHeight
                 )
