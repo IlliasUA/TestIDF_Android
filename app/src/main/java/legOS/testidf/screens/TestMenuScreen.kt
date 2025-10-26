@@ -26,12 +26,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import legOS.testidf.R
 import java.io.IOException
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -166,7 +168,7 @@ fun TestMenuScreen(navController: NavController) {
                     ) {
                         Icon(
                             Icons.Default.Help,
-                            contentDescription = "Aide",
+                            contentDescription = stringResource(R.string.help_button),
                             modifier = Modifier.size(32.dp)
                         )
                     }
@@ -222,7 +224,7 @@ fun TestMenuScreen(navController: NavController) {
                     ) {
                         Icon(
                             Icons.Default.Help,
-                            contentDescription = "Aide",
+                            contentDescription = stringResource(R.string.help_button),
                             modifier = Modifier.size(32.dp)
                         )
                     }
@@ -339,7 +341,7 @@ private fun BottomTabBar(
         ) {
             TabBarItem(
                 icon = iconRetour,
-                label = "Retour",
+                label = stringResource(R.string.return_tab),
                 isSelected = false,
                 onClick = { onTabSelected(0) },
                 iconSize = 32.dp
@@ -347,7 +349,7 @@ private fun BottomTabBar(
 
             TabBarItem(
                 icon = iconCategories,
-                label = "Catégories",
+                label = stringResource(R.string.categories_tab),
                 isSelected = selectedTab == 1,
                 onClick = { onTabSelected(1) },
                 iconSize = 32.dp
@@ -355,7 +357,7 @@ private fun BottomTabBar(
 
             TabBarItem(
                 icon = iconModes,
-                label = "Modes",
+                label = stringResource(R.string.modes_tab),
                 isSelected = selectedTab == 2,
                 onClick = { onTabSelected(2) },
                 iconSize = 32.dp
@@ -363,7 +365,7 @@ private fun BottomTabBar(
 
             TabBarItem(
                 icon = iconRechercher,
-                label = "Rechercher",
+                label = stringResource(R.string.search_tab),
                 isSelected = selectedTab == 3,
                 onClick = { onTabSelected(3) },
                 iconSize = 32.dp
@@ -371,7 +373,7 @@ private fun BottomTabBar(
 
             TabBarItem(
                 icon = iconNews,
-                label = "News",
+                label = stringResource(R.string.news_tab),
                 isSelected = false,
                 onClick = { navController.navigate("news_screen") },
                 iconSize = 32.dp
@@ -393,7 +395,7 @@ private fun SideTabBar(
 ) {
     Surface(
         modifier = Modifier
-            .width(80.dp)  // Увеличено с 75dp до 80dp
+            .width(80.dp)
             .fillMaxHeight(),
         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
         shadowElevation = 8.dp
@@ -401,13 +403,13 @@ private fun SideTabBar(
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .padding(horizontal = 2.dp, vertical = 8.dp),  // Уменьшено с 16dp до 8dp
+                .padding(horizontal = 2.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             SideTabBarItem(
                 icon = iconRetour,
-                label = "Retour",
+                label = stringResource(R.string.return_tab),
                 isSelected = false,
                 onClick = { onTabSelected(0) },
                 iconSize = 32.dp
@@ -415,7 +417,7 @@ private fun SideTabBar(
 
             SideTabBarItem(
                 icon = iconCategories,
-                label = "Catégories",
+                label = stringResource(R.string.categories_tab),
                 isSelected = selectedTab == 1,
                 onClick = { onTabSelected(1) },
                 iconSize = 32.dp
@@ -423,7 +425,7 @@ private fun SideTabBar(
 
             SideTabBarItem(
                 icon = iconModes,
-                label = "Modes",
+                label = stringResource(R.string.modes_tab),
                 isSelected = selectedTab == 2,
                 onClick = { onTabSelected(2) },
                 iconSize = 32.dp
@@ -431,7 +433,7 @@ private fun SideTabBar(
 
             SideTabBarItem(
                 icon = iconRechercher,
-                label = "Rechercher",
+                label = stringResource(R.string.search_tab),
                 isSelected = selectedTab == 3,
                 onClick = { onTabSelected(3) },
                 iconSize = 32.dp
@@ -439,7 +441,7 @@ private fun SideTabBar(
 
             SideTabBarItem(
                 icon = iconNews,
-                label = "News",
+                label = stringResource(R.string.news_tab),
                 isSelected = false,
                 onClick = { navController.navigate("news_screen") },
                 iconSize = 32.dp
@@ -518,7 +520,7 @@ private fun SideTabBarItem(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp)  // Уменьшено с 75dp до 70dp
+            .height(70.dp)
             .padding(horizontal = 2.dp, vertical = 2.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -554,7 +556,7 @@ private fun SideTabBarItem(
         Text(
             text = label,
             style = MaterialTheme.typography.labelSmall.copy(
-                fontSize = 9.sp  // Увеличено с 8sp до 9sp для лучшей читаемости
+                fontSize = 9.sp
             ),
             color = if (isSelected) {
                 MaterialTheme.colorScheme.primary
@@ -604,21 +606,41 @@ private fun CategoriesCompactLayout(
             verticalArrangement = Arrangement.spacedBy(buttonSpacing),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            listOf(
-                "Chars de combat" to "tanks",
-                "Artillerie" to "artillery",
-                "Reconnaissance" to "recon",
-                "Génie" to "genie",
-                "Avion/Hélicoptère" to "air"
-            ).forEach { (text, category) ->
-                CategoryButton(
-                    text = text,
-                    category = category,
-                    navController = navController,
-                    modifier = Modifier.fillMaxWidth(1f),
-                    isCompact = isCompactHeight
-                )
-            }
+            CategoryButton(
+                text = stringResource(R.string.category_tanks),
+                category = "tanks",
+                navController = navController,
+                modifier = Modifier.fillMaxWidth(1f),
+                isCompact = isCompactHeight
+            )
+            CategoryButton(
+                text = stringResource(R.string.category_artillery),
+                category = "artillery",
+                navController = navController,
+                modifier = Modifier.fillMaxWidth(1f),
+                isCompact = isCompactHeight
+            )
+            CategoryButton(
+                text = stringResource(R.string.category_recon),
+                category = "recon",
+                navController = navController,
+                modifier = Modifier.fillMaxWidth(1f),
+                isCompact = isCompactHeight
+            )
+            CategoryButton(
+                text = stringResource(R.string.category_engineer),
+                category = "genie",
+                navController = navController,
+                modifier = Modifier.fillMaxWidth(1f),
+                isCompact = isCompactHeight
+            )
+            CategoryButton(
+                text = stringResource(R.string.category_air),
+                category = "air",
+                navController = navController,
+                modifier = Modifier.fillMaxWidth(1f),
+                isCompact = isCompactHeight
+            )
         }
 
         Spacer(Modifier.height(if (isCompactHeight) 16.dp else 24.dp))
@@ -660,19 +682,27 @@ private fun CategoriesLargeLayout(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.weight(1f)
             ) {
-                listOf(
-                    "Chars de combat" to "tanks",
-                    "Artillerie" to "artillery",
-                    "Reconnaissance" to "recon"
-                ).forEach { (text, category) ->
-                    CategoryButton(
-                        text = text,
-                        category = category,
-                        navController = navController,
-                        modifier = Modifier.fillMaxWidth(1f),
-                        isCompact = isCompactHeight
-                    )
-                }
+                CategoryButton(
+                    text = stringResource(R.string.category_tanks),
+                    category = "tanks",
+                    navController = navController,
+                    modifier = Modifier.fillMaxWidth(1f),
+                    isCompact = isCompactHeight
+                )
+                CategoryButton(
+                    text = stringResource(R.string.category_artillery),
+                    category = "artillery",
+                    navController = navController,
+                    modifier = Modifier.fillMaxWidth(1f),
+                    isCompact = isCompactHeight
+                )
+                CategoryButton(
+                    text = stringResource(R.string.category_recon),
+                    category = "recon",
+                    navController = navController,
+                    modifier = Modifier.fillMaxWidth(1f),
+                    isCompact = isCompactHeight
+                )
             }
 
             Spacer(Modifier.width(16.dp))
@@ -682,18 +712,20 @@ private fun CategoriesLargeLayout(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.weight(1f)
             ) {
-                listOf(
-                    "Génie" to "genie",
-                    "Avion/Hélicoptère" to "air"
-                ).forEach { (text, category) ->
-                    CategoryButton(
-                        text = text,
-                        category = category,
-                        navController = navController,
-                        modifier = Modifier.fillMaxWidth(1f),
-                        isCompact = isCompactHeight
-                    )
-                }
+                CategoryButton(
+                    text = stringResource(R.string.category_engineer),
+                    category = "genie",
+                    navController = navController,
+                    modifier = Modifier.fillMaxWidth(1f),
+                    isCompact = isCompactHeight
+                )
+                CategoryButton(
+                    text = stringResource(R.string.category_air),
+                    category = "air",
+                    navController = navController,
+                    modifier = Modifier.fillMaxWidth(1f),
+                    isCompact = isCompactHeight
+                )
             }
         }
 
@@ -738,28 +770,28 @@ private fun ModesCompactLayout(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ModeButton(
-                text = "Test avancé",
+                text = stringResource(R.string.mode_advanced),
                 onClick = { navController.navigate("time_selection/bm2") },
                 modifier = Modifier.fillMaxWidth(1f),
                 isCompact = isCompactHeight
             )
 
             ModeButton(
-                text = "Test final",
+                text = stringResource(R.string.mode_final),
                 onClick = { navController.navigate("player_name") },
                 modifier = Modifier.fillMaxWidth(1f),
                 isCompact = isCompactHeight
             )
 
             ModeButton(
-                text = "Test collectif",
+                text = stringResource(R.string.mode_collective),
                 onClick = { navController.navigate("competition") },
                 modifier = Modifier.fillMaxWidth(1f),
                 isCompact = isCompactHeight
             )
 
             ModeButton(
-                text = "Creation",
+                text = stringResource(R.string.mode_creation),
                 onClick = { navController.navigate("creation") },
                 modifier = Modifier.fillMaxWidth(1f),
                 isCompact = isCompactHeight
@@ -784,7 +816,7 @@ private fun ModesCompactLayout(
                 )
             ) {
                 Text(
-                    text = "🏆 Panthéon",
+                    text = stringResource(R.string.hall_of_fame),
                     style = MaterialTheme.typography.bodyLarge.copy(
                         fontSize = if (isCompactHeight) 12.sp else 15.sp
                     ),
@@ -833,14 +865,14 @@ private fun ModesLargeLayout(
                 modifier = Modifier.weight(1f)
             ) {
                 ModeButton(
-                    text = "Test avancé",
+                    text = stringResource(R.string.mode_advanced),
                     onClick = { navController.navigate("time_selection/bm2") },
                     modifier = Modifier.fillMaxWidth(1f),
                     isCompact = isCompactHeight
                 )
 
                 ModeButton(
-                    text = "Test final",
+                    text = stringResource(R.string.mode_final),
                     onClick = { navController.navigate("player_name") },
                     modifier = Modifier.fillMaxWidth(1f),
                     isCompact = isCompactHeight
@@ -855,14 +887,14 @@ private fun ModesLargeLayout(
                 modifier = Modifier.weight(1f)
             ) {
                 ModeButton(
-                    text = "Test collectif",
+                    text = stringResource(R.string.mode_collective),
                     onClick = { navController.navigate("competition") },
                     modifier = Modifier.fillMaxWidth(1f),
                     isCompact = isCompactHeight
                 )
 
                 ModeButton(
-                    text = "Creation",
+                    text = stringResource(R.string.mode_creation),
                     onClick = { navController.navigate("creation") },
                     modifier = Modifier.fillMaxWidth(1f),
                     isCompact = isCompactHeight
@@ -889,7 +921,7 @@ private fun ModesLargeLayout(
             )
         ) {
             Text(
-                text = "🏆 Panthéon",
+                text = stringResource(R.string.hall_of_fame),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontSize = if (isCompactHeight) 12.sp else 15.sp
                 ),

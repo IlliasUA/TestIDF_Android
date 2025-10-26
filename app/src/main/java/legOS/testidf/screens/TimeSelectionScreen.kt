@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
@@ -18,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import android.util.Log
 import androidx.compose.ui.graphics.asImageBitmap
+import legOS.testidf.R
 import legOS.testidf.loadImageFromAssets
 
 @Composable
@@ -27,8 +27,19 @@ fun TimeSelectionScreen(navController: NavController, category: String) {
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     val playerName = navController.previousBackStackEntry?.savedStateHandle?.get<String>("playerName")
-        ?: navController.previousBackStackEntry?.arguments?.getString("playerName") ?: "Anonyme"
+        ?: navController.previousBackStackEntry?.arguments?.getString("playerName")
+        ?: context.getString(R.string.name_label)
     Log.d("TimeSelectionScreen", "Received player name: $playerName")
+
+    // Получаем локализованное название категории
+    val categoryDisplayName = when(category) {
+        "tanks" -> context.getString(R.string.category_tanks)
+        "artillery" -> context.getString(R.string.category_artillery)
+        "recon" -> context.getString(R.string.category_recon)
+        "genie" -> context.getString(R.string.category_engineer)
+        "air" -> context.getString(R.string.category_air)
+        else -> category.replace("_", " ")
+    }
 
     // Load the background image
     val backgroundImage = loadImageFromAssets(context, "images/background_2.jpg")
@@ -59,7 +70,7 @@ fun TimeSelectionScreen(navController: NavController, category: String) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    "Catégorie: ${category.replace("_", " ")}",
+                    "${context.getString(R.string.time_selection_category_label)}: $categoryDisplayName",
                     style = MaterialTheme.typography.headlineMedium,
                     textAlign = TextAlign.Center
                 )
@@ -79,7 +90,7 @@ fun TimeSelectionScreen(navController: NavController, category: String) {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            "Joueur:",
+                            context.getString(R.string.player_label),
                             style = MaterialTheme.typography.titleSmall,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -102,7 +113,7 @@ fun TimeSelectionScreen(navController: NavController, category: String) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    "Sélectionnez le temps par question",
+                    context.getString(R.string.time_selection_title),
                     style = MaterialTheme.typography.headlineSmall,
                     textAlign = TextAlign.Center
                 )
@@ -128,7 +139,10 @@ fun TimeSelectionScreen(navController: NavController, category: String) {
                                 contentColor = MaterialTheme.colorScheme.onPrimary
                             )
                         ) {
-                            Text("$time secondes", style = MaterialTheme.typography.bodyLarge)
+                            Text(
+                                context.getString(R.string.seconds, time),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
                         }
                     }
                 }
@@ -145,7 +159,10 @@ fun TimeSelectionScreen(navController: NavController, category: String) {
                         contentColor = MaterialTheme.colorScheme.onTertiary
                     )
                 ) {
-                    Text("Retour", style = MaterialTheme.typography.bodyMedium)
+                    Text(
+                        context.getString(R.string.back_button),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
                 }
             }
         }
@@ -167,7 +184,7 @@ fun TimeSelectionScreen(navController: NavController, category: String) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                "Sélectionnez le temps par question",
+                context.getString(R.string.time_selection_title),
                 style = MaterialTheme.typography.headlineMedium,
                 textAlign = TextAlign.Center
             )
@@ -192,7 +209,10 @@ fun TimeSelectionScreen(navController: NavController, category: String) {
                             contentColor = MaterialTheme.colorScheme.onPrimary
                         )
                     ) {
-                        Text("$time secondes", style = MaterialTheme.typography.bodyLarge)
+                        Text(
+                            context.getString(R.string.seconds, time),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                     }
                 }
             }
@@ -210,7 +230,10 @@ fun TimeSelectionScreen(navController: NavController, category: String) {
                     contentColor = MaterialTheme.colorScheme.onTertiary
                 )
             ) {
-                Text("Retour", style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    context.getString(R.string.back_button),
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
         }
     }

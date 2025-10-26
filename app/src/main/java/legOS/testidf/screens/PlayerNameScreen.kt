@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import android.content.res.Configuration
 import android.util.Log
 import androidx.compose.ui.graphics.asImageBitmap
+import legOS.testidf.R
 import legOS.testidf.loadImageFromAssets
 
 @Composable
@@ -52,7 +53,7 @@ fun PlayerNameScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                "Entrez votre nom",
+                context.getString(R.string.enter_name_title),
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.padding(16.dp)
             )
@@ -60,7 +61,7 @@ fun PlayerNameScreen(navController: NavController) {
             OutlinedTextField(
                 value = playerName,
                 onValueChange = { playerName = it },
-                label = { Text("Nom") },
+                label = { Text(context.getString(R.string.name_label)) },
                 modifier = Modifier
                     .width(300.dp)
                     .padding(8.dp)
@@ -89,7 +90,10 @@ fun PlayerNameScreen(navController: NavController) {
                         contentColor = MaterialTheme.colorScheme.onPrimary
                     )
                 ) {
-                    Text("Continuer", style = MaterialTheme.typography.bodyLarge)
+                    Text(
+                        context.getString(R.string.continue_button),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -105,7 +109,10 @@ fun PlayerNameScreen(navController: NavController) {
                         contentColor = MaterialTheme.colorScheme.onTertiary
                     )
                 ) {
-                    Text("Retour", style = MaterialTheme.typography.bodyMedium)
+                    Text(
+                        context.getString(R.string.back_button),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
                 }
             }
         }
@@ -119,6 +126,8 @@ fun PlayerNameLandscapeLayout(
     navController: NavController,
     backgroundBitmap: android.graphics.Bitmap?
 ) {
+    val context = LocalContext.current
+
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -144,7 +153,7 @@ fun PlayerNameLandscapeLayout(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                "Entrez votre nom",
+                context.getString(R.string.enter_name_title),
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
             )
@@ -161,7 +170,7 @@ fun PlayerNameLandscapeLayout(
             OutlinedTextField(
                 value = playerName,
                 onValueChange = { onPlayerNameChange(it) },
-                label = { Text("Nom") },
+                label = { Text(context.getString(R.string.name_label)) },
                 modifier = Modifier
                     .width(300.dp)
                     .padding(top = 8.dp, bottom = 8.dp)
@@ -187,7 +196,10 @@ fun PlayerNameLandscapeLayout(
                     contentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
-                Text("Continuer", style = MaterialTheme.typography.bodyLarge)
+                Text(
+                    context.getString(R.string.continue_button),
+                    style = MaterialTheme.typography.bodyLarge
+                )
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -203,7 +215,10 @@ fun PlayerNameLandscapeLayout(
                     contentColor = MaterialTheme.colorScheme.onTertiary
                 )
             ) {
-                Text("Retour", style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    context.getString(R.string.back_button),
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
         }
     }

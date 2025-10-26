@@ -39,6 +39,7 @@
 
     <!-- Sélection de temps -->
     <string name="time_selection_title">Sélectionnez le temps par question</string>
+    <string name="time_selection_category_label">Catégorie</string>
     <string name="seconds">%d secondes</string>
     <string name="back_button">Retour</string>
     <string name="continue_button">Continuer</string>
@@ -153,6 +154,55 @@
 
     <!-- Aide -->
     <string name="help_title">Guide</string>
+
+    <!-- HelpScreen - Sections principales -->
+    <string name="help_categories_title">📚 Catégories</string>
+    <string name="help_categories_description">Testez vos connaissances par catégorie militaire :</string>
+
+    <string name="help_categories_tanks_title">Chars de combat</string>
+    <string name="help_categories_tanks_desc">Identifiez les chars de combat</string>
+
+    <string name="help_categories_artillery_title">Artillerie</string>
+    <string name="help_categories_artillery_desc">Reconnaissez les systèmes d\'artillerie</string>
+
+    <string name="help_categories_recon_title">Reconnaissance</string>
+    <string name="help_categories_recon_desc">Véhicules de reconnaissance et d\'éclairage</string>
+
+    <string name="help_categories_engineer_title">Génie</string>
+    <string name="help_categories_engineer_desc">Équipements du génie militaire</string>
+
+    <string name="help_categories_air_title">Avion/Hélicoptère</string>
+    <string name="help_categories_air_desc">Aéronefs militaires</string>
+
+    <string name="help_advanced_title">🎯 Test avancé</string>
+    <string name="help_advanced_description">Un mélange de toutes les catégories pour tester vos connaissances globales. Questions plus difficiles et chronométrées.</string>
+
+    <string name="help_final_title">🏆 Test final</string>
+    <string name="help_final_description">Le test ultime ! Toutes les catégories, questions complexes, temps limité. Vos résultats seront enregistrés dans le Panthéon.</string>
+
+    <string name="help_collective_title">👥 Test collectif</string>
+    <string name="help_collective_description">Mode multijoueur en temps réel :</string>
+
+    <string name="help_collective_chef_title">Chef</string>
+    <string name="help_collective_chef_desc">Créez un groupe et envoyez des tests aux participants</string>
+
+    <string name="help_collective_participant_title">Participant</string>
+    <string name="help_collective_participant_desc">Rejoignez un groupe avec un code et participez aux tests</string>
+
+    <string name="help_collective_competition_title">Compétition</string>
+    <string name="help_collective_competition_desc">Comparez vos scores en temps réel</string>
+
+    <string name="help_creation_title">✏️ Creation</string>
+    <string name="help_creation_description">Créez vos propres tests personnalisés :</string>
+
+    <string name="help_creation_custom_title">Questions personnalisées</string>
+    <string name="help_creation_custom_desc">Ajoutez vos propres questions et images</string>
+
+    <string name="help_creation_flexible_title">Paramètres flexibles</string>
+    <string name="help_creation_flexible_desc">Définissez le temps par question</string>
+
+    <string name="help_search_title">🔍 Rechercher</string>
+    <string name="help_search_description">Explorez le catalogue complet des véhicules et équipements militaires avec leurs caractéristiques détaillées.</string>
 
     <!-- Actualités -->
     <string name="news_title">📰 Actualités</string>

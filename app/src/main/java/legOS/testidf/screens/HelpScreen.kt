@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import legOS.testidf.R
 import java.io.IOException
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,7 +71,7 @@ fun HelpScreen(navController: NavController) {
             TopAppBar(
                 title = {
                     Text(
-                        "Guide",
+                        context.getString(R.string.help_title),
                         style = MaterialTheme.typography.headlineSmall
                     )
                 },
@@ -78,7 +79,7 @@ fun HelpScreen(navController: NavController) {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
                             Icons.Default.ArrowBack,
-                            contentDescription = "Retour",
+                            contentDescription = context.getString(R.string.back_button),
                             tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
@@ -107,26 +108,31 @@ fun HelpScreen(navController: NavController) {
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         HelpSection(
-                            title = "📚 Catégories",
-                            description = "Testez vos connaissances par catégorie militaire :",
+                            title = context.getString(R.string.help_categories_title),
+                            description = context.getString(R.string.help_categories_description),
                             items = listOf(
-                                "Chars de combat" to "Identifiez les chars de combat",
-                                "Artillerie" to "Reconnaissez les systèmes d'artillerie",
-                                "Reconnaissance" to "Véhicules de reconnaissance et d'éclairage",
-                                "Génie" to "Équipements du génie militaire",
-                                "Avion/Hélicoptère" to "Aéronefs militaires"
+                                context.getString(R.string.help_categories_tanks_title) to
+                                        context.getString(R.string.help_categories_tanks_desc),
+                                context.getString(R.string.help_categories_artillery_title) to
+                                        context.getString(R.string.help_categories_artillery_desc),
+                                context.getString(R.string.help_categories_recon_title) to
+                                        context.getString(R.string.help_categories_recon_desc),
+                                context.getString(R.string.help_categories_engineer_title) to
+                                        context.getString(R.string.help_categories_engineer_desc),
+                                context.getString(R.string.help_categories_air_title) to
+                                        context.getString(R.string.help_categories_air_desc)
                             )
                         )
 
                         HelpSection(
-                            title = "🎯 Test avancé",
-                            description = "Un mélange de toutes les catégories pour tester vos connaissances globales. Questions plus difficiles et chronométrées.",
+                            title = context.getString(R.string.help_advanced_title),
+                            description = context.getString(R.string.help_advanced_description),
                             items = emptyList()
                         )
 
                         HelpSection(
-                            title = "🏆 Test final",
-                            description = "Le test ultime ! Toutes les catégories, questions complexes, temps limité. Vos résultats seront enregistrés dans le Panthéon.",
+                            title = context.getString(R.string.help_final_title),
+                            description = context.getString(R.string.help_final_description),
                             items = emptyList()
                         )
                     }
@@ -138,27 +144,32 @@ fun HelpScreen(navController: NavController) {
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         HelpSection(
-                            title = "👥 Test collectif",
-                            description = "Mode multijoueur en temps réel :",
+                            title = context.getString(R.string.help_collective_title),
+                            description = context.getString(R.string.help_collective_description),
                             items = listOf(
-                                "Chef" to "Créez un groupe et envoyez des tests aux participants",
-                                "Participant" to "Rejoignez un groupe avec un code et participez aux tests",
-                                "Compétition" to "Comparez vos scores en temps réel"
+                                context.getString(R.string.help_collective_chef_title) to
+                                        context.getString(R.string.help_collective_chef_desc),
+                                context.getString(R.string.help_collective_participant_title) to
+                                        context.getString(R.string.help_collective_participant_desc),
+                                context.getString(R.string.help_collective_competition_title) to
+                                        context.getString(R.string.help_collective_competition_desc)
                             )
                         )
 
                         HelpSection(
-                            title = "✏️ Creation",
-                            description = "Créez vos propres tests personnalisés :",
+                            title = context.getString(R.string.help_creation_title),
+                            description = context.getString(R.string.help_creation_description),
                             items = listOf(
-                                "Questions personnalisées" to "Ajoutez vos propres questions et images",
-                                "Paramètres flexibles" to "Définissez le temps par question"
+                                context.getString(R.string.help_creation_custom_title) to
+                                        context.getString(R.string.help_creation_custom_desc),
+                                context.getString(R.string.help_creation_flexible_title) to
+                                        context.getString(R.string.help_creation_flexible_desc)
                             )
                         )
 
                         HelpSection(
-                            title = "🔍 Rechercher",
-                            description = "Explorez le catalogue complet des véhicules et équipements militaires avec leurs caractéristiques détaillées.",
+                            title = context.getString(R.string.help_search_title),
+                            description = context.getString(R.string.help_search_description),
                             items = emptyList()
                         )
                     }
@@ -173,51 +184,61 @@ fun HelpScreen(navController: NavController) {
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     HelpSection(
-                        title = "📚 Catégories",
-                        description = "Testez vos connaissances par catégorie militaire :",
+                        title = context.getString(R.string.help_categories_title),
+                        description = context.getString(R.string.help_categories_description),
                         items = listOf(
-                            "Chars de combat" to "Identifiez les chars de combat",
-                            "Artillerie" to "Reconnaissez les systèmes d'artillerie",
-                            "Reconnaissance" to "Véhicules de reconnaissance et d'éclairage",
-                            "Génie" to "Équipements du génie militaire",
-                            "Avion/Hélicoptère" to "Aéronefs militaires"
+                            context.getString(R.string.help_categories_tanks_title) to
+                                    context.getString(R.string.help_categories_tanks_desc),
+                            context.getString(R.string.help_categories_artillery_title) to
+                                    context.getString(R.string.help_categories_artillery_desc),
+                            context.getString(R.string.help_categories_recon_title) to
+                                    context.getString(R.string.help_categories_recon_desc),
+                            context.getString(R.string.help_categories_engineer_title) to
+                                    context.getString(R.string.help_categories_engineer_desc),
+                            context.getString(R.string.help_categories_air_title) to
+                                    context.getString(R.string.help_categories_air_desc)
                         )
                     )
 
                     HelpSection(
-                        title = "🎯 Test avancé",
-                        description = "Un mélange de toutes les catégories pour tester vos connaissances globales. Questions plus difficiles et chronométrées.",
+                        title = context.getString(R.string.help_advanced_title),
+                        description = context.getString(R.string.help_advanced_description),
                         items = emptyList()
                     )
 
                     HelpSection(
-                        title = "🏆 Test final",
-                        description = "Le test ultime ! Toutes les catégories, questions complexes, temps limité. Vos résultats seront enregistrés dans le Panthéon.",
+                        title = context.getString(R.string.help_final_title),
+                        description = context.getString(R.string.help_final_description),
                         items = emptyList()
                     )
 
                     HelpSection(
-                        title = "👥 Test collectif",
-                        description = "Mode multijoueur en temps réel :",
+                        title = context.getString(R.string.help_collective_title),
+                        description = context.getString(R.string.help_collective_description),
                         items = listOf(
-                            "Chef" to "Créez un groupe et envoyez des tests aux participants",
-                            "Participant" to "Rejoignez un groupe avec un code et participez aux tests",
-                            "Compétition" to "Comparez vos scores en temps réel"
+                            context.getString(R.string.help_collective_chef_title) to
+                                    context.getString(R.string.help_collective_chef_desc),
+                            context.getString(R.string.help_collective_participant_title) to
+                                    context.getString(R.string.help_collective_participant_desc),
+                            context.getString(R.string.help_collective_competition_title) to
+                                    context.getString(R.string.help_collective_competition_desc)
                         )
                     )
 
                     HelpSection(
-                        title = "✏️ Creation",
-                        description = "Créez vos propres tests personnalisés :",
+                        title = context.getString(R.string.help_creation_title),
+                        description = context.getString(R.string.help_creation_description),
                         items = listOf(
-                            "Questions personnalisées" to "Ajoutez vos propres questions et images",
-                            "Paramètres flexibles" to "Définissez le temps par question"
+                            context.getString(R.string.help_creation_custom_title) to
+                                    context.getString(R.string.help_creation_custom_desc),
+                            context.getString(R.string.help_creation_flexible_title) to
+                                    context.getString(R.string.help_creation_flexible_desc)
                         )
                     )
 
                     HelpSection(
-                        title = "🔍 Rechercher",
-                        description = "Explorez le catalogue complet des véhicules et équipements militaires avec leurs caractéristiques détaillées.",
+                        title = context.getString(R.string.help_search_title),
+                        description = context.getString(R.string.help_search_description),
                         items = emptyList()
                     )
 

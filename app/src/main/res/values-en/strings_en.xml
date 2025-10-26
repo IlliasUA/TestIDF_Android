@@ -7,7 +7,7 @@
     <string name="main_menu_title">Main Menu</string>
     <string name="menu_button">MENU</string>
     <string name="info_button">INFO</string>
-    <string name="quit_button">QUIT</string>
+    <string name="quit_button">EXIT</string>
     <string name="quit_confirmation_title">Confirmation</string>
     <string name="quit_confirmation_message">Do you really want to quit the application?</string>
     <string name="yes">Yes</string>
@@ -39,6 +39,7 @@
 
     <!-- Time selection -->
     <string name="time_selection_title">Select time per question</string>
+    <string name="time_selection_category_label">Category</string>
     <string name="seconds">%d seconds</string>
     <string name="back_button">Back</string>
     <string name="continue_button">Continue</string>
@@ -154,11 +155,60 @@
     <!-- Help -->
     <string name="help_title">Guide</string>
 
+    <!-- HelpScreen - Main sections -->
+    <string name="help_categories_title">📚 Categories</string>
+    <string name="help_categories_description">Test your knowledge by military category:</string>
+
+    <string name="help_categories_tanks_title">Battle Tanks</string>
+    <string name="help_categories_tanks_desc">Identify battle tanks</string>
+
+    <string name="help_categories_artillery_title">Artillery</string>
+    <string name="help_categories_artillery_desc">Recognize artillery systems</string>
+
+    <string name="help_categories_recon_title">Reconnaissance</string>
+    <string name="help_categories_recon_desc">Reconnaissance and scouting vehicles</string>
+
+    <string name="help_categories_engineer_title">Engineering</string>
+    <string name="help_categories_engineer_desc">Military engineering equipment</string>
+
+    <string name="help_categories_air_title">Aircraft/Helicopter</string>
+    <string name="help_categories_air_desc">Military aircraft</string>
+
+    <string name="help_advanced_title">🎯 Advanced Test</string>
+    <string name="help_advanced_description">A mix of all categories to test your overall knowledge. More difficult and timed questions.</string>
+
+    <string name="help_final_title">🏆 Final Test</string>
+    <string name="help_final_description">The ultimate test! All categories, complex questions, limited time. Your results will be recorded in the Hall of Fame.</string>
+
+    <string name="help_collective_title">👥 Collective Test</string>
+    <string name="help_collective_description">Real-time multiplayer mode:</string>
+
+    <string name="help_collective_chef_title">Leader</string>
+    <string name="help_collective_chef_desc">Create a group and send tests to participants</string>
+
+    <string name="help_collective_participant_title">Participant</string>
+    <string name="help_collective_participant_desc">Join a group with a code and take tests</string>
+
+    <string name="help_collective_competition_title">Competition</string>
+    <string name="help_collective_competition_desc">Compare your scores in real time</string>
+
+    <string name="help_creation_title">✏️ Creation</string>
+    <string name="help_creation_description">Create your own custom tests:</string>
+
+    <string name="help_creation_custom_title">Custom questions</string>
+    <string name="help_creation_custom_desc">Add your own questions and images</string>
+
+    <string name="help_creation_flexible_title">Flexible settings</string>
+    <string name="help_creation_flexible_desc">Set time per question</string>
+
+    <string name="help_search_title">🔍 Search</string>
+    <string name="help_search_description">Explore the complete catalog of military vehicles and equipment with detailed characteristics.</string>
+
     <!-- News -->
     <string name="news_title">📰 News</string>
 
     <!-- hall_of_fame_title -->
-    <string name="hall_of_fame_title">Pantheon</string>
+    <string name="hall_of_fame_title">Hall of Fame</string>
     <string name="no_score_available">No score available</string>
     <string name="return_button">Back</string>
 
