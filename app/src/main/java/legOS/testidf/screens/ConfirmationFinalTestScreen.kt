@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -22,6 +23,7 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.ui.graphics.asImageBitmap
+import legOS.testidf.R
 import legOS.testidf.loadImageFromAssets
 
 
@@ -75,7 +77,7 @@ private fun ConfirmationCompactLayout(navController: NavController, playerName: 
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Confirmez le test FINAL pour $playerName",
+            text = stringResource(R.string.confirmation_final_test_message, playerName),
             style = MaterialTheme.typography.headlineSmall, // Smaller for phones
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onBackground,
@@ -119,7 +121,7 @@ private fun ConfirmationLargeLayout(navController: NavController, playerName: St
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Confirmez le test FINAL pour $playerName",
+                text = stringResource(R.string.confirmation_final_test_message, playerName),
                 style = MaterialTheme.typography.headlineMedium, // Larger for tablets
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground,
@@ -151,7 +153,7 @@ private fun ConfirmButton(navController: NavController, playerName: String, modi
         ),
         shape = MaterialTheme.shapes.medium
     ) {
-        Text("Confirmer", style = MaterialTheme.typography.bodyLarge)
+        Text(stringResource(R.string.confirm_button), style = MaterialTheme.typography.bodyLarge)
     }
 }
 
@@ -167,6 +169,6 @@ private fun CancelButton(navController: NavController, modifier: Modifier) {
         ),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.tertiary)
     ) {
-        Text("Annuler", style = MaterialTheme.typography.bodyLarge)
+        Text(stringResource(R.string.cancel_button), style = MaterialTheme.typography.bodyLarge)
     }
 }

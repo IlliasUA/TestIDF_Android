@@ -49,6 +49,11 @@
     <string name="name_label">Nom</string>
     <string name="player_label">Joueur:</string>
 
+    <!-- Confirmation test final -->
+    <string name="confirmation_final_test_message">Confirmez le test FINAL pour %s</string>
+    <string name="confirm_button">Confirmer</string>
+    <string name="cancel_button">Annuler</string>
+
     <!-- Test collectif -->
     <string name="competition_title">Choisissez votre rôle</string>
     <string name="competition_mode">Mode Compétition</string>
@@ -221,4 +226,99 @@
     <string name="cancel">Annuler</string>
     <string name="confirm">Confirmer</string>
     <string name="error_title">Erreur</string>
+
+    <!-- InfoScreen - Informations générales -->
+    <string name="info_app_title">Tanks Hunter: Quiz (v 1.0)</string>
+    <string name="info_general_title">Information générales</string>
+
+    <!-- Section 1: Politique de confidentialité -->
+    <string name="info_privacy_title">1. Politique de confidentialité</string>
+
+    <string name="info_privacy_intro_subtitle">Introduction</string>
+    <string name="info_privacy_intro_content">Cette Politique de confidentialité décrit comment l\'application \"Tanks Hunter: Quiz\" (\"l\'Application\") collecte, utilise et protège les informations des utilisateurs. L\'Application fonctionne principalement hors ligne et ne collecte aucune donnée personnelle. Cependant, le mode \"Test collectif\" nécessite une connexion Internet pour permettre le jeu multijoueur en temps réel et peut entraîner la collecte et le stockage de certaines informations.</string>
+
+    <string name="info_privacy_data_subtitle">Données collectées</string>
+    <string name="info_privacy_data_content">- Mode hors ligne : Aucune donnée personnelle n\'est collectée. Toutes les fonctionnalités hors ligne fonctionnent sans nécessiter de connexion ou de stockage externe.\n\n- Mode \"Test collectif\" (nécessite Internet) :\n\nPour permettre le mode multijoueur en temps réel, nous collectons temporairement les informations suivantes :\n\n- Nom d\'utilisateur ou pseudonyme fourni par l\'utilisateur\n- Résultats des tests (score, réponses)\n- Données de session de groupe (codes de groupe, identifiants de session)\n\nCes données sont stockées de manière temporaire sur un serveur distant et sont utilisées uniquement pour gérer les sessions de groupe et afficher les résultats en temps réel.</string>
+
+    <string name="info_privacy_usage_subtitle">Utilisation des données</string>
+    <string name="info_privacy_usage_content">Les données collectées dans le mode \"Test collectif\" sont utilisées uniquement pour :\n\n- Afficher les résultats des participants dans les sessions de groupe\n- Permettre la comparaison des scores entre les utilisateurs\n- Gérer les sessions de test en temps réel\n\nCes informations ne sont pas partagées avec des tiers à des fins commerciales et sont conservées uniquement le temps nécessaire au fonctionnement du mode collectif.</string>
+
+    <string name="info_privacy_security_subtitle">Sécurité</string>
+    <string name="info_privacy_security_content">Nous prenons des mesures raisonnables pour protéger les données stockées dans le cadre du mode \"Test collectif\". Les données sont transmises et stockées de manière sécurisée. Cependant, aucune méthode de transmission sur Internet ou de stockage électronique n\'est totalement sécurisée, et nous ne pouvons garantir une sécurité absolue.</string>
+
+    <string name="info_privacy_children_subtitle">Confidentialité des enfants</string>
+    <string name="info_privacy_children_content">L\'Application n\'est pas recommandée aux enfants de moins de 13 ans. Nous ne collectons pas sciemment de données personnelles auprès d\'enfants de moins de 14 ans. Si vous êtes parent ou tuteur et que vous pensez que votre enfant nous a fourni des informations personnelles, veuillez nous contacter à tanks.hunterquiz@gmail.com afin que nous puissions prendre les mesures appropriées.</string>
+
+    <string name="info_privacy_changes_subtitle">Modifications de la politique de confidentialité</string>
+    <string name="info_privacy_changes_content">Nous pouvons mettre à jour cette Politique de confidentialité de temps à autre. Toute modification sera publiée dans l\'Application ou sur cette page avec une date de mise à jour révisée. Nous vous encourageons à consulter régulièrement cette politique.</string>
+
+    <string name="info_privacy_contact_subtitle">Contactez-nous</string>
+    <string name="info_privacy_contact_content">Si vous avez des questions concernant cette Politique de confidentialité, veuillez nous contacter à l\'adresse suivante : tanks.hunterquiz@gmail.com</string>
+
+    <!-- Section 2: Conditions générales d'utilisation -->
+    <string name="info_terms_title">2. Conditions générales d\'utilisation</string>
+
+    <string name="info_terms_acceptance_subtitle">Acceptation des conditions</string>
+    <string name="info_terms_acceptance_content">En téléchargeant, installant et utilisant l\'application Tanks Hunter: Quiz (\"l\'Application\"), vous acceptez d\'être lié par les présentes Conditions générales d\'utilisation (\"Conditions\"). Si vous n\'acceptez pas ces Conditions, veuillez ne pas utiliser l\'Application.</string>
+
+    <string name="info_terms_description_subtitle">Description de l\'Application</string>
+    <string name="info_terms_description_content">L\'Application propose des tests éducatifs et informatifs sur les équipements militaires, organisés en plusieurs catégories, avec un test final. L\'Application fonctionne principalement hors ligne et ne nécessite pas de connexion Internet pour la plupart de ses fonctionnalités. Cependant, le mode \"Test collectif\" nécessite une connexion Internet stable pour permettre le jeu multijoueur en temps réel, la synchronisation des résultats et la gestion des sessions de groupe.</string>
+
+    <string name="info_terms_usage_subtitle">Utilisation autorisée</string>
+    <string name="info_terms_usage_content">Vous êtes autorisé à utiliser l\'Application uniquement à des fins personnelles et non commerciales. Vous ne devez pas :\n\n- Modifier, désosser, décompiler ou tenter d\'extraire le code source de l\'Application.\n- Utiliser l\'Application à des fins illégales ou non autorisées.\n- Copier, distribuer ou reproduire le contenu de l\'Application sans autorisation préalable.</string>
+
+    <string name="info_terms_intellectual_subtitle">Propriété intellectuelle</string>
+    <string name="info_terms_intellectual_content">Tout le contenu de l\'Application, y compris les textes, images et autres éléments, est protégé par les lois sur la propriété intellectuelle. Vous ne pouvez pas reproduire, distribuer ou utiliser ce contenu sans autorisation expresse, sauf dans le cadre de l\'utilisation normale de l\'Application.</string>
+
+    <string name="info_terms_payment_subtitle">Paiement</string>
+    <string name="info_terms_payment_content">L\'Application est disponible via un abonnement annuel sur le Google Play Store. Le prix de l\'abonnement est indiqué dans le magasin d\'applications. L\'abonnement se renouvelle automatiquement chaque année et peut être annulé à tout moment dans les paramètres Google Play.</string>
+
+    <string name="info_terms_liability_subtitle">Limitation de responsabilité</string>
+    <string name="info_terms_liability_content">L\'Application est fournie \"telle quelle\". Nous ne garantissons pas que l\'Application sera exempte d\'erreurs ou fonctionnera sans interruption. Dans la mesure permise par la loi, nous ne serons pas responsables des dommages directs, indirects, accessoires ou consécutifs découlant de l\'utilisation de l\'Application.</string>
+
+    <string name="info_terms_modifications_subtitle">Modifications des Conditions</string>
+    <string name="info_terms_modifications_content">Nous nous réservons le droit de modifier ces Conditions à tout moment. Les modifications seront publiées dans l\'Application ou sur cette page avec une date de mise à jour révisée.</string>
+
+    <string name="info_terms_contact_subtitle">Contactez-nous</string>
+    <string name="info_terms_contact_content">Pour toute question concernant ces Conditions, veuillez nous contacter à : tanks.hunterquiz@gmail.com</string>
+
+    <!-- Section 3: Licence -->
+    <string name="info_license_title">3. Licence</string>
+
+    <string name="info_license_usage_subtitle">Licence d\'utilisation</string>
+    <string name="info_license_usage_content">L\'application Tanks Hunter: Quiz (\"l\'Application\") est concédée sous licence, et non vendue, à l\'utilisateur pour une utilisation personnelle et non commerciale conformément aux présentes conditions.</string>
+
+    <string name="info_license_scope_subtitle">Étendue de la licence</string>
+    <string name="info_license_scope_content">- Vous êtes autorisé à installer et utiliser l\'Application sur un appareil compatible que vous possédez ou contrôlez.\n- La licence est non transférable et ne peut être partagée avec d\'autres utilisateurs ou appareils.\n- Vous ne pouvez pas copier, modifier, distribuer, vendre ou louer l\'Application ou une partie de celle-ci sans autorisation écrite préalable.</string>
+
+    <string name="info_license_intellectual_subtitle">Propriété intellectuelle</string>
+    <string name="info_license_intellectual_content">L\'Application, y compris son code, ses textes, ses images et tout autre contenu, est la propriété de l\'équipe de développement d\'Arsenal Quiz ou de ses concédants de licence. Tous les droits non expressément accordés dans cette licence sont réservés.</string>
+
+    <string name="info_license_restrictions_subtitle">Restrictions</string>
+    <string name="info_license_restrictions_content">Vous ne devez pas :\n- Tenter de désosser, décompiler ou extraire le code source de l\'Application.\n- Utiliser l\'Application à des fins contraires aux lois applicables.\n- Supprimer ou modifier les avis de droits d\'auteur ou autres mentions de propriété dans l\'Application.</string>
+
+    <string name="info_license_termination_subtitle">Résiliation</string>
+    <string name="info_license_termination_content">La licence prendra fin automatiquement si vous ne respectez pas les termes de cette licence. Dans ce cas, vous devrez désinstaller l\'Application et cesser toute utilisation.</string>
+
+    <!-- Section 4: Informations de contact -->
+    <string name="info_contact_title">4. Informations de contact</string>
+    <string name="info_contact_content">Pour toute question, commentaire ou demande concernant l\'application \"Tanks Hunter: Quiz\", veuillez nous contacter à l\'adresse suivante :\n\nEmail : tanks.hunterquiz@gmail.com\n\nNous nous efforçons de répondre à toutes les demandes dans les plus brefs délais.</string>
+
+    <!-- Section 5: Clause de non-responsabilité -->
+    <string name="info_disclaimer_title">5. Clause de non-responsabilité</string>
+
+    <string name="info_disclaimer_content_subtitle">Contenu de l\'Application</string>
+    <string name="info_disclaimer_content_content">L\'application \"Tanks Hunter: Quiz\" fournit des tests éducatifs et informatifs sur les équipements militaires. Le contenu, y compris les textes et les images, est fourni à des fins éducatives et informatives uniquement. Nous ne garantissons pas l\'exactitude, l\'exhaustivité ou l\'actualité des informations contenues dans l\'Application.</string>
+
+    <string name="info_disclaimer_sources_subtitle">Sources des contenus</string>
+    <string name="info_disclaimer_sources_content">Les textes et images utilisés dans l\'Application proviennent de sources publiques disponibles sur Internet. Bien que nous ayons pris soin de sélectionner des contenus libres de droits ou utilisés conformément à la législation applicable, nous ne pouvons garantir que tout le contenu est exempt de droits d\'auteur ou d\'autres restrictions. Si vous pensez que du contenu de l\'Application viole vos droits, veuillez nous contacter à tanks.hunterquiz@gmail.com pour résoudre la situation.</string>
+
+    <string name="info_disclaimer_liability_subtitle">Responsabilité</string>
+    <string name="info_disclaimer_liability_content">Dans la mesure permise par la loi, l\'équipe de développement de \"Tanks Hunter: Quiz\" ne sera pas responsable des dommages directs, indirects, accessoires, spéciaux ou consécutifs découlant de l\'utilisation ou de l\'incapacité à utiliser l\'Application. L\'Application est fournie \"telle quelle\", sans garantie d\'aucune sorte, expresse ou implicite.</string>
+
+    <string name="info_disclaimer_risk_subtitle">Utilisation à vos propres risques</string>
+    <string name="info_disclaimer_risk_content">Vous utilisez l\'Application à vos propres risques. Nous ne sommes pas responsables des erreurs ou omissions dans le contenu, ni des conséquences découlant de l\'utilisation des informations fournies.</string>
+
+    <string name="info_disclaimer_contact_subtitle">Contact</string>
+    <string name="info_disclaimer_contact_content">Pour toute réclamation ou question concernant cette Clause de non-responsabilité, veuillez nous contacter à : tanks.hunterquiz@gmail.com \n\nSi vous souhaitez rester informé des mises à jour ou poser une question, rejoignez notre groupe Telegram : t.me/Tanks_Hunter</string>
 </resources>
