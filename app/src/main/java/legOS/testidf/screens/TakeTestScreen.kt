@@ -26,6 +26,7 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -37,9 +38,10 @@ import androidx.navigation.NavController
 import com.example.quizapp.Question
 import legOS.testidf.loadImageFromAssets
 import legOS.testidf.viewmodel.TakeTestViewModel
+import legOS.testidf.R
 import java.io.IOException
 
-// Фабрика для передачи sessionId в ViewModel
+// Factory for passing sessionId to ViewModel
 class TakeTestViewModelFactory(private val sessionId: String) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -69,6 +71,13 @@ fun TakeTestScreen(
     val isSubmitting by viewModel.isSubmitting
 
     var testCompleted by rememberSaveable { mutableStateOf(false) }
+
+    // String resources
+    val loadingText = stringResource(R.string.loading)
+    val submittingResultsText = stringResource(R.string.submitting_results)
+    val errorText = stringResource(R.string.error_title)
+    val backButtonText = stringResource(R.string.back_button)
+    val noQuestionsText = stringResource(R.string.no_tests_available)
 
     LaunchedEffect(Unit) {
         viewModel.submitResultFlow.collect { success ->
@@ -114,7 +123,10 @@ fun TakeTestScreen(
                 CircularProgressIndicator()
                 if (isSubmitting) {
                     Spacer(Modifier.height(16.dp))
-                    Text("Envoi des résultats...")
+                    Text(submittingResultsText)
+                } else {
+                    Spacer(Modifier.height(16.dp))
+                    Text(loadingText)
                 }
             }
         }
@@ -128,12 +140,12 @@ fun TakeTestScreen(
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    "Erreur: ${uiState.error}",
+                    "$errorText: ${uiState.error}",
                     color = MaterialTheme.colorScheme.error
                 )
                 Spacer(Modifier.height(16.dp))
                 Button(onClick = { navController.navigateUp() }) {
-                    Text("Retour")
+                    Text(backButtonText)
                 }
             }
         }
@@ -145,7 +157,7 @@ fun TakeTestScreen(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Text("Aucune question disponible")
+            Text(noQuestionsText)
         }
         return
     }
@@ -307,9 +319,9 @@ private fun TakeTestLandscapeLayout(
                             onClick = { onAnswer(currentQuestion.options[index]) },
                             modifier = Modifier
                                 .fillMaxWidth(0.9f)
-                                .defaultMinSize(minHeight = 58.dp), // 48.dp * 1.2 = 57.6.dp, округлено до 58.dp
+                                .defaultMinSize(minHeight = 58.dp),
                             enabled = !isSubmitting,
-                            contentPadding = PaddingValues(horizontal = 19.dp, vertical = 10.dp) // 16.dp * 1.2 = 19.2.dp, 8.dp * 1.2 = 9.6.dp
+                            contentPadding = PaddingValues(horizontal = 19.dp, vertical = 10.dp)
                         )
                     }
                 }
@@ -328,9 +340,9 @@ private fun TakeTestLandscapeLayout(
                             onClick = { onAnswer(currentQuestion.options[realIndex]) },
                             modifier = Modifier
                                 .fillMaxWidth(0.9f)
-                                .defaultMinSize(minHeight = 58.dp), // 48.dp * 1.2 = 57.6.dp, округлено до 58.dp
+                                .defaultMinSize(minHeight = 58.dp),
                             enabled = !isSubmitting,
-                            contentPadding = PaddingValues(horizontal = 19.dp, vertical = 10.dp) // 16.dp * 1.2 = 19.2.dp, 8.dp * 1.2 = 9.6.dp
+                            contentPadding = PaddingValues(horizontal = 19.dp, vertical = 10.dp)
                         )
                     }
                 }
@@ -530,9 +542,8 @@ private fun QuestionImage(
     val animatedOffsetY by animateFloatAsState(offsetY, tween(300))
 
     val context = LocalContext.current
+    val imageNotAvailableText = stringResource(R.string.error_loading)
 
-    // ИСПРАВЛЕНИЕ: question.image уже содержит полный путь с папкой
-    // Например: "tank_images/tank_t90_extra2.jpg"
     val imagePath = remember(question) {
         question.image
     }
@@ -581,7 +592,7 @@ private fun QuestionImage(
                 }
         )
     } ?: Text(
-        text = "Image non disponible: $imagePath",
+        text = "$imageNotAvailableText: $imagePath",
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.error
     )
@@ -593,7 +604,7 @@ private fun AnswerButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 8.dp) // Добавлен параметр для явной передачи отступов
+    contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
 ) {
     Button(
         onClick = onClick,
@@ -623,6 +634,8 @@ private fun QuitButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true
 ) {
+    val quitButtonText = stringResource(R.string.quit_button)
+
     Button(
         onClick = onClick,
         enabled = enabled,
@@ -633,7 +646,7 @@ private fun QuitButton(
         )
     ) {
         Text(
-            text = "Quitter",
+            text = quitButtonText,
             style = MaterialTheme.typography.bodyLarge
         )
     }
@@ -645,16 +658,21 @@ private fun QuitDialog(
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
+    val confirmationTitle = stringResource(R.string.quit_confirmation_title)
+    val confirmationMessage = stringResource(R.string.quit_confirmation_message)
+    val yesText = stringResource(R.string.yes)
+    val noText = stringResource(R.string.no)
+
     if (show) {
         AlertDialog(
             onDismissRequest = onDismiss,
-            title = { Text("Confirmation") },
-            text = { Text("Êtes-vous sûr?", textAlign = TextAlign.Center) },
+            title = { Text(confirmationTitle) },
+            text = { Text(confirmationMessage, textAlign = TextAlign.Center) },
             confirmButton = {
-                TextButton(onClick = onConfirm) { Text("Oui") }
+                TextButton(onClick = onConfirm) { Text(yesText) }
             },
             dismissButton = {
-                TextButton(onClick = onDismiss) { Text("Non") }
+                TextButton(onClick = onDismiss) { Text(noText) }
             }
         )
     }

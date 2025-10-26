@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -34,6 +35,7 @@ import kotlinx.coroutines.tasks.await
 import legOS.testidf.data.UserSession
 import legOS.testidf.viewmodel.Participant
 import legOS.testidf.viewmodel.SendTestViewModel
+import legOS.testidf.R
 import java.io.IOException
 import java.io.InputStream
 import android.os.Parcelable
@@ -62,6 +64,27 @@ fun SendTestScreen(
     val context = LocalContext.current
     val firestore = FirebaseFirestore.getInstance()
     val scope = rememberCoroutineScope()
+
+    // String resources
+    val participantsLabel = stringResource(R.string.participants_header)
+    val noParticipantMessage = stringResource(R.string.no_participants_message)
+    val testsLabel = stringResource(R.string.tests_available)
+    val refreshLabel = stringResource(R.string.refresh)
+    val mainMenuLabel = stringResource(R.string.main_menu_title)
+    val createButtonLabel = stringResource(R.string.create_test_button)
+    val groupCodeLabel = stringResource(R.string.group_code_label)
+    val noTestsCreated = stringResource(R.string.no_tests_created)
+    val clickCreateMessage = stringResource(R.string.min_items_error)
+    val deleteTestTitle = stringResource(R.string.quit_test_title)
+    val deleteTestMessage = stringResource(R.string.quit_test_message)
+    val deleteButtonLabel = stringResource(R.string.quit_button)
+    val cancelButtonLabel = stringResource(R.string.cancel_button)
+    val exitConfirmTitle = stringResource(R.string.quit_confirmation_title)
+    val exitConfirmMessage = stringResource(R.string.quit_confirmation_message)
+    val exitButtonLabel = stringResource(R.string.quit_button)
+    val testSentSuccess = stringResource(R.string.test_sent_title)
+    val resultsButtonLabel = stringResource(R.string.results_title)
+    val sendButtonLabel = stringResource(R.string.sending_test)
 
     // State variables
     var availableTests by rememberSaveable { mutableStateOf<List<TestSession>>(emptyList()) }
@@ -100,7 +123,6 @@ fun SendTestScreen(
 
                 Log.d("SendTestScreen", "Group ID: $groupId")
 
-                // Загружаем все тесты группы
                 val sessionsSnapshot = firestore.collection("test_sessions")
                     .whereEqualTo("groupId", groupId)
                     .get()
@@ -130,7 +152,6 @@ fun SendTestScreen(
                     )
                 }
 
-                // Сортируем по времени создания и добавляем номера
                 val sortedTests = tests.sortedBy { it.createdAt }
 
                 val numberedTests = sortedTests.mapIndexed { index, test ->
@@ -170,7 +191,6 @@ fun SendTestScreen(
                 return
             }
 
-            // 1. Помечаем группу как неактивную
             try {
                 firestore.collection("groups")
                     .document(groupId)
@@ -184,7 +204,6 @@ fun SendTestScreen(
 
             kotlinx.coroutines.delay(500)
 
-            // 2. Получаем список участников
             val groupDoc = firestore.collection("groups")
                 .document(groupId)
                 .get()
@@ -199,7 +218,6 @@ fun SendTestScreen(
 
             Log.d("SendTestScreen", "📋 Found ${participantIds.size} participants")
 
-            // 3. Отправляем уведомления
             if (participantIds.isNotEmpty()) {
                 Log.d("SendTestScreen", "📤 Sending ${participantIds.size} notifications...")
 
@@ -228,7 +246,6 @@ fun SendTestScreen(
                 kotlinx.coroutines.delay(2000)
             }
 
-            // 4. Удаляем тестовые сессии
             Log.d("SendTestScreen", "🗑️ Deleting test sessions...")
             val sessions = firestore.collection("test_sessions")
                 .whereEqualTo("groupId", groupId)
@@ -239,7 +256,6 @@ fun SendTestScreen(
                 firestore.collection("test_sessions").document(session.id).delete().await()
             }
 
-            // 5. Удаляем группу
             Log.d("SendTestScreen", "🗑️ Deleting group...")
             firestore.collection("groups").document(groupId).delete().await()
 
@@ -277,7 +293,7 @@ fun SendTestScreen(
     }
 
     if (isLandscape) {
-        // ГОРИЗОНТАЛЬНЫЙ РЕЖИМ
+        // LANDSCAPE MODE
         Row(
             modifier = Modifier
                 .fillMaxSize()
@@ -291,7 +307,7 @@ fun SendTestScreen(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Column(modifier = Modifier.weight(0.5f).fillMaxHeight()) {
-                Text("Participants (${uiState.participants.size})", style = MaterialTheme.typography.titleLarge)
+                Text("$participantsLabel (${uiState.participants.size})", style = MaterialTheme.typography.titleLarge)
                 Spacer(Modifier.height(12.dp))
 
                 if (uiState.participants.isEmpty()) {
@@ -303,7 +319,7 @@ fun SendTestScreen(
                         ) {
                             Icon(Icons.Default.PersonOff, null, modifier = Modifier.size(48.dp))
                             Spacer(Modifier.height(8.dp))
-                            Text("Aucun participant")
+                            Text(noParticipantMessage)
                         }
                     }
                 } else {
@@ -322,15 +338,15 @@ fun SendTestScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("Tests (${availableTests.size})", style = MaterialTheme.typography.titleLarge)
+                    Text("$testsLabel (${availableTests.size})", style = MaterialTheme.typography.titleLarge)
 
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         IconButton(onClick = { scope.launch { loadTests() } }) {
-                            Icon(Icons.Default.Refresh, "Actualiser")
+                            Icon(Icons.Default.Refresh, refreshLabel)
                         }
 
                         IconButton(onClick = { showExitConfirmDialog = true }) {
-                            Icon(Icons.Default.Home, "Menu principal")
+                            Icon(Icons.Default.Home, mainMenuLabel)
                         }
 
                         Button(onClick = {
@@ -340,7 +356,7 @@ fun SendTestScreen(
                         }) {
                             Icon(Icons.Default.Add, null, modifier = Modifier.size(18.dp))
                             Spacer(Modifier.width(4.dp))
-                            Text("Créer")
+                            Text(createButtonLabel)
                         }
                     }
                 }
@@ -360,7 +376,7 @@ fun SendTestScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Column {
-                                Text("Code groupe", style = MaterialTheme.typography.labelSmall)
+                                Text(groupCodeLabel, style = MaterialTheme.typography.labelSmall)
                                 Text(uiState.groupCode, style = MaterialTheme.typography.titleLarge)
                             }
                             Icon(Icons.Default.QrCode, null, modifier = Modifier.size(28.dp))
@@ -378,9 +394,9 @@ fun SendTestScreen(
                         ) {
                             Icon(Icons.Default.Assignment, null, modifier = Modifier.size(48.dp))
                             Spacer(Modifier.height(8.dp))
-                            Text("Aucun test créé", style = MaterialTheme.typography.titleMedium)
+                            Text(noTestsCreated, style = MaterialTheme.typography.titleMedium)
                             Spacer(Modifier.height(4.dp))
-                            Text("Cliquez sur Créer pour commencer", style = MaterialTheme.typography.bodySmall)
+                            Text(clickCreateMessage, style = MaterialTheme.typography.bodySmall)
                         }
                     }
                 } else {
@@ -409,7 +425,7 @@ fun SendTestScreen(
                         Row(modifier = Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Default.CheckCircle, null, tint = MaterialTheme.colorScheme.primary)
                             Spacer(Modifier.width(8.dp))
-                            Text("Test envoyé avec succès!", color = MaterialTheme.colorScheme.onPrimaryContainer)
+                            Text(testSentSuccess, color = MaterialTheme.colorScheme.onPrimaryContainer)
                         }
                     }
                     Spacer(Modifier.height(12.dp))
@@ -430,7 +446,7 @@ fun SendTestScreen(
                     ) {
                         Icon(Icons.Default.Assessment, null, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.width(4.dp))
-                        Text("Résultats")
+                        Text(resultsButtonLabel)
                     }
 
                     Button(
@@ -448,14 +464,14 @@ fun SendTestScreen(
                         } else {
                             Icon(Icons.Default.Send, null, modifier = Modifier.size(18.dp))
                             Spacer(Modifier.width(4.dp))
-                            Text("Envoyer")
+                            Text(sendButtonLabel)
                         }
                     }
                 }
             }
         }
     } else {
-        // ВЕРТИКАЛЬНЫЙ РЕЖИМ
+        // PORTRAIT MODE
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -472,13 +488,13 @@ fun SendTestScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Chef", style = MaterialTheme.typography.headlineMedium)
+                Text(stringResource(R.string.role_chef), style = MaterialTheme.typography.headlineMedium)
                 Row {
                     IconButton(onClick = { scope.launch { loadTests() } }) {
-                        Icon(Icons.Default.Refresh, "Actualiser")
+                        Icon(Icons.Default.Refresh, refreshLabel)
                     }
                     IconButton(onClick = { showExitConfirmDialog = true }) {
-                        Icon(Icons.Default.Home, "Menu")
+                        Icon(Icons.Default.Home, stringResource(R.string.menu_button))
                     }
                 }
             }
@@ -489,7 +505,7 @@ fun SendTestScreen(
                 Card(modifier = Modifier.fillMaxWidth()) {
                     Row(modifier = Modifier.fillMaxWidth().padding(16.dp), horizontalArrangement = Arrangement.SpaceBetween) {
                         Column {
-                            Text("Code du groupe", style = MaterialTheme.typography.labelMedium)
+                            Text(groupCodeLabel, style = MaterialTheme.typography.labelMedium)
                             Text(uiState.groupCode, style = MaterialTheme.typography.headlineMedium)
                         }
                         Icon(Icons.Default.QrCode, null, modifier = Modifier.size(40.dp))
@@ -508,7 +524,7 @@ fun SendTestScreen(
             ) {
                 Icon(Icons.Default.Add, null)
                 Spacer(Modifier.width(8.dp))
-                Text("Créer un test")
+                Text(createButtonLabel)
             }
 
             Spacer(Modifier.height(16.dp))
@@ -521,12 +537,12 @@ fun SendTestScreen(
                 Tab(
                     selected = selectedTab == 0,
                     onClick = { selectedTab = 0 },
-                    text = { Text("Tests (${availableTests.size})") }
+                    text = { Text("$testsLabel (${availableTests.size})") }
                 )
                 Tab(
                     selected = selectedTab == 1,
                     onClick = { selectedTab = 1 },
-                    text = { Text("Participants (${uiState.participants.size})") }
+                    text = { Text("$participantsLabel (${uiState.participants.size})") }
                 )
             }
 
@@ -548,7 +564,7 @@ fun SendTestScreen(
                             ) {
                                 Icon(Icons.Default.Assignment, null, modifier = Modifier.size(64.dp))
                                 Spacer(Modifier.height(16.dp))
-                                Text("Aucun test créé")
+                                Text(noTestsCreated)
                             }
                         }
                     } else {
@@ -593,7 +609,7 @@ fun SendTestScreen(
                             ) {
                                 Icon(Icons.Default.PersonOff, null, modifier = Modifier.size(64.dp))
                                 Spacer(Modifier.height(16.dp))
-                                Text("Aucun participant")
+                                Text(noParticipantMessage)
                             }
                         }
                     } else {
@@ -628,7 +644,7 @@ fun SendTestScreen(
                     Row(modifier = Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.CheckCircle, null, tint = MaterialTheme.colorScheme.primary)
                         Spacer(Modifier.width(8.dp))
-                        Text("Test envoyé avec succès!")
+                        Text(testSentSuccess)
                     }
                 }
                 Spacer(Modifier.height(16.dp))
@@ -649,7 +665,7 @@ fun SendTestScreen(
                 ) {
                     Icon(Icons.Default.Assessment, null, modifier = Modifier.size(18.dp))
                     Spacer(Modifier.width(4.dp))
-                    Text("Résultats")
+                    Text(resultsButtonLabel)
                 }
 
                 Button(
@@ -667,7 +683,7 @@ fun SendTestScreen(
                     } else {
                         Icon(Icons.Default.Send, null, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.width(4.dp))
-                        Text("Envoyer")
+                        Text(sendButtonLabel)
                     }
                 }
             }
@@ -678,8 +694,8 @@ fun SendTestScreen(
     showDeleteConfirmDialog?.let { testId ->
         AlertDialog(
             onDismissRequest = { showDeleteConfirmDialog = null },
-            title = { Text("Supprimer le test?") },
-            text = { Text("Cette action est irréversible.") },
+            title = { Text(deleteTestTitle) },
+            text = { Text(deleteTestMessage) },
             confirmButton = {
                 Button(
                     onClick = {
@@ -691,7 +707,6 @@ fun SendTestScreen(
                                     .delete()
                                     .await()
 
-                                // Перезагружаем тесты чтобы пересчитать номера
                                 loadTests()
 
                                 if (selectedTestId == testId) {
@@ -705,11 +720,11 @@ fun SendTestScreen(
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
-                    Text("Supprimer")
+                    Text(deleteButtonLabel)
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showDeleteConfirmDialog = null }) { Text("Annuler") }
+                TextButton(onClick = { showDeleteConfirmDialog = null }) { Text(cancelButtonLabel) }
             }
         )
     }
@@ -720,13 +735,13 @@ fun SendTestScreen(
             onDismissRequest = { showExitConfirmDialog = false },
             title = {
                 Text(
-                    "Quitter vers le menu principal ?",
+                    exitConfirmTitle,
                     style = MaterialTheme.typography.headlineSmall
                 )
             },
             text = {
                 Text(
-                    "Cela supprimera la session de groupe actuelle. Cette action est irréversible.",
+                    exitConfirmMessage,
                     style = MaterialTheme.typography.bodyMedium
                 )
             },
@@ -743,12 +758,12 @@ fun SendTestScreen(
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
-                    Text("Quitter")
+                    Text(exitButtonLabel)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showExitConfirmDialog = false }) {
-                    Text("Annuler")
+                    Text(cancelButtonLabel)
                 }
             }
         )
@@ -757,6 +772,8 @@ fun SendTestScreen(
 
 @Composable
 fun TestCard(test: TestSession, isSelected: Boolean, onSelect: () -> Unit, onDelete: () -> Unit) {
+    val deleteLabel = stringResource(R.string.quit_button)
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -787,7 +804,7 @@ fun TestCard(test: TestSession, isSelected: Boolean, onSelect: () -> Unit, onDel
             IconButton(onClick = onDelete) {
                 Icon(
                     Icons.Default.Delete,
-                    "Supprimer",
+                    deleteLabel,
                     tint = MaterialTheme.colorScheme.error
                 )
             }

@@ -124,11 +124,12 @@
     <string name="participants_header">Participants</string>
     <string name="participant_count">%d participants</string>
     <string name="no_participants_message">No participants in the group</string>
-    <string name="sending_test">Sending...</string>
+    <string name="sending_test">Send</string>
     <string name="test_sent_title">Test sent!</string>
     <string name="test_sent_message">Test sent to %d participants</string>
     <string name="results_available">Results available</string>
     <string name="no_results_message">Waiting for results...</string>
+    <string name="no_tests_created">No tests created</string>
 
     <!-- Participant waiting -->
     <string name="waiting_title">Waiting for tests</string>
