@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import legOS.testidf.viewmodel.SubscriptionViewModel
+import legOS.testidf.R
 import java.io.IOException
 
 @Composable
@@ -114,12 +116,12 @@ fun SubscriptionScreen(
                                 tint = Color(0xFF4CAF50),
                                 modifier = Modifier.size(32.dp)
                             )
-                            Text("Abonnement activé!")
+                            Text(stringResource(R.string.subscription_active))
                         }
                     },
                     text = {
                         Text(
-                            "Merci pour votre abonnement! Vous pouvez maintenant profiter de l'application.",
+                            stringResource(R.string.subscription_active_message),
                             style = MaterialTheme.typography.bodyLarge
                         )
                     },
@@ -131,11 +133,11 @@ fun SubscriptionScreen(
             uiState.errorMessage?.let { error ->
                 AlertDialog(
                     onDismissRequest = { viewModel.clearError() },
-                    title = { Text("Erreur") },
+                    title = { Text(stringResource(R.string.error_title)) },
                     text = { Text(error) },
                     confirmButton = {
                         TextButton(onClick = { viewModel.clearError() }) {
-                            Text("OK")
+                            Text(stringResource(R.string.ok))
                         }
                     }
                 )
@@ -159,7 +161,7 @@ private fun LoadingContent() {
                 color = MaterialTheme.colorScheme.primary
             )
             Text(
-                "Vérification de l'abonnement...",
+                stringResource(R.string.checking_subscription),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground
             )
@@ -189,7 +191,7 @@ private fun ActiveSubscriptionContent(
         Spacer(Modifier.height(24.dp))
 
         Text(
-            text = if (isTestMode) "Mode Test" else "Abonnement actif",
+            text = if (isTestMode) stringResource(R.string.test_mode_title) else stringResource(R.string.subscription_active),
             style = MaterialTheme.typography.headlineMedium.copy(
                 fontWeight = FontWeight.Bold
             ),
@@ -216,14 +218,14 @@ private fun ActiveSubscriptionContent(
                     )
                     Column {
                         Text(
-                            "Accès test",
+                            stringResource(R.string.test_access),
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.Bold
                             )
                         )
                         Spacer(Modifier.height(4.dp))
                         Text(
-                            "Vous utilisez une version de test de l'application.",
+                            stringResource(R.string.test_mode_message),
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }
@@ -231,7 +233,7 @@ private fun ActiveSubscriptionContent(
             }
         } else {
             Text(
-                "Vous avez accès à toutes les fonctionnalités de l'application.",
+                stringResource(R.string.subscription_active_message),
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground
@@ -250,7 +252,7 @@ private fun ActiveSubscriptionContent(
             )
         ) {
             Text(
-                "Continuer",
+                stringResource(R.string.continue_button),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontSize = 18.sp
                 )
@@ -278,7 +280,7 @@ private fun InactiveSubscriptionContent(
         Spacer(Modifier.height(32.dp))
 
         Text(
-            "Tanks Hunter: Quiz",
+            stringResource(R.string.subscription_title),
             style = MaterialTheme.typography.headlineLarge.copy(
                 fontWeight = FontWeight.Bold
             ),
@@ -289,7 +291,7 @@ private fun InactiveSubscriptionContent(
         Spacer(Modifier.height(8.dp))
 
         Text(
-            "Abonnement annuel",
+            stringResource(R.string.subscription_subtitle),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
         )
@@ -309,20 +311,20 @@ private fun InactiveSubscriptionContent(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Text(
-                    "Fonctionnalités incluses:",
+                    stringResource(R.string.features_title),
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.Bold
                     ),
                     color = MaterialTheme.colorScheme.primary
                 )
 
-                FeatureItem("✓ Tests par catégories")
-                FeatureItem("✓ Test avancé et final")
-                FeatureItem("✓ Mode multijoueur")
-                FeatureItem("✓ Création de tests personnalisés")
-                FeatureItem("✓ Catalogue complet")
-                FeatureItem("✓ Panthéon des meilleurs scores")
-                FeatureItem("✓ Mises à jour régulières")
+                FeatureItem(stringResource(R.string.feature_categories))
+                FeatureItem(stringResource(R.string.feature_advanced))
+                FeatureItem(stringResource(R.string.feature_multiplayer))
+                FeatureItem(stringResource(R.string.feature_creation))
+                FeatureItem(stringResource(R.string.feature_catalog))
+                FeatureItem(stringResource(R.string.feature_hall_of_fame))
+                FeatureItem(stringResource(R.string.feature_updates))
             }
         }
 
@@ -346,7 +348,7 @@ private fun InactiveSubscriptionContent(
                 )
             } else {
                 Text(
-                    "S'abonner maintenant",
+                    stringResource(R.string.subscribe_button),
                     style = MaterialTheme.typography.bodyLarge.copy(
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold
@@ -374,14 +376,14 @@ private fun InactiveSubscriptionContent(
             Spacer(Modifier.height(8.dp))
 
             TextButton(onClick = onRetry) {
-                Text("Réessayer")
+                Text(stringResource(R.string.retry_button))
             }
         }
 
         Spacer(Modifier.height(16.dp))
 
         Text(
-            "L'abonnement se renouvelle automatiquement chaque année.",
+            stringResource(R.string.subscription_renew_info),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
             textAlign = TextAlign.Center

@@ -78,7 +78,19 @@
     <string name="share_code_message">Share this code with your participants:</string>
     <string name="copy_code_button">Copy code</string>
     <string name="code_copied">✓ Code copied!</string>
-    <string name="important_note">⚠️ Save this code so your participants can join!</string>
+    <string name="important_note">Save this code so your participants can join!</string>
+
+    <!-- ParticipantWaitingScreen -->
+    <string name="welcome_participant">Welcome, %s!</string>
+    <string name="group_closed_title">Information</string>
+    <string name="group_closed_subtitle">The leader left the session</string>
+    <string name="group_closed_details">The competition is now over. You can stay on this page or leave whenever you wish.</string>
+    <string name="leave_group_title">Leave group?</string>
+    <string name="leave_group_message">Are you sure you want to leave? You will need to enter the group code again to join.</string>
+    <string name="leave">Leave</string>
+    <string name="tests_available">Available tests</string>
+    <string name="no_tests_message">The leader will send a test soon.\nYou will be notified automatically.</string>
+    <string name="group_closed_no_tests">The group is closed.\nNo tests available.</string>
 
     <!-- Participant registration -->
     <string name="join_group_title">Join a group</string>
@@ -88,15 +100,35 @@
     <string name="invalid_code">Invalid group code</string>
     <string name="joined_group">You joined %s!</string>
 
+    <!-- ChefSessionsScreen -->
+    <string name="my_sessions_title">My tests</string>
+    <string name="refresh">Refresh</string>
+    <string name="stat_tests_created">Tests created</string>
+    <string name="stat_completed">Completed</string>
+    <string name="stat_in_progress">In progress</string>
+    <string name="no_sessions_created">No tests created</string>
+    <string name="session_questions">%d questions</string>
+    <string name="session_participants">%d participants</string>
+
+    <!-- TakeTestScreen -->
+    <string name="question_progress">Question %d of %d</string>
+    <string name="time_remaining">%ds remaining</string>
+    <string name="quit_test_title">Quit test?</string>
+    <string name="quit_test_message">Are you sure you want to quit? Your progress will be lost.</string>
+    <string name="submitting_results">Submitting results...</string>
+    <string name="results_submitted">Results submitted!</string>
+
     <!-- Send test -->
-    <string name="send_test_title">Send test</string>
-    <string name="group_code_display">Group code: %s</string>
-    <string name="participants_count">%d participants</string>
-    <string name="send_test_button">Send test</string>
-    <string name="test_sent_success">Test sent to %d participants</string>
-    <string name="view_results_button">View results</string>
-    <string name="participants_list_title">Participants</string>
-    <string name="no_participants">No participants</string>
+    <string name="send_test_screen_title">Send test</string>
+    <string name="group_code_info">Group code: %s</string>
+    <string name="participants_header">Participants</string>
+    <string name="participant_count">%d participants</string>
+    <string name="no_participants_message">No participants in the group</string>
+    <string name="sending_test">Sending...</string>
+    <string name="test_sent_title">Test sent!</string>
+    <string name="test_sent_message">Test sent to %d participants</string>
+    <string name="results_available">Results available</string>
+    <string name="no_results_message">Waiting for results...</string>
 
     <!-- Participant waiting -->
     <string name="waiting_title">Waiting for tests</string>
@@ -119,13 +151,20 @@
     <string name="test_completed_message">Your results have been sent to the leader.\nThank you for participating!</string>
 
     <!-- Session results -->
-    <string name="session_results_title">Test results</string>
-    <string name="session_info">%d questions • %d sec/question</string>
-    <string name="no_results_yet">No results yet</string>
-    <string name="average_score">Average score: %d%%</string>
-    <string name="best_score">Best: %d%%</string>
-    <string name="participant_name">%s</string>
-    <string name="view_details">View details</string>
+    <string name="results_screen_title">Results</string>
+    <string name="statistics_title">Statistics</string>
+    <string name="test_info">%d questions • %ds/question</string>
+    <string name="stat_participants">Participants</string>
+    <string name="stat_average">Average</string>
+    <string name="stat_best">Best</string>
+    <string name="waiting_results">Waiting for results</string>
+    <string name="test_number">Test %d</string>
+    <string name="detailed_results">Detailed results</string>
+    <string name="correct_answers">%d/%d correct</string>
+    <string name="close">Close</string>
+    <string name="details_unavailable">Details unavailable</string>
+    <string name="question_number">Question %d</string>
+    <string name="answer_label">Answer:</string>
 
     <!-- Creation -->
     <string name="creation_title">Create a custom test</string>

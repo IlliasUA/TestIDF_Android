@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -29,6 +30,7 @@ import androidx.navigation.NavController
 import legOS.testidf.data.UserSession
 import legOS.testidf.loadImageFromAssets
 import legOS.testidf.viewmodel.ParticipantRegistrationViewModel
+import legOS.testidf.R
 
 @Composable
 fun ParticipantRegistrationScreen(
@@ -75,7 +77,7 @@ fun ParticipantRegistrationScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Rejoindre une compétition",
+                        text = stringResource(R.string.join_group_title),
                         style = MaterialTheme.typography.headlineMedium,
                         color = MaterialTheme.colorScheme.onBackground,
                         textAlign = TextAlign.Center
@@ -103,13 +105,13 @@ fun ParticipantRegistrationScreen(
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             Text(
-                                "Mode Compétition",
+                                stringResource(R.string.competition_mode),
                                 style = MaterialTheme.typography.titleSmall,
                                 color = MaterialTheme.colorScheme.primary
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             Text(
-                                "Demandez le code\nde groupe à votre chef",
+                                stringResource(R.string.competition_description),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 textAlign = TextAlign.Center
@@ -144,8 +146,8 @@ fun ParticipantRegistrationScreen(
                             OutlinedTextField(
                                 value = participantName,
                                 onValueChange = { participantName = it },
-                                label = { Text("Votre nom") },
-                                placeholder = { Text("Ex: Jean Dupont") },
+                                label = { Text(stringResource(R.string.your_name_label)) },
+                                placeholder = { Text(stringResource(R.string.your_name_placeholder)) },
                                 leadingIcon = {
                                     Icon(Icons.Default.Person, null)
                                 },
@@ -164,8 +166,8 @@ fun ParticipantRegistrationScreen(
                                         groupCode = it.uppercase()
                                     }
                                 },
-                                label = { Text("Code du groupe") },
-                                placeholder = { Text("ABC123") },
+                                label = { Text(stringResource(R.string.group_code_label)) },
+                                placeholder = { Text(stringResource(R.string.group_code_placeholder)) },
                                 leadingIcon = {
                                     Icon(Icons.Default.QrCode, null)
                                 },
@@ -193,21 +195,11 @@ fun ParticipantRegistrationScreen(
                                     viewModel.joinGroup(
                                         participantName = participantName.trim(),
                                         groupCode = groupCode.trim()
-                                    ) { success, groupId -> // ИСПРАВЛЕНО: два параметра
+                                    ) { success, groupId ->
                                         Log.d("ParticipantRegistration", "Join result: success=$success, groupId=$groupId")
 
                                         if (success && groupId != null) {
-                                            Log.d("ParticipantRegistration", "==============================================")
                                             Log.d("ParticipantRegistration", "✅ Successfully joined group: $groupId")
-
-                                            // Проверяем что данные сохранились
-                                            Log.d("ParticipantRegistration", "UserSession after join:")
-                                            Log.d("ParticipantRegistration", "  userId = ${UserSession.userId}")
-                                            Log.d("ParticipantRegistration", "  userName = ${UserSession.userName}")
-                                            Log.d("ParticipantRegistration", "  groupId = ${UserSession.groupId}")
-                                            Log.d("ParticipantRegistration", "Navigating to participant_waiting")
-                                            Log.d("ParticipantRegistration", "==============================================")
-
                                             navController.navigate("participant_waiting") {
                                                 popUpTo("competition") { inclusive = true }
                                             }
@@ -232,7 +224,7 @@ fun ParticipantRegistrationScreen(
                                         color = MaterialTheme.colorScheme.onPrimary
                                     )
                                 } else {
-                                    Text("Rejoindre", style = MaterialTheme.typography.bodyLarge)
+                                    Text(stringResource(R.string.join_button), style = MaterialTheme.typography.bodyLarge)
                                 }
                             }
 
@@ -241,7 +233,7 @@ fun ParticipantRegistrationScreen(
                                 onClick = { navController.navigateUp() },
                                 modifier = Modifier.fillMaxWidth()
                             ) {
-                                Text("Retour")
+                                Text(stringResource(R.string.back_button))
                             }
                         }
                     }
@@ -259,14 +251,14 @@ fun ParticipantRegistrationScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Rejoindre une compétition",
+                    text = stringResource(R.string.join_group_title),
                     style = MaterialTheme.typography.headlineMedium.copy(fontSize = 28.sp),
                     color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center
                 )
 
                 Text(
-                    text = "Entrez votre nom et le code du groupe",
+                    text = stringResource(R.string.competition_description),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
                     textAlign = TextAlign.Center,
@@ -286,8 +278,8 @@ fun ParticipantRegistrationScreen(
                         OutlinedTextField(
                             value = participantName,
                             onValueChange = { participantName = it },
-                            label = { Text("Votre nom") },
-                            placeholder = { Text("Ex: Jean Dupont") },
+                            label = { Text(stringResource(R.string.your_name_label)) },
+                            placeholder = { Text(stringResource(R.string.your_name_placeholder)) },
                             leadingIcon = {
                                 Icon(Icons.Default.Person, null)
                             },
@@ -305,8 +297,8 @@ fun ParticipantRegistrationScreen(
                                     groupCode = it.uppercase()
                                 }
                             },
-                            label = { Text("Code du groupe") },
-                            placeholder = { Text("ABC123") },
+                            label = { Text(stringResource(R.string.group_code_label)) },
+                            placeholder = { Text(stringResource(R.string.group_code_placeholder)) },
                             leadingIcon = {
                                 Icon(Icons.Default.QrCode, null)
                             },
@@ -314,10 +306,7 @@ fun ParticipantRegistrationScreen(
                             singleLine = true,
                             keyboardOptions = KeyboardOptions(
                                 capitalization = KeyboardCapitalization.Characters
-                            ),
-                            supportingText = {
-                                Text("Code fourni par le chef de groupe")
-                            }
+                            )
                         )
 
                         if (uiState.error != null) {
@@ -332,31 +321,14 @@ fun ParticipantRegistrationScreen(
 
                         Button(
                             onClick = {
-                                Log.d("ParticipantRegistration", "Attempting to join group...")
-
                                 viewModel.joinGroup(
                                     participantName = participantName.trim(),
                                     groupCode = groupCode.trim()
-                                ) { success, groupId -> // ИСПРАВЛЕНО: два параметра
-                                    Log.d("ParticipantRegistration", "Join result: success=$success, groupId=$groupId")
-
+                                ) { success, groupId ->
                                     if (success && groupId != null) {
-                                        Log.d("ParticipantRegistration", "==============================================")
-                                        Log.d("ParticipantRegistration", "✅ Successfully joined group: $groupId")
-
-                                        // Проверяем что данные сохранились
-                                        Log.d("ParticipantRegistration", "UserSession after join:")
-                                        Log.d("ParticipantRegistration", "  userId = ${UserSession.userId}")
-                                        Log.d("ParticipantRegistration", "  userName = ${UserSession.userName}")
-                                        Log.d("ParticipantRegistration", "  groupId = ${UserSession.groupId}")
-                                        Log.d("ParticipantRegistration", "Navigating to participant_waiting")
-                                        Log.d("ParticipantRegistration", "==============================================")
-
                                         navController.navigate("participant_waiting") {
                                             popUpTo("competition") { inclusive = true }
                                         }
-                                    } else {
-                                        Log.e("ParticipantRegistration", "❌ Failed to join group")
                                     }
                                 }
                             },
@@ -376,7 +348,7 @@ fun ParticipantRegistrationScreen(
                                     color = MaterialTheme.colorScheme.onPrimary
                                 )
                             } else {
-                                Text("Rejoindre", style = MaterialTheme.typography.bodyLarge)
+                                Text(stringResource(R.string.join_button), style = MaterialTheme.typography.bodyLarge)
                             }
                         }
 
@@ -384,7 +356,7 @@ fun ParticipantRegistrationScreen(
                             onClick = { navController.navigateUp() },
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text("Retour")
+                            Text(stringResource(R.string.back_button))
                         }
                     }
                 }

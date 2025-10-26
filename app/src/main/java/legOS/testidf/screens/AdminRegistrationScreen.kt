@@ -18,6 +18,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
@@ -28,6 +29,7 @@ import androidx.navigation.NavController
 import legOS.testidf.loadImageFromAssets
 import legOS.testidf.viewmodel.AdminRegistrationViewModel
 import androidx.compose.foundation.text.KeyboardOptions
+import legOS.testidf.R
 
 @Composable
 fun AdminRegistrationScreen(
@@ -39,13 +41,12 @@ fun AdminRegistrationScreen(
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     val clipboardManager = LocalClipboardManager.current
 
-    // ИСПРАВЛЕНО: rememberSaveable вместо remember
     var name by rememberSaveable { mutableStateOf("") }
     var groupName by rememberSaveable { mutableStateOf("") }
 
     var showGroupCodeDialog by rememberSaveable { mutableStateOf(false) }
     var groupCode by rememberSaveable { mutableStateOf("") }
-    var sessionId by rememberSaveable { mutableStateOf("") } // ДОБАВЛЕНО
+    var sessionId by rememberSaveable { mutableStateOf("") }
     var showCopiedMessage by remember { mutableStateOf(false) }
 
     val uiState by viewModel.uiState.collectAsState()
@@ -83,7 +84,7 @@ fun AdminRegistrationScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Créer un groupe",
+                        text = stringResource(R.string.create_group_title),
                         style = MaterialTheme.typography.headlineMedium,
                         color = MaterialTheme.colorScheme.onBackground,
                         textAlign = TextAlign.Center
@@ -104,13 +105,13 @@ fun AdminRegistrationScreen(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Text(
-                                "Mode Compétition",
+                                stringResource(R.string.competition_mode),
                                 style = MaterialTheme.typography.titleSmall,
                                 color = MaterialTheme.colorScheme.primary
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             Text(
-                                "Organisez des tests\npour votre équipe",
+                                stringResource(R.string.competition_description),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 textAlign = TextAlign.Center
@@ -119,7 +120,7 @@ fun AdminRegistrationScreen(
                     }
                 }
 
-                // ПРАВАЯ ЧАСТЬ - Форма (ИСПРАВЛЕНО)
+                // ПРАВАЯ ЧАСТЬ - Форма
                 Column(
                     modifier = Modifier
                         .weight(0.8f)
@@ -130,23 +131,23 @@ fun AdminRegistrationScreen(
                 ) {
                     Card(
                         modifier = Modifier
-                            .fillMaxWidth(0.95f)  // ИСПРАВЛЕНО: не 100% ширины
-                            .wrapContentHeight()   // ДОБАВЛЕНО: высота по содержимому
-                            .padding(vertical = 8.dp),  // ДОБАВЛЕНО: отступы сверху/снизу
+                            .fillMaxWidth(0.95f)
+                            .wrapContentHeight()
+                            .padding(vertical = 8.dp),
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
                         )
                     ) {
                         Column(
-                            modifier = Modifier.padding(16.dp),  // ИСПРАВЛЕНО: уменьшен padding с 20dp
-                            verticalArrangement = Arrangement.spacedBy(12.dp)  // ИСПРАВЛЕНО: уменьшен spacing с 16dp
+                            modifier = Modifier.padding(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
                             // Имя Chef
                             OutlinedTextField(
                                 value = name,
                                 onValueChange = { name = it },
-                                label = { Text("Votre nom") },
-                                placeholder = { Text("Ex: Jean Dupont") },
+                                label = { Text(stringResource(R.string.your_name_label)) },
+                                placeholder = { Text(stringResource(R.string.your_name_placeholder)) },
                                 modifier = Modifier.fillMaxWidth(),
                                 singleLine = true,
                                 keyboardOptions = KeyboardOptions(
@@ -154,7 +155,7 @@ fun AdminRegistrationScreen(
                                 ),
                                 isError = name.isNotBlank() && name.trim().length < 2,
                                 supportingText = if (name.isNotBlank() && name.trim().length < 2) {
-                                    { Text("Minimum 2 caractères") }
+                                    { Text(stringResource(R.string.min_characters)) }
                                 } else null
                             )
 
@@ -162,8 +163,8 @@ fun AdminRegistrationScreen(
                             OutlinedTextField(
                                 value = groupName,
                                 onValueChange = { groupName = it },
-                                label = { Text("Nom du groupe") },
-                                placeholder = { Text("Ex: Escadron Alpha") },
+                                label = { Text(stringResource(R.string.group_name_label)) },
+                                placeholder = { Text(stringResource(R.string.group_name_placeholder)) },
                                 modifier = Modifier.fillMaxWidth(),
                                 singleLine = true,
                                 keyboardOptions = KeyboardOptions(
@@ -196,18 +197,18 @@ fun AdminRegistrationScreen(
                                 enabled = !uiState.isLoading && isFormValid,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(48.dp),  // ИСПРАВЛЕНО: уменьшена высота с 50dp
+                                    .height(48.dp),
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = MaterialTheme.colorScheme.primary
                                 )
                             ) {
                                 if (uiState.isLoading) {
                                     CircularProgressIndicator(
-                                        modifier = Modifier.size(20.dp),  // ИСПРАВЛЕНО: уменьшен размер с 24dp
+                                        modifier = Modifier.size(20.dp),
                                         color = MaterialTheme.colorScheme.onPrimary
                                     )
                                 } else {
-                                    Text("Créer le groupe", style = MaterialTheme.typography.bodyLarge)
+                                    Text(stringResource(R.string.create_group_button), style = MaterialTheme.typography.bodyLarge)
                                 }
                             }
 
@@ -216,7 +217,7 @@ fun AdminRegistrationScreen(
                                 onClick = { navController.navigateUp() },
                                 modifier = Modifier.fillMaxWidth()
                             ) {
-                                Text("Retour")
+                                Text(stringResource(R.string.back_button))
                             }
                         }
                     }
@@ -234,14 +235,14 @@ fun AdminRegistrationScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Créer un groupe",
+                    text = stringResource(R.string.create_group_title),
                     style = MaterialTheme.typography.headlineMedium.copy(fontSize = 28.sp),
                     color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center
                 )
 
                 Text(
-                    text = "Organisez des tests pour votre équipe",
+                    text = stringResource(R.string.competition_description),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
                     textAlign = TextAlign.Center,
@@ -261,8 +262,8 @@ fun AdminRegistrationScreen(
                         OutlinedTextField(
                             value = name,
                             onValueChange = { name = it },
-                            label = { Text("Votre nom") },
-                            placeholder = { Text("Ex: Jean Dupont") },
+                            label = { Text(stringResource(R.string.your_name_label)) },
+                            placeholder = { Text(stringResource(R.string.your_name_placeholder)) },
                             modifier = Modifier.fillMaxWidth(),
                             singleLine = true,
                             keyboardOptions = KeyboardOptions(
@@ -270,15 +271,15 @@ fun AdminRegistrationScreen(
                             ),
                             isError = name.isNotBlank() && name.trim().length < 2,
                             supportingText = if (name.isNotBlank() && name.trim().length < 2) {
-                                { Text("Minimum 2 caractères") }
+                                { Text(stringResource(R.string.min_characters)) }
                             } else null
                         )
 
                         OutlinedTextField(
                             value = groupName,
                             onValueChange = { groupName = it },
-                            label = { Text("Nom du groupe") },
-                            placeholder = { Text("Ex: Escadron Alpha") },
+                            label = { Text(stringResource(R.string.group_name_label)) },
+                            placeholder = { Text(stringResource(R.string.group_name_placeholder)) },
                             modifier = Modifier.fillMaxWidth(),
                             singleLine = true,
                             keyboardOptions = KeyboardOptions(
@@ -322,7 +323,7 @@ fun AdminRegistrationScreen(
                                     color = MaterialTheme.colorScheme.onPrimary
                                 )
                             } else {
-                                Text("Créer le groupe", style = MaterialTheme.typography.bodyLarge)
+                                Text(stringResource(R.string.create_group_button), style = MaterialTheme.typography.bodyLarge)
                             }
                         }
 
@@ -330,7 +331,7 @@ fun AdminRegistrationScreen(
                             onClick = { navController.navigateUp() },
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text("Retour")
+                            Text(stringResource(R.string.back_button))
                         }
                     }
                 }
@@ -338,13 +339,13 @@ fun AdminRegistrationScreen(
         }
     }
 
-    // Диалог с кодом группы (без изменений)
+    // Диалог с кодом группы
     if (showGroupCodeDialog) {
         AlertDialog(
             onDismissRequest = { },
             title = {
                 Text(
-                    "Groupe créé!",
+                    stringResource(R.string.group_created_title),
                     style = MaterialTheme.typography.headlineSmall,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
@@ -356,7 +357,7 @@ fun AdminRegistrationScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        "Partagez ce code avec vos subordonnés :",
+                        stringResource(R.string.share_code_message),
                         style = MaterialTheme.typography.bodyMedium,
                         textAlign = TextAlign.Center
                     )
@@ -393,13 +394,13 @@ fun AdminRegistrationScreen(
                             ) {
                                 Icon(Icons.Default.ContentCopy, null, modifier = Modifier.size(18.dp))
                                 Spacer(Modifier.width(8.dp))
-                                Text("Copier le code")
+                                Text(stringResource(R.string.copy_code_button))
                             }
 
                             if (showCopiedMessage) {
                                 Spacer(Modifier.height(8.dp))
                                 Text(
-                                    "✓ Code copié!",
+                                    stringResource(R.string.code_copied),
                                     color = MaterialTheme.colorScheme.primary,
                                     style = MaterialTheme.typography.bodySmall
                                 )
@@ -421,7 +422,7 @@ fun AdminRegistrationScreen(
                         ) {
                             Text("⚠️", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(end = 8.dp))
                             Text(
-                                "Notez ce code pour que vos subordonnés puissent rejoindre!",
+                                stringResource(R.string.important_note),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onErrorContainer
                             )
@@ -433,14 +434,13 @@ fun AdminRegistrationScreen(
                 Button(
                     onClick = {
                         showGroupCodeDialog = false
-                        // ИЗМЕНЕНО: переход к send_test с sessionId
                         navController.navigate("send_test/$sessionId") {
                             popUpTo("competition") { inclusive = true }
                         }
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Continuer")
+                    Text(stringResource(R.string.continue_button))
                 }
             }
         )

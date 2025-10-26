@@ -28,10 +28,12 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import legOS.testidf.loadImageFromAssets
+import legOS.testidf.R
 import java.io.IOException
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -94,19 +96,19 @@ fun CompetitionRoleScreen(navController: NavController) {
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Info,
-                                        contentDescription = "Info",
+                                        contentDescription = stringResource(R.string.info_button),
                                         tint = MaterialTheme.colorScheme.onErrorContainer,
                                         modifier = Modifier.size(20.dp)
                                     )
                                     Column(modifier = Modifier.weight(1f)) {
                                         Text(
-                                            "Version Bêta",
+                                            stringResource(R.string.beta_warning_title),
                                             style = MaterialTheme.typography.titleSmall,
                                             color = MaterialTheme.colorScheme.onErrorContainer
                                         )
                                         Spacer(modifier = Modifier.height(4.dp))
                                         Text(
-                                            "Le mode Test Collectif est en phase bêta. Des interruptions temporaires peuvent survenir. Nous vous prions de nous excuser pour la gêne occasionnée.",
+                                            stringResource(R.string.beta_warning_message),
                                             style = MaterialTheme.typography.bodySmall,
                                             color = MaterialTheme.colorScheme.onErrorContainer,
                                             textAlign = TextAlign.Start
@@ -123,7 +125,7 @@ fun CompetitionRoleScreen(navController: NavController) {
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Close,
-                                        contentDescription = "Fermer",
+                                        contentDescription = stringResource(R.string.close_button),
                                         tint = MaterialTheme.colorScheme.onErrorContainer,
                                         modifier = Modifier.size(18.dp)
                                     )
@@ -136,7 +138,7 @@ fun CompetitionRoleScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(0.dp))
 
                 Text(
-                    "Choisissez votre rôle",
+                    stringResource(R.string.competition_title),
                     style = MaterialTheme.typography.headlineMedium,
                     textAlign = TextAlign.Center
                 )
@@ -156,13 +158,13 @@ fun CompetitionRoleScreen(navController: NavController) {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            "Mode Compétition",
+                            stringResource(R.string.competition_mode),
                             style = MaterialTheme.typography.titleSmall,
                             color = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            "Organisez des tests\npour votre équipe",
+                            stringResource(R.string.competition_description),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             textAlign = TextAlign.Center
@@ -198,7 +200,7 @@ fun CompetitionRoleScreen(navController: NavController) {
                             contentColor = MaterialTheme.colorScheme.onPrimary
                         )
                     ) {
-                        Text("Chef", style = MaterialTheme.typography.bodyLarge)
+                        Text(stringResource(R.string.role_chef), style = MaterialTheme.typography.bodyLarge)
                     }
 
                     // Кнопка Subordonné
@@ -214,7 +216,7 @@ fun CompetitionRoleScreen(navController: NavController) {
                             contentColor = MaterialTheme.colorScheme.onPrimary
                         )
                     ) {
-                        Text("Subordonné", style = MaterialTheme.typography.bodyLarge)
+                        Text(stringResource(R.string.role_subordinate), style = MaterialTheme.typography.bodyLarge)
                     }
                 }
 
@@ -231,7 +233,7 @@ fun CompetitionRoleScreen(navController: NavController) {
                         contentColor = MaterialTheme.colorScheme.onTertiary
                     )
                 ) {
-                    Text("Retour", style = MaterialTheme.typography.bodyMedium)
+                    Text(stringResource(R.string.return_tab), style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }
@@ -277,19 +279,19 @@ fun CompetitionRoleScreen(navController: NavController) {
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Info,
-                                    contentDescription = "Info",
+                                    contentDescription = stringResource(R.string.info_button),
                                     tint = MaterialTheme.colorScheme.onErrorContainer,
                                     modifier = Modifier.size(20.dp)
                                 )
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(
-                                        "Version Bêta",
+                                        stringResource(R.string.beta_warning_title),
                                         style = MaterialTheme.typography.titleSmall,
                                         color = MaterialTheme.colorScheme.onErrorContainer
                                     )
                                     Spacer(modifier = Modifier.height(4.dp))
                                     Text(
-                                        "Le mode Test Collectif est en phase bêta. Des interruptions temporaires peuvent survenir. Nous vous prions de nous excuser pour la gêne occasionnée.",
+                                        stringResource(R.string.beta_warning_message),
                                         style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.onErrorContainer,
                                         textAlign = TextAlign.Start
@@ -306,7 +308,7 @@ fun CompetitionRoleScreen(navController: NavController) {
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Close,
-                                    contentDescription = "Fermer",
+                                    contentDescription = stringResource(R.string.close_button),
                                     tint = MaterialTheme.colorScheme.onErrorContainer,
                                     modifier = Modifier.size(18.dp)
                                 )
@@ -319,7 +321,7 @@ fun CompetitionRoleScreen(navController: NavController) {
             Spacer(modifier = Modifier.weight(1f))
 
             Text(
-                "Choisissez votre rôle",
+                stringResource(R.string.competition_title),
                 style = MaterialTheme.typography.headlineMedium,
                 textAlign = TextAlign.Center
             )
@@ -343,7 +345,7 @@ fun CompetitionRoleScreen(navController: NavController) {
                         contentColor = MaterialTheme.colorScheme.onPrimary
                     )
                 ) {
-                    Text("Chef", style = MaterialTheme.typography.bodyLarge)
+                    Text(stringResource(R.string.role_chef), style = MaterialTheme.typography.bodyLarge)
                 }
 
                 // Кнопка Subordonné
@@ -360,7 +362,7 @@ fun CompetitionRoleScreen(navController: NavController) {
                         contentColor = MaterialTheme.colorScheme.onPrimary
                     )
                 ) {
-                    Text("Subordonné", style = MaterialTheme.typography.bodyLarge)
+                    Text(stringResource(R.string.role_subordinate), style = MaterialTheme.typography.bodyLarge)
                 }
             }
 
@@ -378,7 +380,7 @@ fun CompetitionRoleScreen(navController: NavController) {
                     contentColor = MaterialTheme.colorScheme.onTertiary
                 )
             ) {
-                Text("Retour", style = MaterialTheme.typography.bodyMedium)
+                Text(stringResource(R.string.return_tab), style = MaterialTheme.typography.bodyMedium)
             }
 
             Spacer(modifier = Modifier.height(16.dp))

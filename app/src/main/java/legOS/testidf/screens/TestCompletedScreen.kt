@@ -16,10 +16,12 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import legOS.testidf.data.UserSession
+import legOS.testidf.R
 import java.io.IOException
 import java.io.InputStream
 
@@ -64,14 +66,14 @@ fun TestCompletedScreen(navController: NavController) {
         Spacer(Modifier.height(24.dp))
 
         Text(
-            "Test terminé!",
+            stringResource(R.string.test_completed_title),
             style = MaterialTheme.typography.headlineMedium
         )
 
         Spacer(Modifier.height(16.dp))
 
         Text(
-            "Vos résultats ont été envoyés au chef.\nMerci d'avoir participé!",
+            stringResource(R.string.test_completed_message),
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center
         )
@@ -85,7 +87,7 @@ fun TestCompletedScreen(navController: NavController) {
                 }
             }
         ) {
-            Text("Retour")
+            Text(stringResource(R.string.back_button))
         }
     }
 }
