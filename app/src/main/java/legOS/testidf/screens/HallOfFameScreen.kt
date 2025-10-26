@@ -22,10 +22,15 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import legOS.testidf.R
+import legOS.testidf.R.string.hall_of_fame_title
+import legOS.testidf.R.string.no_score_available
+import legOS.testidf.R.string.return_button
 import legOS.testidf.loadScores
 import java.io.IOException
 
@@ -135,7 +140,7 @@ private fun HallOfFameCompactLayout(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Panthéon",
+            text = stringResource(hall_of_fame_title),
             style = MaterialTheme.typography.headlineSmall,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onBackground,
@@ -144,7 +149,7 @@ private fun HallOfFameCompactLayout(
 
         if (scores.isEmpty()) {
             Text(
-                text = "Aucun score disponible",
+                text = stringResource(no_score_available),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.padding(16.dp)
@@ -186,7 +191,7 @@ private fun HallOfFameLargeLayout(
         ) {
             if (scores.isEmpty()) {
                 Text(
-                    text = "Aucun score disponible",
+                    text = stringResource(no_score_available),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.align(Alignment.Center)
@@ -214,7 +219,7 @@ private fun HallOfFameLargeLayout(
         ) {
             // Верхняя часть - заголовок "Panthéon"
             Text(
-                text = "Panthéon",
+                text = stringResource(hall_of_fame_title),
                 style = MaterialTheme.typography.headlineLarge.copy(
                     fontSize = 40.sp
                 ),
@@ -295,6 +300,6 @@ private fun ReturnButton(navController: NavController, modifier: Modifier) {
         ),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.tertiary)
     ) {
-        Text("Retour", style = MaterialTheme.typography.bodyLarge)
+        Text(stringResource(return_button), style = MaterialTheme.typography.bodyLarge)
     }
 }

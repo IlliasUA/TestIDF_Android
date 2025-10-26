@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Application name -->
     <string name="app_name">Tanks Hunter: Quiz</string>
 
@@ -156,6 +156,11 @@
 
     <!-- News -->
     <string name="news_title">📰 News</string>
+
+    <!-- hall_of_fame_title -->
+    <string name="hall_of_fame_title">Pantheon</string>
+    <string name="no_score_available">No score available</string>
+    <string name="return_button">Back</string>
 
     <!-- Common errors -->
     <string name="error_generic">Error: %s</string>

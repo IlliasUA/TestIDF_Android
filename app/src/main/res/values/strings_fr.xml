@@ -157,6 +157,11 @@
     <!-- Actualités -->
     <string name="news_title">📰 Actualités</string>
 
+    <!-- hall_of_fame_title -->
+    <string name="hall_of_fame_title">Panthéon</string>
+    <string name="no_score_available">Aucun score disponible</string>
+    <string name="return_button">Retour</string>
+
     <!-- Erreurs communes -->
     <string name="error_generic">Erreur: %s</string>
     <string name="error_network">Erreur réseau. Vérifiez votre connexion</string>
