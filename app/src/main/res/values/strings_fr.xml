@@ -176,6 +176,49 @@
     <string name="test_created_success">Test créé avec succès!</string>
     <string name="min_items_error">Minimum 4 éléments requis pour créer un test</string>
 
+    <!-- Custom Test Screen -->
+    <string name="no_questions_found">Aucune question trouvée</string>
+    <string name="your_answer">Votre réponse</string>
+    <string name="enter_name">Entrez le nom…</string>
+    <string name="clear">Effacer</string>
+    <string name="validate">Valider</string>
+    <string name="quit">Quitter</string>
+    <string name="image_not_found">Image non trouvée: %s</string>
+    <string name="enter_equipment_name">Entrez le nom de l\'équipement…</string>
+    <string name="change_language">Changer la langue</string>
+
+    <!-- Custom Results Screen -->
+    <string name="test_completed">Test Terminé!</string>
+    <string name="custom_test_completed">Test Personnalisé Terminé!</string>
+    <string name="score">Score: %1$d / %2$d</string>
+    <string name="percentage">(%d%%)</string>
+    <string name="by_category">Par catégorie:</string>
+    <string name="results_by_category">Résultats par catégorie:</string>
+    <string name="test">Test</string>
+    <string name="menu">Menu</string>
+    <string name="question_number_short">Question %d</string>
+    <string name="category_label">Catégorie: %s</string>
+    <string name="correct_answer">Correct: %s</string>
+    <string name="correct_answer_label">Réponse correcte: %s</string>
+    <string name="your_answer_label">Vous: %s</string>
+    <string name="your_answer_result">Votre réponse: %s</string>
+    <string name="no_answer">Aucune</string>
+    <string name="no_answer_given">Aucune réponse</string>
+    <string name="correct_mark">✓ Correct</string>
+    <string name="incorrect_mark">✗ Incorrect</string>
+    <string name="image_unavailable">Image\nnon disponible</string>
+    <string name="image_not_available">Image non disponible</string>
+    <string name="question_with_category">Question %1$d - %2$s</string>
+
+    <!-- Custom Time Selection Screen -->
+    <string name="custom_test">Test Personnalisé</string>
+    <string name="elements_selected">%d éléments sélectionnés</string>
+    <string name="select_time_per_question">Sélectionnez le temps par question</string>
+    <string name="seconds_format">%d secondes</string>
+    <string name="no_element_selected">Aucun élément sélectionné!</string>
+    <string name="selected_elements">Éléments sélectionnés:</string>
+    <string name="and_more">... et aussi %d</string>
+
     <!-- Abonnement -->
     <string name="subscription_title">Tanks Hunter: Quiz</string>
     <string name="subscription_subtitle">Abonnement annuel</string>

@@ -31,6 +31,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -38,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.quizapp.*
 import kotlinx.parcelize.Parcelize
+import legOS.testidf.R
 import legOS.testidf.data.UserSession
 import java.io.IOException
 
@@ -187,7 +189,7 @@ fun CreationScreen(
                                     )
                                     Spacer(modifier = Modifier.height(16.dp))
                                     Text(
-                                        text = "Recherchez des éléments pour créer votre test",
+                                        text = stringResource(R.string.help_search_description),
                                         style = MaterialTheme.typography.bodyLarge,
                                         textAlign = TextAlign.Center,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -196,7 +198,7 @@ fun CreationScreen(
                             }
                             searchResults.isEmpty() && searchQuery.isNotBlank() -> {
                                 Text(
-                                    text = "Aucun élément trouvé pour \"$searchQuery\"",
+                                    text = stringResource(R.string.no_tests_available),
                                     style = MaterialTheme.typography.bodyLarge,
                                     textAlign = TextAlign.Center,
                                     color = MaterialTheme.colorScheme.error,
@@ -229,13 +231,13 @@ fun CreationScreen(
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    text = "Aucun élément sélectionné",
+                                    text = stringResource(R.string.no_tests_available),
                                     style = MaterialTheme.typography.bodyLarge,
                                     textAlign = TextAlign.Center
                                 )
                                 Spacer(modifier = Modifier.height(16.dp))
                                 Text(
-                                    text = "Minimum 4 éléments requis pour créer un test",
+                                    text = stringResource(R.string.min_items_error),
                                     style = MaterialTheme.typography.bodyMedium,
                                     textAlign = TextAlign.Center
                                 )
@@ -285,11 +287,11 @@ fun CreationScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(8.dp),
-                                placeholder = { Text("Entrez ici") },
+                                placeholder = { Text(stringResource(R.string.group_code_placeholder).replace("Ex: ABC123", "")) },
                                 leadingIcon = {
                                     Icon(
                                         imageVector = Icons.Default.Search,
-                                        contentDescription = "Rechercher"
+                                        contentDescription = stringResource(R.string.search_tab)
                                     )
                                 },
                                 trailingIcon = {
@@ -300,7 +302,7 @@ fun CreationScreen(
                                         }) {
                                             Icon(
                                                 imageVector = Icons.Default.Clear,
-                                                contentDescription = "Effacer"
+                                                contentDescription = stringResource(R.string.cancel_button)
                                             )
                                         }
                                     }
@@ -324,14 +326,14 @@ fun CreationScreen(
                         ) {
                             Button(
                                 onClick = {
-                                    navController.navigateUp() // Просто возвращается на предыдущий экран
+                                    navController.navigateUp()
                                 }) {
-                                Icon(Icons.Default.ArrowBack, "Retour")
+                                Icon(Icons.Default.ArrowBack, stringResource(R.string.return_tab))
                             }
 
                             Button(
-                                onClick = { navigateToCustomTest() },  // ИСПРАВЛЕНО: здесь была ошибка
-                                modifier = Modifier.weight(1f),  // ИСПРАВЛЕНО: было fillMaxWidth()
+                                onClick = { navigateToCustomTest() },
+                                modifier = Modifier.weight(1f),
                                 enabled = selectedItems.size >= 4 && (mode == CreationMode.OFFLINE || !uiState.isLoading),
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = if (selectedItems.size >= 4)
@@ -350,9 +352,9 @@ fun CreationScreen(
                                 }
                                 Text(
                                     when {
-                                        mode == CreationMode.ONLINE && uiState.isLoading -> "Création..."
-                                        mode == CreationMode.ONLINE -> "Créer Test en Ligne (${selectedItems.size})"
-                                        else -> "Créer Test (${selectedItems.size})"
+                                        mode == CreationMode.ONLINE && uiState.isLoading -> stringResource(R.string.submitting_results)
+                                        mode == CreationMode.ONLINE -> "${stringResource(R.string.create_test_button)} (${selectedItems.size})"
+                                        else -> "${stringResource(R.string.create_test_button)} (${selectedItems.size})"
                                     },
                                     style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
                                 )
@@ -371,7 +373,7 @@ fun CreationScreen(
                                 )
                             ) {
                                 Text(
-                                    text = "Éléments sélectionnés: ${selectedItems.size}",
+                                    text = stringResource(R.string.selected_items, selectedItems.size),
                                     style = MaterialTheme.typography.labelSmall,
                                     modifier = Modifier.padding(8.dp),
                                     textAlign = TextAlign.Center
@@ -402,7 +404,7 @@ fun CreationScreen(
                                         )
                                         Spacer(modifier = Modifier.width(6.dp))
                                         Text(
-                                            "Retour",
+                                            stringResource(R.string.return_tab),
                                             style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
                                         )
                                     }
@@ -422,7 +424,7 @@ fun CreationScreen(
                                         )
                                         Spacer(modifier = Modifier.width(6.dp))
                                         Text(
-                                            "Effacer",
+                                            stringResource(R.string.cancel_button),
                                             style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
                                         )
                                     }
@@ -450,7 +452,8 @@ fun CreationScreen(
                                         Spacer(Modifier.width(8.dp))
                                     }
                                     Text(
-                                        if (uiState.isLoading) "Création..." else "Créer Test (${selectedItems.size})",
+                                        if (uiState.isLoading) stringResource(R.string.submitting_results)
+                                        else "${stringResource(R.string.create_test_button)} (${selectedItems.size})",
                                         style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
                                     )
                                 }
@@ -465,7 +468,7 @@ fun CreationScreen(
                                     ) {
                                         Column(modifier = Modifier.padding(8.dp)) {
                                             Text(
-                                                text = "Éléments sélectionnés: ${selectedItems.size}",
+                                                text = stringResource(R.string.selected_items, selectedItems.size),
                                                 style = MaterialTheme.typography.titleSmall
                                             )
                                             val categoryCounts = selectedItems.groupingBy { it.category }.eachCount()
@@ -478,7 +481,7 @@ fun CreationScreen(
                                             if (selectedItems.size < 4) {
                                                 Spacer(modifier = Modifier.height(4.dp))
                                                 Text(
-                                                    text = "Encore ${4 - selectedItems.size} éléments requis",
+                                                    text = stringResource(R.string.min_items_error),
                                                     style = MaterialTheme.typography.bodySmall,
                                                     color = MaterialTheme.colorScheme.error
                                                 )
@@ -523,11 +526,11 @@ fun CreationScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(8.dp),
-                        placeholder = { Text("Entrez ici") },
+                        placeholder = { Text(stringResource(R.string.group_code_placeholder).replace("Ex: ABC123", "").replace("Ex: ", "")) },
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Search,
-                                contentDescription = "Rechercher"
+                                contentDescription = stringResource(R.string.search_tab)
                             )
                         },
                         trailingIcon = {
@@ -538,7 +541,7 @@ fun CreationScreen(
                                 }) {
                                     Icon(
                                         imageVector = Icons.Default.Clear,
-                                        contentDescription = "Effacer"
+                                        contentDescription = stringResource(R.string.cancel_button)
                                     )
                                 }
                             }
@@ -562,14 +565,14 @@ fun CreationScreen(
                 ) {
                     Button(
                         onClick = {
-                            navController.navigateUp() // Просто возвращается на предыдущий экран
+                            navController.navigateUp()
                         }) {
-                        Icon(Icons.Default.ArrowBack, "Retour")
+                        Icon(Icons.Default.ArrowBack, stringResource(R.string.return_tab))
                     }
 
                     Button(
-                        onClick = { showSelectedItems = !showSelectedItems },  // ИСПРАВЛЕНО
-                        modifier = Modifier.weight(1f),  // ИСПРАВЛЕНО: было fillMaxWidth()
+                        onClick = { showSelectedItems = !showSelectedItems },
+                        modifier = Modifier.weight(1f),
                         enabled = selectedItems.size >= 4,
                         colors = ButtonDefaults.buttonColors(
                             containerColor = if (selectedItems.size >= 4)
@@ -588,9 +591,9 @@ fun CreationScreen(
                         }
                         Text(
                             when {
-                                mode == CreationMode.ONLINE && uiState.isLoading -> "Création..."
-                                mode == CreationMode.ONLINE -> "Créer Test en Ligne (${selectedItems.size})"
-                                else -> "Créer Test (${selectedItems.size})"
+                                mode == CreationMode.ONLINE && uiState.isLoading -> stringResource(R.string.submitting_results)
+                                mode == CreationMode.ONLINE -> "${stringResource(R.string.create_test_button)} (${selectedItems.size})"
+                                else -> "${stringResource(R.string.create_test_button)} (${selectedItems.size})"
                             },
                             style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
                         )
@@ -615,7 +618,7 @@ fun CreationScreen(
                                 )
                                 Spacer(modifier = Modifier.height(16.dp))
                                 Text(
-                                    text = "Recherchez des éléments pour créer votre test",
+                                    text = stringResource(R.string.help_search_description),
                                     style = MaterialTheme.typography.bodyLarge,
                                     textAlign = TextAlign.Center,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -629,7 +632,7 @@ fun CreationScreen(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = "Aucun élément trouvé pour \"$searchQuery\"",
+                                text = stringResource(R.string.no_tests_available),
                                 style = MaterialTheme.typography.bodyLarge,
                                 textAlign = TextAlign.Center,
                                 color = MaterialTheme.colorScheme.error
@@ -679,7 +682,7 @@ fun CreationScreen(
                                     modifier = Modifier.size(16.dp)
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text("Retour")
+                                Text(stringResource(R.string.return_tab))
                             }
 
                             Button(
@@ -696,7 +699,7 @@ fun CreationScreen(
                                     modifier = Modifier.size(16.dp)
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Text("Effacer")
+                                Text(stringResource(R.string.cancel_button))
                             }
                         }
 
@@ -721,7 +724,10 @@ fun CreationScreen(
                                 )
                                 Spacer(Modifier.width(8.dp))
                             }
-                            Text(if (uiState.isLoading) "Création..." else "Créer Test (${selectedItems.size})")
+                            Text(
+                                if (uiState.isLoading) stringResource(R.string.submitting_results)
+                                else "${stringResource(R.string.create_test_button)} (${selectedItems.size})"
+                            )
                         }
                     }
                 }
@@ -735,13 +741,13 @@ fun CreationScreen(
                     ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Text(
-                                text = "Aucun élément sélectionné",
+                                text = stringResource(R.string.no_tests_available),
                                 style = MaterialTheme.typography.bodyLarge,
                                 textAlign = TextAlign.Center
                             )
                             Spacer(modifier = Modifier.height(16.dp))
                             Text(
-                                text = "Minimum 4 éléments requis pour créer un test",
+                                text = stringResource(R.string.min_items_error),
                                 style = MaterialTheme.typography.bodyMedium,
                                 textAlign = TextAlign.Center
                             )
@@ -758,7 +764,7 @@ fun CreationScreen(
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text(
-                                text = "Éléments sélectionnés: ${selectedItems.size}",
+                                text = stringResource(R.string.selected_items, selectedItems.size),
                                 style = MaterialTheme.typography.titleMedium
                             )
                             val categoryCounts = selectedItems.groupingBy { it.category }.eachCount()
@@ -771,7 +777,7 @@ fun CreationScreen(
                             if (selectedItems.size < 4) {
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Text(
-                                    text = "Encore ${4 - selectedItems.size} éléments requis",
+                                    text = stringResource(R.string.min_items_error),
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.error
                                 )
@@ -843,9 +849,12 @@ fun CreationItemCard(
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(item.name, style = MaterialTheme.typography.headlineSmall)
-                    Text("Catégorie: ${item.category}", style = MaterialTheme.typography.bodySmall)
+                    Text(
+                        stringResource(R.string.time_selection_category_label) + ": ${item.category}",
+                        style = MaterialTheme.typography.bodySmall
+                    )
                     if (item.additionalImages.isNotEmpty()) {
-                        Text("${item.additionalImages.size + 1} images disponibles", style = MaterialTheme.typography.bodySmall)
+                        Text("${item.additionalImages.size + 1} images", style = MaterialTheme.typography.bodySmall)
                     }
                 }
 
@@ -854,14 +863,14 @@ fun CreationItemCard(
                         onClick = onRemoveClick,
                         colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.error)
                     ) {
-                        Icon(Icons.Default.Delete, "Retirer", tint = MaterialTheme.colorScheme.onError)
+                        Icon(Icons.Default.Delete, stringResource(R.string.cancel_button), tint = MaterialTheme.colorScheme.onError)
                     }
                 } else {
                     IconButton(
                         onClick = onAddClick,
                         colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary)
                     ) {
-                        Icon(Icons.Default.Add, "Ajouter", tint = MaterialTheme.colorScheme.onPrimary)
+                        Icon(Icons.Default.Add, stringResource(R.string.join_button), tint = MaterialTheme.colorScheme.onPrimary)
                     }
                 }
             }
@@ -888,7 +897,7 @@ fun CreationItemCard(
                 modifier = Modifier.fillMaxWidth().height(150.dp).background(MaterialTheme.colorScheme.surfaceVariant),
                 contentAlignment = Alignment.Center
             ) {
-                Text("Image non disponible")
+                Text(stringResource(R.string.no_tests_available))
             }
 
             Text(

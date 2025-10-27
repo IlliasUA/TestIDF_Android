@@ -12,12 +12,14 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import android.util.Log
 import androidx.compose.ui.graphics.asImageBitmap
 import legOS.testidf.loadImageFromAssets
+import legOS.testidf.R
 
 @Composable
 fun CustomTimeSelectionScreen(navController: NavController, questionCount: String) {
@@ -61,7 +63,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    "Test Personnalisé",
+                    stringResource(R.string.custom_test),
                     style = MaterialTheme.typography.headlineMedium,
                     textAlign = TextAlign.Center
                 )
@@ -69,7 +71,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    "${selectedItems.size} éléments sélectionnés",
+                    stringResource(R.string.elements_selected, selectedItems.size),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -83,7 +85,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
                         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
                     ) {
                         Text(
-                            "Aucun élément sélectionné!",
+                            stringResource(R.string.no_element_selected),
                             modifier = Modifier.padding(16.dp),
                             color = MaterialTheme.colorScheme.error,
                             style = MaterialTheme.typography.bodyMedium
@@ -100,7 +102,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text(
-                                "Éléments sélectionnés:",
+                                stringResource(R.string.selected_elements),
                                 style = MaterialTheme.typography.titleSmall,
                                 color = MaterialTheme.colorScheme.primary
                             )
@@ -113,7 +115,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
                             }
                             if (selectedItems.size > 5) {
                                 Text(
-                                    "... et aussi ${selectedItems.size - 5}",
+                                    stringResource(R.string.and_more, selectedItems.size - 5),
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -132,7 +134,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    "Sélectionnez le temps par question",
+                    stringResource(R.string.select_time_per_question),
                     style = MaterialTheme.typography.headlineSmall,
                     textAlign = TextAlign.Center
                 )
@@ -160,7 +162,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
                                 contentColor = MaterialTheme.colorScheme.onPrimary
                             )
                         ) {
-                            Text("$time secondes", style = MaterialTheme.typography.bodyLarge)
+                            Text(stringResource(R.string.seconds_format, time), style = MaterialTheme.typography.bodyLarge)
                         }
                     }
                 }
@@ -177,7 +179,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
                         contentColor = MaterialTheme.colorScheme.onTertiary
                     )
                 ) {
-                    Text("Retour", style = MaterialTheme.typography.bodyMedium)
+                    Text(stringResource(R.string.back_button), style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }
@@ -199,7 +201,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                "Test Personnalisé",
+                stringResource(R.string.custom_test),
                 style = MaterialTheme.typography.headlineMedium,
                 textAlign = TextAlign.Center
             )
@@ -207,7 +209,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                "${selectedItems.size} éléments sélectionnés",
+                stringResource(R.string.elements_selected, selectedItems.size),
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -216,7 +218,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                "Sélectionnez le temps par question",
+                stringResource(R.string.select_time_per_question),
                 style = MaterialTheme.typography.headlineSmall,
                 textAlign = TextAlign.Center
             )
@@ -244,7 +246,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
                             contentColor = MaterialTheme.colorScheme.onPrimary
                         )
                     ) {
-                        Text("$time secondes", style = MaterialTheme.typography.bodyLarge)
+                        Text(stringResource(R.string.seconds_format, time), style = MaterialTheme.typography.bodyLarge)
                     }
                 }
             }
@@ -257,7 +259,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
                 ) {
                     Text(
-                        "Aucun élément sélectionné!",
+                        stringResource(R.string.no_element_selected),
                         modifier = Modifier.padding(16.dp),
                         color = MaterialTheme.colorScheme.error,
                         style = MaterialTheme.typography.bodyMedium
@@ -270,7 +272,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
-                            "Éléments sélectionnés:",
+                            stringResource(R.string.selected_elements),
                             style = MaterialTheme.typography.titleSmall,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -283,7 +285,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
                         }
                         if (selectedItems.size > 3) {
                             Text(
-                                "... et aussi ${selectedItems.size - 3}",
+                                stringResource(R.string.and_more, selectedItems.size - 3),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -305,7 +307,7 @@ fun CustomTimeSelectionScreen(navController: NavController, questionCount: Strin
                     contentColor = MaterialTheme.colorScheme.onTertiary
                 )
             ) {
-                Text("Retour", style = MaterialTheme.typography.bodyMedium)
+                Text(stringResource(R.string.back_button), style = MaterialTheme.typography.bodyMedium)
             }
         }
     }
