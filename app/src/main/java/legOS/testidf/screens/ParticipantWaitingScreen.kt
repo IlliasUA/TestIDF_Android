@@ -23,10 +23,12 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import legOS.testidf.R
 import legOS.testidf.data.UserSession
 import legOS.testidf.viewmodel.ParticipantRegistrationViewModel
 import legOS.testidf.viewmodel.ParticipantWaitingViewModel
@@ -101,7 +103,7 @@ fun ParticipantWaitingScreen(
             },
             title = {
                 Text(
-                    "Information",
+                    stringResource(R.string.group_closed_title),
                     style = MaterialTheme.typography.headlineMedium,
                     textAlign = TextAlign.Center
                 )
@@ -112,13 +114,13 @@ fun ParticipantWaitingScreen(
                     modifier = Modifier.padding(vertical = 8.dp)
                 ) {
                     Text(
-                        uiState.groupClosedMessage ?: "Le chef a quitté la session",
+                        uiState.groupClosedMessage ?: stringResource(R.string.group_closed_subtitle),
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
                     Text(
-                        "La compétition est maintenant terminée. Vous pouvez rester sur cette page ou quitter quand vous le souhaitez.",
+                        stringResource(R.string.group_closed_details),
                         style = MaterialTheme.typography.bodyMedium,
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
@@ -130,7 +132,7 @@ fun ParticipantWaitingScreen(
                     onClick = { showGroupClosedDialog = false },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("OK")
+                    Text(stringResource(R.string.ok))
                 }
             }
         )
@@ -159,9 +161,9 @@ fun ParticipantWaitingScreen(
     if (showLeaveDialog) {
         AlertDialog(
             onDismissRequest = { showLeaveDialog = false },
-            title = { Text("Quitter le groupe?") },
+            title = { Text(stringResource(R.string.leave_group_title)) },
             text = {
-                Text("Êtes-vous sûr de vouloir quitter? Vous devrez entrer à nouveau le code du groupe pour rejoindre.")
+                Text(stringResource(R.string.leave_group_message))
             },
             confirmButton = {
                 Button(
@@ -184,12 +186,12 @@ fun ParticipantWaitingScreen(
                         CircularProgressIndicator(modifier = Modifier.size(16.dp))
                         Spacer(Modifier.width(8.dp))
                     }
-                    Text("Quitter")
+                    Text(stringResource(R.string.leave))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showLeaveDialog = false }) {
-                    Text("Annuler")
+                    Text(stringResource(R.string.cancel_button))
                 }
             }
         )
@@ -220,7 +222,7 @@ fun PortraitLayout(
             .padding(16.dp)
     ) {
         Text(
-            "Bienvenue, ${UserSession.userName}!",
+            stringResource(R.string.welcome_participant, UserSession.userName ?: ""),
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(bottom = 16.dp)
         )
@@ -235,7 +237,7 @@ fun PortraitLayout(
                 onClick = { onTabSelected(0) },
                 text = {
                     Text(
-                        "Tests",
+                        stringResource(R.string.tests_available),
                         color = if (selectedTab == 0)
                             MaterialTheme.colorScheme.primary
                         else
@@ -258,7 +260,7 @@ fun PortraitLayout(
                 onClick = { onTabSelected(1) },
                 text = {
                     Text(
-                        "Résultats",
+                        stringResource(R.string.results_title),
                         color = if (selectedTab == 1)
                             MaterialTheme.colorScheme.primary
                         else
@@ -305,7 +307,7 @@ fun PortraitLayout(
         ) {
             Icon(Icons.Default.ExitToApp, null, modifier = Modifier.size(18.dp))
             Spacer(Modifier.width(8.dp))
-            Text("Quitter le groupe")
+            Text(stringResource(R.string.leave_group_button))
         }
     }
 }
@@ -358,7 +360,7 @@ fun LandscapeLayout(
                     )
                     Spacer(Modifier.width(12.dp))
                     Text(
-                        "Résultats",
+                        stringResource(R.string.results_title),
                         style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.primary
                     )
@@ -387,7 +389,7 @@ fun LandscapeLayout(
                         )
                         Spacer(Modifier.height(12.dp))
                         Text(
-                            "Aucun résultat disponible",
+                            stringResource(R.string.no_results),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                             textAlign = TextAlign.Center
@@ -448,7 +450,7 @@ fun LandscapeLayout(
                         )
                         Spacer(Modifier.width(12.dp))
                         Text(
-                            "Tests",
+                            stringResource(R.string.tests_available),
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -457,7 +459,7 @@ fun LandscapeLayout(
                     Divider(modifier = Modifier.padding(bottom = 12.dp))
 
                     Text(
-                        "Bienvenue, ${UserSession.userName}!",
+                        stringResource(R.string.welcome_participant, UserSession.userName ?: ""),
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
@@ -480,9 +482,9 @@ fun LandscapeLayout(
                             Spacer(Modifier.height(12.dp))
                             Text(
                                 if (uiState.isGroupActive) {
-                                    "Le chef va bientôt envoyer un test.\nVous serez notifié automatiquement."
+                                    stringResource(R.string.no_tests_message)
                                 } else {
-                                    "Le groupe est fermé.\nAucun test n'est disponible."
+                                    stringResource(R.string.group_closed_no_tests)
                                 },
                                 style = MaterialTheme.typography.bodyMedium,
                                 textAlign = TextAlign.Center,
@@ -519,7 +521,7 @@ fun LandscapeLayout(
                 ) {
                     Icon(Icons.Default.ExitToApp, null, modifier = Modifier.size(18.dp))
                     Spacer(Modifier.width(8.dp))
-                    Text("Quitter le groupe")
+                    Text(stringResource(R.string.leave_group_button))
                 }
             }
         }
@@ -547,9 +549,9 @@ fun TestsTab(
             Spacer(Modifier.height(16.dp))
             Text(
                 if (isGroupActive) {
-                    "Le chef va bientôt envoyer un test.\nVous serez notifié automatiquement."
+                    stringResource(R.string.no_tests_message)
                 } else {
-                    "Le groupe est fermé.\nAucun test n'est disponible."
+                    stringResource(R.string.group_closed_no_tests)
                 },
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
@@ -600,7 +602,7 @@ fun ResultsTab(
             )
             Spacer(Modifier.height(16.dp))
             Text(
-                "Aucun résultat disponible",
+                stringResource(R.string.no_results),
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
@@ -659,13 +661,13 @@ fun TestCard(
             Column(modifier = Modifier.weight(1f)) {
                 Text(title, style = MaterialTheme.typography.titleMedium)
                 Text(
-                    "$questionCount questions • ${timeLimit}s/question",
+                    stringResource(R.string.questions_with_time, questionCount, timeLimit),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
                 )
             }
             Button(onClick = onStartClick) {
-                Text("Commencer")
+                Text(stringResource(R.string.start_test_button))
             }
         }
     }
@@ -781,12 +783,12 @@ fun ResultCard(
 
                 Column(horizontalAlignment = Alignment.End) {
                     Text(
-                        "${result.score}/${result.totalQuestions}",
+                        stringResource(R.string.score, result.score, result.totalQuestions),
                         style = MaterialTheme.typography.titleLarge,
                         color = scoreColor
                     )
                     Text(
-                        "${String.format("%.1f", result.percentage)}%",
+                        stringResource(R.string.percentage_value, String.format("%.1f", result.percentage).toDouble().toInt()),
                         style = MaterialTheme.typography.bodyMedium,
                         color = scoreColor.copy(alpha = 0.7f)
                     )

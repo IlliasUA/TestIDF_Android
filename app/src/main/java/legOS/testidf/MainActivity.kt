@@ -66,7 +66,6 @@ fun AppNavigationWithSubscription(
     subscriptionViewModel: SubscriptionViewModel = viewModel()
 ) {
     val navController = rememberNavController()
-    val subscriptionState by subscriptionViewModel.uiState.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Фоновое изображение с прозрачностью 75%
@@ -90,20 +89,26 @@ fun AppNavigationWithSubscription(
             )
         }
 
-        // Определяем стартовый маршрут на основе статуса подписки
-        val startDestination = when {
-            subscriptionState.isLoading -> "subscription" // Показываем экран загрузки
-            subscriptionState.isActive -> "main_menu" // Подписка активна - главное меню
-            else -> "subscription" // Нет подписки - экран подписки
-        }
+        // ИЗМЕНЕНО: Всегда начинаем с главного меню
+        val startDestination = "main_menu"
 
         NavHost(navController, startDestination = startDestination) {
-            // Экран подписки (должен быть доступен всегда)
+            // Экран подписки (показывается при переходе в test_menu)
             composable("subscription") {
                 SubscriptionScreen(navController, subscriptionViewModel)
             }
 
-            // Все остальные маршруты (защищены подпиской)
+            // Главное меню доступно всегда
+            composable("main_menu") {
+                MainMenuScreen(navController = navController)
+            }
+
+            // НОВОЕ: Test menu с проверкой подписки
+            composable("test_menu") {
+                TestMenuScreenWithSubscription(navController, subscriptionViewModel)
+            }
+
+            // Все остальные маршруты (защищены подпиской через test_menu)
             composable("creation") {
                 CreationScreen(
                     navController = navController,
@@ -153,10 +158,6 @@ fun AppNavigationWithSubscription(
             composable("admin_registration") {
                 AdminRegistrationScreen(navController)
             }
-            composable("main_menu") {
-                MainMenuScreen(navController = navController)
-            }
-            composable("test_menu") { TestMenuScreen(navController) }
             composable("time_selection/{category}") { backStackEntry ->
                 val category = backStackEntry.arguments?.getString("category") ?: ""
                 TimeSelectionScreen(navController, category)
@@ -208,6 +209,32 @@ fun AppNavigationWithSubscription(
             composable("news_screen") {
                 NewsScreen(navController = navController)
             }
+        }
+    }
+}
+
+/**
+ * НОВОЕ: Обёртка для TestMenuScreen с проверкой подписки
+ */
+@Composable
+fun TestMenuScreenWithSubscription(
+    navController: androidx.navigation.NavController,
+    subscriptionViewModel: SubscriptionViewModel = viewModel()
+) {
+    val subscriptionState by subscriptionViewModel.uiState.collectAsState()
+
+    when {
+        subscriptionState.isLoading -> {
+            // Показываем экран загрузки
+            SubscriptionScreen(navController, subscriptionViewModel)
+        }
+        subscriptionState.isActive -> {
+            // Подписка активна - показываем TestMenuScreen
+            TestMenuScreen(navController)
+        }
+        else -> {
+            // Нет подписки - показываем экран подписки
+            SubscriptionScreen(navController, subscriptionViewModel)
         }
     }
 }

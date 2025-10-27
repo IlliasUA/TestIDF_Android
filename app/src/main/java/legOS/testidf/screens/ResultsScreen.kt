@@ -21,10 +21,12 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.quizapp.Question
+import legOS.testidf.R
 import legOS.testidf.loadImageFromAssets
 import legOS.testidf.getImagePath
 import legOS.testidf.saveScore
@@ -148,7 +150,7 @@ private fun ResultsLandscapeLayout(
                             bitmap?.let {
                                 Image(
                                     bitmap = it.asImageBitmap(),
-                                    contentDescription = "Question Image ${index + 1}",
+                                    contentDescription = stringResource(R.string.results_question_label, index + 1),
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .aspectRatio(16 / 9f)
@@ -156,21 +158,21 @@ private fun ResultsLandscapeLayout(
                                     contentScale = ContentScale.Crop
                                 )
                             } ?: Text(
-                                "Image not found: ${question.image}",
+                                stringResource(R.string.results_image_not_found, question.image),
                                 modifier = Modifier.padding(8.dp)
                             )
 
                             // Текстовая информация
                             Text(
-                                "Question ${index + 1}",
+                                stringResource(R.string.results_question_label, index + 1),
                                 style = MaterialTheme.typography.titleMedium.copy(fontSize = 14.sp)
                             )
                             Text(
-                                "Correct: ${question.correct}",
+                                stringResource(R.string.results_correct_label, question.correct),
                                 style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
                             )
                             Text(
-                                "Votre réponse: ${userAnswer ?: "Aucune"}",
+                                stringResource(R.string.results_your_answer_label, userAnswer ?: stringResource(R.string.results_no_answer)),
                                 style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
                             )
 
@@ -187,7 +189,7 @@ private fun ResultsLandscapeLayout(
                                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                                 ) {
                                     Text(
-                                        "Plus d'infos",
+                                        stringResource(R.string.results_more_info_button),
                                         style = MaterialTheme.typography.bodySmall.copy(fontSize = 10.sp)
                                     )
                                 }
@@ -209,7 +211,7 @@ private fun ResultsLandscapeLayout(
         ) {
             // Заголовок со счетом
             Text(
-                "Score: $correctAnswers / ${questions.size}",
+                stringResource(R.string.results_score, correctAnswers, questions.size),
                 style = MaterialTheme.typography.headlineMedium.copy(fontSize = 22.sp),
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.padding(bottom = 24.dp)
@@ -230,12 +232,12 @@ private fun ResultsLandscapeLayout(
                 ) {
                     val percentage = (correctAnswers.toFloat() / questions.size * 100).toInt()
                     Text(
-                        "Résultat: $percentage%",
+                        stringResource(R.string.results_percentage_label, percentage),
                         style = MaterialTheme.typography.titleLarge.copy(fontSize = 18.sp),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        "${questions.size - correctAnswers} réponses incorrectes",
+                        stringResource(R.string.results_incorrect_answers, questions.size - correctAnswers),
                         style = MaterialTheme.typography.bodyMedium.copy(fontSize = 13.sp),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(top = 6.dp)
@@ -273,7 +275,7 @@ private fun ResultsLandscapeLayout(
                     )
                 ) {
                     Text(
-                        "Recommencer",
+                        stringResource(R.string.results_restart_button),
                         style = MaterialTheme.typography.bodyMedium.copy(fontSize = 13.sp)
                     )
                 }
@@ -289,7 +291,7 @@ private fun ResultsLandscapeLayout(
                     )
                 ) {
                     Text(
-                        "Retour",
+                        stringResource(R.string.results_return_button),
                         style = MaterialTheme.typography.bodyMedium.copy(fontSize = 13.sp)
                     )
                 }
@@ -328,7 +330,7 @@ private fun ResultsPortraitLayout(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            "Score: $correctAnswers / ${questions.size}",
+            stringResource(R.string.results_score, correctAnswers, questions.size),
             style = MaterialTheme.typography.headlineMedium,
             color = MaterialTheme.colorScheme.onSurface
         )
@@ -357,7 +359,7 @@ private fun ResultsPortraitLayout(
                         bitmap?.let {
                             Image(
                                 bitmap = it.asImageBitmap(),
-                                contentDescription = "Question Image",
+                                contentDescription = stringResource(R.string.results_question_label, index + 1),
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .aspectRatio(16 / 9f)
@@ -365,18 +367,18 @@ private fun ResultsPortraitLayout(
                                     .align(Alignment.CenterHorizontally),
                                 contentScale = ContentScale.Crop
                             )
-                        } ?: Text("Image not found: ${question.image}")
+                        } ?: Text(stringResource(R.string.results_image_not_found, question.image))
 
                         Text(
-                            "Question ${index + 1}",
+                            stringResource(R.string.results_question_label, index + 1),
                             style = MaterialTheme.typography.titleMedium
                         )
                         Text(
-                            "Correct: ${question.correct}",
+                            stringResource(R.string.results_correct_label, question.correct),
                             style = MaterialTheme.typography.bodyMedium
                         )
                         Text(
-                            "Votre réponse: ${userAnswer ?: "Aucune"}",
+                            stringResource(R.string.results_your_answer_label, userAnswer ?: stringResource(R.string.results_no_answer)),
                             style = MaterialTheme.typography.bodyMedium
                         )
                         if (category !in listOf("tanks", "artillery", "recon", "genie", "air")) {
@@ -387,7 +389,7 @@ private fun ResultsPortraitLayout(
                                 },
                                 modifier = Modifier.align(Alignment.End)
                             ) {
-                                Text("Plus d'infos")
+                                Text(stringResource(R.string.results_more_info_button))
                             }
                         }
                     }
@@ -420,7 +422,7 @@ private fun ResultsPortraitLayout(
                     contentColor = MaterialTheme.colorScheme.onTertiary
                 )
             ) {
-                Text("Recommencer", style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp))
+                Text(stringResource(R.string.results_restart_button), style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp))
             }
 
             Button(
@@ -433,7 +435,7 @@ private fun ResultsPortraitLayout(
                     contentColor = MaterialTheme.colorScheme.onTertiary
                 )
             ) {
-                Text("Retour", style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp))
+                Text(stringResource(R.string.results_return_button), style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp))
             }
         }
 

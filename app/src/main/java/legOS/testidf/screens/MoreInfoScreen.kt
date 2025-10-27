@@ -26,6 +26,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -49,7 +50,7 @@ fun MoreInfoScreen(navController: NavController, category: String, index: Int, t
 
     if (currentQuestion == null) {
         Text(
-            text = "Question not found",
+            text = stringResource(R.string.more_info_question_not_found),
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier
                 .fillMaxSize()
@@ -76,7 +77,7 @@ fun MoreInfoScreen(navController: NavController, category: String, index: Int, t
         backgroundImage?.let {
             Image(
                 painter = BitmapPainter(it.asImageBitmap()),
-                contentDescription = "Background Image",
+                contentDescription = stringResource(R.string.more_info_background_image),
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
@@ -231,7 +232,7 @@ private fun MoreInfoLandscapeLayout(
                 items(allImagePaths) { imagePath ->
                     AsyncImage(
                         model = "file:///android_asset/$imagePath",
-                        contentDescription = "Image",
+                        contentDescription = stringResource(R.string.more_info_image),
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 200.dp, max = 300.dp),
@@ -252,7 +253,7 @@ private fun MoreInfoLandscapeLayout(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Réponse correcte: ${question.correct}",
+                text = stringResource(R.string.more_info_correct_answer, question.correct),
                 style = MaterialTheme.typography.headlineSmall.copy(
                     color = Color(0xFF006400),
                     fontWeight = FontWeight.SemiBold,
@@ -273,7 +274,7 @@ private fun MoreInfoLandscapeLayout(
                         .padding(bottom = 16.dp)
                 ) {
                     Text(
-                        text = question.description ?: "Aucune description disponible",
+                        text = question.description ?: stringResource(R.string.more_info_no_description),
                         style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
                         color = MaterialTheme.colorScheme.onBackground,
                         modifier = Modifier.padding(bottom = 12.dp)
@@ -311,7 +312,7 @@ private fun MoreInfoCompactLayout(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Réponse correcte: ${question.correct}",
+            text = stringResource(R.string.more_info_correct_answer, question.correct),
             style = MaterialTheme.typography.headlineSmall.copy(
                 color = Color(0xFF006400),
                 fontWeight = FontWeight.SemiBold
@@ -333,7 +334,7 @@ private fun MoreInfoCompactLayout(
             items(allImagePaths) { imagePath ->
                 AsyncImage(
                     model = "file:///android_asset/$imagePath",
-                    contentDescription = "Image",
+                    contentDescription = stringResource(R.string.more_info_image),
                     modifier = Modifier.size(
                         width = if (isLandscape) 350.dp else 416.dp,
                         height = if (isLandscape) 260.dp else 286.dp
@@ -357,7 +358,7 @@ private fun MoreInfoCompactLayout(
                     .padding(bottom = 16.dp)
             ) {
                 Text(
-                    text = question.description ?: "Aucune description disponible",
+                    text = question.description ?: stringResource(R.string.more_info_no_description),
                     style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.padding(bottom = 12.dp)
@@ -399,7 +400,7 @@ private fun MoreInfoLargeLayout(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Réponse correcte: ${question.correct}",
+                text = stringResource(R.string.more_info_correct_answer, question.correct),
                 style = MaterialTheme.typography.headlineMedium.copy(
                     color = Color(0xFF006400),
                     fontWeight = FontWeight.SemiBold
@@ -420,7 +421,7 @@ private fun MoreInfoLargeLayout(
                 items(allImagePaths) { imagePath ->
                     AsyncImage(
                         model = "file:///android_asset/$imagePath",
-                        contentDescription = "Image",
+                        contentDescription = stringResource(R.string.more_info_image),
                         modifier = Modifier.size(
                             width = if (isLandscape) 480.dp else 585.dp,
                             height = if (isLandscape) 390.dp else 455.dp
@@ -443,7 +444,7 @@ private fun MoreInfoLargeLayout(
                         .padding(bottom = 16.dp)
                 ) {
                     Text(
-                        text = question.description ?: "Aucune description disponible",
+                        text = question.description ?: stringResource(R.string.more_info_no_description),
                         style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
                         color = MaterialTheme.colorScheme.onBackground,
                         modifier = Modifier.padding(bottom = 16.dp)
@@ -477,7 +478,10 @@ private fun ReturnButton(navController: NavController, modifier: Modifier) {
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.tertiary),
         shape = MaterialTheme.shapes.medium
     ) {
-        Text("Retour", style = MaterialTheme.typography.bodyLarge)
+        Text(
+            stringResource(R.string.more_info_return_button),
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
 }
 

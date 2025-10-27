@@ -341,6 +341,40 @@
     <string name="no_score_available">No score available</string>
     <string name="return_button">Back</string>
 
+    <!-- TestScreen -->
+    <string name="test_background_image">Background Image</string>
+    <string name="test_question_image">Question Image</string>
+    <string name="test_image_not_found">Image not found: %s</string>
+    <string name="test_quit_button">Quit</string>
+    <string name="test_quit_confirmation_title">Confirmation</string>
+    <string name="test_quit_confirmation_message">Are you sure?</string>
+    <string name="test_quit_yes">Yes</string>
+    <string name="test_quit_no">No</string>
+    <string name="test_question_progress">Question %1$d / %2$d</string>
+    <string name="test_time_remaining">Time remaining: %ds</string>
+    <string name="test_player_name_default">Anonymous</string>
+
+    <!-- ResultsScreen -->
+    <string name="results_score">Score: %1$d / %2$d</string>
+    <string name="results_percentage_label">Result: %d%%</string>
+    <string name="results_incorrect_answers">%d incorrect answers</string>
+    <string name="results_restart_button">Restart</string>
+    <string name="results_return_button">Back</string>
+    <string name="results_more_info_button">More info</string>
+    <string name="results_question_label">Question %d</string>
+    <string name="results_correct_label">Correct: %s</string>
+    <string name="results_your_answer_label">Your answer: %s</string>
+    <string name="results_no_answer">None</string>
+    <string name="results_image_not_found">Image not found: %s</string>
+
+    <!-- MoreInfoScreen -->
+    <string name="more_info_question_not_found">Question not found</string>
+    <string name="more_info_background_image">Background Image</string>
+    <string name="more_info_correct_answer">Correct answer: %s</string>
+    <string name="more_info_image">Image</string>
+    <string name="more_info_no_description">No description available</string>
+    <string name="more_info_return_button">Back</string>
+
     <!-- Common errors -->
     <string name="error_generic">Error: %s</string>
     <string name="error_network">Network error. Check your connection</string>

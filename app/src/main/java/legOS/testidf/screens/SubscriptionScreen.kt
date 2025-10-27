@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
@@ -30,6 +31,7 @@ import legOS.testidf.viewmodel.SubscriptionViewModel
 import legOS.testidf.R
 import java.io.IOException
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SubscriptionScreen(
     navController: NavController,
@@ -67,80 +69,110 @@ fun SubscriptionScreen(
             )
         }
 
-        // Контент
-        Box(
+        // НОВОЕ: Кнопка назад в TopAppBar
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .systemBarsPadding()
         ) {
-            when {
-                uiState.isLoading -> {
-                    LoadingContent()
-                }
-                uiState.isActive -> {
-                    ActiveSubscriptionContent(
-                        isTestMode = uiState.isTestMode,
-                        onContinue = { navController.navigate("main_menu") }
-                    )
-                }
-                else -> {
-                    InactiveSubscriptionContent(
-                        errorMessage = uiState.errorMessage,
-                        isPurchasing = uiState.isPurchasing,
-                        onPurchase = {
-                            activity?.let { viewModel.purchaseSubscription(it) }
-                        },
-                        onRetry = { viewModel.checkSubscription() }
-                    )
-                }
-            }
-
-            // Диалог успешной покупки
-            if (uiState.purchaseSuccess) {
-                LaunchedEffect(Unit) {
-                    kotlinx.coroutines.delay(2000)
-                    viewModel.clearPurchaseSuccess()
-                    navController.navigate("main_menu")
-                }
-
-                AlertDialog(
-                    onDismissRequest = {},
-                    title = {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            Icon(
-                                Icons.Default.CheckCircle,
-                                contentDescription = null,
-                                tint = Color(0xFF4CAF50),
-                                modifier = Modifier.size(32.dp)
-                            )
-                            Text(stringResource(R.string.subscription_active))
-                        }
-                    },
-                    text = {
-                        Text(
-                            stringResource(R.string.subscription_active_message),
-                            style = MaterialTheme.typography.bodyLarge
+            // TopAppBar с кнопкой назад
+            TopAppBar(
+                title = { Text("") },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            Icons.Default.ArrowBack,
+                            contentDescription = "Retour",
+                            tint = MaterialTheme.colorScheme.onBackground
                         )
-                    },
-                    confirmButton = {}
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Transparent
                 )
-            }
+            )
 
-            // Диалог ошибки
-            uiState.errorMessage?.let { error ->
-                AlertDialog(
-                    onDismissRequest = { viewModel.clearError() },
-                    title = { Text(stringResource(R.string.error_title)) },
-                    text = { Text(error) },
-                    confirmButton = {
-                        TextButton(onClick = { viewModel.clearError() }) {
-                            Text(stringResource(R.string.ok))
+            // Контент
+            Box(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                when {
+                    uiState.isLoading -> {
+                        LoadingContent()
+                    }
+                    uiState.isActive -> {
+                        ActiveSubscriptionContent(
+                            isTestMode = uiState.isTestMode,
+                            onContinue = {
+                                // ИЗМЕНЕНО: Переходим в test_menu вместо main_menu
+                                navController.navigate("test_menu") {
+                                    popUpTo("subscription") { inclusive = true }
+                                }
+                            }
+                        )
+                    }
+                    else -> {
+                        InactiveSubscriptionContent(
+                            errorMessage = uiState.errorMessage,
+                            isPurchasing = uiState.isPurchasing,
+                            onPurchase = {
+                                activity?.let { viewModel.purchaseSubscription(it) }
+                            },
+                            onRetry = { viewModel.checkSubscription() }
+                        )
+                    }
+                }
+
+                // Диалог успешной покупки
+                if (uiState.purchaseSuccess) {
+                    LaunchedEffect(Unit) {
+                        kotlinx.coroutines.delay(2000)
+                        viewModel.clearPurchaseSuccess()
+                        // ИЗМЕНЕНО: Переходим в test_menu
+                        navController.navigate("test_menu") {
+                            popUpTo("subscription") { inclusive = true }
                         }
                     }
-                )
+
+                    AlertDialog(
+                        onDismissRequest = {},
+                        title = {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Icon(
+                                    Icons.Default.CheckCircle,
+                                    contentDescription = null,
+                                    tint = Color(0xFF4CAF50),
+                                    modifier = Modifier.size(32.dp)
+                                )
+                                Text(stringResource(R.string.subscription_active))
+                            }
+                        },
+                        text = {
+                            Text(
+                                stringResource(R.string.subscription_active_message),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        },
+                        confirmButton = {}
+                    )
+                }
+
+                // Диалог ошибки
+                uiState.errorMessage?.let { error ->
+                    AlertDialog(
+                        onDismissRequest = { viewModel.clearError() },
+                        title = { Text(stringResource(R.string.error_title)) },
+                        text = { Text(error) },
+                        confirmButton = {
+                            TextButton(onClick = { viewModel.clearError() }) {
+                                Text(stringResource(R.string.ok))
+                            }
+                        }
+                    )
+                }
             }
         }
     }

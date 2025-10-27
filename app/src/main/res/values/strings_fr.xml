@@ -341,6 +341,40 @@
     <string name="no_score_available">Aucun score disponible</string>
     <string name="return_button">Retour</string>
 
+    <!-- TestScreen -->
+    <string name="test_background_image">Image de fond</string>
+    <string name="test_question_image">Image de question</string>
+    <string name="test_image_not_found">Image non trouvée: %s</string>
+    <string name="test_quit_button">Quitter</string>
+    <string name="test_quit_confirmation_title">Confirmation</string>
+    <string name="test_quit_confirmation_message">Êtes-vous sûr?</string>
+    <string name="test_quit_yes">Oui</string>
+    <string name="test_quit_no">Non</string>
+    <string name="test_question_progress">Question %1$d / %2$d</string>
+    <string name="test_time_remaining">Temps restant: %ds</string>
+    <string name="test_player_name_default">Anonyme</string>
+
+    <!-- ResultsScreen -->
+    <string name="results_score">Score: %1$d / %2$d</string>
+    <string name="results_percentage_label">Résultat: %d%%</string>
+    <string name="results_incorrect_answers">%d réponses incorrectes</string>
+    <string name="results_restart_button">Recommencer</string>
+    <string name="results_return_button">Retour</string>
+    <string name="results_more_info_button">Plus d\'infos</string>
+    <string name="results_question_label">Question %d</string>
+    <string name="results_correct_label">Correct: %s</string>
+    <string name="results_your_answer_label">Votre réponse: %s</string>
+    <string name="results_no_answer">Aucune</string>
+    <string name="results_image_not_found">Image non trouvée: %s</string>
+
+    <!-- MoreInfoScreen -->
+    <string name="more_info_question_not_found">Question introuvable</string>
+    <string name="more_info_background_image">Image de fond</string>
+    <string name="more_info_correct_answer">Réponse correcte: %s</string>
+    <string name="more_info_image">Image</string>
+    <string name="more_info_no_description">Aucune description disponible</string>
+    <string name="more_info_return_button">Retour</string>
+
     <!-- Erreurs communes -->
     <string name="error_generic">Erreur: %s</string>
     <string name="error_network">Erreur réseau. Vérifiez votre connexion</string>

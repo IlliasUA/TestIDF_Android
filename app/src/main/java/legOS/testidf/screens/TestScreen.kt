@@ -724,7 +724,7 @@ private fun TestScreenCompactLayout(
 }
 
 @Composable
-private fun TestScreenLargeLayout(
+private fun TestScreenLandscapeLayout(
     navController: NavController,
     category: String,
     currentQuestion: Question,
@@ -735,54 +735,31 @@ private fun TestScreenLargeLayout(
     answers: MutableList<String?>,
     showQuitConfirmation: Boolean,
     scope: CoroutineScope,
-    isLandscape: Boolean,
     onAnswer: (String) -> Unit,
     onQuit: () -> Unit,
     onConfirmQuit: () -> Unit,
-    onDismissQuit: () -> Unit
+    onDismissQuit: () -> Unit,
+    questions: List<Question>,
+    playerName: String
 ) {
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 32.dp, vertical = 32.dp),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Column(
+        // Partie gauche - Image avec zoom
+        Box(
             modifier = Modifier
                 .weight(1f)
-                .padding(end = if (isLandscape) 32.dp else 0.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxHeight(),
+            contentAlignment = Alignment.Center
         ) {
-            // Progress bar
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 12.dp)
-                    .background(Color.Transparent)
-            ) {
-                LinearProgressIndicator(
-                    progress = { timeRemaining.toFloat() / initialTimeLimit.toFloat() },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(20.dp),
-                    color = if (timeRemaining <= 3 && timeRemaining > 0) Color(0xFF8B0000) else Color(0xFF32CD32),
-                    trackColor = Color.Transparent
-                )
-            }
-
-            // Question number
-            Text(
-                text = "${currentQuestionIndex + 1}/$totalQuestions",
-                style = MaterialTheme.typography.headlineSmall.copy(fontSize = 18.sp),
-                modifier = Modifier.padding(vertical = 12.dp)
-            )
-
-            // Image with scaling and panning
-            var scale by remember { mutableStateOf(1f) }
-            var offsetX by remember { mutableStateOf(0f) }
-            var offsetY by remember { mutableStateOf(0f) }
+            var scale by remember { mutableFloatStateOf(1f) }
+            var offsetX by remember { mutableFloatStateOf(0f) }
+            var offsetY by remember { mutableFloatStateOf(0f) }
             var isGestureActive by remember { mutableStateOf(false) }
+
             val animatedScale by animateFloatAsState(
                 targetValue = scale,
                 animationSpec = tween(durationMillis = 300),
@@ -803,13 +780,10 @@ private fun TestScreenLargeLayout(
             bitmap?.let { imageBitmap ->
                 Image(
                     bitmap = imageBitmap.asImageBitmap(),
-                    contentDescription = "Question Image",
+                    contentDescription = stringResource(R.string.test_question_image),
                     modifier = Modifier
-                        .size(
-                            width = if (isLandscape) 585.dp else 530.dp,
-                            height = if (isLandscape) 455.dp else 390.dp
-                        )
-                        .padding(24.dp)
+                        .fillMaxSize()
+                        .padding(16.dp)
                         .graphicsLayer(
                             scaleX = animatedScale,
                             scaleY = animatedScale,
@@ -819,13 +793,10 @@ private fun TestScreenLargeLayout(
                         .pointerInput(Unit) {
                             detectTransformGestures { _, pan, zoom, _ ->
                                 isGestureActive = true
-                                // Обновляем масштаб
                                 scale = (scale * zoom).coerceIn(1f, 3f)
-                                // Обновляем смещение с учётом масштабирования
                                 if (scale > 1f) {
                                     offsetX += pan.x
                                     offsetY += pan.y
-                                    // Ограничиваем смещение
                                     val maxOffsetX = (size.width * (scale - 1f)) / 2
                                     val maxOffsetY = (size.height * (scale - 1f)) / 2
                                     offsetX = offsetX.coerceIn(-maxOffsetX, maxOffsetX)
@@ -843,83 +814,83 @@ private fun TestScreenLargeLayout(
                                     }
                                 }
                             }
-                        }
+                        },
+                    contentScale = ContentScale.Fit
                 )
             } ?: Text(
-                text = "Image not found: ${currentQuestion.image}",
+                text = stringResource(R.string.test_image_not_found, currentQuestion.image),
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(24.dp)
+                modifier = Modifier.padding(16.dp)
             )
+        }
 
-            Spacer(Modifier.height(16.dp))
-
-            // Answer buttons
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
+        // Partie droite - Info et boutons
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+                .padding(8.dp),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // En-tête
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(bottom = 8.dp)
             ) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    currentQuestion.options.take(currentQuestion.options.size / 2).forEachIndexed { index, option ->
-                        Button(
-                            onClick = { onAnswer(option) },
-                            modifier = Modifier
-                                .fillMaxWidth(0.9f)
-                                .height(56.dp)
-                                .padding(vertical = 4.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                contentColor = MaterialTheme.colorScheme.onPrimary
-                            ),
-                            shape = MaterialTheme.shapes.medium
-                        ) {
-                            Text(
-                                text = option, // Убрана нумерация
-                                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
-                                maxLines = 2
-                            )
-                        }
-                    }
-                }
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    currentQuestion.options.drop(currentQuestion.options.size / 2).forEachIndexed { index, option ->
-                        Button(
-                            onClick = { onAnswer(option) },
-                            modifier = Modifier
-                                .fillMaxWidth(0.9f)
-                                .height(56.dp)
-                                .padding(vertical = 4.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                contentColor = MaterialTheme.colorScheme.onPrimary
-                            ),
-                            shape = MaterialTheme.shapes.medium
-                        ) {
-                            Text(
-                                text = option, // Убрана нумерация
-                                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
-                                maxLines = 2
-                            )
-                        }
+                Text(
+                    text = stringResource(R.string.test_question_progress, currentQuestionIndex + 1, totalQuestions),
+                    style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = stringResource(R.string.test_time_remaining, timeRemaining),
+                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
+                    color = if (timeRemaining <= 5) Color.Red else MaterialTheme.colorScheme.onSurface
+                )
+                LinearProgressIndicator(
+                    progress = timeRemaining.toFloat() / initialTimeLimit,
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .padding(top = 8.dp),
+                    color = if (timeRemaining <= 5) Color.Red else MaterialTheme.colorScheme.primary
+                )
+            }
+
+            // Boutons de réponse
+            LazyColumn(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(vertical = 8.dp)
+            ) {
+                items(currentQuestion.options.size) { index ->
+                    Button(
+                        onClick = { onAnswer(currentQuestion.options[index]) },
+                        modifier = Modifier
+                            .fillMaxWidth(0.85f)
+                            .height(48.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
+                        ),
+                        shape = MaterialTheme.shapes.medium
+                    ) {
+                        Text(
+                            text = currentQuestion.options[index],
+                            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
+                            maxLines = 2
+                        )
                     }
                 }
             }
 
-            Spacer(Modifier.height(16.dp))
-
-            // Quit button
+            // Bouton Quitter
             Button(
                 onClick = onQuit,
                 modifier = Modifier
-                    .fillMaxWidth(0.6f)
-                    .height(56.dp)
+                    .fillMaxWidth(0.7f)
+                    .height(48.dp)
                     .padding(vertical = 4.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.tertiary,
@@ -928,19 +899,19 @@ private fun TestScreenLargeLayout(
                 shape = MaterialTheme.shapes.medium
             ) {
                 Text(
-                    text = "Quitter",
-                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp)
+                    text = stringResource(R.string.test_quit_button),
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp)
                 )
             }
 
-            // Quit confirmation dialog
+            // Dialogue de confirmation de sortie
             if (showQuitConfirmation) {
                 AlertDialog(
                     onDismissRequest = onDismissQuit,
-                    title = { Text("Confirmation", style = MaterialTheme.typography.headlineMedium) },
+                    title = { Text(stringResource(R.string.test_quit_confirmation_title), style = MaterialTheme.typography.headlineMedium) },
                     text = {
                         Text(
-                            "Êtes-vous sûr?",
+                            stringResource(R.string.test_quit_confirmation_message),
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center
                         )
@@ -950,7 +921,7 @@ private fun TestScreenLargeLayout(
                             onClick = onConfirmQuit,
                             modifier = Modifier.padding(8.dp)
                         ) {
-                            Text("Oui", style = MaterialTheme.typography.labelLarge)
+                            Text(stringResource(R.string.test_quit_yes), style = MaterialTheme.typography.labelLarge)
                         }
                     },
                     dismissButton = {
@@ -958,7 +929,7 @@ private fun TestScreenLargeLayout(
                             onClick = onDismissQuit,
                             modifier = Modifier.padding(8.dp)
                         ) {
-                            Text("Non", style = MaterialTheme.typography.labelLarge)
+                            Text(stringResource(R.string.test_quit_no), style = MaterialTheme.typography.labelLarge)
                         }
                     },
                     modifier = Modifier.padding(16.dp)
