@@ -7,8 +7,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -116,6 +114,7 @@ private fun ResultsLandscapeLayout(
                     )
                 } ?: Modifier.background(MaterialTheme.colorScheme.background)
             )
+            .systemBarsPadding() // Éviter la superposition avec la barre d'état et la caméra
             .padding(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -137,7 +136,10 @@ private fun ResultsLandscapeLayout(
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         colors = CardDefaults.cardColors(
-                            containerColor = if (isCorrect) Color(0xFF90EE90) else Color(0xFFFFB6C1)
+                            containerColor = if (isCorrect)
+                                Color(0xFF90EE90).copy(alpha = 0.85f) // Transparence de 15% sur le fond uniquement
+                            else
+                                Color(0xFFFFB6C1).copy(alpha = 0.85f) // Transparence de 15% sur le fond uniquement
                         )
                     ) {
                         Column(
@@ -223,7 +225,7 @@ private fun ResultsLandscapeLayout(
                     .fillMaxWidth(0.85f)
                     .padding(bottom = 20.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.85f) // Transparence de 15% sur le fond uniquement
                 )
             ) {
                 Column(
@@ -325,10 +327,13 @@ private fun ResultsPortraitLayout(
                     )
                 } ?: Modifier.background(MaterialTheme.colorScheme.background)
             )
-            .padding(16.dp),
+            .padding(16.dp)
+            .systemBarsPadding(), // Éviter la superposition avec la barre d'état et la caméra
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        Spacer(modifier = Modifier.height(8.dp)) // Espace léger en haut pour éviter la superposition
+
         Text(
             stringResource(R.string.results_score, correctAnswers, questions.size),
             style = MaterialTheme.typography.headlineMedium,
@@ -347,7 +352,10 @@ private fun ResultsPortraitLayout(
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
-                        containerColor = if (isCorrect) Color(0xFF90EE90) else Color(0xFFFFB6C1)
+                        containerColor = if (isCorrect)
+                            Color(0xFF90EE90).copy(alpha = 0.85f) // Transparence de 15% sur le fond uniquement
+                        else
+                            Color(0xFFFFB6C1).copy(alpha = 0.85f) // Transparence de 15% sur le fond uniquement
                     )
                 ) {
                     Column(

@@ -29,6 +29,7 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,6 +48,7 @@ import kotlinx.coroutines.launch
 import legOS.testidf.loadImageFromAssets
 import legOS.testidf.getImagePath
 import legOS.testidf.buildFinalTestQuestions
+import legOS.testidf.R
 import java.io.IOException
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -58,7 +60,6 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     val scope = rememberCoroutineScope()
 
-    // Используем rememberSaveable для сохранения состояния при поворотах экрана
     var currentQuestionIndex by rememberSaveable { mutableIntStateOf(0) }
     var initialTimeLimit by rememberSaveable { mutableIntStateOf(timeLimit) }
     var timeRemaining by rememberSaveable { mutableIntStateOf(timeLimit) }
@@ -67,7 +68,6 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
 
     Log.d("TestScreen", "Received category: $category, timeLimit: $timeLimit")
 
-    // Используем rememberSaveable для сохранения вопросов
     val questions = rememberSaveable {
         val baseQuestions = when (category) {
             "tanks" -> Test_Data.QUESTION
@@ -80,16 +80,17 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
             else -> Test_Data.QUESTION
         }
 
-        // Применяем случайный выбор изображений и перемешиваем
         baseQuestions
-            .map { it.withRandomImage() } // Случайное изображение для каждого вопроса
+            .map { it.withRandomImage() }
             .shuffled()
             .take(if (category == "final") 40 else if (category == "bm2") 20 else 10)
     }
 
     val totalQuestions = questions.size
     val playerName = navController.previousBackStackEntry?.savedStateHandle?.get<String>("playerName")
-        ?: navController.previousBackStackEntry?.arguments?.getString("playerName") ?: "Anonyme"
+        ?: navController.previousBackStackEntry?.arguments?.getString("playerName")
+        ?: stringResource(R.string.test_player_name_default)
+
     Log.d("TestScreen", "Retrieved player name: $playerName")
 
     LaunchedEffect(currentQuestionIndex) {
@@ -119,7 +120,6 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
 
     val currentQuestion = questions.getOrNull(currentQuestionIndex) ?: return
 
-    // Load background image
     val backgroundImage: androidx.compose.ui.graphics.ImageBitmap? = remember {
         try {
             context.assets.open("images/background_3.jpg").use { inputStream ->
@@ -136,23 +136,20 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Display background image - заполняет весь экран включая системные панели
         backgroundImage?.let { image: androidx.compose.ui.graphics.ImageBitmap ->
             Image(
                 bitmap = image,
-                contentDescription = "Background Image",
+                contentDescription = stringResource(R.string.test_background_image),
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
         }
 
-        // Контент с безопасными отступами поверх фона
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .systemBarsPadding() // Применяем отступы только к контенту
+                .systemBarsPadding()
         ) {
-            // Выбираем компоновку в зависимости от ориентации
             if (isLandscape) {
                 TestScreenLandscapeLayout(
                     navController = navController,
@@ -165,6 +162,8 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
                     answers = answers,
                     showQuitConfirmation = showQuitConfirmation,
                     scope = scope,
+                    questions = questions,
+                    playerName = playerName,
                     onAnswer = { answer ->
                         answers.add(answer)
                         Log.d("TestScreen", "User answer: $answer at index $currentQuestionIndex")
@@ -186,7 +185,6 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
                     onDismissQuit = { showQuitConfirmation = false }
                 )
             } else {
-                // Для портретного режима используем старую логику
                 when (windowSizeClass.widthSizeClass) {
                     WindowWidthSizeClass.Compact -> {
                         TestScreenCompactLayout(
@@ -262,264 +260,6 @@ fun TestScreen(navController: NavController, category: String, timeLimit: Int) {
     }
 }
 
-// Новый компонент для горизонтального режима
-@Composable
-private fun TestScreenLandscapeLayout(
-    navController: NavController,
-    category: String,
-    currentQuestion: Question,
-    currentQuestionIndex: Int,
-    totalQuestions: Int,
-    timeRemaining: Int,
-    initialTimeLimit: Int,
-    answers: MutableList<String?>,
-    showQuitConfirmation: Boolean,
-    scope: CoroutineScope,
-    onAnswer: (String) -> Unit,
-    onQuit: () -> Unit,
-    onConfirmQuit: () -> Unit,
-    onDismissQuit: () -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        // Левая часть - изображение (занимает всю левую половину)
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxHeight(),
-            contentAlignment = Alignment.Center
-        ) {
-            // Image with scaling and panning
-            var scale by remember { mutableStateOf(1f) }
-            var offsetX by remember { mutableStateOf(0f) }
-            var offsetY by remember { mutableStateOf(0f) }
-            var isGestureActive by remember { mutableStateOf(false) }
-            val animatedScale by animateFloatAsState(
-                targetValue = scale,
-                animationSpec = tween(durationMillis = 300),
-                label = "scaleAnimation"
-            )
-            val animatedOffsetX by animateFloatAsState(
-                targetValue = offsetX,
-                animationSpec = tween(durationMillis = 300),
-                label = "offsetXAnimation"
-            )
-            val animatedOffsetY by animateFloatAsState(
-                targetValue = offsetY,
-                animationSpec = tween(durationMillis = 300),
-                label = "offsetYAnimation"
-            )
-            val imagePath = getImagePath(category, currentQuestion)
-            val bitmap = loadImageFromAssets(LocalContext.current, imagePath)
-            bitmap?.let { imageBitmap ->
-                Image(
-                    bitmap = imageBitmap.asImageBitmap(),
-                    contentDescription = "Question Image",
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(8.dp)
-                        .graphicsLayer(
-                            scaleX = animatedScale,
-                            scaleY = animatedScale,
-                            translationX = animatedOffsetX,
-                            translationY = animatedOffsetY
-                        )
-                        .pointerInput(Unit) {
-                            detectTransformGestures { _, pan, zoom, _ ->
-                                isGestureActive = true
-                                // Обновляем масштаб
-                                scale = (scale * zoom).coerceIn(1f, 3f)
-                                // Обновляем смещение с учётом масштабирования
-                                if (scale > 1f) {
-                                    offsetX += pan.x
-                                    offsetY += pan.y
-                                    // Ограничиваем смещение
-                                    val maxOffsetX = (size.width * (scale - 1f)) / 2
-                                    val maxOffsetY = (size.height * (scale - 1f)) / 2
-                                    offsetX = offsetX.coerceIn(-maxOffsetX, maxOffsetX)
-                                    offsetY = offsetY.coerceIn(-maxOffsetY, maxOffsetY)
-                                }
-                            }
-                            awaitPointerEventScope {
-                                while (true) {
-                                    val event = awaitPointerEvent()
-                                    if (event.type == PointerEventType.Release && isGestureActive) {
-                                        scale = 1f
-                                        offsetX = 0f
-                                        offsetY = 0f
-                                        isGestureActive = false
-                                    }
-                                }
-                            }
-                        },
-                    contentScale = ContentScale.Fit
-                )
-            } ?: Text(
-                text = "Image not found: ${currentQuestion.image}",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(16.dp)
-            )
-        }
-
-        // Правая часть - управление (занимает правую половину)
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxHeight()
-                .padding(8.dp),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // Progress bar (только правая половина)
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-                    .background(Color.Transparent)
-            ) {
-                LinearProgressIndicator(
-                    progress = { timeRemaining.toFloat() / initialTimeLimit.toFloat() },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(16.dp),
-                    color = if (timeRemaining <= 3 && timeRemaining > 0) Color(0xFF8B0000) else Color(0xFF32CD32),
-                    trackColor = Color.Transparent
-                )
-            }
-
-            // Question number
-            Text(
-                text = "${currentQuestionIndex + 1}/$totalQuestions",
-                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-
-            Spacer(Modifier.height(16.dp))
-
-            // Answer buttons - два столбца
-            Row(
-                modifier = Modifier.weight(1f),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                // Левый столбец
-                LazyColumn(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    items(currentQuestion.options.take((currentQuestion.options.size + 1) / 2).size) { index ->
-                        val option = currentQuestion.options[index]
-                        Button(
-                            onClick = { onAnswer(option) },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(56.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                contentColor = MaterialTheme.colorScheme.onPrimary
-                            ),
-                            shape = MaterialTheme.shapes.medium
-                        ) {
-                            Text(
-                                text = option,
-                                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp),
-                                maxLines = 2,
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                    }
-                }
-
-                // Правый столбец
-                LazyColumn(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    items(currentQuestion.options.drop((currentQuestion.options.size + 1) / 2).size) { index ->
-                        val option = currentQuestion.options[index + (currentQuestion.options.size + 1) / 2]
-                        val displayIndex = index + (currentQuestion.options.size + 1) / 2
-                        Button(
-                            onClick = { onAnswer(option) },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(56.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                contentColor = MaterialTheme.colorScheme.onPrimary
-                            ),
-                            shape = MaterialTheme.shapes.medium
-                        ) {
-                            Text(
-                                text = option,
-                                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp),
-                                maxLines = 2,
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                    }
-                }
-            }
-
-            Spacer(Modifier.height(16.dp))
-
-            // Quit button
-            Button(
-                onClick = onQuit,
-                modifier = Modifier
-                    .fillMaxWidth(0.8f)
-                    .height(48.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.tertiary,
-                    contentColor = MaterialTheme.colorScheme.onTertiary
-                ),
-                shape = MaterialTheme.shapes.medium
-            ) {
-                Text(
-                    text = "Quitter",
-                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
-                )
-            }
-        }
-    }
-
-    // Quit confirmation dialog
-    if (showQuitConfirmation) {
-        AlertDialog(
-            onDismissRequest = onDismissQuit,
-            title = { Text("Confirmation", style = MaterialTheme.typography.headlineSmall) },
-            text = {
-                Text(
-                    "Êtes-vous sûr?",
-                    style = MaterialTheme.typography.bodyLarge,
-                    textAlign = TextAlign.Center
-                )
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = onConfirmQuit,
-                    modifier = Modifier.padding(8.dp)
-                ) {
-                    Text("Oui", style = MaterialTheme.typography.labelLarge)
-                }
-            },
-            dismissButton = {
-                TextButton(
-                    onClick = onDismissQuit,
-                    modifier = Modifier.padding(8.dp)
-                ) {
-                    Text("Non", style = MaterialTheme.typography.labelLarge)
-                }
-            },
-            modifier = Modifier.padding(16.dp)
-        )
-    }
-}
-
 @Composable
 private fun TestScreenCompactLayout(
     navController: NavController,
@@ -546,7 +286,6 @@ private fun TestScreenCompactLayout(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
-            // Progress bar
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -563,17 +302,15 @@ private fun TestScreenCompactLayout(
                 )
             }
 
-            // Question number
             Text(
                 text = "${currentQuestionIndex + 1}/$totalQuestions",
                 style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
                 modifier = Modifier.padding(vertical = 8.dp)
             )
 
-            // Image with scaling and panning
-            var scale by remember { mutableStateOf(1f) }
-            var offsetX by remember { mutableStateOf(0f) }
-            var offsetY by remember { mutableStateOf(0f) }
+            var scale by remember { mutableFloatStateOf(1f) }
+            var offsetX by remember { mutableFloatStateOf(0f) }
+            var offsetY by remember { mutableFloatStateOf(0f) }
             var isGestureActive by remember { mutableStateOf(false) }
             val animatedScale by animateFloatAsState(
                 targetValue = scale,
@@ -595,7 +332,7 @@ private fun TestScreenCompactLayout(
             bitmap?.let { imageBitmap ->
                 Image(
                     bitmap = imageBitmap.asImageBitmap(),
-                    contentDescription = "Question Image",
+                    contentDescription = stringResource(R.string.test_question_image),
                     modifier = Modifier
                         .size(
                             width = if (isLandscape) 390.dp else 430.dp,
@@ -611,13 +348,10 @@ private fun TestScreenCompactLayout(
                         .pointerInput(Unit) {
                             detectTransformGestures { _, pan, zoom, _ ->
                                 isGestureActive = true
-                                // Обновляем масштаб
                                 scale = (scale * zoom).coerceIn(1f, 3f)
-                                // Обновляем смещение с учётом масштабирования
                                 if (scale > 1f) {
                                     offsetX += pan.x
                                     offsetY += pan.y
-                                    // Ограничиваем смещение
                                     val maxOffsetX = (size.width * (scale - 1f)) / 2
                                     val maxOffsetY = (size.height * (scale - 1f)) / 2
                                     offsetX = offsetX.coerceIn(-maxOffsetX, maxOffsetX)
@@ -638,14 +372,13 @@ private fun TestScreenCompactLayout(
                         }
                 )
             } ?: Text(
-                text = "Image not found: ${currentQuestion.image}",
+                text = stringResource(R.string.test_image_not_found, currentQuestion.image),
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(16.dp)
             )
 
             Spacer(Modifier.height(12.dp))
 
-            // Answer buttons
             currentQuestion.options.forEachIndexed { index, option ->
                 Button(
                     onClick = { onAnswer(option) },
@@ -660,7 +393,7 @@ private fun TestScreenCompactLayout(
                     shape = MaterialTheme.shapes.medium
                 ) {
                     Text(
-                        text = option, // Убрана нумерация
+                        text = option,
                         style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
                         maxLines = 2
                     )
@@ -669,7 +402,6 @@ private fun TestScreenCompactLayout(
 
             Spacer(Modifier.height(12.dp))
 
-            // Quit button
             Button(
                 onClick = onQuit,
                 modifier = Modifier
@@ -683,19 +415,18 @@ private fun TestScreenCompactLayout(
                 shape = MaterialTheme.shapes.medium
             ) {
                 Text(
-                    text = "Quitter",
+                    text = stringResource(R.string.test_quit_button),
                     style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
                 )
             }
 
-            // Quit confirmation dialog
             if (showQuitConfirmation) {
                 AlertDialog(
                     onDismissRequest = onDismissQuit,
-                    title = { Text("Confirmation", style = MaterialTheme.typography.headlineSmall) },
+                    title = { Text(stringResource(R.string.test_quit_confirmation_title), style = MaterialTheme.typography.headlineSmall) },
                     text = {
                         Text(
-                            "Êtes-vous sûr?",
+                            stringResource(R.string.test_quit_confirmation_message),
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center
                         )
@@ -705,7 +436,7 @@ private fun TestScreenCompactLayout(
                             onClick = onConfirmQuit,
                             modifier = Modifier.padding(8.dp)
                         ) {
-                            Text("Oui", style = MaterialTheme.typography.labelLarge)
+                            Text(stringResource(R.string.test_quit_yes), style = MaterialTheme.typography.labelLarge)
                         }
                     },
                     dismissButton = {
@@ -713,7 +444,7 @@ private fun TestScreenCompactLayout(
                             onClick = onDismissQuit,
                             modifier = Modifier.padding(8.dp)
                         ) {
-                            Text("Non", style = MaterialTheme.typography.labelLarge)
+                            Text(stringResource(R.string.test_quit_no), style = MaterialTheme.typography.labelLarge)
                         }
                     },
                     modifier = Modifier.padding(16.dp)
@@ -735,12 +466,12 @@ private fun TestScreenLandscapeLayout(
     answers: MutableList<String?>,
     showQuitConfirmation: Boolean,
     scope: CoroutineScope,
+    questions: List<Question>,
+    playerName: String,
     onAnswer: (String) -> Unit,
     onQuit: () -> Unit,
     onConfirmQuit: () -> Unit,
-    onDismissQuit: () -> Unit,
-    questions: List<Question>,
-    playerName: String
+    onDismissQuit: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -748,7 +479,6 @@ private fun TestScreenLandscapeLayout(
             .padding(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Partie gauche - Image avec zoom
         Box(
             modifier = Modifier
                 .weight(1f)
@@ -824,7 +554,6 @@ private fun TestScreenLandscapeLayout(
             )
         }
 
-        // Partie droite - Info et boutons
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -833,7 +562,6 @@ private fun TestScreenLandscapeLayout(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // En-tête
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(bottom = 8.dp)
@@ -850,7 +578,7 @@ private fun TestScreenLandscapeLayout(
                     color = if (timeRemaining <= 5) Color.Red else MaterialTheme.colorScheme.onSurface
                 )
                 LinearProgressIndicator(
-                    progress = timeRemaining.toFloat() / initialTimeLimit,
+                    progress = { timeRemaining.toFloat() / initialTimeLimit },
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
                         .padding(top = 8.dp),
@@ -858,7 +586,6 @@ private fun TestScreenLandscapeLayout(
                 )
             }
 
-            // Boutons de réponse
             LazyColumn(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -885,7 +612,6 @@ private fun TestScreenLandscapeLayout(
                 }
             }
 
-            // Bouton Quitter
             Button(
                 onClick = onQuit,
                 modifier = Modifier
@@ -904,7 +630,6 @@ private fun TestScreenLandscapeLayout(
                 )
             }
 
-            // Dialogue de confirmation de sortie
             if (showQuitConfirmation) {
                 AlertDialog(
                     onDismissRequest = onDismissQuit,
@@ -937,4 +662,42 @@ private fun TestScreenLandscapeLayout(
             }
         }
     }
+}
+
+@Composable
+private fun TestScreenLargeLayout(
+    navController: NavController,
+    category: String,
+    currentQuestion: Question,
+    currentQuestionIndex: Int,
+    totalQuestions: Int,
+    timeRemaining: Int,
+    initialTimeLimit: Int,
+    answers: MutableList<String?>,
+    showQuitConfirmation: Boolean,
+    scope: CoroutineScope,
+    isLandscape: Boolean,
+    onAnswer: (String) -> Unit,
+    onQuit: () -> Unit,
+    onConfirmQuit: () -> Unit,
+    onDismissQuit: () -> Unit
+) {
+    // Identique à TestScreenCompactLayout pour le moment
+    TestScreenCompactLayout(
+        navController = navController,
+        category = category,
+        currentQuestion = currentQuestion,
+        currentQuestionIndex = currentQuestionIndex,
+        totalQuestions = totalQuestions,
+        timeRemaining = timeRemaining,
+        initialTimeLimit = initialTimeLimit,
+        answers = answers,
+        showQuitConfirmation = showQuitConfirmation,
+        scope = scope,
+        isLandscape = isLandscape,
+        onAnswer = onAnswer,
+        onQuit = onQuit,
+        onConfirmQuit = onConfirmQuit,
+        onDismissQuit = onDismissQuit
+    )
 }
