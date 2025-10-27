@@ -36,6 +36,8 @@ import coil.compose.AsyncImage
 import com.example.quizapp.Question
 import legOS.testidf.R
 import legOS.testidf.loadImageFromAssets
+import legOS.testidf.utils.getDescriptionText
+import legOS.testidf.utils.getMoreInfoText
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -89,14 +91,14 @@ fun MoreInfoScreen(navController: NavController, category: String, index: Int, t
                 .systemBarsPadding()
         ) {
             if (isLandscape) {
-                MoreInfoLandscapeLayout(navController, category, currentQuestion, index)
+                MoreInfoLandscapeLayout(navController, category, currentQuestion, index, context)
             } else {
                 when (windowSizeClass.widthSizeClass) {
                     WindowWidthSizeClass.Compact -> {
-                        MoreInfoCompactLayout(navController, category, currentQuestion, index, false)
+                        MoreInfoCompactLayout(navController, category, currentQuestion, index, false, context)
                     }
                     WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> {
-                        MoreInfoLargeLayout(navController, category, currentQuestion, index, false)
+                        MoreInfoLargeLayout(navController, category, currentQuestion, index, false, context)
                     }
                 }
             }
@@ -206,7 +208,8 @@ private fun MoreInfoLandscapeLayout(
     navController: NavController,
     category: String,
     question: Question,
-    index: Int
+    index: Int,
+    context: android.content.Context
 ) {
     Row(
         modifier = Modifier
@@ -274,12 +277,12 @@ private fun MoreInfoLandscapeLayout(
                         .padding(bottom = 16.dp)
                 ) {
                     Text(
-                        text = question.description ?: stringResource(R.string.more_info_no_description),
+                        text = question.getDescriptionText(context) ?: stringResource(R.string.more_info_no_description),
                         style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
                         color = MaterialTheme.colorScheme.onBackground,
                         modifier = Modifier.padding(bottom = 12.dp)
                     )
-                    question.moreInfo?.let { moreInfo ->
+                    question.getMoreInfoText(context)?.let { moreInfo ->
                         Text(
                             text = moreInfo,
                             style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
@@ -303,7 +306,8 @@ private fun MoreInfoCompactLayout(
     category: String,
     question: Question,
     index: Int,
-    isLandscape: Boolean
+    isLandscape: Boolean,
+    context: android.content.Context
 ) {
     Column(
         modifier = Modifier
@@ -358,12 +362,12 @@ private fun MoreInfoCompactLayout(
                     .padding(bottom = 16.dp)
             ) {
                 Text(
-                    text = question.description ?: stringResource(R.string.more_info_no_description),
+                    text = question.getDescriptionText(context) ?: stringResource(R.string.more_info_no_description),
                     style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.padding(bottom = 12.dp)
                 )
-                question.moreInfo?.let { moreInfo ->
+                question.getMoreInfoText(context)?.let { moreInfo ->
                     Text(
                         text = moreInfo,
                         style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
@@ -384,7 +388,8 @@ private fun MoreInfoLargeLayout(
     category: String,
     question: Question,
     index: Int,
-    isLandscape: Boolean
+    isLandscape: Boolean,
+    context: android.content.Context
 ) {
     Row(
         modifier = Modifier
@@ -444,12 +449,12 @@ private fun MoreInfoLargeLayout(
                         .padding(bottom = 16.dp)
                 ) {
                     Text(
-                        text = question.description ?: stringResource(R.string.more_info_no_description),
+                        text = question.getDescriptionText(context) ?: stringResource(R.string.more_info_no_description),
                         style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
                         color = MaterialTheme.colorScheme.onBackground,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
-                    question.moreInfo?.let { moreInfo ->
+                    question.getMoreInfoText(context)?.let { moreInfo ->
                         Text(
                             text = moreInfo,
                             style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),

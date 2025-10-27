@@ -1,11 +1,15 @@
 package com.example.quizapp
 
+import androidx.annotation.StringRes
+
 data class Question(
     val image: String,
-    val options: List<String>,
+    val additionalImages: List<String>? = null,
     val correct: String,
-    val category: String,
-    val description: String? = null,
+    val options: List<String>,
+    val description: String? = null,  // For backward compatibility
+    @StringRes val descriptionResId: Int? = null,  // New field for string resource ID
     val moreInfo: String? = null,
-    val additionalImages: List<String>? = null
+    @StringRes val moreInfoResId: Int? = null,  // Optional: if you want to localize moreInfo too
+    val category: String
 )

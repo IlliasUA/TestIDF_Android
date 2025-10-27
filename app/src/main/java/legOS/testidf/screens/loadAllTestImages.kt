@@ -42,6 +42,7 @@ import com.example.quizapp.Recon_Data
 import com.example.quizapp.Test_Data
 import com.example.quizapp.Test_bm2
 import legOS.testidf.R
+import legOS.testidf.utils.getDescriptionText
 import java.io.IOException
 
 data class SearchResult(
@@ -729,9 +730,6 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
         return name.lowercase().replace(" ", "").replace("-", "").replace("_", "")
     }
 
-    // Получаем строку для "Description non disponible"
-    val descriptionNotAvailable = context.getString(R.string.description_not_available)
-
     // Функция для добавления элемента с расчетом релевантности
     fun addItemWithRelevance(
         name: String,
@@ -811,9 +809,10 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
 
     // Поиск в Air Data
     airDataQuestions.forEach { question ->
+        val desc = question.getDescriptionText(context) ?: context.getString(R.string.description_not_available)
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: descriptionNotAvailable,
+            description = desc,
             mainImagePath = "air_images/${question.image}",
             additionalImagePaths = (question.additionalImages ?: emptyList()).map { "air_images/$it" }
         )
@@ -821,9 +820,10 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
 
     // Поиск в Artillery Data
     artDataQuestions.forEach { question ->
+        val desc = question.getDescriptionText(context) ?: context.getString(R.string.description_not_available)
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: descriptionNotAvailable,
+            description = desc,
             mainImagePath = "artillery_images/${question.image}",
             additionalImagePaths = (question.additionalImages ?: emptyList()).map { "artillery_images/$it" }
         )
@@ -831,9 +831,10 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
 
     // Поиск в Genie Data
     genieDataQuestions.forEach { question ->
+        val desc = question.getDescriptionText(context) ?: context.getString(R.string.description_not_available)
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: descriptionNotAvailable,
+            description = desc,
             mainImagePath = "genie_images/${question.image}",
             additionalImagePaths = (question.additionalImages ?: emptyList()).map { "genie_images/$it" }
         )
@@ -841,9 +842,10 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
 
     // Поиск в Recon Data
     reconDataQuestions.forEach { question ->
+        val desc = question.getDescriptionText(context) ?: context.getString(R.string.description_not_available)
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: descriptionNotAvailable,
+            description = desc,
             mainImagePath = "recon_images/${question.image}",
             additionalImagePaths = (question.additionalImages ?: emptyList()).map { "recon_images/$it" }
         )
@@ -851,9 +853,10 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
 
     // Поиск в Tank Data
     tankDataQuestions.forEach { question ->
+        val desc = question.getDescriptionText(context) ?: context.getString(R.string.description_not_available)
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: descriptionNotAvailable,
+            description = desc,
             mainImagePath = "tank_images/${question.image}",
             additionalImagePaths = (question.additionalImages ?: emptyList()).map { "tank_images/$it" }
         )
@@ -861,9 +864,10 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
 
     // Поиск в BM2 Data
     bm2DataQuestions.forEach { question ->
+        val desc = question.getDescriptionText(context) ?: context.getString(R.string.description_not_available)
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: descriptionNotAvailable,
+            description = desc,
             mainImagePath = "bm2_images/${question.image}",
             additionalImagePaths = (question.additionalImages ?: emptyList()).map { "bm2_images/$it" }
         )
