@@ -29,6 +29,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -40,6 +41,7 @@ import com.example.quizapp.Genie_Data
 import com.example.quizapp.Recon_Data
 import com.example.quizapp.Test_Data
 import com.example.quizapp.Test_bm2
+import legOS.testidf.R
 import java.io.IOException
 
 data class SearchResult(
@@ -174,7 +176,7 @@ private fun CatalogLandscapeLayout(
                             CircularProgressIndicator(modifier = Modifier.size(48.dp))
                             Spacer(modifier = Modifier.height(16.dp))
                             Text(
-                                text = "Recherche en cours...",
+                                text = stringResource(R.string.searching),
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -193,7 +195,7 @@ private fun CatalogLandscapeLayout(
                             )
                             Spacer(modifier = Modifier.height(16.dp))
                             Text(
-                                text = "Commencez à taper pour rechercher",
+                                text = stringResource(R.string.start_typing_to_search),
                                 style = MaterialTheme.typography.bodyLarge,
                                 textAlign = TextAlign.Center,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -202,7 +204,7 @@ private fun CatalogLandscapeLayout(
                     }
                     searchResults.isEmpty() && searchQuery.isNotBlank() && !isSearching -> {
                         Text(
-                            text = "Aucun résultat pour \"$searchQuery\"",
+                            text = stringResource(R.string.no_results_for, searchQuery),
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center,
                             color = MaterialTheme.colorScheme.error,
@@ -249,11 +251,11 @@ private fun CatalogLandscapeLayout(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(8.dp),
-                            placeholder = { Text("Recherche...") },
+                            placeholder = { Text(stringResource(R.string.search_placeholder)) },
                             leadingIcon = {
                                 Icon(
                                     imageVector = Icons.Default.Search,
-                                    contentDescription = "Search"
+                                    contentDescription = stringResource(R.string.search_tab)
                                 )
                             },
                             trailingIcon = {
@@ -261,7 +263,7 @@ private fun CatalogLandscapeLayout(
                                     IconButton(onClick = onClear) {
                                         Icon(
                                             imageVector = Icons.Default.Clear,
-                                            contentDescription = "Effacer"
+                                            contentDescription = stringResource(R.string.clear_search)
                                         )
                                     }
                                 }
@@ -286,7 +288,7 @@ private fun CatalogLandscapeLayout(
                     ) {
                         Icon(
                             Icons.Default.ArrowForward,
-                            contentDescription = "Retour",
+                            contentDescription = stringResource(R.string.back_to_menu),
                             tint = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.size(28.dp)
                         )
@@ -304,7 +306,7 @@ private fun CatalogLandscapeLayout(
                         )
                     ) {
                         Text(
-                            text = "${searchResults.size} résultat${if (searchResults.size > 1) "s" else ""} trouvé${if (searchResults.size > 1) "s" else ""}",
+                            text = stringResource(R.string.results_found, searchResults.size),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onPrimaryContainer,
                             modifier = Modifier.padding(12.dp),
@@ -364,7 +366,7 @@ private fun SearchResultLandscapeCard(
             mainBitmap?.let {
                 Image(
                     bitmap = it,
-                    contentDescription = "Image principale : ${result.aircraftName}",
+                    contentDescription = stringResource(R.string.main_image, result.aircraftName),
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
@@ -376,7 +378,7 @@ private fun SearchResultLandscapeCard(
 
             if (result.additionalImages.isNotEmpty()) {
                 Text(
-                    text = "Images supplémentaires:",
+                    text = stringResource(R.string.additional_images),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -399,7 +401,7 @@ private fun SearchResultLandscapeCard(
                         bitmap?.let { imgBitmap ->
                             Image(
                                 bitmap = imgBitmap,
-                                contentDescription = "Image supplémentaire : ${result.aircraftName}",
+                                contentDescription = stringResource(R.string.additional_image, result.aircraftName),
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .wrapContentHeight()
@@ -451,7 +453,7 @@ private fun SearchResultCard(
             mainBitmap?.let {
                 Image(
                     bitmap = it,
-                    contentDescription = "Image principale : ${result.aircraftName}",
+                    contentDescription = stringResource(R.string.main_image, result.aircraftName),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(200.dp)
@@ -470,7 +472,7 @@ private fun SearchResultCard(
             if (result.additionalImages.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "Images supplémentaires :",
+                    text = stringResource(R.string.additional_images),
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -494,7 +496,7 @@ private fun SearchResultCard(
                         bitmap?.let { imgBitmap ->
                             Image(
                                 bitmap = imgBitmap,
-                                contentDescription = "Image supplémentaire : ${result.aircraftName}",
+                                contentDescription = stringResource(R.string.additional_image, result.aircraftName),
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(200.dp)
@@ -509,7 +511,7 @@ private fun SearchResultCard(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = "Image non trouvée",
+                                text = stringResource(R.string.image_not_found_item),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -567,7 +569,7 @@ private fun CatalogPortraitLayout(
             ) {
                 Icon(
                     Icons.Default.ArrowBack,
-                    contentDescription = "Retour",
+                    contentDescription = stringResource(R.string.back_to_menu),
                     tint = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.size(28.dp)
                 )
@@ -583,11 +585,11 @@ private fun CatalogPortraitLayout(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp),
-                    placeholder = { Text("Recherche...") },
+                    placeholder = { Text(stringResource(R.string.search_placeholder)) },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Search,
-                            contentDescription = "Search"
+                            contentDescription = stringResource(R.string.search_tab)
                         )
                     },
                     trailingIcon = {
@@ -595,7 +597,7 @@ private fun CatalogPortraitLayout(
                             IconButton(onClick = onClear) {
                                 Icon(
                                     imageVector = Icons.Default.Clear,
-                                    contentDescription = "Effacer"
+                                    contentDescription = stringResource(R.string.clear_search)
                                 )
                             }
                         }
@@ -622,7 +624,7 @@ private fun CatalogPortraitLayout(
                 )
             ) {
                 Text(
-                    text = "${searchResults.size} résultat${if (searchResults.size > 1) "s" else ""} trouvé${if (searchResults.size > 1) "s" else ""}",
+                    text = stringResource(R.string.results_found, searchResults.size),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier
@@ -645,7 +647,7 @@ private fun CatalogPortraitLayout(
                         CircularProgressIndicator(modifier = Modifier.size(48.dp))
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = "Recherche en cours...",
+                            text = stringResource(R.string.searching),
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -666,7 +668,7 @@ private fun CatalogPortraitLayout(
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = "Commencez à taper pour rechercher",
+                            text = stringResource(R.string.start_typing_to_search),
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -680,7 +682,7 @@ private fun CatalogPortraitLayout(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Aucun résultat pour \"$searchQuery\"",
+                        text = stringResource(R.string.no_results_for, searchQuery),
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.error
@@ -726,6 +728,9 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
     fun normalizeName(name: String): String {
         return name.lowercase().replace(" ", "").replace("-", "").replace("_", "")
     }
+
+    // Получаем строку для "Description non disponible"
+    val descriptionNotAvailable = context.getString(R.string.description_not_available)
 
     // Функция для добавления элемента с расчетом релевантности
     fun addItemWithRelevance(
@@ -808,7 +813,7 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
     airDataQuestions.forEach { question ->
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: "Description non disponible",
+            description = question.description ?: descriptionNotAvailable,
             mainImagePath = "air_images/${question.image}",
             additionalImagePaths = (question.additionalImages ?: emptyList()).map { "air_images/$it" }
         )
@@ -818,7 +823,7 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
     artDataQuestions.forEach { question ->
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: "Description non disponible",
+            description = question.description ?: descriptionNotAvailable,
             mainImagePath = "artillery_images/${question.image}",
             additionalImagePaths = (question.additionalImages ?: emptyList()).map { "artillery_images/$it" }
         )
@@ -828,7 +833,7 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
     genieDataQuestions.forEach { question ->
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: "Description non disponible",
+            description = question.description ?: descriptionNotAvailable,
             mainImagePath = "genie_images/${question.image}",
             additionalImagePaths = (question.additionalImages ?: emptyList()).map { "genie_images/$it" }
         )
@@ -838,7 +843,7 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
     reconDataQuestions.forEach { question ->
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: "Description non disponible",
+            description = question.description ?: descriptionNotAvailable,
             mainImagePath = "recon_images/${question.image}",
             additionalImagePaths = (question.additionalImages ?: emptyList()).map { "recon_images/$it" }
         )
@@ -848,7 +853,7 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
     tankDataQuestions.forEach { question ->
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: "Description non disponible",
+            description = question.description ?: descriptionNotAvailable,
             mainImagePath = "tank_images/${question.image}",
             additionalImagePaths = (question.additionalImages ?: emptyList()).map { "tank_images/$it" }
         )
@@ -858,7 +863,7 @@ private fun searchInAirData(query: String, context: Context): List<SearchResult>
     bm2DataQuestions.forEach { question ->
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: "Description non disponible",
+            description = question.description ?: descriptionNotAvailable,
             mainImagePath = "bm2_images/${question.image}",
             additionalImagePaths = (question.additionalImages ?: emptyList()).map { "bm2_images/$it" }
         )

@@ -21,10 +21,12 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import legOS.testidf.R
 import java.io.IOException
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,7 +71,7 @@ fun NewsScreen(navController: NavController) {
             TopAppBar(
                 title = {
                     Text(
-                        "📰 Actualités",
+                        stringResource(R.string.news_screen_title),
                         style = MaterialTheme.typography.headlineSmall
                     )
                 },
@@ -77,7 +79,7 @@ fun NewsScreen(navController: NavController) {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
                             Icons.Default.ArrowBack,
-                            contentDescription = "Retour",
+                            contentDescription = stringResource(R.string.news_back_button),
                             tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
@@ -106,16 +108,12 @@ fun NewsScreen(navController: NavController) {
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         NewsItem(
-                            date = "25 Octobre 2025",
-                            title = "🎉 Version 1.2.1 - Améliorations et corrections",
-                            content = "Mise à jour importante de l'application avec plusieurs améliorations :\n\n" +
-                                    "• Ajout de la section Actualités\n" +
-                                    "• Amélioration de l'interface utilisateur\n" +
-                                    "• Corrections de bugs mineurs\n" +
-                                    "• Optimisation des performances"
+                            date = stringResource(R.string.news_date_oct_25_2025),
+                            title = stringResource(R.string.news_version_1_2_1_title),
+                            content = stringResource(R.string.news_version_1_2_1_content)
                         )
                     }
-                        // Push yours updates here!!!  Column(...){NewsItem()})...
+                    // Push yours updates here!!!  Column(...){NewsItem()})...
                 }
             } else {
                 // Вертикальная ориентация - одна колонка
@@ -127,13 +125,9 @@ fun NewsScreen(navController: NavController) {
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     NewsItem(
-                        date = "25 Octobre 2025",
-                        title = "🎉 Version 1.2.1 - Améliorations et corrections",
-                        content = "Mise à jour importante de l'application avec plusieurs améliorations :\n\n" +
-                                "• Ajout de la section Actualités\n" +
-                                "• Amélioration de l'interface utilisateur\n" +
-                                "• Corrections de bugs mineurs\n" +
-                                "• Optimisation des performances"
+                        date = stringResource(R.string.news_date_oct_25_2025),
+                        title = stringResource(R.string.news_version_1_2_1_title),
+                        content = stringResource(R.string.news_version_1_2_1_content)
                     )
 
                     // Push yours updates here!!!
