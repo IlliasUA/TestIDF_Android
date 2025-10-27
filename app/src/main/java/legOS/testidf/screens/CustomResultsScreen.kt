@@ -35,10 +35,12 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import legOS.testidf.R
 import legOS.testidf.loadImageFromAssets
 
 @Composable
@@ -157,7 +159,7 @@ private fun CustomResultsLandscapeLayout(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                "Image\nnon disponible",
+                                stringResource(R.string.image_unavailable),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 textAlign = TextAlign.Center
@@ -169,31 +171,31 @@ private fun CustomResultsLandscapeLayout(
                             verticalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             Text(
-                                "Question ${index + 1}",
+                                stringResource(R.string.question_number_short, index + 1),
                                 style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                                 color = MaterialTheme.colorScheme.onSurface
                             )
 
                             Text(
-                                "Catégorie: ${question.category}",
+                                stringResource(R.string.category_label, question.category),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                             )
 
                             Text(
-                                "Correct: ${question.correctAnswer}",
+                                stringResource(R.string.correct_answer, question.correctAnswer),
                                 style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
                                 color = Color(0xFF2E7D32)
                             )
 
                             Text(
-                                "Vous: ${userAnswer ?: "Aucune"}",
+                                stringResource(R.string.your_answer_label, userAnswer ?: stringResource(R.string.no_answer)),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = if (isCorrect) Color(0xFF2E7D32) else Color(0xFFD32F2F)
                             )
 
                             Text(
-                                if (isCorrect) "✓ Correct" else "✗ Incorrect",
+                                if (isCorrect) stringResource(R.string.correct_mark) else stringResource(R.string.incorrect_mark),
                                 style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
                                 color = if (isCorrect) Color(0xFF2E7D32) else Color(0xFFD32F2F)
                             )
@@ -208,13 +210,13 @@ private fun CustomResultsLandscapeLayout(
             modifier = Modifier
                 .weight(0.4f)
                 .fillMaxHeight()
-                .padding(end = 8.dp), // Prevent content from touching the right edge
+                .padding(end = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item {
                 Card(
-                    modifier = Modifier.fillMaxWidth(0.8f), // Reduced width to 80% to shift left
+                    modifier = Modifier.fillMaxWidth(0.8f),
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.9f)
                     )
@@ -224,7 +226,7 @@ private fun CustomResultsLandscapeLayout(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            "Test Terminé!",
+                            stringResource(R.string.test_completed),
                             style = MaterialTheme.typography.headlineSmall,
                             color = MaterialTheme.colorScheme.primary,
                             textAlign = TextAlign.Center
@@ -233,14 +235,14 @@ private fun CustomResultsLandscapeLayout(
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Text(
-                            "Score: $correctCount / $totalQuestions",
+                            stringResource(R.string.score, correctCount, totalQuestions),
                             style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
                             color = if (correctCount >= totalQuestions * 0.7) Color(0xFF2E7D32) else Color(0xFFD32F2F)
                         )
 
                         val percentage = if (totalQuestions > 0) (correctCount * 100) / totalQuestions else 0
                         Text(
-                            "($percentage%)",
+                            stringResource(R.string.percentage, percentage),
                             style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
@@ -252,7 +254,7 @@ private fun CustomResultsLandscapeLayout(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     Card(
-                        modifier = Modifier.fillMaxWidth(0.8f), // Reduced width to 80% to shift left
+                        modifier = Modifier.fillMaxWidth(0.8f),
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.9f)
                         )
@@ -261,7 +263,7 @@ private fun CustomResultsLandscapeLayout(
                             modifier = Modifier.padding(16.dp)
                         ) {
                             Text(
-                                "Par catégorie:",
+                                stringResource(R.string.by_category),
                                 style = MaterialTheme.typography.titleSmall,
                                 color = MaterialTheme.colorScheme.primary
                             )
@@ -294,7 +296,7 @@ private fun CustomResultsLandscapeLayout(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Row(
-                    modifier = Modifier.fillMaxWidth(0.8f), // Reduced width to 80% to align with cards
+                    modifier = Modifier.fillMaxWidth(0.8f),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Button(
@@ -307,7 +309,7 @@ private fun CustomResultsLandscapeLayout(
                             contentColor = MaterialTheme.colorScheme.onPrimary
                         )
                     ) {
-                        Text("Test", style = MaterialTheme.typography.bodyMedium)
+                        Text(stringResource(R.string.test), style = MaterialTheme.typography.bodyMedium)
                     }
 
                     Button(
@@ -320,7 +322,7 @@ private fun CustomResultsLandscapeLayout(
                             contentColor = MaterialTheme.colorScheme.onTertiary
                         )
                     ) {
-                        Text("Menu", style = MaterialTheme.typography.bodyMedium)
+                        Text(stringResource(R.string.menu), style = MaterialTheme.typography.bodyMedium)
                     }
                 }
             }
@@ -340,7 +342,7 @@ private fun CustomResultsPortraitLayout(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .safeDrawingPadding(), // Ensure content is inset from system bars
+            .safeDrawingPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -355,7 +357,7 @@ private fun CustomResultsPortraitLayout(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    "Test Personnalisé Terminé!",
+                    stringResource(R.string.custom_test_completed),
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.primary,
                     textAlign = TextAlign.Center
@@ -364,14 +366,14 @@ private fun CustomResultsPortraitLayout(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    "Score: $correctCount / $totalQuestions",
+                    stringResource(R.string.score, correctCount, totalQuestions),
                     style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
                     color = if (correctCount >= totalQuestions * 0.7) Color(0xFF2E7D32) else Color(0xFFD32F2F)
                 )
 
                 val percentage = if (totalQuestions > 0) (correctCount * 100) / totalQuestions else 0
                 Text(
-                    "($percentage%)",
+                    stringResource(R.string.percentage, percentage),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
@@ -390,7 +392,7 @@ private fun CustomResultsPortraitLayout(
                     modifier = Modifier.padding(16.dp)
                 ) {
                     Text(
-                        "Résultats par catégorie:",
+                        stringResource(R.string.results_by_category),
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.primary
                     )
@@ -460,26 +462,26 @@ private fun CustomResultsPortraitLayout(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                "Image non disponible",
+                                stringResource(R.string.image_not_available),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
 
                         Text(
-                            "Question ${index + 1} - ${question.category}",
+                            stringResource(R.string.question_with_category, index + 1, question.category),
                             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                             color = MaterialTheme.colorScheme.onSurface
                         )
 
                         Text(
-                            "Réponse correcte: ${question.correctAnswer}",
+                            stringResource(R.string.correct_answer_label, question.correctAnswer),
                             style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
                             color = Color(0xFF2E7D32)
                         )
 
                         Text(
-                            "Votre réponse: ${userAnswer ?: "Aucune réponse"}",
+                            stringResource(R.string.your_answer_result, userAnswer ?: stringResource(R.string.no_answer_given)),
                             style = MaterialTheme.typography.bodyMedium,
                             color = if (isCorrect) Color(0xFF2E7D32) else Color(0xFFD32F2F)
                         )
@@ -488,7 +490,7 @@ private fun CustomResultsPortraitLayout(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                if (isCorrect) "✓ Correct" else "✗ Incorrect",
+                                if (isCorrect) stringResource(R.string.correct_mark) else stringResource(R.string.incorrect_mark),
                                 style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
                                 color = if (isCorrect) Color(0xFF2E7D32) else Color(0xFFD32F2F)
                             )
@@ -512,7 +514,7 @@ private fun CustomResultsPortraitLayout(
                     contentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
-                Text("Test", style = MaterialTheme.typography.bodyLarge)
+                Text(stringResource(R.string.test), style = MaterialTheme.typography.bodyLarge)
             }
 
             Button(
@@ -525,11 +527,11 @@ private fun CustomResultsPortraitLayout(
                     contentColor = MaterialTheme.colorScheme.onTertiary
                 )
             ) {
-                Text("Menu", style = MaterialTheme.typography.bodyLarge)
+                Text(stringResource(R.string.menu), style = MaterialTheme.typography.bodyLarge)
             }
         }
 
-        Spacer(modifier = Modifier.height(2.dp)) // Safe zone below buttons for system navigation
+        Spacer(modifier = Modifier.height(2.dp))
     }
 }
 

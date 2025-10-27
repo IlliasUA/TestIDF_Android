@@ -33,6 +33,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
@@ -41,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
+import legOS.testidf.R
 import legOS.testidf.loadImageFromAssets
 import java.io.IOException
 import legOS.testidf.screens.TestDataHolder
@@ -166,12 +168,12 @@ fun CustomTestScreen(navController: NavController, questionCount: String, timeLi
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "Aucune question trouvée",
+                    text = stringResource(R.string.no_questions_found),
                     style = MaterialTheme.typography.headlineSmall
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = { navController.popBackStack() }) {
-                    Text("Retour")
+                    Text(stringResource(R.string.back_button))
                 }
             }
         }
@@ -201,7 +203,7 @@ fun CustomTestScreen(navController: NavController, questionCount: String, timeLi
                 bitmap = image,
                 contentDescription = "Background Image",
                 modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop // Используем Crop для заполнения всего экрана
+                contentScale = ContentScale.Crop
             )
         }
 
@@ -380,7 +382,7 @@ private fun CustomTestLandscapeLayout(
                     contentScale = ContentScale.Fit
                 )
             } ?: Text(
-                text = "Image not found: ${currentQuestion.imagePath}",
+                text = stringResource(R.string.image_not_found, currentQuestion.imagePath),
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(16.dp)
             )
@@ -391,7 +393,7 @@ private fun CustomTestLandscapeLayout(
             modifier = Modifier
                 .weight(0.45f)
                 .fillMaxHeight()
-                .padding(start = 8.dp, end = 24.dp), // Увеличен отступ справа
+                .padding(start = 8.dp, end = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
@@ -400,7 +402,7 @@ private fun CustomTestLandscapeLayout(
             // Progress bar
             Box(
                 modifier = Modifier
-                    .fillMaxWidth(0.9f) // Уменьшена ширина
+                    .fillMaxWidth(0.9f)
                     .padding(vertical = 4.dp)
                     .background(Color.Transparent)
             ) {
@@ -426,7 +428,7 @@ private fun CustomTestLandscapeLayout(
                     style = MaterialTheme.typography.headlineSmall.copy(fontSize = 16.sp)
                 )
                 Text(
-                    text = "Catégorie: ${currentQuestion.category}",
+                    text = stringResource(R.string.category_label, currentQuestion.category),
                     style = MaterialTheme.typography.bodyMedium.copy(fontSize = 13.sp),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -441,12 +443,12 @@ private fun CustomTestLandscapeLayout(
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
                     .padding(vertical = 4.dp),
-                label = { Text("Votre réponse", fontSize = 13.sp) },
-                placeholder = { Text("Entrez le nom...", fontSize = 12.sp) },
+                label = { Text(stringResource(R.string.your_answer), fontSize = 13.sp) },
+                placeholder = { Text(stringResource(R.string.enter_name), fontSize = 12.sp) },
                 trailingIcon = {
                     if (currentAnswer.text.isNotEmpty()) {
                         IconButton(onClick = { onAnswerChange(TextFieldValue("")) }) {
-                            Icon(Icons.Default.Clear, contentDescription = "Effacer")
+                            Icon(Icons.Default.Clear, contentDescription = stringResource(R.string.clear))
                         }
                     }
                 },
@@ -473,7 +475,7 @@ private fun CustomTestLandscapeLayout(
                 shape = MaterialTheme.shapes.medium
             ) {
                 Text(
-                    text = "Valider",
+                    text = stringResource(R.string.validate),
                     style = MaterialTheme.typography.bodyLarge.copy(fontSize = 15.sp)
                 )
             }
@@ -493,7 +495,7 @@ private fun CustomTestLandscapeLayout(
                 shape = MaterialTheme.shapes.medium
             ) {
                 Text(
-                    text = "Quitter",
+                    text = stringResource(R.string.quit),
                     style = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp)
                 )
             }
@@ -502,10 +504,10 @@ private fun CustomTestLandscapeLayout(
             if (showQuitConfirmation) {
                 AlertDialog(
                     onDismissRequest = onDismissQuit,
-                    title = { Text("Confirmation", style = MaterialTheme.typography.headlineSmall) },
+                    title = { Text(stringResource(R.string.quit_confirmation_title), style = MaterialTheme.typography.headlineSmall) },
                     text = {
                         Text(
-                            "Êtes-vous sûr de vouloir quitter le test?",
+                            stringResource(R.string.quit_test_message),
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center
                         )
@@ -515,7 +517,7 @@ private fun CustomTestLandscapeLayout(
                             onClick = onConfirmQuit,
                             modifier = Modifier.padding(8.dp)
                         ) {
-                            Text("Oui", style = MaterialTheme.typography.labelLarge)
+                            Text(stringResource(R.string.yes), style = MaterialTheme.typography.labelLarge)
                         }
                     },
                     dismissButton = {
@@ -523,7 +525,7 @@ private fun CustomTestLandscapeLayout(
                             onClick = onDismissQuit,
                             modifier = Modifier.padding(8.dp)
                         ) {
-                            Text("Non", style = MaterialTheme.typography.labelLarge)
+                            Text(stringResource(R.string.no), style = MaterialTheme.typography.labelLarge)
                         }
                     },
                     modifier = Modifier.padding(16.dp)
@@ -586,7 +588,7 @@ private fun CustomTestCompactLayout(
                     style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
                 )
                 Text(
-                    text = "Catégorie: ${currentQuestion.category}",
+                    text = stringResource(R.string.category_label, currentQuestion.category),
                     style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -658,7 +660,7 @@ private fun CustomTestCompactLayout(
                         }
                 )
             } ?: Text(
-                text = "Image not found: ${currentQuestion.imagePath}",
+                text = stringResource(R.string.image_not_found, currentQuestion.imagePath),
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(16.dp)
             )
@@ -672,12 +674,12 @@ private fun CustomTestCompactLayout(
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
                     .padding(vertical = 8.dp),
-                label = { Text("Votre réponse") },
-                placeholder = { Text("Entrez le nom de l'équipement...") },
+                label = { Text(stringResource(R.string.your_answer)) },
+                placeholder = { Text(stringResource(R.string.enter_equipment_name)) },
                 trailingIcon = {
                     if (currentAnswer.text.isNotEmpty()) {
                         IconButton(onClick = { onAnswerChange(TextFieldValue("")) }) {
-                            Icon(Icons.Default.Clear, contentDescription = "Effacer")
+                            Icon(Icons.Default.Clear, contentDescription = stringResource(R.string.clear))
                         }
                     }
                 },
@@ -704,7 +706,7 @@ private fun CustomTestCompactLayout(
                 shape = MaterialTheme.shapes.medium
             ) {
                 Text(
-                    text = "Valider",
+                    text = stringResource(R.string.validate),
                     style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
                 )
             }
@@ -725,7 +727,7 @@ private fun CustomTestCompactLayout(
                 shape = MaterialTheme.shapes.medium
             ) {
                 Text(
-                    text = "Quitter",
+                    text = stringResource(R.string.quit),
                     style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
                 )
             }
@@ -734,10 +736,10 @@ private fun CustomTestCompactLayout(
             if (showQuitConfirmation) {
                 AlertDialog(
                     onDismissRequest = onDismissQuit,
-                    title = { Text("Confirmation", style = MaterialTheme.typography.headlineSmall) },
+                    title = { Text(stringResource(R.string.quit_confirmation_title), style = MaterialTheme.typography.headlineSmall) },
                     text = {
                         Text(
-                            "Êtes-vous sûr de vouloir quitter le test?",
+                            stringResource(R.string.quit_test_message),
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center
                         )
@@ -747,7 +749,7 @@ private fun CustomTestCompactLayout(
                             onClick = onConfirmQuit,
                             modifier = Modifier.padding(8.dp)
                         ) {
-                            Text("Oui", style = MaterialTheme.typography.labelLarge)
+                            Text(stringResource(R.string.yes), style = MaterialTheme.typography.labelLarge)
                         }
                     },
                     dismissButton = {
@@ -755,7 +757,7 @@ private fun CustomTestCompactLayout(
                             onClick = onDismissQuit,
                             modifier = Modifier.padding(8.dp)
                         ) {
-                            Text("Non", style = MaterialTheme.typography.labelLarge)
+                            Text(stringResource(R.string.no), style = MaterialTheme.typography.labelLarge)
                         }
                     },
                     modifier = Modifier.padding(16.dp)
@@ -822,7 +824,7 @@ private fun CustomTestLargeLayout(
                     style = MaterialTheme.typography.headlineSmall.copy(fontSize = 18.sp)
                 )
                 Text(
-                    text = "Catégorie: ${currentQuestion.category}",
+                    text = stringResource(R.string.category_label, currentQuestion.category),
                     style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -894,7 +896,7 @@ private fun CustomTestLargeLayout(
                         }
                 )
             } ?: Text(
-                text = "Image not found: ${currentQuestion.imagePath}",
+                text = stringResource(R.string.image_not_found, currentQuestion.imagePath),
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(24.dp)
             )
@@ -908,12 +910,12 @@ private fun CustomTestLargeLayout(
                 modifier = Modifier
                     .fillMaxWidth(0.8f)
                     .padding(vertical = 12.dp),
-                label = { Text("Votre réponse") },
-                placeholder = { Text("Entrez le nom de l'équipement...") },
+                label = { Text(stringResource(R.string.your_answer)) },
+                placeholder = { Text(stringResource(R.string.enter_equipment_name)) },
                 trailingIcon = {
                     if (currentAnswer.text.isNotEmpty()) {
                         IconButton(onClick = { onAnswerChange(TextFieldValue("")) }) {
-                            Icon(Icons.Default.Clear, contentDescription = "Effacer")
+                            Icon(Icons.Default.Clear, contentDescription = stringResource(R.string.clear))
                         }
                     }
                 },
@@ -943,7 +945,7 @@ private fun CustomTestLargeLayout(
                     shape = MaterialTheme.shapes.medium
                 ) {
                     Text(
-                        text = "Valider",
+                        text = stringResource(R.string.validate),
                         style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp)
                     )
                 }
@@ -961,7 +963,7 @@ private fun CustomTestLargeLayout(
                     shape = MaterialTheme.shapes.medium
                 ) {
                     Text(
-                        text = "Quitter",
+                        text = stringResource(R.string.quit),
                         style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp)
                     )
                 }
@@ -971,10 +973,10 @@ private fun CustomTestLargeLayout(
             if (showQuitConfirmation) {
                 AlertDialog(
                     onDismissRequest = onDismissQuit,
-                    title = { Text("Confirmation", style = MaterialTheme.typography.headlineMedium) },
+                    title = { Text(stringResource(R.string.quit_confirmation_title), style = MaterialTheme.typography.headlineMedium) },
                     text = {
                         Text(
-                            "Êtes-vous sûr de vouloir quitter le test?",
+                            stringResource(R.string.quit_test_message),
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center
                         )
@@ -984,7 +986,7 @@ private fun CustomTestLargeLayout(
                             onClick = onConfirmQuit,
                             modifier = Modifier.padding(8.dp)
                         ) {
-                            Text("Oui", style = MaterialTheme.typography.labelLarge)
+                            Text(stringResource(R.string.yes), style = MaterialTheme.typography.labelLarge)
                         }
                     },
                     dismissButton = {
@@ -992,7 +994,7 @@ private fun CustomTestLargeLayout(
                             onClick = onDismissQuit,
                             modifier = Modifier.padding(8.dp)
                         ) {
-                            Text("Non", style = MaterialTheme.typography.labelLarge)
+                            Text(stringResource(R.string.no), style = MaterialTheme.typography.labelLarge)
                         }
                     },
                     modifier = Modifier.padding(16.dp)
