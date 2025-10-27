@@ -1,5 +1,6 @@
 package legOS.testidf.viewmodel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import legOS.testidf.R
 import legOS.testidf.screens.Answer
 import legOS.testidf.screens.ParticipantResult
 import legOS.testidf.screens.SessionResultGroup
@@ -76,7 +78,7 @@ class SessionResultsViewModel : ViewModel() {
                         val answers = (doc.get("answers") as? List<Map<String, Any>>)?.map { answerMap ->
                             Answer(
                                 questionText = answerMap["questionText"] as? String ?: "",
-                                userAnswer = answerMap["userAnswer"] as? String ?: "Aucune réponse",
+                                userAnswer = answerMap["userAnswer"] as? String ?: "",
                                 correctAnswer = answerMap["correctAnswer"] as? String ?: "",
                                 isCorrect = answerMap["isCorrect"] as? Boolean ?: false
                             )
@@ -137,7 +139,7 @@ class SessionResultsViewModel : ViewModel() {
                         val bestScore = sortedResults.firstOrNull()?.percentage ?: 0
 
                         val adjustedTime = timeWindow + (2 * 60 * 60 * 1000) // +2 часа
-                        val timeString = SimpleDateFormat("dd/MM HH:mm", Locale.FRENCH)
+                        val timeString = SimpleDateFormat("dd/MM HH:mm", Locale.getDefault())
                             .format(Date(adjustedTime))
 
                         Log.d("SessionResultsVM", "Created group: $timeString, ${sortedResults.size} participants, avg: $averageScore%, best: $bestScore%")

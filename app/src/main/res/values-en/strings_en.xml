@@ -13,7 +13,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="copyright">© 2025 IliaUA. All Rights Reserved.</string>
-    <string name="privacy_notice">By using this app, you agree to our Privacy Policy and Terms of Use, which are specified in the \"Info\" section.</string>
+    <string name="privacy_notice">By using this app, you agree to our Privacy Policy and Terms of Use, which are specified in the "Info" section.</string>
 
     <!-- Test menu -->
     <string name="return_tab">Back</string>
@@ -293,7 +293,6 @@
     <string name="help_search_description">Explore the complete catalog of military vehicles and equipment with detailed characteristics.</string>
 
     <!-- News -->
-
     <string name="news_title">📰 News</string>
     <string name="news_screen_title">📰 News</string>
     <string name="news_back_button">Back</string>
@@ -317,6 +316,25 @@
     <string name="image_not_found_item">Image not found</string>
     <string name="clear_search">Clear</string>
     <string name="back_to_menu">Back</string>
+
+    <!-- Session Results Screen -->
+    <string name="session_results_title">Results (%d)</string>
+    <string name="statistics_header">Statistics</string>
+    <string name="questions_with_time">%1$d questions • %2$ds/question</string>
+    <string name="test_number_label">Test %d</string>
+    <string name="waiting_for_results">Waiting for results</string>
+    <string name="participants_count">Participants</string>
+    <string name="average_score">Average</string>
+    <string name="best_score_label">Best</string>
+    <string name="correct_answers_count">%1$d/%2$d correct</string>
+    <string name="percentage_value">%d%%</string>
+    <string name="participant_score_details">Score: %1$d/%2$d (%3$d%%)</string>
+    <string name="close_dialog">Close</string>
+    <string name="details_not_available">Details not available</string>
+    <string name="question_number_label">Question %d</string>
+    <string name="user_answer_label">Answer: %s</string>
+    <string name="back_navigation">Back</string>
+    <string name="session_no_results">No results available</string>
 
     <!-- hall_of_fame_title -->
     <string name="hall_of_fame_title">Hall of Fame</string>

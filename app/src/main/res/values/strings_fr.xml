@@ -293,7 +293,6 @@
     <string name="help_search_description">Explorez le catalogue complet des véhicules et équipements militaires avec leurs caractéristiques détaillées.</string>
 
     <!-- Actualités -->
-
     <string name="news_title">📰 Actualités</string>
     <string name="news_screen_title">📰 Actualités</string>
     <string name="news_back_button">Retour</string>
@@ -317,6 +316,25 @@
     <string name="image_not_found_item">Image non trouvée</string>
     <string name="clear_search">Effacer</string>
     <string name="back_to_menu">Retour</string>
+
+    <!-- Session Results Screen -->
+    <string name="session_results_title">Résultats (%d)</string>
+    <string name="statistics_header">Statistiques</string>
+    <string name="questions_with_time">%1$d questions • %2$ds/question</string>
+    <string name="test_number_label">Test %d</string>
+    <string name="waiting_for_results">En attente des résultats</string>
+    <string name="participants_count">Participants</string>
+    <string name="average_score">Moyenne</string>
+    <string name="best_score_label">Meilleur</string>
+    <string name="correct_answers_count">%1$d/%2$d correctes</string>
+    <string name="percentage_value">%d%%</string>
+    <string name="participant_score_details">Score: %1$d/%2$d (%3$d%%)</string>
+    <string name="close_dialog">Fermer</string>
+    <string name="details_not_available">Détails non disponibles</string>
+    <string name="question_number_label">Question %d</string>
+    <string name="user_answer_label">Réponse: %s</string>
+    <string name="back_navigation">Retour</string>
+    <string name="session_no_results">Aucun résultat disponible</string>
 
     <!-- hall_of_fame_title -->
     <string name="hall_of_fame_title">Panthéon</string>

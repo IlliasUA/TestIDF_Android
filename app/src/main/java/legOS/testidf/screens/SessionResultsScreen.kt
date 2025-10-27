@@ -19,10 +19,12 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import legOS.testidf.R
 import legOS.testidf.loadImageFromAssets
 import legOS.testidf.viewmodel.SessionResultsViewModel
 
@@ -94,10 +96,10 @@ fun SessionResultsScreen(
                             onClick = { navController.navigateUp() },
                             modifier = Modifier.size(40.dp)
                         ) {
-                            Icon(Icons.Default.ArrowBack, "Retour")
+                            Icon(Icons.Default.ArrowBack, stringResource(R.string.back_navigation))
                         }
                         Text(
-                            "Résultats (${currentSessionResults?.results?.size ?: 0})",
+                            stringResource(R.string.session_results_title, currentSessionResults?.results?.size ?: 0),
                             style = MaterialTheme.typography.titleLarge
                         )
                     }
@@ -131,7 +133,7 @@ fun SessionResultsScreen(
                                 )
                                 Spacer(Modifier.height(8.dp))
                                 Text(
-                                    "En attente des résultats",
+                                    stringResource(R.string.waiting_for_results),
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                                 )
@@ -165,7 +167,7 @@ fun SessionResultsScreen(
                         contentAlignment = Alignment.CenterStart
                     ) {
                         Text(
-                            "Statistiques",
+                            stringResource(R.string.statistics_header),
                             style = MaterialTheme.typography.titleLarge
                         )
                     }
@@ -185,7 +187,7 @@ fun SessionResultsScreen(
                             )
                             Spacer(Modifier.height(8.dp))
                             Text(
-                                "${uiState.totalQuestions} questions • ${uiState.timeLimit}s/question",
+                                stringResource(R.string.questions_with_time, uiState.totalQuestions, uiState.timeLimit),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                             )
@@ -208,18 +210,15 @@ fun SessionResultsScreen(
                                 containerColor = Color.Transparent,
                                 edgePadding = 8.dp
                             ) {
-                                uiState.sessionGroups.forEachIndexed { index, session ->
+                                uiState.sessionGroups.forEachIndexed { index, _ ->
                                     Tab(
                                         selected = selectedSessionIndex == index,
                                         onClick = { selectedSessionIndex = index },
                                         text = {
-                                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                                Text("Test ${index + 1}")
-                                                Text(
-                                                    session.timestamp,
-                                                    style = MaterialTheme.typography.labelSmall
-                                                )
-                                            }
+                                            Text(
+                                                stringResource(R.string.test_number_label, index + 1),
+                                                style = MaterialTheme.typography.bodyMedium
+                                            )
                                         }
                                     )
                                 }
@@ -228,33 +227,36 @@ fun SessionResultsScreen(
                         Spacer(Modifier.height(16.dp))
                     }
 
-                    Card(
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
-                        )
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            horizontalArrangement = Arrangement.SpaceEvenly
+                    // СТАТИСТИКА ТЕКУЩЕЙ СЕССИИ
+                    currentSessionResults?.let { sessionGroup ->
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                            )
                         ) {
-                            ResultStatItem(
-                                label = "Participants",
-                                value = (currentSessionResults?.results?.size ?: 0).toString(),
-                                icon = Icons.Default.Person
-                            )
-                            ResultStatItem(
-                                label = "Moyenne",
-                                value = "${currentSessionResults?.averageScore ?: 0}%",
-                                icon = Icons.Default.BarChart
-                            )
-                            ResultStatItem(
-                                label = "Meilleur",
-                                value = "${currentSessionResults?.bestScore ?: 0}%",
-                                icon = Icons.Default.TrendingUp
-                            )
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(20.dp),
+                                horizontalArrangement = Arrangement.SpaceEvenly
+                            ) {
+                                ResultStatItem(
+                                    label = stringResource(R.string.participants_count),
+                                    value = "${sessionGroup.results.size}",
+                                    icon = Icons.Default.Group
+                                )
+                                ResultStatItem(
+                                    label = stringResource(R.string.average_score),
+                                    value = "${sessionGroup.averageScore}%",
+                                    icon = Icons.Default.BarChart
+                                )
+                                ResultStatItem(
+                                    label = stringResource(R.string.best_score_label),
+                                    value = "${sessionGroup.bestScore}%",
+                                    icon = Icons.Default.EmojiEvents
+                                )
+                            }
                         }
                     }
                 }
@@ -267,61 +269,52 @@ fun SessionResultsScreen(
                     .systemBarsPadding()
                     .padding(16.dp)
             ) {
+                // HEADER
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(Icons.Default.ArrowBack, "Retour")
+                    IconButton(
+                        onClick = { navController.navigateUp() },
+                        modifier = Modifier.size(40.dp)
+                    ) {
+                        Icon(Icons.Default.ArrowBack, stringResource(R.string.back_navigation))
                     }
-                    Column(modifier = Modifier.weight(1f)) {
+                    Spacer(Modifier.width(8.dp))
+                    Text(
+                        stringResource(R.string.session_results_title, currentSessionResults?.results?.size ?: 0),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                }
+
+                Spacer(Modifier.height(12.dp))
+
+                // ИНФОРМАЦИЯ О СЕССИИ
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                    )
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
                         Text(
                             uiState.sessionTitle,
-                            style = MaterialTheme.typography.titleLarge
+                            style = MaterialTheme.typography.headlineSmall
                         )
+                        Spacer(Modifier.height(4.dp))
                         Text(
-                            "${uiState.totalQuestions} questions • ${uiState.timeLimit}s/question",
-                            style = MaterialTheme.typography.bodySmall,
+                            stringResource(R.string.questions_with_time, uiState.totalQuestions, uiState.timeLimit),
+                            style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                         )
                     }
                 }
 
-                Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.height(12.dp))
 
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
-                    )
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.SpaceAround
-                    ) {
-                        ResultStatItem(
-                            label = "Participants",
-                            value = (currentSessionResults?.results?.size ?: 0).toString(),
-                            icon = Icons.Default.Person
-                        )
-                        ResultStatItem(
-                            label = "Moyenne",
-                            value = "${currentSessionResults?.averageScore ?: 0}%",
-                            icon = Icons.Default.BarChart
-                        )
-                        ResultStatItem(
-                            label = "Meilleur",
-                            value = "${currentSessionResults?.bestScore ?: 0}%",
-                            icon = Icons.Default.TrendingUp
-                        )
-                    }
-                }
-
-                Spacer(Modifier.height(16.dp))
-
-                // ВКЛАДКИ ДЛЯ РАЗНЫХ СЕССИЙ
+                // ВКЛАДКИ СЕССИЙ
                 if (uiState.sessionGroups.size > 1) {
                     Card(
                         modifier = Modifier.fillMaxWidth(),
@@ -335,26 +328,59 @@ fun SessionResultsScreen(
                             containerColor = Color.Transparent,
                             edgePadding = 8.dp
                         ) {
-                            uiState.sessionGroups.forEachIndexed { index, session ->
+                            uiState.sessionGroups.forEachIndexed { index, _ ->
                                 Tab(
                                     selected = selectedSessionIndex == index,
                                     onClick = { selectedSessionIndex = index },
                                     text = {
-                                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                            Text("Test ${index + 1}")
-                                            Text(
-                                                session.timestamp,
-                                                style = MaterialTheme.typography.labelSmall
-                                            )
-                                        }
+                                        Text(
+                                            stringResource(R.string.test_number_label, index + 1),
+                                            style = MaterialTheme.typography.bodyMedium
+                                        )
                                     }
                                 )
                             }
                         }
                     }
-                    Spacer(Modifier.height(16.dp))
+                    Spacer(Modifier.height(12.dp))
                 }
 
+                // СТАТИСТИКА
+                currentSessionResults?.let { sessionGroup ->
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+                        )
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            ResultStatItem(
+                                label = stringResource(R.string.participants_count),
+                                value = "${sessionGroup.results.size}",
+                                icon = Icons.Default.Group
+                            )
+                            ResultStatItem(
+                                label = stringResource(R.string.average_score),
+                                value = "${sessionGroup.averageScore}%",
+                                icon = Icons.Default.BarChart
+                            )
+                            ResultStatItem(
+                                label = stringResource(R.string.best_score_label),
+                                value = "${sessionGroup.bestScore}%",
+                                icon = Icons.Default.EmojiEvents
+                            )
+                        }
+                    }
+                }
+
+                Spacer(Modifier.height(12.dp))
+
+                // СПИСОК УЧАСТНИКОВ
                 if (uiState.isLoading) {
                     Box(
                         modifier = Modifier.fillMaxSize(),
@@ -363,11 +389,17 @@ fun SessionResultsScreen(
                         CircularProgressIndicator()
                     }
                 } else if (currentSessionResults == null || currentSessionResults.results.isEmpty()) {
-                    Box(
+                    Card(
                         modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
+                        )
                     ) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
                             Icon(
                                 Icons.Default.HourglassEmpty,
                                 null,
@@ -376,7 +408,7 @@ fun SessionResultsScreen(
                             )
                             Spacer(Modifier.height(16.dp))
                             Text(
-                                "En attente des résultats",
+                                stringResource(R.string.waiting_for_results),
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                             )
@@ -397,14 +429,14 @@ fun SessionResultsScreen(
                 }
             }
         }
-    }
 
-    // Диалог детального просмотра
-    if (selectedParticipant != null) {
-        DetailedResultDialog(
-            result = selectedParticipant!!,
-            onDismiss = { selectedParticipant = null }
-        )
+        // ДИАЛОГ С ДЕТАЛЬНЫМИ РЕЗУЛЬТАТАМИ
+        selectedParticipant?.let { participant ->
+            DetailedResultDialog(
+                result = participant,
+                onDismiss = { selectedParticipant = null }
+            )
+        }
     }
 }
 
@@ -414,34 +446,36 @@ private fun ParticipantResultCard(
     onInfoClick: () -> Unit
 ) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp),
+        modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.85f)
         )
     ) {
         Row(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 12.dp, vertical = 8.dp),
+                .fillMaxWidth()
+                .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Surface(
-                modifier = Modifier.size(36.dp),
                 shape = MaterialTheme.shapes.small,
                 color = when {
                     result.rank == 1 -> Color(0xFFFFD700)
                     result.rank == 2 -> Color(0xFFC0C0C0)
                     result.rank == 3 -> Color(0xFFCD7F32)
-                    else -> MaterialTheme.colorScheme.primaryContainer
+                    else -> MaterialTheme.colorScheme.surfaceVariant
                 }
             ) {
-                Box(contentAlignment = Alignment.Center) {
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .padding(4.dp),
+                    contentAlignment = Alignment.Center
+                ) {
                     Text(
-                        "${result.rank}",
-                        style = MaterialTheme.typography.titleSmall,
-                        color = if (result.rank <= 3) Color.White else MaterialTheme.colorScheme.onPrimaryContainer
+                        "#${result.rank}",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = if (result.rank <= 3) Color.Black else MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
@@ -454,7 +488,7 @@ private fun ParticipantResultCard(
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Text(
-                    "${result.score}/${result.totalQuestions} correctes",
+                    stringResource(R.string.correct_answers_count, result.score, result.totalQuestions),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                 )
@@ -469,7 +503,7 @@ private fun ParticipantResultCard(
                 }.copy(alpha = 0.2f)
             ) {
                 Text(
-                    "${result.percentage}%",
+                    stringResource(R.string.percentage_value, result.percentage),
                     modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
                     style = MaterialTheme.typography.titleSmall,
                     color = when {
@@ -493,7 +527,7 @@ private fun ParticipantResultCard(
                     modifier = Modifier.size(16.dp)
                 )
                 Spacer(Modifier.width(4.dp))
-                Text("Info", style = MaterialTheme.typography.labelMedium)
+                Text(stringResource(R.string.info_button), style = MaterialTheme.typography.labelMedium)
             }
         }
     }
@@ -518,12 +552,12 @@ private fun DetailedResultDialog(
                 Column {
                     Text(result.participantName)
                     Text(
-                        "Score: ${result.score}/${result.totalQuestions} (${result.percentage}%)",
+                        stringResource(R.string.participant_score_details, result.score, result.totalQuestions, result.percentage),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
                 IconButton(onClick = onDismiss) {
-                    Icon(Icons.Default.Close, "Fermer")
+                    Icon(Icons.Default.Close, stringResource(R.string.close_dialog))
                 }
             }
         },
@@ -534,7 +568,7 @@ private fun DetailedResultDialog(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        "Détails non disponibles",
+                        stringResource(R.string.details_not_available),
                         textAlign = TextAlign.Center
                     )
                 }
@@ -579,7 +613,7 @@ private fun AnswerDetailCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    "Question $questionNumber",
+                    stringResource(R.string.question_number_label, questionNumber),
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -599,7 +633,7 @@ private fun AnswerDetailCard(
                 Icon(Icons.Default.Person, null, Modifier.size(16.dp))
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    "Réponse: ${answer.userAnswer}",
+                    stringResource(R.string.user_answer_label, answer.userAnswer),
                     style = MaterialTheme.typography.bodyMedium,
                     color = if (answer.isCorrect) Color(0xFF4CAF50) else Color(0xFFF44336)
                 )
