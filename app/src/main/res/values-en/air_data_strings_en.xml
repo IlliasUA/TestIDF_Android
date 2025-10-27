@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Air Data Descriptions - English (First Half: air1 - air34) -->
+
+    <!-- AH-1W Super Cobra -->
+    <string name="air_data_ah1w_description">The AH-1W Super Cobra is an American attack helicopter.\nThe AH-1W Super Cobra entered service in 1986.\nThe AH-1W Super Cobra is a tandem two-seat helicopter with the gunner in front and the pilot in the rear.\nCannon: 20 mm / Air-to-ground missiles / Rockets: 70 mm.\nCrew: 2.</string>
+
+    <!-- Apache AH64 -->
+    <string name="air_data_apache_ah64_description">The AH-64 Apache is an American attack helicopter. It was developed in the 1970s-1980s.\nEntered service in September 1984.\nThe AH-64 Apache has undergone several modernization campaigns significantly improving its capabilities.\nThe AH-64D Apache Longbow version can receive an AN/APG-78 Longbow millimeter-wave radar installed above the main rotor.\nThe AH-64E Apache Guardian version is the most modern currently in service.\nThe AH-64 Apache, in different versions, is widely exported worldwide.\nCannon: 30 mm M230, capacity 1,200 rounds.\nAir-to-ground missiles: up to 16.\nAir-to-air missiles: 2.\nRockets: 70 mm.\nCrew: 2.</string>
+
+    <!-- CH-47 Chinook -->
+    <string name="air_data_ch47_chinook_description">The CH-47 Chinook is an American heavy transport helicopter. It entered service in 1962.</string>
+
+    <!-- KA-50 Black Shark -->
+    <string name="air_data_ka50_description">The Ka-50 Black Shark (Hokum-A in NATO designation) is a Russian reconnaissance and attack helicopter.\nIt was developed in the Soviet Union in the 1980s.\nThe first flight took place on June 17, 1982. The Ka-50 entered service in 1995.</string>
+
+    <!-- KA-52 Alligator -->
+    <string name="air_data_ka52_description">The Ka-52 Alligator (Hokum-B in NATO designation) is a Russian reconnaissance and attack helicopter.\nIt was developed in the 1990s-2000s.\nThe Ka-52 entered service in 2011.\nModels: Ka-50 – single-seat / Ka-52 – two-seat / Ka-52K Katran – naval version / Ka-52M – entered service in 2023.\nCannon: 30 mm.\nShturm-VU anti-tank missiles.\nIgla-V air-to-air missiles.\nRockets: S-8, S-13.\nCrew: 2.</string>
+
+    <!-- MI-8 -->
+    <string name="air_data_mi8_description">The Mi-8 (Hip – NATO code) is a Russian multi-role transport helicopter. It was developed in the Soviet Union in the 1950s-1960s.\nThe Mi-8 entered service in 1965.\nThe Mi-8 has undergone numerous modernization campaigns with a wide range of models.\nIt gave birth to the Mi-14 Haze with amphibious capability, and the Mi-17 and Mi-171 export versions.\nThe Mi-8 is very widely distributed worldwide. More than 50 countries use it in their armed forces or in civilian version.\nCrew: 3.\nRange: 650 km.</string>
+
+    <!-- MI-24 -->
+    <string name="air_data_mi24_description">The Mi-24 (Hind – NATO code) is a Russian attack helicopter.\nIt was developed in the Soviet Union in the 1960s.\nThe Mi-24 entered service in 1972.\nThe Mi-24 is designed using many systems from the Mi-8 transport helicopter.\nIt can receive a wide range of weapons: rockets, missiles and gun pods.\nThe Mi-24 can carry a group of eight soldiers in the compartment behind the cockpit.\nThe first version Mi-24A has a three-member crew cockpit in 1 + 2 configuration.\nFrom the Mi-24B model, it is replaced by a tandem cockpit.\nThe Mi-24 is very widely distributed worldwide.\nNearly sixty countries use it in their armed forces.\nMore than 3,500 units have been produced, all models combined.\nMachine gun: Yak-B rotary 4 x 12.7 mm.\nCannon: GSh-23L 23 mm.\nCannon: GSh-30K 30 mm.\nRockets: S-5, S-8, S-13, S-24.\nAir-to-ground missiles: Shturm-V, Ataka-M.\nAir-to-air missiles: Igla-V, R-60M, R-63V.\nCrew: 2 + 8 soldiers.\nRange: 1000 km.</string>
+
+    <!-- MI-26 -->
+    <string name="air_data_mi26_description">The Mi-26 (Halo – NATO code) is a Russian heavy transport helicopter. It was developed in the Soviet Union in the 1970s.\nThe Mi-26 entered service in 1983.\nCrew: 5-6.\nService ceiling: 4600 m.\nPayload: 20,000 kg.\nRange: 800 km.</string>
+
+    <!-- MI-28 -->
+    <string name="air_data_mi28_description">The Mi-28 (Havoc in NATO designation) is a Russian attack helicopter. It was developed in the Soviet Union, then in Russia in the 1980s-2000s.\nIt entered service in 2008 in Mi-28N version.\nOn August 16, 1996, Mil unveiled the Mi-28N Notchnoi Okhotnik – Night Hunter version, capable of night combat.\nThe Mi-28N is a tandem two-seat helicopter designed for attack and anti-tank combat missions.\nIn 2012, Iraq ordered fifteen Mi-28N delivered in 2014-2016. In March 2014, Algeria ordered forty-two Mi-28N.\nVersions: Mi-28 / Mi-28N / Mi-28NE / Mi-28UB / Mi-28NM.\nCannon: 2A42 30 mm.\nRockets: S-8, S-13.\nAir-to-ground missiles: Shturm-V, Ataka-V.\nAir-to-air missiles: Igla-V.\nCrew: 2.\nRange: 450 km.</string>
+
+    <!-- Stallion CH-53 -->
+    <string name="air_data_ch53_description">The CH-53 Stallion is an American heavy transport helicopter. It was developed in the 1960s.\nThe CH-53 Stallion entered service in 1966.\nThe CH-53 Stallion is a heavy transport helicopter with a maximum takeoff weight of 19,050 kg.\nIt is capable of transporting thirty-eight equipped soldiers.\nStallion was delivered from April 22, 2022.\nVersions: CH-53A / CH-53D / CH-53G / CH-53D / MH-53 / CH-53E Super Stallion / CH-53K King Stallion.</string>
+
+    <!-- UH-60 Black Hawk -->
+    <string name="air_data_uh60_description">The UH-60 Black Hawk is an American multi-role transport helicopter. It was developed in the 1970s.\nThe UH-60 Black Hawk entered service in 1979.\nThe UH-60 Black Hawk has been derived into many versions:\nfor Special Forces, naval version for the Navy, for the Coast Guard,\nsearch and rescue missions, medical evacuation,\nVIP transport and versions for transporting specific equipment:\nradar, C3 Command-Control-Communication, weapons.\nThe UH-60 Black Hawk has been produced in more than four thousand units for about thirty countries worldwide.</string>
+
+    <!-- A129 Mangusta -->
+    <string name="air_data_a129_description">The A129 Mangusta is an Italian attack helicopter. It was developed in the 1980s.\nThe A129 Mangusta entered service in 1990.\nIt is a tandem two-seat helicopter with the pilot in the rear and the gunner in the front.\nThe A129 Mangusta served as the basis for the Turkish T129 ATAK attack helicopter, produced by TAI with technology transfer.\nCannon: 20 mm.\nPod machine gun: 12.7 mm.\nAir-to-ground missiles: AGM-114 Hellfire.\nAir-to-air missiles: 2 x AIM-92 Stinger, Mistral.\nRockets: 70 mm, 81 mm.\nCrew: 2.\nCeiling: 4,425 m.\nRange: 510 km.</string>
+
+    <!-- A330 Phénix -->
+    <string name="air_data_a330_description">The Airbus A330 Multi Role Tanker Transport (MRTT) is a wide-body military transport and refueling aircraft model developed and built by Airbus.\nEntered service in 2011.\nDerived from the A330 airliner, it is a multi-role aircraft allowing simultaneous troop and material transport as well as air refueling.\nThe A330 MRTT has a maximum fuel capacity of 111,000 kg at takeoff.</string>
+
+    <!-- A400M Atlas -->
+    <string name="air_data_a400m_description">The A400M Atlas is a European transport aircraft. It was developed in the 2000s-2010s.\nThe A400M Atlas entered service on December 29, 2013.\nCrew: 3 to 4.\nPassengers: 116.\nMaximum load: 37,000 kg of cargo.\nCeiling: 12,192 m.\nRange: 4,800 km with 30 tons of cargo.\nMaximum takeoff weight: 141,000 kg.</string>
+
+    <!-- C-130J Super Hercules -->
+    <string name="air_data_c130j_description">The Lockheed C-130J Super Hercules is a tactical transport aircraft (TTA) or assault aircraft (AA),\nwhen self-protected and armored.\nMax offered load: 18.7 t.\nMax number of passengers: 128.\nMax number of pallets in hold + ramp: 7 + 1.</string>
+
+    <!-- C-160 Transall -->
+    <string name="air_data_c160_description">Tactical logistics and cargo transport aircraft,\nproduced from 1963 to 1981 by a Franco-German consortium. Entered service 1965.\nIt has an air refueling capability for fighters or another C-160.\nIt transports up to 16 tons of equipment or 89 passengers.\nRange: 4400 km.\nIn May 2022, the last Transall of the French Air Force were retired.\nThe Transall remains in service in Turkey and Australia.</string>
+
+    <!-- Caracal H225M -->
+    <string name="air_data_h225m_description">Entered service in 2006, the H225M Caracal designed by Airbus Helicopters is the latest standard of the Puma SA330 family.\nCapable of transporting up to 28 combatants.\nMaximum load - 11.2 tons.</string>
+
+    <!-- Casa CN-235 -->
+    <string name="air_data_cn235_description">The CN-235 is a tactical transport aircraft. It was developed in the 1980s-1990s by Airtech.\nThe CN-235 entered service on March 1, 1988.\nThe CN-235 can transport up to 44 passengers or 4 cargo pallets in cargo version. The maximum payload is 6,000 kg.\nThe French Air and Space Force employs 27 CN-235 distributed among six air bases.\nThe CN-235 is employed by 29 countries, including France, Spain, the United States, Turkey, Pakistan, Ireland and South Korea.</string>
+
+    <!-- Changhe Z-20 -->
+    <string name="air_data_z20_description">The Z-20 is a Chinese transport helicopter. It has been in development since the 1990s.\nThe first flight of the Z-20 took place on December 23, 2013.\nThe design of the Z-20 is heavily inspired by the American Sikorsky UH-60 Black Hawk transport helicopter,\nwhose S-70C-2 version has been used by the Chinese army since 1984.\nCrew: 2 + 12.\nMaximum takeoff weight: 10,000 kg.</string>
+
+    <!-- Changhe Z-10 -->
+    <string name="air_data_z10_description">The Z-10 is a Chinese attack helicopter. It was developed in the 1990s-2000s.\nThe Z-10 entered service in 2011.\nThe Z-10 is an all-weather multi-role attack helicopter.\nIt is intended for anti-tank combat missions, ground support and armed reconnaissance.\nIt has an armored cockpit, tandem two-seat with the pilot in front and the gunner in the rear.\nCannon: 23 mm.\nRockets: 57 mm, 90 mm.\nAir-to-ground missiles: HJ-10, HJ-9, HJ-8.\nAir-to-air missiles: TY-90, PL-5, PL-7, PL-9.\nCrew: 2.\nCeiling: 6,400 m.\nRange: 800 km.</string>
+
+    <!-- F-16 Fighting Falcon -->
+    <string name="air_data_f16_description">The F-16 Fighting Falcon is an American fighter aircraft. It was developed in the 1970s.\nThe F-16 Fighting Falcon entered service in 1978.\nThe F-16 Fighting Falcon is widely distributed worldwide with more than 4,500 aircraft built, all versions combined.\nIt has been assembled under license in South Korea, Turkey, the Netherlands and Belgium.\nPart of the F-16 fleet is being replaced by F-35 Lightning II stealth fighters.</string>
+
+    <!-- F-35 Lightning -->
+    <string name="air_data_f35_description">The F-35 Lightning II is an American stealth fighter aircraft. It was developed in the 1990s-2000s.\nIt entered service in 2015 in its F-35A version.\nThe F-35 is a fifth-generation stealth aircraft.\nIt is capable of carrying missiles or bombs on four internal bay locations and six external pylons.\nThe F-35 is widely exported worldwide: United Kingdom / Italy / Netherlands / Israel / Australia / Japan / South Korea / Norway / Denmark / Belgium / Poland / Singapore / United Arab Emirates / Finland / Turkey.\nCannon: GAU-22A, 4×25 mm.\nInternal bays: 4 missiles/bombs.\nExternal pylons: 6 pylons 6,800 kg of weapons.\nCrew: 1.\nMaximum speed: 1,930 km/h.\nCeiling: 18,500 m.\nRange: F-35A 1,080 km / F-35B 869 km / F-35C 1,138 km.\nMaximum weight: 25,600 kg.</string>
+
+    <!-- FENNEC AS555 -->
+    <string name="air_data_fennec_description">The Fennec is a military version of the Ecureuil helicopter family from Airbus Helicopters. Entered service in 1988.\nIt has been adopted for observation, patrol, escort, combat, light attack and training missions.\nEquipped with 20 mm axial cannon capability and the possibility of embarking a sniper on the right side door.\nMaximum passengers: 4 airmen.\nMax load: 2.3 tons.</string>
+
+    <!-- Gazelle -->
+    <string name="air_data_gazelle_description">The Gazelle is a French reconnaissance helicopter.\nThe Gazelle helicopter is an aircraft capable of providing air-to-air defense against slow aircraft or\nhelicopters for ground or airmobile units.\nWeapons: HOT missile (range 4000m); GATLING system (M134) on side; Autonomous system powered by battery consisting of 6 barrels and 6 rotating bolts;\nCaliber: 7.62 mm; Transport of shooters with STRIKE arm and rifles type Barrett / Hecate / Sako / HK 417.\nArmored floors and seats (up to 7.62 mm caliber);\nCrew: 1 aircraft commander and 1 pilot;\nEndurance: 2h40.</string>
+
+    <!-- IL-76 Ilyushin -->
+    <string name="air_data_il76_description">The Ilyushin Il-76, Candid in NATO designation, is a Russian transport aircraft.\nIt was developed in the Soviet Union in the 1960s-1970s.\nThe Ilyushin Il-76 entered service in 1974.\nCrew: 5 (+ 2 loadmasters).\nPassengers: 126 armed paratroopers or 150 soldiers.\nMaximum load: 48,000 kg of cargo.\nCeiling: 12,000 m.\nRange: 3,800 km at maximum load, 7,300 km with 20,000 kg.</string>
+
+    <!-- KA-27 Helix -->
+    <string name="air_data_ka27_description">The Ka-27 (Helix-A in NATO designation) is a Russian naval helicopter. It was developed in the Soviet Union in the 1970s.\nThe Ka-27 entered service in 1981.\nThe two main models are the Ka-27PL, ProtivoLodotchnyi – anti-submarine, and the Ka-27PS, Poiskovo-Spasatelnyï – search and rescue.\nThe Ka-27PL is intended for detection and destruction of submarines with a range of up to 200 km from its base.\nThe Ka-27 is in service in Russia, Ukraine, Vietnam, India, China, Algeria.</string>
+
+    <!-- MIG-29 -->
+    <string name="air_data_mig29_description">The MiG-29, Fulcrum in NATO designation, is a Russian fighter aircraft.\nIt was developed in the Soviet Union in the 1970s-1980s.\nThe MiG-29 entered service in July 1983.</string>
+
+    <!-- MIG-31 -->
+    <string name="air_data_mig31_description">The MiG-31, Foxhound in NATO designation, is a Russian interceptor aircraft. It was developed in the Soviet Union in the 1970s.\nThe MiG-31 entered service on May 6, 1981.\nProduction of MiG-31 was stopped in 1994.\nIt is employed by the Russian and Kazakh air forces.\nFrom 2008, the Russian MiG-31 fleet underwent a modernization campaign to MiG-31BM standard.\nCannon: Gsh-6-23M rotary 6 x 23 mm.\nLong-range air-to-air missiles.\nMedium-range air-to-air missiles.\nShort-range air-to-air missiles.\nAir-to-surface missiles.\nCrew: 2.\nMaximum ceiling: 30,000 m.</string>
+
+    <!-- Mirage 2000 -->
+    <string name="air_data_mirage2000_description">The Mirage 2000 is a fighter aircraft designed by the French company Dassault Aviation, in the late 1970s.\nRange of more than 1,500 km with standard weapons.\nThe Mirage 2000 typically carries two short-range air-to-air missiles (Magic II type),\ntwo medium-range air-to-air missiles (Super 530 or MICA type),\nas well as various pylons capable of accommodating bombs,\nadditional fuel tanks or reconnaissance pods.</string>
+
+    <!-- MQ-9 Reaper -->
+    <string name="air_data_mq9_description">The MALE MQ-9 Reaper drone, from the French Air Force, deployed at the forward air base in Niamey, Niger.</string>
+
+    <!-- Panavia Tornado -->
+    <string name="air_data_tornado_description">The Tornado is a European combat aircraft. It was developed in the 1970s.\nThe Tornado entered service in 1979.\nThe Tornado was designed by Panavia formed by British aircraft manufacturer BAC, British Aircraft Corporation, (42.5%%),\nGerman Messerschmitt-Bölkow-Blohm (42.5%%) and Italian Aeritalia (15%%).\nThe Tornado was produced in nearly 1,000 units.\nIt was retired from service of the British RAF, Royal Air Force, in 2019.\nThe Tornado was exported to Saudi Arabia.</string>
+
+    <!-- Pilatus PC-21 -->
+    <string name="air_data_pc21_description">The PC-21 is the new and latest training aircraft for fighter crews of the Air and Space Force.</string>
+
+    <!-- Rafale F-4 -->
+    <string name="air_data_rafale_description">The Rafale is a French fighter aircraft. It was developed in the 1980s-1990s.\nThe Rafale entered service on May 18, 2001.\nThe Rafale can perform a wide range of missions.\nFrom the F3 standard, the Rafale received the designation \"omnirole\"\nthanks to its ability to perform all types of missions during the same flight and simultaneously.\nFor export, the Rafale was ordered by Egypt in 24 units on February 16, 2015,\nQatar in 36 units including 24 on May 4, 2015 and 12 on December 7, 2017,\nIndia in 36 units on September 23, 2016 and Greece.\nVersions: Rafale C – single-seat / Rafale B – two-seat / Rafale M single-seat for the Navy.</string>
+
+    <!-- S-70 Okhotnik-B -->
+    <string name="air_data_s70_description">Russian heavy combat drone. The possible technical characteristics of the aircraft are unknown.</string>
+
+    <!-- SA 330 PUMA -->
+    <string name="air_data_puma_description">The Puma SA 330 performs search and rescue missions,\nEVASAN missions (medical evacuations) and troop transport.\nThis helicopter is used in ALAT (Army Light Aviation).\nIt is permanently used for rescue missions but also in OPEX\n(External Operations: Harmattan, Serval, Epervier, Sangaris and Barkhane).\nThis helicopter is used in the permanent operation against illegal gold mining in French Guiana.\nMax mass - 7.4 tons.\nIts endurance is two hours (+ 20 minutes reserve).\nIt can transport up to 16 to 20 passengers or a sling load of 1,500 kg.\nThe Puma can be armed with 7.62 mm machine guns,\nrocket pods, anti-tank missiles or even a 20 mm cannon on the side.</string>
+
+    <!-- SU-27 -->
+    <string name="air_data_su27_description">The Su-27, Flanker in NATO designation, is a Russian fighter aircraft.\nIt was developed in the Soviet Union in the 1970s-1980s.\nThe Su-27 entered service in 1985.\nThe Su-27 is armed with the Gryazev-Shipunov GSh-30-1 30 mm cannon.\nIt can receive a wide range of missiles, rockets and bombs on ten hardpoints.\nThe Su-27 is developed in two-seat version Su-27UB.\nThe Su-27 is one of the main fighter aircraft of the Russian Air Forces.\nIt is in service in the former USSR countries: Belarus, Ukraine, Kazakhstan, Uzbekistan and Moldova.\nIt has been exported to China, Angola, Vietnam, Indonesia, Mongolia, Ethiopia and Eritrea.</string>
+
+    <!-- Su-57 -->
+    <string name="air_data_su57_description">The Su-57, Felon in NATO designation, is a Russian stealth fighter aircraft.\nIt was developed in the 2000s-2010s.\nThe Su-57 entered service in 2021.\nThe Su-57 is a fifth-generation fighter.\nCannon: 9-A1-4071K 30 mm.\nInternal bays: 10 missiles/bombs.\nExternal pylons: 8 missiles/bombs.\nCrew: 1.\nOperational ceiling: 20,000 m.</string>
+
+    <!-- Tigr HAD -->
+    <string name="air_data_tigr_description">The Tiger is a Franco-German attack helicopter. It was developed in the 1980s-1990s.\nThe Tiger entered service in April 2005.\nThe Tiger is an all-weather multi-role attack helicopter.\nIt is intended for armed reconnaissance, attack, anti-tank combat, ground troop support missions.\nIt has a tandem cockpit with the pilot in front and the gunner in the rear.\nThe Tiger is air-transportable by C-130, A-400M transport aircraft.\nCannon: 30 mm.\nRockets: 68 mm, 70 mm.\nAir-to-ground missiles: Hellfire II, HOT 3.\nAir-to-air missiles: Mistral, Stinger.\nCrew: 2.\nService ceiling: 2000 m.\nRange: 800 km.</string>
+
+    <!-- Typhoon -->
+    <string name="air_data_typhoon_description">The Typhoon is a European fighter aircraft. The first flight took place on March 27, 1994.\nThe Typhoon entered service in 2004.\nThe Typhoon is also known by the designation EF-2000.\nIt is a twin-engine, multi-role fighter, developed by the Eurofighter consortium,\ncomposed of the United Kingdom, Germany, Italy and Spain.\nCannon: 27 mm, Mauser BK-27.\nExternal pylons: 8 underwing pylons, 5 under fuselage, 9,000 kg of weapons.\nAir-to-air missiles: AIM-9 Sidewinder, AIM-120 AMRAAM, AIM-132 AMRAAM.\nAir-to-ground missiles: AGM-88 HARM, AGM-65 Maverick, Storm Shadow.\nBombs: Paveway II.\nCrew: 1.\nCeiling: 19,800 m.\nRange: 1,389 km.\nEndurance: 2,900 km, 3,790 km with 3 refuelings.</string>
+
+    <!-- F-22 Raptor -->
+    <string name="air_data_f22_description">The F-22 Raptor is an American stealth fighter aircraft. It was developed in the 1980s.\nThe first flight took place on September 29, 1990. The F-22 Raptor entered service on December 15, 2005.\nThe F-22 Raptor\'s armament consists of an internal six-barrel M61A2 Vulcan 20 mm rotary cannon and three internal weapon bays.\nIt can receive up to 9 t of weapons or fuel tanks on four external pylons.\nProduction of the F-22 Raptor was stopped in 2011.\nThe initial goal of 700 aircraft was reduced to 187 aircraft, plus eight prototypes.\nThe United States is the only country to employ the F-22 Raptor.\nCannon: M61A2 Vulcan 6 x 20 mm,\nInternal bays: 8 missiles/bombs.\nExternal pylons: 8 missiles/bombs or 4 fuel tanks.\nAir-to-air missiles: AIM-120 AMRAAM, AIM-9 Sidewinder.\nBombs: JDAM, GBU-39 Small Diameter Bombs.\nCrew: 1.\nCeiling: 19,812 m.\nRange: 2,960 km.</string>
+
+    <!-- Chengdu J-10 -->
+    <string name="air_data_j10_description">The J-10, Firebird in NATO designation, is a Chinese fighter aircraft. It was developed in the 1990s.\nThe J-10 entered service in 2005.</string>
+
+    <!-- MIG-35 -->
+    <string name="air_data_mig35_description">The MiG-35, Fulcrum-F in NATO designation, is a Russian fighter aircraft. It was developed in the 2000s-2010s.\nThe MiG-35 entered service in 2019.\nThe MiG-35 is a generation 4++ fighter. It is a deep modernization of the MiG-29M/M2 fighter aircraft.\nThe MiG-35 integrates a wide range of air-to-air and air-to-surface weapons.\nIt can be deployed on roughly prepared airfields.\nThe MiG-35 can be used as an air refueling aircraft.</string>
+
+    <!-- Wing Loong -->
+    <string name="air_data_wingloong_description">The Wing Loong (or Pterodactyl) is a medium-altitude long-endurance combat drone, built by a Chinese company.\nRole: Reconnaissance and attack drone.\nMaximum mass: 1,100 kg.\nMaximum speed: 280 km/h.\nCeiling: 5,300 m.\nRange: 4,000 km.</string>
+
+    <!-- Mirage 4 -->
+    <string name="air_data_mirage4_description">The Mirage IV is a French strategic bomber whose studies began in the mid-1950s.\nEntered service in 1964.</string>
+
+    <!-- Rockwell B-1 Lancer -->
+    <string name="air_data_b1_description">The B-1B Lancer is an American strategic bomber. It was developed in the 1970s-1980s.\nThe B-1B Lancer entered service on October 1, 1986.\nThe United States is the only country to employ the B-1B Lancer.\nCannon: 30 mm GSh-30-1.\nPayload: 56,700 kg.\nAir-to-ground missiles: AGM-154, AGM-158 / x 24 max.\nBombs: Mk-82, Mk-84, Mk-62, CBU-87/89/97, CBU-103/104/105, CBU-31, CBU-38.\nCrew: 4.\nOperational ceiling: 18,000 m.\nRange: 5,543 km.\nMaximum distance: 12,000 km.\nMaximum takeoff weight: 216,400 kg.</string>
+
+    <!-- TU-22M Backfire -->
+    <string name="air_data_tu22m_description">The Tu-22M (Backfire in NATO designation) is a Russian strategic bomber.\nIt was developed in the Soviet Union in the 1960s-1970s.\nThe Tu-22M entered service in 1974.\nThe Tu-22M is a supersonic variable-geometry long-range bomber.\nProduction of Tu-22M3 was stopped in 1993.\nThe Tu-22M has never been exported.\nCurrently, Russia is the only country to employ this type of aircraft after its retirement from service of the Ukrainian Air Force.\nBombs: KAB-500.\nNaval mines: FAB-250.\nCrew: 4.\nMaximum takeoff weight: 126,000 kg.\nRange: 2,410 km.</string>
+
+    <!-- Xian H-6 -->
+    <string name="air_data_h6_description">The H-6 is a Chinese long-range bomber. It is produced by Xian Aircraft Industrial Corporation.\nThe H-6 entered service in February 1969.\nCurrently, China is the only country to employ H-6 bombers.\nCrew: 2.\nCeiling: 12,800 m.\nRange: 1,800 km.</string>
+
+    <!-- AH-6 Little Bird -->
+    <string name="air_data_ah6_description">The AH-6 Little Bird is an American light reconnaissance and attack helicopter.\nIt was developed in the 2000s-2010s by Boeing.\nThe AH-6 Little Bird is intended for reconnaissance and light attack missions.\nFour hardpoints can receive an M-134 Minigun 7.62 mm rotary machine gun,\na GAU-19 12.7 mm machine gun, an M3P 12.7 mm machine gun, M260 rockets and AGM-114 Hellfire anti-tank missiles.\nCrew: 1 – 2.\nMaximum takeoff weight: 1,610 kg.</string>
+
+    <!-- CSH-2 Rooivalk -->
+    <string name="air_data_rooivalk_description">The CSH-2 Rooivalk is a South African attack helicopter. It was developed in the 1980s-2010s.\nThe CSH-2 Rooivalk entered service in 2011.\nThe crew of the CSH-2 Rooivalk consists of two people, with the pilot in the rear and the gunner in the front of the aircraft.\nThe helicopter is armed with the GA-1 Rattler 20 mm cannon. Depending on the mission, it can receive ZT-6 Mokopa anti-tank missiles,\nair-to-air missiles and unguided rocket pods.</string>
+
+    <!-- NH90 Caïman -->
+    <string name="air_data_nh90_description">The NH90 is a European transport helicopter.\nIt was developed in the 1980s-2000s by NHIndustries.\nThe first flight took place on December 18, 1995. The NH90 entered service in 2007.\nIn the French army, it bears the name NH90 Caïman.</string>
+
+    <!-- V-22B Osprey -->
+    <string name="air_data_v22_description">The V-22B Osprey is an American tiltrotor transport helicopter. It was developed in the 1980s-2000s.\nThe V-22B Osprey entered service in 2005.\nThe V-22B Osprey is intended for rapid troop transport and amphibious or ground assault missions.\nIt is equipped with two turboprops and two independent rotors mounted at the ends of the wing.\nThe propulsion-rotor unit has the ability to tilt for vertical takeoff and landing, and horizontal propulsion,\nlike an airplane, allows it a speed of 566 km/h.\nThe V-22B Osprey can transport up to 12 equipped soldiers or 4,500kg of internal load or 6,800 kg of external load.</string>
+
+</resources>
