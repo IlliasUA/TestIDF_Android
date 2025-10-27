@@ -649,21 +649,36 @@ private fun validateCombinedName(userAnswer: String, correctAnswer: String): Boo
 }
 
 private fun validatePureTechnicalName(userAnswer: String, correctAnswer: String): Boolean {
-    Log.d("CustomResultsScreen", "Validating pure technical name: '$correctAnswer'")
+    Log.d("CustomResultsScreen", "=== Validating pure technical name ===")
+    Log.d("CustomResultsScreen", "Correct answer: '$correctAnswer'")
+    Log.d("CustomResultsScreen", "User answer: '$userAnswer' (normalized)")
 
     val technicalParts = extractTechnicalParts(correctAnswer)
     if (technicalParts == null) {
+        Log.d("CustomResultsScreen", "Failed to extract technical parts")
         return false
     }
 
     val (baseName, number) = technicalParts
+    Log.d("CustomResultsScreen", "Extracted parts - Base: '$baseName', Number: '$number'")
+
     val validVariations = generateTechnicalVariations(baseName, number)
 
-    Log.d("CustomResultsScreen", "Valid technical variations: $validVariations")
+    Log.d("CustomResultsScreen", "Generated ${validVariations.size} variations:")
+    validVariations.forEachIndexed { index, variation ->
+        val normalized = normalizeAnswer(variation)
+        val matches = normalized == userAnswer
+        Log.d("CustomResultsScreen", "  [$index] '$variation' -> normalized: '$normalized' ${if (matches) "✓ MATCH" else ""}")
+    }
 
-    return validVariations.any { variation ->
+    val result = validVariations.any { variation ->
         normalizeAnswer(variation) == userAnswer
     }
+
+    Log.d("CustomResultsScreen", "Result: ${if (result) "✓ VALID" else "✗ INVALID"}")
+    Log.d("CustomResultsScreen", "======================================")
+
+    return result
 }
 
 private fun extractInformalNames(regularWords: List<String>): List<String> {
@@ -714,31 +729,97 @@ private fun generateCombinedVariations(informalNames: List<String>, technicalPar
 }
 
 private fun extractTechnicalParts(technicalName: String): Pair<String, String>? {
+    // Normaliser en lowercase pour l'analyse
+    val normalized = technicalName.lowercase()
+
     val patterns = listOf(
+        // Formats avec séparateur (tiret ou espace)
         Regex("^([a-z]+)[-\\s]([0-9]+[a-z]*)$"),
+        // Formats sans séparateur
         Regex("^([a-z]+)([0-9]+[a-z]*)$"),
+        // Formats courts avec séparateur
         Regex("^([a-z]{1,3})[-\\s]([0-9]+[a-z]*)$"),
-        Regex("^([a-z]{1,3})([0-9]+[a-z]*)$")
+        // Formats courts sans séparateur
+        Regex("^([a-z]{1,3})([0-9]+[a-z]*)$"),
+        // Format nombre-lettre-nombre (ex: 2S7)
+        Regex("^([0-9]+)([a-z]+)([0-9]+)$"),
+        // Format lettre-nombre-lettre (ex: M1A2)
+        Regex("^([a-z]+)([0-9]+)([a-z]+)$")
     )
 
     for (pattern in patterns) {
-        val match = pattern.find(technicalName)
+        val match = pattern.find(normalized)
         if (match != null) {
-            val baseName = match.groupValues[1]
-            val number = match.groupValues[2]
-            return Pair(baseName, number)
+            val groups = match.groupValues
+
+            // Gestion spéciale pour les formats avec 3 groupes (ex: 2S7, M1A2)
+            if (groups.size == 4 && groups[3].isNotEmpty()) {
+                // Format: nombre-lettre-nombre (ex: 2S7 -> "2s" + "7")
+                if (groups[1][0].isDigit()) {
+                    val baseName = groups[1] + groups[2]  // "2s"
+                    val number = groups[3]                 // "7"
+                    return Pair(baseName, number)
+                }
+                // Format: lettre-nombre-lettre (ex: M1A2 -> "m" + "1a2")
+                else {
+                    val baseName = groups[1]               // "m"
+                    val number = groups[2] + groups[3]     // "1a2"
+                    return Pair(baseName, number)
+                }
+            }
+            // Formats standards avec 2 groupes
+            else if (groups.size >= 3) {
+                val baseName = groups[1]
+                val number = groups[2]
+                return Pair(baseName, number)
+            }
         }
     }
 
     return null
 }
 
+
 private fun generateTechnicalVariations(baseName: String, number: String): List<String> {
-    return listOf(
-        "$baseName-$number",
-        "$baseName $number",
-        "$baseName$number"
-    )
+    val variations = mutableListOf<String>()
+
+    // Générer les variations de casse pour baseName
+    val baseNameVariations = listOf(
+        baseName.lowercase(),           // "s" ou "pion"
+        baseName.uppercase(),           // "S" ou "PION"
+        baseName.capitalize()           // "S" ou "Pion"
+    ).distinct()
+
+    // Générer les variations de casse pour number (si contient des lettres)
+    val numberVariations = if (number.any { it.isLetter() }) {
+        listOf(
+            number.lowercase(),         // "2s7"
+            number.uppercase(),         // "2S7"
+            number.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() } // "2S7"
+        ).distinct()
+    } else {
+        listOf(number) // Juste le nombre si pas de lettres
+    }
+
+    // Combiner toutes les variations avec différents séparateurs
+    for (baseVar in baseNameVariations) {
+        for (numVar in numberVariations) {
+            variations.add("$baseVar-$numVar")   // "s-2s7", "S-2S7", etc.
+            variations.add("$baseVar $numVar")   // "s 2s7", "S 2S7", etc.
+            variations.add("$baseVar$numVar")    // "s2s7", "S2S7", etc.
+        }
+    }
+
+    // Ajouter aussi les variations nombre-base (inversé)
+    for (numVar in numberVariations) {
+        for (baseVar in baseNameVariations) {
+            variations.add("$numVar-$baseVar")   // "2s7-pion"
+            variations.add("$numVar $baseVar")   // "2s7 pion"
+            variations.add("$numVar$baseVar")    // "2s7pion"
+        }
+    }
+
+    return variations.distinct()
 }
 
 private fun extractMeaningfulParts(answer: String): List<String> {
