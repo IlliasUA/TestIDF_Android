@@ -378,7 +378,7 @@ object Genie_Data {
         ),
         Question(
             image = "genie32.webp",
-            additionalImages = listOf("genie32.jpg"),
+            additionalImages = listOf("genie32.webp"),
             correct = "Manitou",
             options = listOf("TNA", "Manitou", "TC-910", "DACHS"),
             description = """
