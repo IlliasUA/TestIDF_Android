@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- BM2 Vehicle Descriptions - English -->
+
+    <!-- BRDM-2 -->
+    <string name="bm2_brdm2_description">The BRDM-2 is a Russian armored reconnaissance vehicle. It was developed in the Soviet Union in the early 1950s.\nIts armament consists of a 14.5 mm KPVT heavy machine gun and a 7.62 mm PKT coaxial machine gun,\nidentical to the Russian armored personnel carriers BTR-60/BTR-70/BTR-80.\nThe BRDM-2, in various versions, is used by the armed forces of over 50 countries worldwide.\nEntered service in 1962.\nCrew: 4.</string>
+
+    <!-- BRM-1K -->
+    <string name="bm2_brm1k_description">The BRM-1K is a Russian armored reconnaissance vehicle. It was developed from the BMP-1 infantry fighting vehicle in the 1970s.\nIt has the same architecture as the BMP-1 with the engine at the front right and the driver\'s position at the front left.\nThe BRM-1K received a new two-seat turret unlike the single-seat turret of the BMP-1.\nThe armament consists of the 73 mm 2A28 Grom gun, identical to the BMP-1.\nCannon: 73 mm 2A28 Grom.\nCrew: 6.</string>
+
+    <!-- BRM-3K -->
+    <string name="bm2_brm3k_description">The BRM-3K Rys (Lynx in Russian) is a Russian armored reconnaissance vehicle, entered service in 1995.\nIt is developed on the chassis of the BMP-3 infantry fighting vehicle for reconnaissance units.\nIts missions are: observation, target detection, determining position of detected targets and transmitting intelligence to higher echelons.\nThe BRM-3K is equipped with a 1RL-133-3 ground Doppler radar, laser rangefinder, thermal camera,\nnavigation system, data transmission system at a distance of 100 km while moving and 350 km stationary.\nCannon: 30 mm.\nCrew: 3 + 3.</string>
+
+    <!-- Scimitar -->
+    <string name="bm2_scimitar_description">The FV107 Scimitar is a British armored reconnaissance vehicle, entered service in 1971.\nIt is equipped with a two-seat turret armed with a 30 mm L21 Rarden automatic cannon and a 7.62 mm coaxial machine gun.\nCrew: 3.</string>
+
+    <!-- BMP-1 -->
+    <string name="bm2_bmp1_description">The BMP-1 is a Russian infantry fighting vehicle, entered service in 1966.\nIt is the first vehicle of its category, developed to enhance the capabilities of mechanized infantry units.\nThe BMP-1 is an amphibious vehicle capable of operating in NBC environment.\nIts crew consists of the commander, gunner, driver and eight infantrymen.\nThe BMP-1 has a single-seat turret armed with a 73 mm 2A28 Grom smoothbore cannon,\na 7.62 mm PKTM coaxial machine gun and the 9M14M Malyutka anti-tank missile, AT-3 Sagger.\nInfantrymen can fire from inside the vehicle through nine firing ports.\nBetween 1966 and 1988, over 20,000 BMP-1s were built. In August 2018, a new version of the BMP-1 was presented as BMP-1AM Basurmanin.\nCrew: 3 + 8.</string>
+
+    <!-- BMP-2 -->
+    <string name="bm2_bmp2_description">The BMP-2 is a Russian infantry fighting vehicle, entered service in 1981.\nIt is developed on the chassis of the BMP-1 infantry fighting vehicle.\nThe powertrain is at the front right and the driver\'s position at the front left. It is amphibious and NBC protected.\nTo improve its firepower, the BMP-2 receives a two-seat turret, armed with a 30 mm 2A42 automatic cannon,\na 7.62 mm PKT coaxial machine gun and anti-tank missiles.\nAdopted by many armies worldwide.\nCrew: 3 + 7.</string>
+
+    <!-- BMP-3 -->
+    <string name="bm2_bmp3_description">The BMP-3 is a Russian infantry fighting vehicle, entered service in 1987.\nIt is the most heavily armed vehicle in its category.\nIts armament consists of a 100 mm 2A70 low-pressure gun, a 30 mm 2A72 automatic cannon,\na 7.62 mm PKT coaxial machine gun.\nThe BMP-3 can fire through the 100 mm gun the 9M117 anti-tank missile of the 9K166-3 Basnya system, AT-12 Swinger.\nThe BMP-3 chassis adopts the configuration of the Russian paratroopers\' BMD combat vehicle family.\nCrew: 3 + 7.</string>
+
+    <!-- MTLB -->
+    <string name="bm2_mtlb_description">The MTLB is a Russian multi-role armored transport vehicle, entered service in 1964.\nIt is designed as an artillery gun tractor and equipment transporter.\nLater, the MTLB was adopted in troop transport version, medical evacuation vehicle and platform for installing various systems and equipment.\nCrew: 2 + 11.</string>
+
+    <!-- BMD-1 -->
+    <string name="bm2_bmd1_description">The BMD-1 is a Russian airborne infantry fighting vehicle for paratroop units, entered service in 1969.\nThe single-seat turret is armed with a 73 mm 2A28 Grom cannon, a 7.62 mm PKT coaxial machine gun.\nCrew: 2 + 5.</string>
+
+    <!-- BMD-2 -->
+    <string name="bm2_bmd2_description">The BMD-2 is a Russian airborne infantry fighting vehicle for paratroop units, developed in the 1980s.\nIt is developed from the BMD-1 chassis. It has the new weapon system with a single-seat turret armed with a 30 mm 2A42 cannon\nand a 7.62 mm PKT coaxial machine gun.\nFor anti-tank combat, it is equipped with a system capable of firing 9M111 Fagot AT-4 or 9M113 Konkurs AT-5 anti-tank missiles.\nCrew: 2 + 5.</string>
+
+    <!-- BMD-3 -->
+    <string name="bm2_bmd3_description">The BMD-3 is a Russian airborne infantry fighting vehicle for paratroop units, entered service in 1990.\nIt is air-droppable.\nCannon: 30 mm 2A42 x100.2 caliber.\nCoaxial machine gun: 7.62 mm PKT.\nHull automatic grenade launcher: 30 mm AG-17.\nCrew: 2 + 5.</string>
+
+    <!-- BMD-4 -->
+    <string name="bm2_bmd4_description">The BMD-4 is a Russian airborne infantry fighting vehicle for paratroop units, entered service in 2004.\nIt has the same five-wheel chassis as its predecessor the BMD-3.\nThe vehicle receives a new Bakhtcha-U turret that significantly increases firepower.\nThe Bakhtcha-U turret is derived from the weapon system of the BMP-3 infantry fighting vehicle.\nCannon: 100 mm / 30 mm.\nCoaxial machine gun: 7.62 mm.\nCrew: 2 + 6.</string>
+
+    <!-- BTR-60 -->
+    <string name="bm2_btr60_description">The BTR-60 is a Russian 8×8 wheeled armored personnel carrier, entered service in 1960.\nThe open-top BTR-60P version transports two crew members and 12 to 14 infantrymen.\nThe armament consists of a manually operated 12.7 mm machine gun and one or more 7.62 mm machine guns mounted on the sides.\nThe BTR-60PA version receives a roof and benefits from NBC protection.\nThe BTR-60PB version is equipped with a single-seat turret armed with a 14.5 mm KPVT heavy machine gun and a 7.62 mm PKT coaxial machine gun.\nVery widely exported worldwide.\nCrew: 3 + 8.</string>
+
+    <!-- BTR-70 -->
+    <string name="bm2_btr70_description">The BTR-70 is a Russian 8×8 wheeled armored personnel carrier, entered service in 1976.\nIt has the same architecture as its predecessor the BTR-60.\nThe BTR-70 version is equipped with a single-seat turret armed with a 14.5 mm KPVT heavy machine gun and a 7.62 mm PKT coaxial machine gun.\nCrew: 3 + 7.</string>
+
+    <!-- BTR-80 -->
+    <string name="bm2_btr80_description">The BTR-80 is a Russian 8×8 wheeled armored personnel carrier, entered service in 1986.\nIt has the same architecture as its predecessor the BTR-70, with the engine at the rear of the vehicle.\nAccess on board is through double side doors.\nMachine gun: 14.5 mm.\nCoaxial machine gun: 7.62 mm.\nCrew: 3 + 7.</string>
+
+    <!-- PATRIA XA-180 -->
+    <string name="bm2_patria_xa180_description">The XA-180 is a Finnish 6×6 wheeled armored personnel carrier, entered service in 1984.\nIt was developed at the request of the Finnish army to replace the Soviet BTR-60 armored personnel carriers.\nThe XA-180 is made from the Sisu SA-150 heavy truck.\nThe XA-180 was developed in several versions and exported to the Netherlands, Norway, Sweden, Ireland and Estonia.\nThe XA-180 in different versions has been deployed in Afghanistan, Bosnia, Iraq, Kosovo, Lebanon, Somalia, Chad.\nMachine gun: 12.7 mm or 7.62 mm.\nCrew: 2 + 10 to 16.</string>
+
+    <!-- TPZ FUCHS -->
+    <string name="bm2_tpz_fuchs_description">The TPz1 Fuchs is a German 6×6 wheeled armored personnel carrier, developed in the late 1970s.\nArmament: 7.62 mm machine gun.\nCrew: 2 + 8.</string>
+
+    <!-- BMR-600 -->
+    <string name="bm2_bmr600_description">The BMR-600 is a Spanish 6×6 wheeled armored personnel carrier, entered service in 1979.\nNearly 1,500 BMR-600s were produced in different versions.\nIt was exported to Egypt, Saudi Arabia and Peru.\nArmament: 12.7 mm, M2HB.\nCrew: 3 + 8.</string>
+
+    <!-- PIRANHA-2 -->
+    <string name="bm2_piranha2_description">The Piranha 2 is a Swiss 4x4/6×6/8x8 wheeled armored personnel carrier.\nThe Piranha 2 was an improved version of MOWAG\'s successful family of wheeled fighting vehicles.\nCan be equipped with a turret, flat-shaped, forming an angle at its base, placed on the left,\nin the center of the vehicle roof, with a 12.7 mm machine gun and a 7.62 mm machine gun.\nCrew: 3 + 9.</string>
+
+    <!-- M1126 Stryker -->
+    <string name="bm2_m1126_stryker_description">The M1126 Stryker is an American 8×8 wheeled armored personnel carrier, entered service in 2002.\nIt is developed from the Canadian LAV-III Kodiak based on the Piranha III armored vehicle.\nIt has the M151 Protector RWS remote turret that can receive a 12.7 mm M2HB heavy machine gun\nor a 40 mm Mk 19 automatic grenade launcher.\nIn June 2021, the US Army selected the Samson remote turret armed with a 30 mm cannon to equip Stryker combat vehicles.\nCrew: 2 + 9.</string>
+
+    <!-- M-113 -->
+    <string name="bm2_m113_description">The M113 is an American armored personnel carrier, entered service in 1960.\nIt was developed for infantry units for transporting an infantry squad.\nIt has undergone several modernization campaigns.\nThe M113 is derived into a wide range of specialized vehicles: command post, mortar, medical, air defense,\nengineering vehicle, anti-tank missile launcher, etc.\nAdopted by numerous armed forces worldwide.\nMachine gun: 12.7 mm.\nCrew: 2 + 11.</string>
+
+    <!-- SPZ Marder -->
+    <string name="bm2_spz_marder_description">The SPz Marder is a German infantry fighting vehicle, entered service in 1971.\nIt is equipped with a two-seat turret in superstructure armed with a 20 mm Rh 202 automatic cannon\nand a 7.62 mm MG3A1 machine gun.\nDelivered to Indonesia, Jordan and Chile.\nCrew: 3 + 6 to 7.</string>
+
+    <!-- SPZ Puma -->
+    <string name="bm2_spz_puma_description">The SPz Puma is a German heavy infantry fighting vehicle, developed in the 2000s.\nIt is developed to replace the SPz Marder in German mechanized infantry units.\nThe SPz Puma is equipped with a remote turret armed with a 30 mm MK.30-2 cannon and a 5.56 mm coaxial machine gun.\nIt has two protection levels. Level A, Air-transportable, with complete mine protection and ballistic protection\nagainst 30 mm rounds from the front and 14.5 mm from the side.\nCrew: 3 + 6.</string>
+
+    <!-- M2A2 Bradley -->
+    <string name="bm2_m2a2_bradley_description">The M2A2 Bradley is an American infantry fighting vehicle, entered service in 1981.\nIt is armed with a 25 mm Bushmaster cannon.\nFrom 1986, the M1A1 model receives two TOW anti-tank missiles.\nThe M2A2 Bradley has undergone several modernization campaigns improving its combat capabilities, protection level,\nmobility and various equipment.\nA reconnaissance version is developed as the M3 Bradley.\nCrew: 3 + 7.</string>
+
+    <!-- MCV-80 Warrior -->
+    <string name="bm2_mcv80_warrior_description">The MCV-80 Warrior is a British infantry fighting vehicle, entered service in 1987.\nIt is armed with a 30 mm L21A1 Rarden automatic cannon and a 7.62 mm L94A1 coaxial machine gun.\nCrew: 3 + 7.</string>
+
+    <!-- BMP-KSHM -->
+    <string name="bm2_bmp_kshm_description">The BMP-KSHM is an armored command vehicle based on the Russian BMP-1 chassis, entered service in 1972.\nFor self-defense, the BMP-KSHM is equipped with a 7.62 mm PK machine gun.\nAlthough it retains the standard single-seat turret of the BMP-1, its 76 mm gun has been removed and replaced with a larger telescopic antenna,\ncalled HAWK EYE.\nThe BMP-1KSh is fully amphibious: its water propulsion is provided by its tracks.\nCrew: 3.</string>
+
+    <!-- R-142 NSA DEIMOS -->
+    <string name="bm2_r142_nsa_deimos_description">The R-142 Deimos is a tactical command and communications vehicle (battalion/regiment level) of Russian ground forces.\nIt allows establishing bidirectional radio links with homologous stations in all conditions (day/night, all seasons),\nstationary and moving (up to 40 km/h).\nOperational range: 2000 km in telegraphic mode (auditory reception).\nCrew: 3 to 4.</string>
+
+    <!-- T-55 -->
+    <string name="bm2_t55_description">The T-55 is a Russian main battle tank, entered service in 1958.\nIt is widely distributed worldwide.\nIt was produced under license in Poland, Czechoslovakia and Romania.\nSince entering service, the T-55 has taken part in numerous conflicts.\nIt remains in service in several armed forces.\nCannon: 100 mm.\nMachine gun: 12.7 mm.\nCrew: 4.</string>
+
+    <!-- T-62 -->
+    <string name="bm2_t62_description">The T-62 is a Soviet medium tank, entered service in 1961.\nMain armament: 115 mm cannon.\nCrew: 4.</string>
+
+    <!-- T-64 -->
+    <string name="bm2_t64_description">The T-64 is a Soviet main battle tank, entered service in 1965.\nIt is the first Soviet tank to integrate automatic loading.\nCannon: 125 mm.\nMachine gun: 12.7 mm.\nAnti-tank missile: AT-8 for T-64B.\nCrew: 3.</string>
+
+    <!-- T-72 -->
+    <string name="bm2_t72_description">The T-72 is a Russian main battle tank, entered service in 1973.\nCannon: 125 mm.\nMachine gun: 12.7 mm.\nCrew: 3.</string>
+
+    <!-- T-80 -->
+    <string name="bm2_t80_description">The T-80 is a Russian main battle tank, developed in the 1980s.\nArmament: Cannon - 125 mm.\nMachine gun: 12.7 mm.\nCrew: 3.</string>
+
+    <!-- T-90 -->
+    <string name="bm2_t90_description">The T-90 is a Russian main battle tank, entered service in 1992.\nArmament: Cannon - 125 mm.\nMachine gun: 12.7 mm.\nCrew: 3.</string>
+
+    <!-- T-14 -->
+    <string name="bm2_t14_description">The T-14 Armata is a Russian main battle tank project, in development since the early 2010s.\nIt is equipped with an unmanned remote-controlled turret.\nAll ammunition is stored in the automatic loader installed in the turret well.\nThe three crew members are placed at the front of the chassis.\nCannon: 125 mm.\nMachine gun: 12.7 mm or 7.62 mm.\nSerial production launch announced for 2019.\nCrew: 3.</string>
+
+    <!-- M1A1 Abrams -->
+    <string name="bm2_m1a1_abrams_description">The M1A1 Abrams is an American main battle tank, entered service in 1980.\nThe first M1 Abrams models are equipped with a 105 mm M68 cannon.\nFrom the M1A1 version, it is armed with the 120 mm M256 cannon.\nCannon: 120 mm.\nMachine gun: 12.7 mm.\nCrew: 4.</string>
+
+    <!-- M-60 -->
+    <string name="bm2_m60_description">The M60 is an American main battle tank, developed in the 1950s.\nIt was widely exported worldwide.\nIt is still in service in several armed forces.\nArmament: Cannon - 105 mm.\nMachine gun: 12.7 mm Browning M2.\nSeveral modernization campaigns: M60A1 (1962), M60A2 (1970), M60A3 (1975).\nCrew: 4.</string>
+
+    <!-- Leopard-1 -->
+    <string name="bm2_leopard1_description">The Leopard 1 is a German main battle tank, entered service in 1965.\nIt was widely exported worldwide.\nCurrently, it is in service in Turkey, Brazil and Chile.\nFrom February 2023, Germany delivers Leopard 1 to Ukraine.\nThe Leopard 1 chassis served as the basis for various support vehicles.\nCannon: 105 mm.\nMachine gun: 7.62 mm.\nCrew: 4.</string>
+
+    <!-- Leopard-2 -->
+    <string name="bm2_leopard2_description">The Leopard 2 is a German main battle tank, developed in the 1970s.\nArmament: Cannon - 120 mm.\nMachine gun: 7.62 mm.\nCrew: 4.</string>
+
+    <!-- Chieftain -->
+    <string name="bm2_chieftain_description">The Chieftain is a British main battle tank, entered service in 1966.\nIt was developed by Leyland Motors.\nThe Chieftain was employed in British armored units until its replacement by the Challenger 1 main battle tank.\nIt was exported to Iran, Iraq, Kuwait, Jordan and Oman.\nIn Jordan, it is employed as Khalid and in Iran as Shir.\nArmament: Cannon - 120 mm.\nMachine gun: 7.62 mm.\nCrew: 4.</string>
+
+    <!-- Challenger-1 -->
+    <string name="bm2_challenger1_description">The Challenger 1 is a British main battle tank, entered service in 1983.\nThe modernization of Challenger 1 gave birth to Challenger 2.\nCannon: 120 mm.\nMachine gun: 7.62 mm.\nCrew: 4.</string>
+
+    <!-- Challenger-2 -->
+    <string name="bm2_challenger2_description">The Challenger 2 is a British main battle tank, entered service in 1998.\nIt is known as FV4030.\nChallenger 2 is the main tank of the British army.\nIt participated in engagements in Kosovo and Iraq.\nThe Challenger 2 was exported to Oman in 38 units.\nIn 2021, the British army will receive 148 modernized tanks as Challenger 3.\nCannon: 120 mm.\nMachine gun: 7.62 mm.\nCrew: 4.</string>
+
+    <!-- Ariete -->
+    <string name="bm2_ariete_description">The C1 Ariete is an Italian main battle tank, entered service in 1995.\nArmament: Cannon - 120 mm.\nMachine gun: 12.7 mm, 7.62 mm.\nCrew: 4.</string>
+
+    <!-- ZTZ-98 -->
+    <string name="bm2_ztz98_description">The Type 98 (ZTZ-98) is a Chinese main battle tank, introduced in 1999 during a military parade in Beijing.\nIt resembles the T-72, but the turret is welded.\nIts main armament is a 125 mm smoothbore cannon.\nCrew: 3.</string>
+
+    <!-- ZTZ-99 -->
+    <string name="bm2_ztz99_description">The ZTZ-99 (Type-99) is a Chinese main battle tank, entered service in 2003.\nIt is equipped with a thermal camera and stabilized panoramic sight of the commander with hunter-killer capability.\nThe ZTZ-99 is equipped with an omnidirectional laser countermeasure system installed on the turret roof.\nCannon: 125 mm.\nMachine gun: 12.7 mm.\nCrew: 3.</string>
+
+    <!-- Merkava-4 -->
+    <string name="bm2_merkava4_description">The Merkava Mk IV is an Israeli main battle tank, entered service in 2004.\nThe Merkava Mk IV chassis served as the basis for the Namer heavy armored personnel carrier.\nIsrael is the sole user of the Merkava Mk IV tank.\nCannon: 120 mm.\nMachine gun: 7.62 mm/12.7 mm.\nMortar: 60 mm.\nCrew: 4.</string>
+
+    <!-- PT-91 -->
+    <string name="bm2_pt91_description">The PT-91 Twardy is a Polish main battle tank, entered service in 1995.\nIt is developed by Bumar Labedy from the T-72M1 tank.\nThe PT-91 Twardy was produced in 232 units for the Polish army needs.\nBetween 2007 and 2010, it was exported to Malaysia in 48 units as PT-91M Pendekar.\nArmament: Cannon - 125 mm.\nCoaxial machine gun: 7.62 mm.\nMachine gun: 12.7 mm.\nCrew: 3.</string>
+
+    <!-- RPG-7 -->
+    <string name="bm2_rpg7_description">The RPG-7 is a Russian anti-tank rocket launcher, entered service in 1961.\nIt is a light, shoulder-fired, reloadable anti-tank rocket launcher.\nThe launcher tube can fire a wide range of rockets.\nThe RPG-7 can be equipped with a PGO-7V sight or NSP-2 infrared night sight.\nVery widely distributed worldwide, in service in nearly 70 countries.\nCrew: 2.</string>
+
+    <!-- AT-4 -->
+    <string name="bm2_at4_description">The AT-4 Spigot / 9K111 Fagot is a Russian anti-tank missile, entered service in 1973.\nIt is wire-guided, semi-automatic, portable by a two-man team.\nIt consists of the firing post with 9P135 support and 9M111 missile.\nThe missile is packaged in a tube that serves as launch tube and tactical packaging.\nCaliber: 119 mm.\nPenetration: 200 mm.\nMaximum range: 2000 m.\nMinimum firing distance: 70 m.\nAdopted by many armies worldwide.\nCrew: 2.</string>
+
+    <!-- AT-7 -->
+    <string name="bm2_at7_description">The 9K115 Metis or AT-7 Saxhorn is a Soviet/Russian portable company-level anti-tank system,\nwith wire-guided semi-automatic command, belonging to the second generation of anti-tank missiles (ATGM).\nIt is designed to engage armored targets, fixed or mobile, as well as fortified points,\nvisually observable, at distances between 40 and 2000 meters.\nCrew: 2.</string>
+
+    <!-- SPG-9 -->
+    <string name="bm2_spg9_description">The SPG-9 (Lance in Russian) is a Soviet heavy anti-tank grenade launcher, entered service in 1963.\nThis system requires a crew of four men capable of carrying it disassembled (in marching position) over long distances.\nCaliber: 73 mm.\nCrew: 4.</string>
+
+    <!-- Artillery Systems -->
+
+    <!-- 2A-29 -->
+    <string name="bm2_2a29_description">The MT-12 or 2A-29 is a Soviet 100 mm smoothbore anti-tank gun,\nwhich served as the main towed anti-tank artillery in the Soviet army from the early 1970s to the late 1980s.\nIt was widely used in the Russo-Ukrainian war.\nCaliber: 100 mm.\nCrew: 6.</string>
+
+    <!-- 2S1 Gvozdika -->
+    <string name="bm2_2s1_gvozdika_description">The 2S1 Gvozdika is a Soviet 122 mm self-propelled howitzer.\nIt is essentially an extended version of the MT-LB, with a 2A-18 (D-30) howitzer mounted on a turret.\nSemi-amphibious vehicle, it can also operate in snowstorms and on swamps.\nIt is protected against NBC effects and has infrared optical vision.\nCaliber: 122 mm.\nCrew: 4.</string>
+
+    <!-- 2S3 Akatsiya -->
+    <string name="bm2_2s3_akatsiya_description">The 2S3 Akatsia is a Soviet self-propelled gun designed in the late 1960s, entered service in 1971.\nThe Akatsia is designed on the GM-123 chassis which is also used by the 2S4 Tyulpan and 2S5 Giatsint-S.\nIt is compatible with all 152 mm ammunition used by towed guns D-20, ML-20 and D-1.\nStill in service in eighteen countries.\nCaliber: 152 mm.\nCrew: 4.</string>
+
+    <!-- 2S5 Giatsint -->
+    <string name="bm2_2s5_giatsint_description">The 2S5 Giatsint is a Russian 152 mm self-propelled artillery gun, entered service in 1976.\nCannon: 152 mm, 2A37.\nRange: 30.5 km.\nRate of fire: 5-6 rounds per minute.\nCrew: 5.</string>
+
+    <!-- 2S7 Pion -->
+    <string name="bm2_2s7_pion_description">The 2S7 Pion is a Russian 203 mm self-propelled artillery gun, entered service in 1975.\nIt is capable of firing conventional shells and nuclear warhead shells.\nIts maximum firing distance is 47 km.\nThe weapon system is installed on a tracked chassis with seven road wheels.\nThe running gear is derived from the T-80 tank.\nCannon: 2A44, 203 mm.\nCrew: 7 (2S7) / 6 (2S7M).</string>
+
+    <!-- PZH-2000 -->
+    <string name="bm2_pzh2000_description">The PzH 2000 is a German self-propelled artillery gun, entered service in 1998.\nIt is developed to replace the M109 American-origin self-propelled artillery gun.\nIt is armed with a 155 mm cannon allowing a firing range of 56 km.\nAutomatic loading allows a very high rate of fire of 8 to 10 rounds/min.\nThe PzH 2000 chassis is derived from the German Leopard-2 tank chassis.\nRange: 30 km / 56 km self-propelled projectile.\nCrew: 5.</string>
+
+    <!-- M-109 Paladin -->
+    <string name="bm2_m109_paladin_description">The M109 is an American self-propelled artillery gun, entered service in 1963.\nIt is widely exported worldwide.\nCannon: 155 mm.\nRange M109: 14.6 km.\nRange M109A5: 22 km / 30 km self-propelled projectile.\nRate of fire: 3-4 rds/min.\nCrew: 6 (M109) / 4 (M109A6).</string>
+
+    <!-- Self-Propelled Artillery continued -->
+    <string name="bm2_2s19_msta_description">The 2S19 Msta-S is a Russian self-propelled artillery gun, entered service in 1989.\nIt is armed with a 152 mm 2A65 cannon.\nIts chassis is derived from the T-80 tank chassis.\nThe 2S19 Msta-S is equipped with an ammunition reloading system installed at the rear of the vehicle.\nRange: 6.5 km to 24.7 km / 28.5 km self-propelled projectile.\nRate of fire: 8 rounds per minute.\nCrew: 5.</string>
+
+    <string name="bm2_2s35_koalitsiya_description">The 2S35 Koalitsiya-SV is a Russian self-propelled artillery gun, in development since the early 2010s.\nThe chassis is derived from the T-90 tank.\nFor mass production, the 2S35 weapon system will be installed on the Armata chassis.\nCannon: 2A88 152 mm.\nRange: 40 km / 70 km self-propelled projectile.\nSustained rate of fire: 10 rounds per minute.\nCrew: 3.</string>
+
+    <string name="bm2_2s4_tioulpan_description">The 2S4 Tyulpan is a Russian 240 mm heavy self-propelled mortar.\nCrew: 3.</string>
+
+    <string name="bm2_plz07_description">The PLZ-07 is a Chinese 122 mm self-propelled artillery gun, developed in the 2000s.\nIt uses the chassis of the ZBD-04 infantry fighting vehicle.\nThe PLZ-07 has amphibious capability, propelled in water by track movement.\nThe PLZ-07 is armed with a 122 mm cannon derived from the Soviet D-30 cannon.\nMaximum firing distance is 18 km with standard shell and 27 km with propelled ammunition.\nCrew: 5.</string>
+
+    <!-- Towed Artillery -->
+    <string name="bm2_2a36_description">The 2A-36 Giatsint-B is a medium artillery piece used by the Armed Forces of the Russian Federation, developed from 1968.\nIt exists in a self-propelled tracked version without turret 2S5 Giatsint-S.\nThe 2A-36 is widely used by Ukrainian armed forces since 2014 against Donbass separatists then against Russia.\nThe Russian army put them back into service in 2022 due to a significant need for artillery pieces.\nThe cannon is 152 mm caliber and is rifled.\nMaximum firing range with standard HE-FRAG shell is 28.5 km and 30 to 33 km.\nCrew: 6.</string>
+
+    <string name="bm2_105_m101_description">The M101 (105 mm) is an American howitzer from World War II, entered mass production in 1941.\nIt has been (or still is) in service in the armies of many countries around the world.\nCaliber: 105 mm.\nCrew: 8.</string>
+
+    <string name="bm2_122_d30_description">The D-30 122 mm howitzer is a Soviet field artillery piece considered robust and usable in difficult conditions, entered service in the 1960s.\nCaliber: 122 mm.\nCrew: 6.</string>
+
+    <string name="bm2_130_m46_description">The M-46 130 mm gun is a Soviet towed artillery piece from the 1950s,\nintended for corps artillery.\nCaliber: 130 mm.\nCrew: 8.</string>
+
+    <string name="bm2_2a65_description">The 2A65 Msta-B is a Russian/Soviet 152 mm towed howitzer, designed to destroy armored vehicles and fortifications.\nIts artillery part has a similar design to that of the 2S19 self-propelled howitzer of the same caliber.\nCaliber: 152 mm.\nCrew: 6.</string>
+
+    <string name="bm2_155_m777_description">The M-777 is an American 155 mm towed howitzer.\nIt is used by the ground forces of the United States, Australia, Canada, India, Saudi Arabia and Ukraine.\nCaliber: 155 mm.\nCrew: 7.</string>
+
+    <string name="bm2_152_d20_description">The 152 mm gun-howitzer M1955, also known as D-20,\nwas manufactured in the Soviet Union in the 1950s.\nCaliber: 152 mm.\nCrew: 8.</string>
+
+    <!-- Multiple Launch Rocket Systems -->
+    <string name="bm2_bm21_grad_description">The BM-21 Grad is a Russian 122 mm multiple rocket launcher, entered service in 1963.\nIt has the 6×6 wheeled chassis of the Ural-375D heavy truck.\nIt is equipped with 40 launch tubes for 122 mm rockets.\nMaximum range varies by ammunition type between 14 km and 20.75 km.\nThe new ammunition range extends firing distance up to 40 km.\nProduction stopped in 1988.\nCrew: 3.</string>
+
+    <string name="bm2_bm30_smerch_description">The BM-30 Smerch or 9A52-2 Smerch-M is a 300 mm heavy self-propelled multiple rocket launcher, entered service in 1989.\nIt is designed to fire a full salvo of 12 solid-propellant projectiles.\nThis system is intended to neutralize personnel, armor and unprotected targets in concentration areas,\nartillery batteries, command posts and ammunition depots.\nA program to replace it with the Tornado-S began in 2018.\nCrew: 3.</string>
+
+    <string name="bm2_bm27_uragan_description">The BM-27 Uragan is a self-propelled multiple rocket launcher system designed in the Soviet Union, entered service in the late 1970s.\nIt is capable of launching 220 mm rockets from 16 launch tubes mounted at the rear of a ZIL-135 8x8 chassis.\nA full salvo of 16 rockets can be fired in 20 seconds and can engage targets within a radius of 35 kilometers.\nCrew: 4.</string>
+
+    <string name="bm2_scud_b_description">The SCUD-B is an intermediate-range ballistic missile of Russian origin,\ncapable of carrying a nuclear or chemical warhead, with a maximum effective range of 550 km.\nCrew: 3.</string>
+
+    <string name="bm2_m270_mlrs_description">The M270 MLRS, Multiple Launch Rocket System, is an American multiple rocket launcher, entered service in 1983.\nIt is installed on a tracked chassis derived from the M2 Bradley infantry fighting vehicle.\nIts cabin is protected against small caliber weapons.\nIt is equipped with two pods of six 227 mm rockets.\nProduction stopped in 2003.\nCrew: 3.</string>
+
+    <string name="bm2_rm70_vampir_description">The RM-70 multiple rocket launcher is a Czechoslovak army version and heavier variant of the BM-21 Grad,\noffering superior performance to this area saturation artillery system, introduced in 1971.\nThe RM-70 replaces the Ural-375D 6x6 truck with a Tatra T813 Kolos 8x8 chassis as the carrier platform\nfor the 40-rocket launcher.\nThe new carrier vehicle provides enough space to carry an additional pack of 40 122 mm rockets,\nallowing automatic reloading.\nCaliber: 122 mm.\nCrew: 4.</string>
+
+    <!-- Mortars -->
+    <string name="bm2_82pm41_description">The 82PM-41 mortar, M-41 or 82 mm mortar model 1941 was a Soviet mortar\nof 82 millimeter caliber developed during World War II as an infantry mortar,\nwith production started in 1941.\nCaliber: 82 mm.\nCrew: 4.</string>
+
+    <string name="bm2_lav_m_description">The LAV-M, Light Armored Vehicle – Mortar, is an American self-propelled mortar, entered service in 1986.\nIt uses the chassis of the LAV-25 reconnaissance vehicle.\nThe armament consists of the 81 mm M252 mortar.\nFor self-defense, the vehicle is equipped with a 7.62 mm M240E1 machine gun mounted on the roof.\nAmmunition stock is 99 81 mm mortar shells and 1000 7.62 mm rounds.\nCrew: 5.</string>
+
+    <!-- Engineering Vehicles -->
+    <string name="bm2_mdk2_description">The MDK-2M is a Soviet army tracked trench excavator vehicle.\nCrew: 2.</string>
+
+    <string name="bm2_pzm_description">The PZM is a Soviet army wheeled trench excavator vehicle.\nCrew: 2.</string>
+
+    <string name="bm2_gmz3_description">The GMZ-3 is a Soviet tracked mine layer.\nIt is designed for mechanized laying of anti-tank, anti-track and anti-bottom mines in soil or snow\non the path of enemy tanks and armored vehicles.\nCrew: 3.</string>
+
+    <string name="bm2_umz3_description">The UMZ (Universal Mine Layer) is a Soviet engineering vehicle\nintended for remote mining by projection, built on a ZIL-131 truck base.\nCrew: 3.</string>
+
+    <string name="bm2_ur77_description">The UR-77 \"Meteorit\" is a Soviet combat vehicle, a self-propelled rocket launcher for demining,\ndesigned on the base of the 2S1 \"Gvozdika\" self-propelled howitzer, mass-produced since 1978.\nCrew: 2.</string>
+
+    <string name="bm2_m136_volcano_description">The M136 Volcano (Vehicle-Launched Scatterable Mine System)\nis an automated mine laying system developed by the US Army in the 1980s.\nThe system uses preloaded containers containing multiple anti-personnel (AP) and/or anti-tank (AT) mines,\nwhich are scattered over a wide area when ejected.\nCrew: 2.</string>
+
+    <string name="bm2_kmt5_description">The KMT-5 is a Soviet tank mine plow from the mid-20th century,\ndesigned for minefield reconnaissance and opening passages.\nThese breaches then allow movement of armor not equipped with anti-mine devices.\nCrew: 2.</string>
+
+    <string name="bm2_imr2_description">The IMR-2 is a Russian engineering tank, introduced in 1982.\nStill in service in Russian armed forces.\nCrew: 2.</string>
+
+    <string name="bm2_mtu72_description">The MTU-72 armored bridge layer is a military engineering vehicle designed to deploy an assault bridge,\nallowing tanks and other military vehicles to cross trenches and water obstacles,\nentered service in 1974.\nCrew: 2.</string>
+
+    <string name="bm2_tmm3_description">The TMM-3 is designed to establish crossings over obstacles up to 40 meters wide\nand up to 3 meters deep, allowing passage of wheeled and tracked vehicles weighing up to 60 tons.\nCountry: USSR/Russia.\nCrew: 3.</string>
+
+    <string name="bm2_tmm6_description">The TMM-6 is a Russian bridge-laying vehicle, developed between 1999 and the late 2000s.\nCrew: 3.</string>
+
+    <string name="bm2_pts2_description">The PTS-2 is a Soviet military tracked amphibious transport vehicle\ncapable of carrying vehicles on its deck and transporting them on water like a barge or ferry.\nCrew: 2.</string>
+
+    <string name="bm2_souvim_description">The mined route opening system (SOUVIM) allows securing a route lightly polluted\nby anti-tank or anti-personnel mines, detectable or pressure-activated.\nIt is intended to participate in mobility support missions by ensuring,\nover long distances, rapid opening of lightly mined routes (harassment mining)\nin 2nd echelon or rear area of major units (logistics flow zone) in a low-intensity conflict.\nCrew: 2.</string>
+
+    <!-- Command and Electronic Vehicles -->
+    <string name="bm2_1v18_klyon_description">The 1V18 Klyon is a Soviet command vehicle, designed on the BTR-60 chassis.\nCrew: 5.</string>
+
+    <string name="bm2_1s91_straight_flush_description">The 1S91 (NATO code - Straight Flush) is a Soviet-origin long-range mobile air defense radar,\ncurrently in service in Russian armed forces.\nDesigned to operate with the 2K12 Kub anti-aircraft missile system, it is mounted on a GM-568 tracked chassis.\nCrew: 4.</string>
+
+    <!-- UAVs -->
+    <string name="bm2_rq7_shadow200_description">The RQ-7A Shadow 200 is a reconnaissance drone developed by the United States.\nOperators: Australia, United States, Sweden, Romania.\nCrew: 0.</string>
+
+    <!-- Aircraft -->
+    <string name="bm2_su25_description">The Su-25 Grach is a ground attack, close air support and anti-tank aircraft developed by the USSR in the 1970s.\nCrew: 1.</string>
+
+    <string name="bm2_f5e_description">The Northrop F-5E is a family of light and maneuverable fighter aircraft, designed and manufactured by Northrop in the United States,\nwith manufacturing beginning in 1962.\nCrew: 1.</string>
+
+    <string name="bm2_typhoon_description">The Typhoon is a European fighter aircraft. First flight on March 27, 1994.\nThe Typhoon entered service in 2004.\nIt is also known as EF-2000.\nIt is a twin-engine, multi-role fighter, developed by the Eurofighter consortium,\ncomposed of the United Kingdom, Germany, Italy and Spain.\nCannon: 27 mm, Mauser BK-27.\nExternal pylons: 8 underwing pylons, 5 under fuselage, 9,000 kg of weapons.\nAir-to-air missiles: AIM-9 Sidewinder, AIM-120 AMRAAM, AIM-132 AMRAAM.\nAir-to-ground missiles: AGM-88 HARM, AGM-65 Maverick, Storm Shadow.\nBombs: Paveway II.\nCrew: 1.\nCeiling: 19,800 m.\nRange: 1,389 km.\nEndurance: 2,900 km, 3,790 km with 3 refuelings.</string>
+
+    <!-- Air Defense Systems -->
+    <string name="bm2_sa6_description">The 2K12 Kub (NATO code: SA-6 Gainful) is an anti-aircraft weapon system equipped with surface-to-air missiles,\nbuilt in more than 500 units between 1968 and 1985.\nIt operates with a mobile radar, the 1S91.\nCrew: 4.</string>
+
+    <string name="bm2_sa7_description">The 9K32 Strela-2, designated by NATO as SA-7 \"Grail\", is a Soviet-designed man-portable surface-to-air missile system,\ninfrared-guided with a high explosive warhead.\nCrew: 1.</string>
+
+    <string name="bm2_sa8_description">The 9K33 Osa (NATO code: SA-8 Gecko) is a highly mobile anti-aircraft vehicle equipped with very short-range surface-to-air missiles,\nof Soviet design.\nMaximum missile speed according to versions is Mach 2.4,\nminimum engagement altitude is 25 meters, maximum effective altitude range is 5,000 meters.\nFirst air defense missile system to incorporate its own engagement radars on a single vehicle.\nCrew: 5.</string>
+
+    <string name="bm2_roland2_description">The Franco-German Roland missile is a short-range surface-to-air missile.\nThe Roland short-range anti-aircraft system is mounted on an armored chassis (AMX-30R for France, Marder for Germany)\nor on an air-transportable wheeled cabin.\nOne of the few foreign missiles purchased by the US Army.\nCrew: 3.</string>
+
+    <string name="bm2_2s6_tunguska_description">The 2S-6 Tunguska (NATO: SA-19 Grison) is a Soviet-origin self-propelled anti-aircraft artillery and surface-to-air missile system,\ndeveloped in the 1970s.\nIts main role is to protect armored and infantry units against helicopters and ground attack aircraft.\nMain users: Russia, India.\nCrew: 4.</string>
+
+    <!-- Helicopters -->
+    <string name="bm2_ah64_description">The AH-64 Apache is an American attack helicopter, entered service in 1984.\nThe AH-64D Apache Longbow version can receive an AN/APG-78 Longbow millimeter-wave radar installed above the main rotor.\nThe AH-64E Apache Guardian version is the most modern currently in service.\nCannon: 30 mm M230, capacity 1,200 rounds.\nAir-to-ground missiles: up to 16.\nAir-to-air missiles: 2.\nRockets: 70 mm.\nWidely exported worldwide.\nCrew: 2.</string>
+
+    <string name="bm2_mi8_description">The Mi-8 is a Russian multi-role transport helicopter, entered service in 1965.\nIt gave birth to the Mi-14 Haze with amphibious capability, the Mi-17 and Mi-171 export versions.\nThe Mi-8 is very widely distributed worldwide.\nMore than 50 countries use it in their armed forces or in civilian version.\nCrew: 3.</string>
+
+    <string name="bm2_mi24_description">The Mi-24 is a Russian attack helicopter, entered service in 1972.\nIt is designed using many systems from the Mi-8 transport helicopter.\nIt can receive a wide range of weapons: rockets, missiles and gun pods.\nThe Mi-24 can carry a group of eight soldiers in the compartment behind the cockpit.\nThe first Mi-24A version has a three-crew cabin in 1 + 2 configuration.\nFrom the Mi-24B model, it is replaced by a tandem cabin.\nThe Mi-24 is very widely distributed worldwide.\nNearly sixty countries employ it in their armed forces.\nMore than 3,500 units have been produced, all models combined.\nMachine gun: Yak-B rotary 4 x 12.7 mm.\nCannon: GSh-23L 23 mm / GSh-30K 30 mm.\nRockets: S-5, S-8, S-13, S-24.\nAir-to-ground missiles: Shturm-V, Ataka-M.\nAir-to-air missiles: Igla-V, R-60M, R-63V.\nCrew: 2 + 8 soldiers.\nRange: 1000 km.</string>
+
+    <string name="bm2_mi28_description">The Mi-28 is a Russian attack helicopter.\nIt was developed in the Soviet Union, then in Russia in the 1980s-2000s.\nIt entered service in 2008 in Mi-28N version.\nOn August 16, 1996, Mil unveiled the Mi-28N Night Hunter version, capable of night combat.\nThe Mi-28N is a tandem two-seat helicopter intended for attack and anti-tank combat missions.\nIn 2012, Iraq ordered fifteen Mi-28N delivered in 2014-2016. In March 2014, Algeria ordered forty-two Mi-28N.\nVersions: Mi-28 / Mi-28N / Mi-28NE / Mi-28UB / Mi-28NM.\nCannon: 2A42 30 mm.\nRockets: S-8, S-13.\nAir-to-ground missiles: Shturm-V, Ataka-V.\nAir-to-air missiles: Igla-V.\nCrew: 2.\nRange: 450 km.</string>
+
+    <string name="bm2_ka50_description">The Ka-50 Black Shark (Hokum-A in NATO designation) is a Russian reconnaissance and attack helicopter.\nIt was developed in the Soviet Union in the 1980s.\nFirst flight on June 17, 1982. The Ka-50 entered service in 1995.\nCrew: 1.</string>
+
+    <string name="bm2_uh1_description">The UH-1, better known as Huey, is an American military helicopter, deployed in Vietnam from 1963.\nHueys were used for medical evacuations (MedEvac), command and control,\nair assaults, troop and equipment transport, and as armed gunships.\nCrew: 2 + 11.</string>
+
+    <string name="bm2_uh60_description">The UH-60 Black Hawk is an American multi-role transport helicopter, entered service in 1979.\nIt is derived into numerous versions: for Special Forces, navalized for the Navy,\nfor the Coast Guard, search and rescue missions, medical evacuation,\nVIP transport and versions for transporting specific equipment:\nradar, C3 Command-Control-Communication, weapons.\nProduced in more than four thousand units for about thirty countries worldwide.\nCrew: 2 + 11.</string>
+
+</resources>
