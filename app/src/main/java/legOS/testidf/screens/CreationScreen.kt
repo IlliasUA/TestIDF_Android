@@ -889,21 +889,16 @@ fun CreationItemCard(
                 Image(
                     bitmap = it,
                     contentDescription = "Image de ${item.name}",
-                    modifier = Modifier.fillMaxWidth().height(150.dp),
+                    modifier = Modifier.fillMaxWidth().height(200.dp),
                     contentScale = ContentScale.Crop
                 )
                 Spacer(Modifier.height(8.dp))
             } ?: Box(
-                modifier = Modifier.fillMaxWidth().height(150.dp).background(MaterialTheme.colorScheme.surfaceVariant),
+                modifier = Modifier.fillMaxWidth().height(200.dp).background(MaterialTheme.colorScheme.surfaceVariant),
                 contentAlignment = Alignment.Center
             ) {
                 Text(stringResource(R.string.no_tests_available))
             }
-
-            Text(
-                text = item.description.take(100) + if (item.description.length > 100) "..." else "",
-                style = MaterialTheme.typography.bodyMedium
-            )
         }
     }
 }
@@ -1018,7 +1013,7 @@ private fun searchAllData(query: String, context: Context): List<CreationItem> {
 
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: "Description non disponible",
+            description = question.description ?: "",
             mainImagePath = mainImagePath,
             additionalImagePaths = additionalImagePaths,
             category = "Aviation"
@@ -1032,7 +1027,7 @@ private fun searchAllData(query: String, context: Context): List<CreationItem> {
 
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: "Description non disponible",
+            description = question.description ?: "",
             mainImagePath = mainImagePath,
             additionalImagePaths = additionalImagePaths,
             category = "Artillerie"
@@ -1046,7 +1041,7 @@ private fun searchAllData(query: String, context: Context): List<CreationItem> {
 
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: "Description non disponible",
+            description = question.description ?: "",
             mainImagePath = mainImagePath,
             additionalImagePaths = additionalImagePaths,
             category = "Génie"
@@ -1060,7 +1055,7 @@ private fun searchAllData(query: String, context: Context): List<CreationItem> {
 
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: "Description non disponible",
+            description = question.description ?: "",
             mainImagePath = mainImagePath,
             additionalImagePaths = additionalImagePaths,
             category = "Reconnaissance"
@@ -1074,7 +1069,7 @@ private fun searchAllData(query: String, context: Context): List<CreationItem> {
 
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: "Description non disponible",
+            description = question.description ?: "",
             mainImagePath = mainImagePath,
             additionalImagePaths = additionalImagePaths,
             category = "Chars"
@@ -1088,7 +1083,7 @@ private fun searchAllData(query: String, context: Context): List<CreationItem> {
 
         addItemWithRelevance(
             name = question.correct,
-            description = question.description ?: "Description non disponible",
+            description = question.description ?: "",
             mainImagePath = mainImagePath,
             additionalImagePaths = additionalImagePaths,
             category = "Militaire"
