@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SPRAT -->
+    <string name="genie_sprat_desc">As part of direct support for units engaged in combat zones, the Army has the Rapid Truss Laying System (SPRAT). for crossing dry or wet gaps between 3 and 24m. SPRAT gives the Army the ability to cross 24 m wide breaches with its Leclerc tanks, in tactical conditions.</string>
+
+    <!-- Biber -->
+    <string name="genie_biber_desc">The Biber is a German armored vehicle-launched bridge. It is part of combat support vehicles. Its predecessor was the M48 bridgelayer and its successor is the Leguan. In the 1960s, the MaK company developed it for the German Army, based on the Leopard 1 tank.</string>
+
+    <!-- Buffalo -->
+    <string name="genie_buffalo_desc">The Buffalo Mine Protected Clearance Vehicle is an American military engineer vehicle. While the Casspir was a four-wheeled vehicle, the Buffalo has an additional pair. It is also equipped with a large articulated arm, which an operator can use to examine a suspected mine at a safe distance, while remaining sheltered. Main armament: Browning M2 12.7 mm machine gun.</string>
+
+    <!-- DACHS -->
+    <string name="genie_dachs_desc">The Pionierpanzer is designed for towing damaged vehicles, but its main mission is to work on terrain, ensure access to and exit from water obstacles, build fortifications and perform other tasks aimed at eliminating various obstacles on the battlefield. The first production vehicles of this type were commissioned in the Bundeswehr in April 1989. By the end of 1990, 36 Pionierpanzer 2A1 – informally nicknamed Badger – had been manufactured and delivered to the German army.</string>
+
+    <!-- GSP -->
+    <string name="genie_gsp_desc">GSP-55 is a Russian military tracked amphibious vehicle capable of carrying vehicles on its roof and transporting them on water like a barge or ferry. It can be used as a bridge and therefore as a bridge-laying vehicle, deploying several in series if necessary.</string>
+
+    <!-- IRM-2 -->
+    <string name="genie_irm2_desc">The IMR-2 (where IMR stands for Inzhenernaya mashina razgrazhdeniya) is a Russian combat engineer vehicle introduced in 1982. Currently in service with the Russian Armed Forces.</string>
+
+    <!-- M3 Amphibius -->
+    <string name="genie_m3_amphibius_desc">The M3 Amphibious Rig is a German amphibious military vehicle, used to ensure the crossing of tanks and other vehicles across water obstacles. It can be assembled to form both bridges and ferry crossings.</string>
+
+    <!-- M9 ACE -->
+    <string name="genie_m9_ace_desc">An armored bulldozer developed by the United States for military engineering. It has been in service with the US Army since 1988. Its main missions are: clearing obstacles with its front bulldozer blade, digging trenches and building protective installations, developing auxiliary tracks, opening access routes to crossing points. Its fundamental mission is to accompany allied armored forces to open the way during advances.</string>
+
+    <!-- MDK-2 -->
+    <string name="genie_mdk2_desc">MDK-2M (AT-T) tracked trench-digging vehicle USSR army.</string>
+
+    <!-- PMM-2 -->
+    <string name="genie_pmm2_desc">The PPM-2 bridge-laying vehicle is designed to ensure the crossing of water obstacles by tanks, self-propelled guns and other military vehicles.</string>
+
+    <!-- PTS -->
+    <string name="genie_pts_desc">PTS is a Soviet military tracked amphibious troop transport capable of carrying vehicles on its roof and transporting them on water like a barge or ferry.</string>
+
+    <!-- AMX-30 EBG -->
+    <string name="genie_amx30_ebg_desc">The armored engineer vehicle (EBG) is an engineer tank mounted on the same chassis as the AMX-30B2 tanks. Its mission is to clear and prepare the way for other vehicles.</string>
+
+    <!-- AMX-30 EBG SDPMAC -->
+    <string name="genie_amx30_ebg_sdpmac_desc">The pyrotechnic anti-tank mine clearing system (SDPMAC) is a set composed of the Israeli CARPET launcher mounted on the armored engineer vehicle (EBG).</string>
+
+    <!-- EFA -->
+    <string name="genie_efa_desc">Successor to the improved Gillois ferry, the forward crossing vehicle (EFA) is autonomous amphibious equipment designed for continuous (bridge) or discontinuous (ferry) crossings for vehicles up to MLC (Military Load Class) 70. The EFA includes a hull containing the crew cabin, engine room, axles and a rear compartment, 2 articulated ramps, 2 float support flaps and a removable aquatic control station.</string>
+
+    <!-- EGAME -->
+    <string name="genie_egame_desc">Engineering development vehicle. A wheeled bulldozer with 4 drive and steering wheels, the EGAME is intended to be deployed as close as possible to first echelon forces (precursor detachment) and benefits from removable ballistic protection.</string>
+
+    <!-- EGRAP -->
+    <string name="genie_egrap_desc">Rapid protection engineer vehicle. Loader-excavator from the civilian range, this vehicle aims to facilitate the deployment, movement and protection of a force.</string>
+
+    <!-- Manitou -->
+    <string name="genie_manitou_desc">The MLT 625-75 H telescopic handler is a very compact machine. Specially dedicated to agricultural activities.</string>
+
+    <!-- PPLD -->
+    <string name="genie_ppld_desc">The heavy multi-purpose recovery carrier - PPLD allows in particular the evacuation of damaged vehicles. It has 4 all-wheel drive axles (8x8) allowing it to drive on all types of roads and paths and in all weather conditions.</string>
+
+    <!-- VDM Souvim -->
+    <string name="genie_vdm_souvim_desc">The mined route clearing system (SOUVIM) makes it possible to secure a lightly polluted route with detectable or pressure anti-tank or anti-personnel mines. Its vocation is to participate in mobility support missions by ensuring, over long distances, the rapid opening of lightly mined routes (harassment mining) in 2nd echelon or in the rear area of major units (logistics flow zone) in a low-intensity conflict.</string>
+
+    <!-- TC-910 -->
+    <string name="genie_tc910_desc">Loader tractor (TC) 910.</string>
+
+    <!-- TNA -->
+    <string name="genie_tna_desc">Transport of an air-droppable grader tractor (TNA).</string>
+</resources>

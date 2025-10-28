@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SPRAT -->
+    <string name="genie_sprat_desc">Dans le cadre de l\'appui direct des unités engagées dans la zone des combats, l\'armée de Terre dispose du Système de Pose Rapide de Travures (SPRAT). pour le franchissement de coupures sèches ou humides comprise entre 3 et 24m. SPRAT donne à l\'armée de Terre la capacité de franchir avec ses chars Leclerc des brèches de 24 m de large, en ambiance tactique.</string>
+
+    <!-- Biber -->
+    <string name="genie_biber_desc">Le Biber est un char poseur de ponts d\'origine allemande. Il fait partie des véhicules de soutien au combat. Son prédécesseur était le char poseur de ponts M48 et son successeur est le Leguan. Dans les années 1960, l\'entreprise MaK a développé pour l\'armée de terre allemande, sur la base du char Leopard 1.</string>
+
+    <!-- Buffalo -->
+    <string name="genie_buffalo_desc">Le Buffalo Mine protected clearance vehicule est un véhicule militaire du génie américain. Alors que le Casspir était un véhicule à quatre roues, le Buffalo en a une paire de plus. Il est aussi équipé d\'un grand bras articulé, qu\'un opérateur peut utiliser pour examiner une mine suspecte à une bonne distance de sécurité, en restant abrité. Armement principal : mitrailleuse Browning M2 de 12,7 mm.</string>
+
+    <!-- DACHS -->
+    <string name="genie_dachs_desc">Le Pionierpanzer est conçu pour le remorquage des véhicules endommagés, mais sa mission principale consiste à travailler sur les terrains, à assurer l\'accès et la sortie des obstacles aquatiques, à construire des fortifications et à réaliser d\'autres tâches visant à éliminer divers obstacles sur le champ de bataille. Les premiers véhicules de série de ce type ont été mis en service dans la Bundeswehr en avril 1989. Dès fin 1990, 36 Pionierpanzer 2A1 – surnommés informellement Blaireau – avaient été fabriqués et livrés à l\'armée allemande.</string>
+
+    <!-- GSP -->
+    <string name="genie_gsp_desc">GSP-55 est un véhicule amphibie chenillé militaire russe capable de transporter des véhicules sur son toit et de les transporter sur l\'eau à la manière d\'un bac (bateau) ou d\'un ferry (bateau). On peut l\'utiliser comme pont et donc comme véhicule pontonnier, au besoin en en déployant plusieurs en série.</string>
+
+    <!-- IRM-2 -->
+    <string name="genie_irm2_desc">Le IMR-2 (où IMR signifie Inzhenernaya mashina razgrazhdeniya) est un char du génie russe introduit en 1982. En service aujourd\'hui dans les forces armées russes.</string>
+
+    <!-- M3 Amphibius -->
+    <string name="genie_m3_amphibius_desc">Le M3 Amphibious Rig est un véhicule militaire amphibie allemand, utilisé pour assurer la traversée des chars et autres véhicules à travers les obstacles aquatiques. Il peut être assemblé pour former aussi bien des ponts que des bacs de franchissement.</string>
+
+    <!-- M9 ACE -->
+    <string name="genie_m9_ace_desc">Un bulldozer blindé du génie militaire développé par les États-Unis. Il est en service dans l\'US Army depuis 1988. Ses missions principales consistent à : dégager les obstacles à l\'aide de sa lame bulldozer avant, creuser des tranchées et construire des installations de protection, aménager des pistes auxiliaires, ouvrir des voies d\'accès aux points de franchissement. Sa mission fondamentale est d\'accompagner les forces blindées alliées pour leur ouvrir la voie lors des avancées.</string>
+
+    <!-- MDK-2 -->
+    <string name="genie_mdk2_desc">Véhicule à chenilles excavateur de tranchées MDK-2M (AT-T) armée URSS.</string>
+
+    <!-- PMM-2 -->
+    <string name="genie_pmm2_desc">Le véhicule poseur de ponts PPM-2 est conçu pour assurer le franchissement des obstacles aquatiques par les chars, les canons automoteurs et autres véhicules militaires.</string>
+
+    <!-- PTS -->
+    <string name="genie_pts_desc">PTS est un véhicule de transport de troupes amphibie chenillé militaire soviétique capable de transporter des véhicules sur son toit et de les transporter sur l\'eau à la manière d\'un bac ou d\'un ferry.</string>
+
+    <!-- AMX-30 EBG -->
+    <string name="genie_amx30_ebg_desc">L\'engin blindé du génie (EBG) est un char du génie monté sur le même châssis que les chars AMX-30B2. Sa mission est de dégager et préparer la voie pour d\'autres engins.</string>
+
+    <!-- AMX-30 EBG SDPMAC -->
+    <string name="genie_amx30_ebg_sdpmac_desc">Le système de déminage pyrotechnique pour mines antichars (SDPMAC) est un ensemble composé du lanceur israélien CARPET monté sur l\'engin blindé du génie (EBG).</string>
+
+    <!-- EFA -->
+    <string name="genie_efa_desc">Successeur du bac Gillois valorisé, l\'engin de franchissement de l\'avant (EFA) est un matériel amphibie autonome conçu pour des franchissements continus (pont) ou discontinus (bac) aux véhicules jusqu\'à une MLC (Military Load Class) 70. L\'EFA comprend une coque contenant la cabine de l\'équipage, la salle des machines, les essieux et un compartiment arrière, 2 rampes articulées, 2 volets supports de flotteurs et un poste de pilotage aquatique amovible.</string>
+
+    <!-- EGAME -->
+    <string name="genie_egame_desc">Engin du génie d\'aménagement. Bouteur à roues à 4 roues motrices et directrices, l\'EGAME est destiné à être déployé au plus près des forces de premier échelon (détachement précurseur) et bénéficie d\'une protection balistique amovible.</string>
+
+    <!-- EGRAP -->
+    <string name="genie_egrap_desc">Engin du génie rapide de protection. Chargeuse-pelleteuse issu de la gamme civile, cet engin a pour but de faciliter le déploiement, le mouvement et la protection d\'une force.</string>
+
+    <!-- Manitou -->
+    <string name="genie_manitou_desc">Le chariot télescopique MLT 625-75 H est une machine très compacte. Dédié spécialement aux activités agricoles.</string>
+
+    <!-- PPLD -->
+    <string name="genie_ppld_desc">Le porteur polyvalent lourd de dépannage - PPLD permet notamment l\'évacuation de véhicules endommagés. Il possède 4 essieux toutes roues motrices (8x8) lui permettant de rouler sur tous types de routes et de chemins et dans toutes les conditions climatiques.</string>
+
+    <!-- VDM Souvim -->
+    <string name="genie_vdm_souvim_desc">Le système d\'ouverture d\'itinéraire miné (SOUVIM) permet de sécuriser un itinéraire faiblement pollué par des mines antichar ou antipersonnel, détectables ou à pression. Il a pour vocation de participer aux missions d\'appui à la mobilité en assurant, sur de longues distances, l\'ouverture rapide d\'itinéraires faiblement minés (minage de harcèlement) en 2e échelon ou en zone arrière des grandes unités (zone des flux logistiques) dans un conflit de basse intensité.</string>
+
+    <!-- TC-910 -->
+    <string name="genie_tc910_desc">Tracteur chargeur (TC) 910.</string>
+
+    <!-- TNA -->
+    <string name="genie_tna_desc">Transport d\'un tracteur niveleur aérolargable (TNA).</string>
+</resources>
