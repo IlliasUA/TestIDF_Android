@@ -302,6 +302,10 @@
     <string name="news_version_1_2_1_title">🎉 Version 1.2.1 - Améliorations et corrections</string>
     <string name="news_version_1_2_1_content">Mise à jour importante de l\'application avec plusieurs améliorations :\n\n• Ajout de la section Actualités\n• Amélioration de l\'interface utilisateur\n• Corrections de bugs mineurs\n• Optimisation des performances</string>
 
+    <string name="news_date_oct_28_2025">28 Octobre 2025</string>
+    <string name="news_version_1_2_2_title">🌍 Version 1.2.2 - Support de la langue anglaise</string>
+    <string name="news_version_1_2_2_content">Nouvelle mise à jour linguistique !\n\n• Interface en anglais ajoutée\n• Basculer entre français et anglais\n• Bouton de langue en haut à droite\n• Votre choix est sauvegardé automatiquement\n\nL\'application supporte maintenant une interface multilingue pour une meilleure expérience utilisateur !</string>
+
     <!-- Catalog/Search Screen -->
     <string name="catalog_title">Catalogue</string>
     <string name="search_placeholder">Recherche...</string>

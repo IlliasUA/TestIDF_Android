@@ -298,6 +298,10 @@
     <string name="news_back_button">Back</string>
 
     <!-- News Items -->
+    <string name="news_date_oct_28_2025">October 28, 2025</string>
+    <string name="news_version_1_2_2_title">🌍 Version 1.2.2 - English Language Support</string>
+    <string name="news_version_1_2_2_content">New language update!\n\n• English interface added\n• Switch between French and English\n• Language button in top right corner\n• Your choice is saved automatically\n\nThe app now supports multilingual interface for better user experience!</string>
+
     <string name="news_date_oct_25_2025">October 25, 2025</string>
     <string name="news_version_1_2_1_title">🎉 Version 1.2.1 - Improvements and Fixes</string>
     <string name="news_version_1_2_1_content">Important application update with several improvements:\n\n• Added News section\n• Improved user interface\n• Fixed minor bugs\n• Performance optimization</string>

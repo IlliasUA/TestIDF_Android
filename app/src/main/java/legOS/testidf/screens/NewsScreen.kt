@@ -108,6 +108,12 @@ fun NewsScreen(navController: NavController) {
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         NewsItem(
+                            date = stringResource(R.string.news_date_oct_28_2025),
+                            title = stringResource(R.string.news_version_1_2_2_title),
+                            content = stringResource(R.string.news_version_1_2_2_content)
+                        )
+
+                        NewsItem(
                             date = stringResource(R.string.news_date_oct_25_2025),
                             title = stringResource(R.string.news_version_1_2_1_title),
                             content = stringResource(R.string.news_version_1_2_1_content)
@@ -124,6 +130,12 @@ fun NewsScreen(navController: NavController) {
                         .padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
+                    NewsItem(
+                        date = stringResource(R.string.news_date_oct_28_2025),
+                        title = stringResource(R.string.news_version_1_2_2_title),
+                        content = stringResource(R.string.news_version_1_2_2_content)
+                    )
+
                     NewsItem(
                         date = stringResource(R.string.news_date_oct_25_2025),
                         title = stringResource(R.string.news_version_1_2_1_title),
