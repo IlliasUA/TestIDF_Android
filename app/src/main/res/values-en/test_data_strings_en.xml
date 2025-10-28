@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Complete tank descriptions - English (ALL information translated) -->
+
+    <string name="desc_abrams">The M1 Abrams is an American main battle tank, developed in the 1970s.
+It entered service in 1980.
+The first models of the M1 Abrams were equipped with a 105 mm M68 gun.
+Starting with the M1A1 version, it is armed with the 120 mm M256 gun.
+Main gun: 120 mm.
+Machine gun: 12.7 mm.
+Crew: 4.</string>
+
+    <string name="desc_ariete">The C1 Ariete is an Italian main battle tank, developed in the 1980s-1990s.
+It entered service in 1995.
+Main gun: 120 mm.
+Machine guns: 12.7 mm, 7.62 mm.
+Crew: 4.</string>
+
+    <string name="desc_challenger_1">The Challenger 1 is a British main battle tank, developed in the 1980s.
+It entered service in 1983.
+The modernization of the Challenger 1 gave birth to the Challenger 2, which entered service in 1998.
+In the United Kingdom, the Challenger 1 was retired from service with the arrival of the Challenger 2.
+Main gun: 120 mm.
+Machine gun: 7.62 mm.
+Crew: 4.</string>
+
+    <string name="desc_challenger_2">The Challenger 2 is a British main battle tank, developed in the 1990s.
+It entered service in 1998.
+Known as FV4030, it is the main battle tank of the British Army.
+It participated in engagements in Kosovo and Iraq.
+Exported to Oman in 38 units.
+In 2021, the British Army announced the modernization of 148 tanks under the designation Challenger 3.
+Main gun: 120 mm.
+Machine gun: 7.62 mm.
+Crew: 4.</string>
+
+    <string name="desc_chieftain">The Chieftain is a British main battle tank, developed in the 1950s-1960s by Leyland Motors.
+It entered service in 1966.
+It underwent several modernization campaigns up to the Chieftain Mk-11 version.
+Employed in British armored units until its replacement by the Challenger 1 in 1983.
+Exported to Iran, Iraq, Kuwait, Jordan (under the designation Khalid) and Oman (under the designation Shir).
+Versions: Chieftain Mk.1 (1966), Chieftain Mk.5 (1972), Khalid, Shir.
+Main gun: 120 mm.
+Machine gun: 7.62 mm.
+Crew: 4.</string>
+
+    <string name="desc_leopard_2">The Leopard 2 is a German main battle tank, developed in the 1970s.
+Versions: Leopard 2A0 (1979), Leopard 2A1 (1982), Leopard 2A2 (1983), Leopard 2A3 (1984), Leopard 2A4 (1985), Leopard 2A5 (2000), Leopard 2A6 (2001), Leopard 2A7 (2014), Leopard 2A7V (2021), Leopard 2A8 (2023).
+Main gun: 120 mm.
+Machine gun: 7.62 mm.
+Crew: 4.</string>
+
+    <string name="desc_leopard_1">The Leopard 1 is a German main battle tank, developed in the 1950s-1960s.
+It entered service in 1965.
+Widely exported, it is currently in service in Turkey, Brazil and Chile.
+Since February 2023, Germany has been delivering Leopard 1 tanks to Ukraine.
+The Leopard 1 chassis served as the basis for various support vehicles.
+Versions: Leopard 1A1, 1A1A1, 1A2, 1A3, 1A4, 1A5.
+Main gun: 105 mm.
+Machine gun: 7.62 mm.
+Crew: 4.</string>
+
+    <string name="desc_t_55">The T-55 is a Russian main battle tank, developed in the Soviet Union in the 1950s.
+It entered service in 1958.
+Very widely distributed, it was produced under license in Poland, Czechoslovakia and Romania.
+It participated in numerous conflicts and remains in service in several armed forces.
+Versions: T-55K, T-55A, T-55AK, T-55AM.
+Main gun: 100 mm.
+Machine gun: 12.7 mm.
+Crew: 4.</string>
+
+    <string name="desc_m_60">The M60 is an American main battle tank, developed in the 1950s.
+Very widely exported, it remains in service in several armed forces.
+It underwent several modernization campaigns: M60A1 (1962), M60A2 (1970), M60A3 (1975).
+Main gun: 105 mm.
+Machine gun: 12.7 mm Browning M2.
+Crew: 4.</string>
+
+    <string name="desc_magach_7">The Magach tanks are versions adapted to Israeli needs of the American M48 and M60 tanks.
+Versions: Magach 5, Magach 6B Gal Batash, Magach 6M Tadach, Magach 7A, Magach 7C.
+Main gun: 105 mm.
+Machine guns: 7.62 mm, 12.7 mm Browning.
+Crew: 4.</string>
+
+    <string name="desc_merkava_4">The Merkava Mk IV is an Israeli main battle tank, developed in the 1990s.
+It entered service in 2004.
+Its chassis served as the basis for the Namer heavy armored personnel carrier.
+Israel is the sole user of the Merkava Mk IV.
+Main gun: 120 mm.
+Machine guns: 7.62 mm, 12.7 mm.
+Mortar: 60 mm.
+Crew: 4.</string>
+
+    <string name="desc_t_62">The T-62 is a Soviet medium tank, which entered service in 1961.
+Main gun: 115 mm.
+Crew: 4 (tank commander, turret operator, loader, driver).</string>
+
+    <string name="desc_t_64">The T-64 is a Soviet main battle tank, developed in the 1960s.
+It entered service in 1965.
+First Soviet tank to integrate automatic loading.
+Versions: T-64A, T-64B, T-64BM Bulat.
+Main gun: 125 mm.
+Machine gun: 12.7 mm.
+Anti-tank missile: AT-8 (T-64B).
+Crew: 3.</string>
+
+    <string name="desc_t_64_extended">The T-64 is a Soviet main battle tank, developed in the 1960s.
+It entered service in 1965.
+First Soviet tank to integrate automatic loading.
+Versions: T-64A, T-64B, T-64BM Bulat.
+Main gun: 125 mm.
+Machine gun: 12.7 mm.
+Anti-tank missile: AT-8 (T-64B).
+Crew: 3.</string>
+
+    <string name="desc_t_72">The T-72 is a Russian main battle tank, developed in the 1960s-1970s.
+It entered service in 1973.
+Versions: T-72, T-72K, T-72A, T-72M, T-72AV, T-72B, T-72B1, T-72BK, T-72C, T-72BM, T-72B3.
+Main gun: 125 mm.
+Machine gun: 12.7 mm.
+Crew: 3.</string>
+
+    <string name="desc_t_80">The T-80 is a Russian main battle tank, developed in the 1980s.
+Versions: T-80U, T-80UK, T-80UD, T-80UE-1.
+Main gun: 125 mm.
+Machine gun: 12.7 mm.
+Crew: 3.</string>
+
+    <string name="desc_t_90">The T-90 is a Russian main battle tank, developed in the 1990s.
+It entered service in 1992.
+Versions: T-90A, T-90M, T-90MS.
+Main gun: 125 mm.
+Machine gun: 12.7 mm.
+Crew: 3.</string>
+
+    <string name="desc_amx_30">The AMX-30 is a French main battle tank, developed in the 1960s.
+It entered service in 1967.
+Nearly 3,500 AMX-30 tanks were produced for the French army and for export.
+Replaced by the Leclerc tank in the French army.
+Versions: AMX-30B (1967), AMX-30B2 (1980).
+Main gun: 105 mm.
+Machine gun: 7.62 mm ANF1.
+Crew: 4.</string>
+
+    <string name="desc_arjun_mk1">The Arjun is an Indian main battle tank, developed in the 1990s-2000s.
+It entered service in 2004.
+Main gun: 120 mm.
+Machine gun: 12.7 mm.
+Crew: 4.</string>
+
+    <string name="desc_k_1">The K1 is a South Korean main battle tank, developed in the 1970s-1980s by Hyundai (now Rotem) with technical assistance from General Dynamics.
+It entered service in 1987.
+Known under the designations Type 88 and 88-Tank, it was developed to counter North Korean T-62 tanks.
+Its production was replaced by the K2 Black Panther from 2014.
+Versions: K1/Type 88/88-Tank (1987), K1A1 (2001), K1A2 (2013).
+Main gun: 105 mm (K1), 120 mm (K1A1).
+Machine gun: 12.7 mm.
+Crew: 4.</string>
+
+    <string name="desc_merkava_3">The Merkava Mk 3 is an Israeli main battle tank, which entered service in 1990.
+Main gun: 120 mm MG251 (smoothbore).
+Machine guns: three 7.62 mm MAG.
+Crew: 4 (tank commander, driver, gunner, loader).</string>
+
+    <string name="desc_pt_91">The PT-91 Twardy is a Polish main battle tank, developed in the 1990s by Bumar Labedy based on the T-72M1.
+It entered service in 1995.
+Produced in 232 units for the Polish army and exported to Malaysia (48 units under the name PT-91M Pendekar, 2007-2010).
+Main gun: 125 mm.
+Machine guns: 7.62 mm (coaxial), 12.7 mm.
+Crew: 3.</string>
+
+    <string name="desc_type_10">The Type 10 is a Japanese main battle tank, developed in the 2000s by Mitsubishi Heavy Industries.
+It entered service in 2012.
+Main gun: 120 mm (44 calibers, 36 rounds).
+Machine guns: 7.62 mm (coaxial), 12.7 mm.
+Crew: 3.</string>
+
+    <string name="desc_type_98">The Type 98 (ZTZ-98) is a Chinese main battle tank, introduced in 1999 during a military parade in Beijing.
+Resembling the T-72, it is distinguished by a welded turret.
+Main gun: 125 mm (smoothbore).
+Crew: 3.</string>
+
+    <string name="desc_type_99">The ZTZ-99 (Type 99) is a Chinese main battle tank, developed in the 1990s-2000s.
+It entered service in 2003.
+Equipped with a thermal camera, a stabilized panoramic sight with hunter-killer capability and an all-around laser countermeasures system.
+Versions: ZTZ-99G, ZTZ-99A1, ZTZ-99A2.
+Main gun: 125 mm.
+Machine gun: 12.7 mm.
+Crew: 3.</string>
+
+    <string name="desc_merkava_1">The Merkava Mk 1 is an Israeli main battle tank, delivered to the Israeli Defense Forces (IDF) from 1979.
+Superior to the Syrian T-72.
+Versions: Merkava 1, Merkava 1B.
+Main gun: 105 mm.
+Machine gun: 7.62 mm (coaxial).
+Crew: 4.</string>
+
+    <string name="desc_amx_13">The AMX-13 is a French light tank, produced between 1953 and 1985.
+Main gun: 105 mm (self-propelled).
+Crew: 3.</string>
+
+    <string name="desc_k_2_black_panther">The K2 Black Panther is a South Korean main battle tank, developed in the 2000s.
+It entered service in 2014.
+Main gun: 120 mm (55 calibers).
+Crew: 3.</string>
+
+    <string name="desc_leclerc">The Leclerc is a French main battle tank, developed in the 1980s.
+It entered service in 1991.
+It replaced the AMX-30 tanks in French armored units.
+388 units were delivered to the United Arab Emirates between 2000 and 2003.
+Deployed in Kosovo and Lebanon.
+Main gun: 120 mm.
+Machine guns: 12.7 mm (coaxial), 7.62 mm.
+Crew: 3.</string>
+
+    <string name="desc_tr_85">The TR-85, Tanc Românesc model 1985, is a Romanian main battle tank, developed in the 1980s.
+It entered service in 1986.
+Developed from the TR-580, an elongated version of the T-55, it is used exclusively by Romania.
+Versions: TR-85, TR-85M1 Bizonul.
+Main gun: 100 mm.
+Machine gun: 12.7 mm.
+Crew: 4.</string>
+
+    <string name="desc_vt_4">The VT-4 (MBT-3000) is a Chinese main battle tank, presented in 2012.
+In 2016, the Thai army acquired 28 VT-4 tanks.
+Main gun: 125 mm.
+Machine gun: 12.7 mm.
+Crew: 3.</string>
+
+    <string name="desc_jaguar">The EBRC Jaguar, Engin Blindé de Reconnaissance et de Combat (Armored Reconnaissance and Combat Vehicle), is a French 6×6 wheeled armored fighting vehicle, developed in the 2010s.
+It entered service in 2022.
+Intended to replace the AMX-10RCR.
+Main gun: 40 mm.
+Machine gun: 7.62 mm.
+Crew: 3.</string>
+
+    <string name="desc_strv_103">The Stridsvagn 103 (Strv 103) is a Swedish main battle tank, developed in the 1950s.
+Perfectly amphibious with a flotation skirt installable in 20 minutes, it is propelled in water by its tracks at 6 km/h.
+Versions: Strv 103A, 103B, 103C, 103D.
+Main gun: 105 mm.
+Machine guns: two 7.62 mm.
+Crew: 3.</string>
+
+    <string name="desc_t_14_armata">The T-14 Armata is a Russian main battle tank, in development since the 2010s.
+Serial production was announced for 2019.
+Equipped with an unmanned remotely operated turret with ammunition stored in an automatic loader.
+The three crew members are located in the front of the chassis.
+Main gun: 125 mm.
+Machine guns: 12.7 mm or 7.62 mm.
+Crew: 3.</string>
+
+    <string name="desc_type_16_mcv">The Type 16 MCV, Maneuver Combat Vehicle, is a Japanese 8×8 wheeled light tank, developed in the 2010s.
+It entered service in 2016.
+Armed with a 105 mm stabilized manually loaded gun, with the powertrain at the front left and the driver on the right.
+Can receive additional armor.
+Main gun: 105 mm.
+Machine gun: 12.7 mm.
+Crew: 4.</string>
+
+    <string name="desc_ztl_11">The ZTL-11 is a Chinese 8×8 wheeled light tank, developed in the 2010s.
+It entered service in 2014.
+Based on the ZBL-09 chassis, it includes a weapon stabilizer and a thermal camera.
+The 105 mm gun can fire explosive, shaped charge and sub-caliber anti-tank shells.
+Main gun: 105 mm.
+Machine gun: 12.7 mm.
+Crew: 4.</string>
+
+</resources>
