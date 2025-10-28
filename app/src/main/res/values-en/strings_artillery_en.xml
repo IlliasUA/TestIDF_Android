@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Artillery descriptions - English -->
+
+    <!-- 2S1 Gvozdika -->
+    <string name="art_2s1_gvozdika_desc">The 2S1 Gvozdika is a Soviet 122mm self-propelled gun. It is essentially an extended version of the MT-LB, with a 2A18 (D-30) howitzer mounted on a turret and featuring high mobility. A semi-amphibious vehicle, it can also operate in snowstorms and swamps. It is protected against NBC effects and has infrared optical vision.</string>
+
+    <!-- 2S3 Akatsiya -->
+    <string name="art_2s3_akatsiya_desc">The 2S3 Akatsiya is a Soviet self-propelled gun designed in the late 1960s in response to the American M109. The Akatsiya is built on the GM-123 chassis which is also used by the 2S4 Tyulpan and 2S5 Giatsint-S. Entering service in Soviet armed forces in 1971, it is still in service in eighteen countries. The Akatsiya is compatible with all 152mm ammunition used by towed guns D-20, ML-20 and D-1.</string>
+
+    <!-- 2S5 Giatsint -->
+    <string name="art_2s5_giatsint_desc">The 2S5 Giatsint-S is a Russian 152mm self-propelled artillery gun. It was developed in the Soviet Union in the 1970s. The 2S5 Giatsint-S entered service in 1976.\nGun: 152mm, 2A37.\nRange: 30.5 km.\nRate of fire: 5-6 rounds per minute.\nCrew: 5.</string>
+
+    <!-- 2S7 Pion -->
+    <string name="art_2s7_pion_desc">The 2S7 Pion is a Russian 203mm self-propelled artillery gun. It was developed in the Soviet Union in the 1970s. The 2S7 Pion entered service in 1975. The 2S7 Pion is a heavy artillery system capable of firing conventional shells and nuclear-armed shells. Its maximum firing distance is 47 km. The weapon system is installed on a tracked chassis with seven road wheels. The running gear is derived from the T-80 battle tank.\nGun: 2A44, 203mm.\nCrew: 7 – 2S7 / 6 – 2S7M.</string>
+
+    <!-- 2S19 Msta -->
+    <string name="art_2s19_msta_desc">The 2S19 Msta-S is a Russian self-propelled artillery gun. It was developed in the Soviet Union in the 1980s. The 2S19 entered service in 1989. The 2S19 Msta-S is armed with a 152mm 2A65 gun. Its chassis is derived from the T-80 battle tank chassis. The 2S19 Msta-S is equipped with an ammunition reloading system installed at the rear of the vehicle. The 2S19M1 version is equipped with a 155mm gun.\nRange: 6.5 km to 24.7 km / 28.5 km self-propelled shell.\nRate of fire: 8 rounds per minute.\nCrew: 5.</string>
+
+    <!-- 122 D-30 -->
+    <string name="art_122_d30_desc">The 122mm D-30 howitzer is a weapon that entered service in the Union of Soviet Socialist Republics (USSR) in the 1960s. It is a field artillery piece considered robust and usable in difficult conditions.</string>
+
+    <!-- AS-90 -->
+    <string name="art_as90_desc">The AS-90 is a British self-propelled artillery gun. It was developed in the 1980s. The AS-90 entered service in 1992. The AS-90, Artillery System 1990, was developed for UK artillery units to replace the American M109s. The AS-90 is armed with a 155mm gun that is 39 calibers long with a maximum range of 24.7 km with a standard shell. In the 2000s, the AS-90 Braveheart version received a gun 52 calibers long which increased its maximum range to 40 km. The AS-90 Braveheart weapon system is produced under license in Poland to equip the Polish Krab artillery gun.\nCrew: 5.</string>
+
+    <!-- CAESAR -->
+    <string name="art_caesar_desc">The Caesar, Truck Equipped with Artillery System, is a French 155mm self-propelled artillery gun. It was developed in the 1990s-2000s by Nexter Systems. The Caesar entered service in 2008. The Caesar in service with French artillery units is installed on the chassis of the Sherpa 6×6 heavy truck produced by RTD, Renault Trucks Defence, now Arquus. The firing range is between 4.5 km and 42 km. The maximum range with self-propelled shell is over 50 km.\nRate of fire: 6 rounds/min.\nCrew: 4 to 5.</string>
+
+    <!-- M109 Paladin -->
+    <string name="art_m109_paladin_desc">The M109 is an American self-propelled artillery gun. It was developed in the 1950s-1960s. The M109 entered service in 1963. The M109 is very widely exported worldwide.\nGun: 155mm.\nRange M109: 14.6 km.\nRange M109A5: 22 km / 30 km self-propelled shell.\nRate of fire: 3-4 rds/min.\nCrew: 6 – M109 / 4 – M109A6.</string>
+
+    <!-- PzH 2000 -->
+    <string name="art_pzh2000_desc">The PzH 2000 is a German self-propelled artillery gun. It was developed in the 1990s. The PzH 2000 entered service in 1998. The PzH 2000, Panzerhaubitze 2000, was developed to replace the M109 self-propelled artillery gun of American origin. It is armed with a 155mm gun allowing a firing range of 56 km. The automated loading allows a very high rate of fire of 8 to 10 rounds/min. The PzH 2000 chassis is derived from the German Leopard-2 battle tank chassis.\nRange: 30 km / 56 km self-propelled shell.\nCrew: 5.</string>
+
+    <!-- RCH155 Boxer -->
+    <string name="art_rch155_boxer_desc">The RCH 155 is a German self-propelled artillery gun. It was developed in the 2010s-2020s. The RCH 155 entered service in 2025. It uses the 8×8 wheeled chassis of the Boxer armored fighting vehicle. The RCH 155 weapon system consists of the AGM module, Artillery Gun Module, armed with a 155mm gun. The maximum rate of fire is 9 rds/min. The RCH 155 has been ordered for the Ukrainian army and financed by the German government.</string>
+
+    <!-- 2A-36 -->
+    <string name="art_2a36_desc">The 2A36 Giatsint-B howitzer is a medium artillery piece used by the Armed Forces of the Russian Federation. There is a tracked self-propelled gun version without turret 2S5 Giatsint-S. The 2A36 was developed from 1968. The 2A36 is widely used by the Ukrainian armed forces since 2014 against Donbass separatists and then against Russia. The Russian army puts them back into service in 2022 due to a significant need for artillery pieces. The gun is 152mm caliber and is rifled. The maximum firing range with the standard HE-FRAG shell is 28.5 km and 30 to 33 km.</string>
+
+    <!-- 2S4 -->
+    <string name="art_2s4_desc">Russian 2S4 Tyulpan 240mm heavy self-propelled mortar.</string>
+
+    <!-- 2S35 Koalitsiya -->
+    <string name="art_2s35_koalitsiya_desc">The 2S35 Koalitsiya-SV is a Russian self-propelled artillery gun. It has been in development since the early 2010s. The chassis derived from the T-90 tank. For large-scale production the 2S35 weapon system will be installed on the Armata chassis.\nGun: 2A88 152mm.\nRange: 40 km / 70 km self-propelled shell.\nSustained rate of fire: 10 rounds per minute.\nCrew: 3.</string>
+
+    <!-- 152D-20 -->
+    <string name="art_152d20_desc">The 152mm M1955 gun-howitzer, also known as the D-20, was manufactured in the Soviet Union in the 1950s.</string>
+
+    <!-- FV-433 Abbot -->
+    <string name="art_fv433_abbot_desc">The FV433 \'Abbot\', a 105mm self-propelled gun, was sometimes designated \'L109\', probably to avoid confusion with the 155mm M109 howitzer, which entered service in the United Kingdom at about the same time.</string>
+
+    <!-- M-777 -->
+    <string name="art_m777_desc">A 155mm caliber towed howitzer. It is used by the ground forces of the United States, Australia, Canada, India, Saudi Arabia and Ukraine.</string>
+
+    <!-- PLZ-07 -->
+    <string name="art_plz07_desc">The PLZ-07 is a Chinese 122mm self-propelled artillery gun. It was developed in the 2000s. The PLZ-07 uses the chassis of the ZBD-04 infantry fighting vehicle. The PLZ-07 has amphibious capability, propelled in water by the movement of the tracks. The PLZ-07 is armed with a 122mm gun derived from the Soviet D-30 gun. The maximum firing distance is 18 km with a standard shell and 27 km with propelled ammunition.</string>
+
+    <!-- 2S25 Sprout -->
+    <string name="art_2s25_sprout_desc">The 2S25 Sprut-SD is a Russian air-droppable light tank. It was developed in the 1990s. The 2S25 Sprut-SD entered service in 2007. The 2S25 Sprut-SD is intended for paratroop units. Its chassis is derived from the BMD-3 infantry fighting vehicle extended to seven road wheels. The 2S25 Sprut-SD is armed with a 125mm 2A75 gun derived from the 2A46 gun of Russian battle tanks. It can fire the entire range of standard 125mm ammunition. The 2S25 Sprut-SD has amphibious capability.\nCrew: 3.</string>
+
+    <!-- Dana VZ-77 -->
+    <string name="art_dana_vz77_desc">The vz.77 Dana is a Czechoslovak self-propelled artillery gun. It was developed in the 1970s, in ex-Czechoslovakia. The vz.77 Dana entered service in 1980. The vz.77 Dana 152mm self-propelled artillery gun is an artillery system on an 8×8 wheeled chassis. The vz.77 Dana is in service in the Czech Republic, Slovakia, Poland, Azerbaijan, Libya, Georgia and Cyprus.\nCrew: 4 + 1.</string>
+
+    <!-- 2S9 Nona -->
+    <string name="art_2s9_nona_desc">The 2S9 Nona-S is a Russian self-propelled gun-mortar. It was developed in the Soviet Union in the 1970s. The 2S9 Nona-S entered service in 1981. The chassis, derived from the BTR-D tracked armored personnel carrier, has amphibious capability. The 2S9 Nona-S is armed with a 120mm rifled 2A51 gun-mortar installed in a two-person turret. The firing range is 8.85 km with a conventional shell and 17 km with a propelled shell.\nRate of fire: 6-8 rounds per minute.\nCrew: 4.</string>
+
+    <!-- 2S34 Hosta -->
+    <string name="art_2s34_hosta_desc">The 2S34 Hosta is a Russian self-propelled artillery gun. It was developed in the 2000s. The 2S34 Hosta entered service in 2008. The 2S34 Hosta is a deep modernization project of the 2S1 Gvozdika self-propelled artillery gun. It uses the same tracked chassis with seven road wheels. The 122mm 2A31 gun of the 2S1 Gvozdika is replaced by the 120mm 2A80-1 gun-mortar. The 2S34 Hosta is an amphibious vehicle and moves in water using track movement. Russia is the only country to use the 2S34 Hosta.\nRange: 14 km.\nCrew: 4.</string>
+
+    <!-- 2S43 Malva -->
+    <string name="art_2s43_malva_desc">The 2S43 Malva is a Russian self-propelled artillery gun. The 2S43 Malva uses the BAZ-6010 8×8 wheeled chassis. The weapon system consists of a 152mm gun installed at the rear of the chassis. The maximum range of the gun is 24.5 km with a rate of fire of 7 rds/min.\nCrew: 5.</string>
+
+    <!-- Archer FH-77 -->
+    <string name="art_archer_fh77_desc">The Swedish 155mm multipurpose self-propelled gun FH77 BW L52 "Archer". A distinctive feature of the system is the complete automation of the loading process, thus allowing an increased rate of fire. An off-road travel speed of up to 70 km/h. A firing range of up to 40 km with conventional 155mm ammunition and up to 60 km with high-precision guided munitions. In automatic mode, the 21 shells of the total reserve can be fired in 2.5 minutes.</string>
+
+    <!-- 2S40 Floks -->
+    <string name="art_2s40_floks_desc">The 2S40 Floks is a Russian 120mm self-propelled gun-mortar. It was developed in the 2010s-2020s. The 2S40 Floks entered service in 2023. The 2S40 Floks uses the chassis of the Ural-4320 6×6 heavy truck. The 2S40 Floks is armed with the 120mm rifled 2A80 gun-mortar. This gun-mortar is also installed on the tracked self-propelled guns 2S31 Vena and 2S34 Hosta. The maximum range is between 7 and 10 km depending on the type of ammunition. Each vehicle carries 60 shells. For self-defense it can receive a 12.7mm machine gun.\nCrew: 4.</string>
+
+    <!-- AUF-1 -->
+    <string name="art_auf1_desc">The AUF1 is a French self-propelled artillery gun. It was developed in the 1970s. The AUF1 entered service in 1978 in Saudi Arabia and in 1982 in France. The AUF1 is capable of firing the first six shells in 45 seconds. The AUF1 chassis is derived from the French AMX-30 battle tank chassis, with the engine at the rear of the vehicle. From 2008, the AUF1 is partly replaced by the French Caesar wheeled self-propelled artillery gun in French artillery units. In June 2014, France extended the active service life of the AUF1 until 2025.\nGun: 155mm.\nRange: 23.5 km / 28 km self-propelled shell.\nRate of fire: 6 rounds in 45 sec.\nCrew: 4.</string>
+
+    <!-- SGH Eva -->
+    <string name="art_sgh_eva_desc">The EVA is a Slovak self-propelled gun. It is equipped with a 155mm/L52 howitzer and has a maximum firing range of 41 kilometers.</string>
+
+    <!-- BM-21 Grad -->
+    <string name="art_bm21_grad_desc">The BM-21 Grad is a Russian 122mm multiple rocket launcher. It was developed in the Soviet Union in the 1950s-1960s. The BM-21 Grad entered service in 1963. Production stopped in 1988. The BM-21 Grad has the 6×6 wheeled chassis of the Ural-375D heavy truck. BM-21 (Boevaya Machina) – combat vehicle, is equipped with 40 122mm rocket launch tubes. The maximum range varies depending on the type of ammunition between 14 km and 20.75 km. The new range of ammunition extends the firing distance up to 40 km.</string>
+
+    <!-- M142 HIMARS -->
+    <string name="art_m142_himars_desc">The M142 HIMARS is an American multiple rocket launcher. It was developed in the 1990s. The M142 HIMARS entered service in 2005. The M142 HIMARS, High Mobility Artillery Rocket System, has the same weapon system as the M270 MLRS Multiple Rocket Launcher with a block of six 227mm rockets. 6 227mm rockets or 1 MGM-140 ATACMS rocket / Machine gun: 7.62mm.\nCrew: 3.</string>
+
+    <!-- M-110 -->
+    <string name="art_m110_desc">The M110 is an American 203mm self-propelled artillery gun. It was developed in the 1950s-1960s. The M110 entered service in 1962. The M110 was developed at the request of the US Army for a new air-transportable artillery system. The M110 is armed with a 203.2mm M2A2 gun. Until its withdrawal from service in 1994, the M110 was the most powerful self-propelled artillery gun of the US Ground Forces.</string>
+
+    <!-- Zuzana-2 -->
+    <string name="art_zuzana2_desc">The Zuzana 155mm is a self-propelled artillery system developed by Slovakia.</string>
+
+    <!-- M-901 ITV -->
+    <string name="art_m901_itv_desc">The M901 ITV, Improved TOW Vehicle, is an American anti-tank armored fighting vehicle. It was developed in the 1970s. The M901 ITV entered service in 1979. The M901 ITV is an armored vehicle specialized in anti-tank and anti-armor combat. The weapon system consists of the elevating module armed with two TOW missiles, Tube-launched Optically tracked Wire-guided. Ten spare missiles are stored inside the vehicle. The M901 ITV uses the chassis of the American M113 armored personnel carrier. The M901 ITV has been exported to Greece, Portugal, Thailand, Egypt, Morocco, Tunisia, Pakistan, Kuwait, Jordan, Bahrain. It has been retired from active service in the US Army.</string>
+</resources>

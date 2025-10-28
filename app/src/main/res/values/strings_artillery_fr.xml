@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Artillery descriptions - French -->
+
+    <!-- 2S1 Gvozdika -->
+    <string name="art_2s1_gvozdika_desc">Le 2S1 Gvozdika est un canon automoteur soviétique de calibre 122 mm. Il est en réalité essentiellement une version allongée du MT-LB, avec un obusier 2A18 (D-30) monté sur une tourelle et disposant d\'une grande mobilité. Véhicule semi-amphibie, il peut également opérer par tempête de neige et sur les marais. Il est protégé contre les effets du NRBC et dispose d\'une vision optique infrarouge.</string>
+
+    <!-- 2S3 Akatsiya -->
+    <string name="art_2s3_akatsiya_desc">Le 2S3 Akatsia est un canon automoteur soviétique conçu à la fin des années 1960 en réponse au M109 américain. L\'Akatsia est conçu sur le châssis GM-123 qui est également utilisé par le 2S4 Tioulpan et le 2S5 Guiatsint-S. Entré en service dans les forces armées soviétiques en 1971, il est encore en service dans dix-huit pays. L\'Akatsia est compatible avec toutes les munitions de 152 mm utilisées par les canons tractés D-20, ML-20 et D-1.</string>
+
+    <!-- 2S5 Giatsint -->
+    <string name="art_2s5_giatsint_desc">Le 2S5 Giatsint-S est un canon d\'artillerie automoteur de 152 mm russe. Il est développé en Union soviétique dans les années 1970. Le 2S5 Giatsint-S est entré en service en 1976.\nCanon : 152 mm, 2A37.\nPortée : 30.5 km.\nCadence de tir : 5-6 obus par minute.\nEquipage : 5.</string>
+
+    <!-- 2S7 Pion -->
+    <string name="art_2s7_pion_desc">Le 2S7 Pion est un canon d\'artillerie automoteur russe de 203 mm. Il est développé en Union soviétique dans les années 1970. Le 2S7 Pion est entré en service en 1975. Le 2S7 Pion est un système d\'artillerie lourd apte à tirer des obus conventionnels et des obus à charge nucléaire. Sa distance de tir maximale est de 47 km. Le système d\'arme est installé sur un châssis chenillé à sept galets. Le train de roulement est dérivé du char de combat T-80.\nCanon : 2A44, 203 mm.\nEquipage : 7 – 2S7 / 6 – 2S7M.</string>
+
+    <!-- 2S19 Msta -->
+    <string name="art_2s19_msta_desc">Le 2S19 Msta-S est un canon d\'artillerie automoteur russe. Il est développé en Union soviétique dans les années 1980. Le 2S19 est entré en service en 1989. Le 2S19 Msta-S est armé d\'un canon 2A65 de 152 mm. Son châssis est dérivé du châssis du char de combat T-80. Le 2S19 Msta-S est équipé d\'un système de rechargement en munition installé à l\'arrière du véhicule. La version 2S19M1, équipée d\'un canon de 155 mm.\nPortée : 6.5 km à 24.7 km / 28.5 km obus autopropulsé.\nCadence de tir : 8 obus par minute.\nEquipage : 5.</string>
+
+    <!-- 122 D-30 -->
+    <string name="art_122_d30_desc">L\'obusier D-30 de 122 mm est une arme entrée en service dans l\'Union des républiques socialistes soviétiques (URSS) dans les années 1960. C\'est une pièce d\'artillerie de campagne considérée comme robuste et utilisable dans des conditions difficiles.</string>
+
+    <!-- AS-90 -->
+    <string name="art_as90_desc">L\'AS-90 est un canon d\'artillerie automoteur britannique. Il est développé dans les années 1980. L\'AS-90 est entré en service en 1992. L\'AS-90, Artillery System 1990, est développé pour les unités d\'artillerie du Royaume-Uni pour remplacer les M109 américains. L\'AS-90 est armé d\'un canon de 155 mm de 39 calibres de long avec une portée maximale de 24,7 km avec un obus standard. Dans les années 2000, la version AS-90 Braveheard reçoit un canon d\'une longueur de 52 calibres qui augmente sa portée maximale à 40 km. Le système d\'arme de l\'AS-90 Braveheard est produit sous licence en Pologne pour équiper le canon d\'artillerie polonais Krab.\nEquipage : 5.</string>
+
+    <!-- CAESAR -->
+    <string name="art_caesar_desc">Le Caesar, Camion Equipé d\'un Système d\'Artillerie, est un canon d\'artillerie automoteur français de 155 mm. Il est développé dans les années 1990-2000 par Nexter Systems. Le Caesar est entré en service en 2008. Le Caesar en service des unités d\'artillerie françaises est installé sur le châssis du poids-lourd Sherpa en configuration 6×6 produit par RTD, Renault Trucks Defence, aujourd\'hui Arquus. La portée de tir est comprise entre 4,5 km et 42 km. La portée maximale avec obus autopropulsé est supérieure à 50 km.\nCadence de tir : 6 coups/min.\nEquipage : 4 à 5.</string>
+
+    <!-- M109 Paladin -->
+    <string name="art_m109_paladin_desc">Le M109 est un canon d\'artillerie automoteur américain. Il a été développé dans les années 1950-1960. Le M109 est entré en service en 1963. Le M109 est très largement exporté dans le monde.\nCanon : 155 mm.\nPortée M109 : 14,6 km.\nPortée M109A5 : 22 km / 30 km obus autopropulsé.\nCadence de tir : 3-4 cps/min.\nEquipage : 6 – M109 / 4 – M109A6.</string>
+
+    <!-- PzH 2000 -->
+    <string name="art_pzh2000_desc">Le PzH 2000 est un canon d\'artillerie automoteur allemand. Il est développé dans les années 1990. Le PzH 2000 est entré en service en 1998. Le PzH 2000, Panzerhaubitze 2000, est développé pour remplacer le canon d\'artillerie automoteur M109 d\'origine américaine. Il est armé d\'un canon de 155 mm permettant une portée de tir de 56 km. Le chargement automatisé autorise une cadence de tir très élevée de 8 à 10 coups/mn. Le châssis du PzH 2000 est dérivé du châssis du char de combat allemand Leopard-2.\nPortée : 30 km / 56 km obus autopropulsé.\nEquipage : 5.</string>
+
+    <!-- RCH155 Boxer -->
+    <string name="art_rch155_boxer_desc">Le RCH 155 est un canon d\'artillerie automoteur allemand. Il est développé dans les années 2010-2020. Le RCH 155 est entré en service en 2025. Il emploie le châssis à roues 8×8 du véhicule blindé de combat Boxer. Le système d\'arme du RCH 155 est composé du module AGM, Artillerie Geschütz Modul, armé d\'un canon de 155 mm. La cadence maximale de tir est de 9 cps/mn. Le RCH 155 a été commandé pour l\'armée ukrainienne et financées par le gouvernement allemand.</string>
+
+    <!-- 2A-36 -->
+    <string name="art_2a36_desc">L\'obusier 2A36 Guiatsint-B est une pièce d\'artillerie moyenne utilisée par les Forces armées de la fédération de Russie. Il existe en version canon automoteur chenillé sans tourelle 2S5 Guiatsint-S. Le 2A36 est développé à partir de 1968. Le 2A36 est largement utilisé par les forces armées ukrainiennes depuis 2014 contre les séparatistes du Donbass puis contre la Russie. L\'armée russe les remet en service en 2022 en raison d\'un besoin important en pièces d\'artillerie. Le canon est de calibre 152 mm et est rayé. La portée de tir maximale avec l\'obus HE-FRAG standard est de 28,5 km et de 30 à 33 km.</string>
+
+    <!-- 2S4 -->
+    <string name="art_2s4_desc">Mortier automoteur lourd russe 2S4 Tioulpan de 240 mm.</string>
+
+    <!-- 2S35 Koalitsiya -->
+    <string name="art_2s35_koalitsiya_desc">Le 2S35 Koalitsiya-SV est un canon d\'artillerie automoteur russe. Il est en développement depuis le début des années 2010. Le châssis dérivé du char T-90. Pour la production à grande échelle le système d\'arme du 2S35 sera installé sur le châssis Armata.\nCanon : 2A88 152 mm.\nPortée : 40 km / 70 km obus autopropulsé.\nCadence de tir soutenue : 10 obus par minute.\nEquipage : 3.</string>
+
+    <!-- 152D-20 -->
+    <string name="art_152d20_desc">Le canon-obusier de 152 mm M1955, également connu sous le nom de D-20, a été fabriqué en Union soviétique dans les années 1950.</string>
+
+    <!-- FV-433 Abbot -->
+    <string name="art_fv433_abbot_desc">Le FV433 \'Abbot\', un canon automoteur de 105 mm, était peu désigné sous le nom \'L109\', probablement pour éviter toute confusion avec l\'obusier de 155 mm M109, entré en service au Royaume-Uni à peu près à la même époque.</string>
+
+    <!-- M-777 -->
+    <string name="art_m777_desc">Un obusier tracté de calibre 155 mm. Il est utilisé par les forces terrestres des États-Unis, de l\'Australie, du Canada, de l\'Inde, de l\'Arabie saoudite et de l\'Ukraine.</string>
+
+    <!-- PLZ-07 -->
+    <string name="art_plz07_desc">Le PLZ-07 est un canon d\'artillerie automoteur de 122 mm chinois. Il est développé dans les années 2000. Le PLZ-07 emploie le châssis du véhicule blindé de combat d\'infanterie ZBD-04. Le PLZ-07 est doté de la capacité amphibie, propulsé dans l\'eau avec le mouvement des chenilles. Le PLZ-07 est armé d\'un canon de 122 mm dérivé du canon soviétique D-30. La distance de tir maximale est de 18 km avec un obus standard et 27 km avec la munition propulsée.</string>
+
+    <!-- 2S25 Sprout -->
+    <string name="art_2s25_sprout_desc">Le 2S25 Sprut-SD est un char léger parachutable russe. Il est développé dans les années 1990. Le 2S25 Sprut-SD est entré en service en 2007. Le 2S25 Sprut-SD est destiné aux unités de parachutistes. Son châssis est dérivé du véhicule blindé de combat d\'infanterie BMD-3 rallongé à sept galets. Le 2S25 Sprut-SD est armé d\'un canon 2A75 de 125 mm dérivé du canon 2A46 des chars de combat russes. Il peut tirer toute la gamme des munitions standards de 125 mm. Le 2S25 Sprut-SD possède la capacité amphibie.\nEquipage : 3.</string>
+
+    <!-- Dana VZ-77 -->
+    <string name="art_dana_vz77_desc">Le vz.77 Dana est un canon d\'artillerie automoteur tchécoslovaque. Il est développé dans les années 1970, en ex-Tchécoslovaquie. Le vz.77 Dana est entré en service en 1980. Le canon d\'artillerie automoteur vz.77 Dana de 152 mm est un système d\'artillerie sur le châssis à roues 8×8. Le vz.77 Dana est en service en République tchèque, Slovaquie, Pologne, Azerbaïdjan, Libye, Géorgie et à Chypre.\nEquipage : 4 + 1.</string>
+
+    <!-- 2S9 Nona -->
+    <string name="art_2s9_nona_desc">Le 2S9 Nona-S est un canon-mortier automoteur russe. Il est développé en Union soviétique dans les années 1970. Le 2S9 Nona-S est entré en service en 1981. Le châssis, dérivé du véhicule blindé transport de troupe chenillé BTR-D, possède la capacité amphibie. Le 2S9 Nona-S est armé d\'un canon-mortier rayé 2A51 de 120 mm installé dans une tourelle bi-place. La portée du tir est de 8,85 km avec un obus conventionnel et de 17 km avec un obus propulsé.\nCadence de tir : 6-8 obus par minute.\nEquipage : 4.</string>
+
+    <!-- 2S34 Hosta -->
+    <string name="art_2s34_hosta_desc">Le 2S34 Hosta est un canon d\'artillerie automoteur russe. Il est développé dans les années 2000. Le 2S34 Hosta est entré en service en 2008. Le 2S34 Hosta est un projet de profonde modernisation du canon d\'artillerie automoteur 2S1 Gvozdika. Il emploie le même châssis chenillé avec sept galets. Le canon 2A31 de 122 mm du 2S1 Gvozdika est remplacé par le canon-mortier 2A80-1 de 120 mm. Le 2S34 Hosta est un véhicule amphibie et se déplace dans l\'eau à l\'aide du mouvement des chenilles. La Russie est le seul pays à employer le 2S34 Hosta.\nPortée : 14 km.\nEquipage : 4.</string>
+
+    <!-- 2S43 Malva -->
+    <string name="art_2s43_malva_desc">Le 2S43 Malva est un canon d\'artillerie automoteur russe. Le 2S43 Malva emploie le châssis à roues 8×8 BAZ-6010. Le système d\'arme est composé d\'un canon de 152 mm installé à l\'arrière du châssis. La portée maximale du canon est de 24,5 km avec la cadence de tir de 7 cps/mn.\nEquipage : 5.</string>
+
+    <!-- Archer FH-77 -->
+    <string name="art_archer_fh77_desc">Le canon automoteur suédois polyvalent de 155 mm FH77 BW L52 « Archer ». Une caractéristique distinctive du système est l\'automatisation complète du processus de chargement, permettant ainsi une cadence de tir accrue. Une vitesse de déplacement en tout-terrain pouvant atteindre 70 km/h. Une portée de tir allant jusqu\'à 40 km avec des munitions classiques de 155 mm et jusqu\'à 60 km avec des munitions guidées de haute précision. En mode automatique, les 21 obus de la réserve totale peuvent être tirés en 2,5 minutes.</string>
+
+    <!-- 2S40 Floks -->
+    <string name="art_2s40_floks_desc">Le 2S40 Floks est un canon-mortier automoteur russe de 120 mm. Il est développé dans les années 2010-2020. Le 2S40 Floks est entré en service en 2023. Le 2S40 Floks emploie le châssis du poids-lourd 6×6 Ural-4320. Le 2S40 Floks est armé du canon-mortier rayé 2A80 de 120 mm. Ce canon mortier est également installé sur les canons automoteurs chenillés 2S31 Vena et 2S34 Hosta. La portée maximale est comprise entre 7 et 10 km selon le type de munition. Chaque véhicule transporte 60 obus. Pour son autodéfense il peut recevoir une mitrailleuse de 12,7 mm.\nEquipage : 4.</string>
+
+    <!-- AUF-1 -->
+    <string name="art_auf1_desc">L\'AUF1 est un canon d\'artillerie automoteur français. Il est développé dans les années 1970. L\'AUF1 est entré en service en 1978 en Arabie saoudite et en 1982 en France. L\'AUF1 est capable de tirer les six premiers obus en 45 secondes. Le châssis de l\'AUF1 est dérivé du châssis du char de combat français AMX-30, avec la motorisation à l\'arrière de l\'engin. A partir de 2008, l\'AUF1 est en partie remplacé par le canon d\'artillerie automoteur à roues français Caesar dans les unités d\'artillerie françaises. En juin 2014, la France a prolongé la durée du service actif des AUF1 jusqu\'en 2025.\nCanon : 155 mm.\nPortée : 23.5 km / 28 km obus autopropulsé.\nCadence de tir : 6 coups en 45 sec.\nEquipage : 4.</string>
+
+    <!-- SGH Eva -->
+    <string name="art_sgh_eva_desc">L\'EVA est un canon automoteur slovaque. Il est équipé d\'un obusier de 155 mm/L52 et possède une portée de tir maximale de 41 kilomètres.</string>
+
+    <!-- BM-21 Grad -->
+    <string name="art_bm21_grad_desc">Le BM-21 Grad est un lance-roquette multiple de 122 mm russe. Il est développé en Union soviétique dans les années 1950-1960. Le BM-21 Grad est entré en service en 1963. La production est arrêtée en 1988. Le BM-21 Grad possède le châssis à roues 6×6 du poids-lourd Ural-375D. BM-21 (Boevaya Machina) – véhicule de combat, est équipé de 40 tubes de lancement de roquette de 122 mm. La portée maximale varie selon le type de munition entre 14 km et 20,75 km. La nouvelle gamme de munition allonge la distance de tir jusque 40 km.</string>
+
+    <!-- M142 HIMARS -->
+    <string name="art_m142_himars_desc">Le M142 HIMARS est un lance-roquettes multiple américain. Il est développé dans les années 1990. Le M142 HIMARS est entré en service en 2005. Le M142 HIMARS, High Mobility Artillery Rocket System, possède le même système d\'arme que le Lance-Roquette Multiple M270 MLRS avec un bloc de six roquettes de 227 mm. 6 Roquettes de 227 mm ou 1 Roquette MGM-140 ATACMS / Mitrailleuse : 7,62 mm.\nEquipage : 3.</string>
+
+    <!-- M-110 -->
+    <string name="art_m110_desc">Le M110 est un canon d\'artillerie automoteur américain de 203 mm. Il est développé dans les années 1950-1960. Le M110 est entré en service en 1962. Le M110 est développé à la demande de l\'armée américaine pour un nouveau système d\'artillerie aérotransportable. Le M110 est armé d\'un canon M2A2 de 203,2 mm. Jusqu\'à son retrait du service en 1994, le M110 était le plus puissant canon d\'artillerie automoteur des Forces terrestres américaines.</string>
+
+    <!-- Zuzana-2 -->
+    <string name="art_zuzana2_desc">Le Zuzana 155 mm est un système d\'artillerie automoteur développé par la Slovaquie.</string>
+
+    <!-- M-901 ITV -->
+    <string name="art_m901_itv_desc">Le M901 ITV, Improved TOW Vehicle, est un véhicule blindé de combat antichar américain. Il est développé dans les années 1970. Le M901 ITV est entré en service en 1979. Le M901 ITV est un véhicule blindé spécialisé dans le combat antichar et anti-blindé. Le système d\'arme est composé du module élévateur armé de deux missiles TOW, Tube-launched Optically trached Wire-guided. Dix missiles de rechange sont stockés à l\'intérieur du véhicule. Le M901 ITV emploie le châssis du véhicule blindé de transport de troupe américain M113. Le M901 ITV a été exporté en Grèce, Portugal, Thaïlande, Egypte, Maroc, Tunisie, Pakistan, Koweït, Jordanie, Bahreïn. Il a été retiré du service actif de l\'armée américaine.</string>
+</resources>
