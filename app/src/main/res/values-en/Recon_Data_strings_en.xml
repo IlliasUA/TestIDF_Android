@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Reconnaissance vehicle descriptions - English -->
+
+    <!-- BRDM-2 -->
+    <string name="recon_brdm2_desc">The BRDM-2 is a Russian reconnaissance armored vehicle. It was developed in the Soviet Union in the early 1950s.
+The BRDM-2 entered service in 1962.
+Its armament consists of the 14.5mm KPVT heavy machine gun and the 7.62mm PKT coaxial machine gun,
+identical to the Russian BTR-60/BTR-70/BTR-80 armored personnel carriers.
+The BRDM-2, in different versions, is used by the armed forces of more than 50 countries worldwide.
+Crew: 4</string>
+
+    <!-- Dingo -->
+    <string name="recon_dingo_desc">The ATF Dingo is a German-produced armored military vehicle.
+The standard armament of the Dingo is a 7.62mm machine gun turret.
+It can be replaced with a 12.7mm machine gun or an HK GMG automatic grenade launcher.</string>
+
+    <!-- Eagle V -->
+    <string name="recon_eagle_v_desc">The Eagle V is a Swiss 4×4 wheeled multi-role armored vehicle.
+It was developed in the 2010s by GDELS-Mowag, General Dynamics European Land Systems-Mowag.
+The Eagle V entered service in 2015.</string>
+
+    <!-- Komatsu LAV -->
+    <string name="recon_komatsu_lav_desc">The Komatsu LAV, Light Armored Vehicle, is a Japanese 4×4 wheeled light armored vehicle. It was developed in the 1990s.
+The Komatsu LAV entered service in 2001. It is optimized for reconnaissance and patrol missions.
+The vehicle hull is protected against 7.62mm ammunition.
+The vehicle can receive a 12.7mm heavy machine gun or a 7.62mm machine gun on the superstructure.
+The anti-tank version is equipped with Type 87 or Type 01 LMAT missiles. Crew: 4 + 1.</string>
+
+    <!-- Serval -->
+    <string name="recon_serval_desc">The VBMR-L (Light Multi-Role Armored Vehicles) Serval is a French 4×4 wheeled armored vehicle.
+It was developed by Nexter Systems and Texelis. The VBMR-L Serval entered service in 2022.
+It will be developed in several versions:
+Troop transport, Command post, Artillery observation, Engineer vehicle, Medical evacuation, SA2R, Tactical communication group, etc.
+The VBMR-L Serval is equipped with communication means and the SCORPION combat information system (SICS).
+Armament: 12.7mm machine gun.
+Crew: 2 + 8.</string>
+
+    <!-- GAZ 2330 Tigr -->
+    <string name="recon_gaz_tigr_desc">The GAZ-2330 Tigr is a Russian 4×4 wheeled armored vehicle. It was developed in the early 2000s.
+The Tigr entered service in 2006.
+The GAZ-2330 Tigr is a multi-role armored vehicle. It is used for troop transport, patrol, reconnaissance, and equipment carrying missions.
+No organic armament.
+Crew: 2 + 7.</string>
+
+    <!-- URO Vamtac -->
+    <string name="recon_uro_vamtac_desc">The Vamtac is a Spanish 4×4 wheeled light armored vehicle. It was developed in the 1980s-1990s by URO Vehiculos Especiales.
+The Vamtac entered service in 1998.
+The Vamtac is exported to Saudi Arabia, Dominican Republic, Ghana, Indonesia, Iraq, Malaysia, Morocco, Portugal, Romania and Singapore.
+It is also marketed in its civilian version.</string>
+
+    <!-- VBL -->
+    <string name="recon_vbl_desc">The VBL, Light Armored Vehicle, is a French 4×4 wheeled light armored vehicle. It was developed in the 1980s.
+The VBL entered service in 1990.
+The VBL is particularly suited for reconnaissance missions due to its reduced dimensions and noise level.
+The basic version has a crew of three: driver, crew commander and scout.
+The VBL can integrate different weapon systems: 7.62mm machine gun on a ring mount, 12.7mm machine gun in a turret, 40mm automatic grenade launcher,
+MILAN or TOW anti-tank missiles. The VBL has amphibious capability and is propelled in water by a propeller.</string>
+
+    <!-- Fennek -->
+    <string name="recon_fennek_desc">The Fennek is a German 4×4 wheeled armored vehicle. It was developed in the 1990s.
+The Fennek entered service in 2003.
+The Fennek has the driver\'s position in the center at the front of the vehicle and two crew members are placed side by side in the central part.
+The powertrain is located at the rear of the vehicle.
+The reconnaissance version is equipped with a retractable optical module. Different models are developed for reconnaissance,
+anti-tank, engineer, air defense, and artillery observation units.
+Armament: 7.62mm / 12.7mm / 40mm automatic grenade launcher.
+Crew: 3.</string>
+
+    <!-- Grizzly -->
+    <string name="recon_grizzly_desc">Unveiled to the general public for the first time during the July 14, 2023 national celebration.
+Designed for reconnaissance and intervention missions for French special forces.
+The Grizzly is equipped with a circular turret capable of receiving heavy weapons, such as the M2HB in 12.7mm caliber or
+the AGL in 40mm caliber, as well as three 7.62mm machine gun mounts.</string>
+
+    <!-- Humvee -->
+    <string name="recon_humvee_desc">The HMMWV, High Mobility Multipurpose Wheeled Vehicle, is a family of American 4×4 wheeled vehicles.
+It was developed in the 1980s.
+The HMMWV entered service in 1984.
+The HMMWV is more commonly called Humvee. It is very widely distributed worldwide.
+From 2018, the HMMWV begins to be replaced by the MRAP category JLTV armored vehicle.</string>
+
+    <!-- Fuchs -->
+    <string name="recon_fuchs_desc">The TPz1 Fuchs is a German 6×6 wheeled armored personnel carrier. It was developed in the late 1970s.
+Armament: 7.62mm machine gun.
+Crew: 2 + 8.</string>
+
+    <!-- Piranha V -->
+    <string name="recon_piranha_v_desc">The Piranha V infantry fighting vehicle (IFV) is the fifth generation variant of the Mowag Piranha vehicle family.
+Place of origin: Switzerland.
+The Piranha V entered service in 2015.
+Used by: Denmark / Monaco / Spain / Romania.</string>
+
+    <!-- BMR-600 -->
+    <string name="recon_bmr600_desc">The BMR-600 is a Spanish 6×6 wheeled armored personnel carrier. It was developed in the 1970s.
+The BMR-600 entered service in 1979.
+Nearly 1,500 BMR-600s have been produced in different versions. It has been exported to Egypt, Saudi Arabia and Peru.
+Armament: 12.7mm, M2HB.
+Crew: 3 + 8.</string>
+
+    <!-- Wiesel -->
+    <string name="recon_wiesel_desc">The Wiesel is a German reconnaissance armored vehicle. It was developed in the 1980s.
+The Wiesel entered service in 1989.
+The Wiesel is developed in two main versions:
+the Wiesel 1 Mk 20 armed with a Mk 20 Rh 202 20mm dual-feed automatic cannon for reconnaissance and fire support missions
+and the Wiesel 1 TOW for anti-tank combat.
+Crew: 2 – Wiesel Mk20 / 3 – Wiesel TOW.</string>
+
+    <!-- Freccia -->
+    <string name="recon_freccia_desc">The VBM Freccia, Veicolo Blindato Medio, is an Italian 8×8 wheeled infantry fighting vehicle. It was developed in the 2000s.
+The Freccia entered service in 2008. The Freccia chassis is developed from the Italian B1 Centauro light tank chassis.
+The Freccia is equipped with a HITFIST 25 Plus two-man turret armed with a 25mm Oerlikon KBA cannon.
+The armament is complemented by two 7.62mm machine guns and the capability to receive Spike anti-tank missiles.
+Crew: 3 + 8.</string>
+
+    <!-- XA-180 -->
+    <string name="recon_xa180_desc">The XA-180 is a Finnish 6×6 wheeled armored personnel carrier. It was developed in the 1980s.
+The XA-180 entered service in 1984.
+The XA-180 is also known as Pasi, Panssari Sisu – Armored Sisu in Finnish.
+It was developed at the request of the Finnish army to replace the Soviet BTR-60 armored personnel carriers.
+The XA-180 is developed in several versions and exported to the Netherlands, Norway, Sweden, Ireland and Estonia.
+Armament: 12.7mm or 7.62mm.
+Crew: 2 + 10 to 16.</string>
+
+    <!-- Pandur-2 -->
+    <string name="recon_pandur2_desc">Pandur II: armored personnel carrier originating from Austria.</string>
+
+    <!-- Cobra -->
+    <string name="recon_cobra_desc">The Cobra is a Turkish 4×4 wheeled combat armored vehicle. It was developed in the 1990s.
+The Cobra is employed by the armed forces of Turkey, Georgia, Azerbaijan, Pakistan,
+Algeria, Bahrain, United Arab Emirates, Kazakhstan, Kosovo, Nigeria, Bangladesh, Macedonia,
+Montenegro and Slovenia.</string>
+
+    <!-- ULAN-30 -->
+    <string name="recon_ulan30_desc">The Ulan is an Austrian infantry fighting vehicle. It was developed in the early 1990s.
+The Ulan entered service in 2001.
+Cannon: 30mm, Mauser MK 30/2.
+Coaxial machine gun: 7.62mm.
+Crew: 3 + 8.</string>
+
+    <!-- Pizarro -->
+    <string name="recon_pizarro_desc">The Pizarro is a Spanish infantry fighting vehicle. It was developed in the early 1990s.
+The Pizarro entered service in 2001.
+The Pizarro was developed as part of the ASCOD program, Austrian Spanish Cooperation Development,
+of the future infantry fighting vehicle for the Austrian and Spanish armed forces.
+The Austrian version, named Ulan, has several differences.
+Cannon: 30mm.
+Coaxial machine gun: 7.62mm.
+Crew: 3 + 8.</string>
+
+    <!-- PTL-02 -->
+    <string name="recon_ptl02_desc">The PTL-02 is a Chinese heavy weapons vehicle. It was developed in the 1990s – early 2000s.
+The PTL-02 entered service in 2012.
+The PTL-02 was developed to provide infantry units with fire support.
+It uses the reinforced chassis of the WZ-551 6×6 wheeled armored personnel carrier.
+The main armament consists of the 100mm cannon. The ammunition load is 30 shells.
+Crew: 4 + 1.</string>
+
+    <!-- Centauro -->
+    <string name="recon_centauro_desc">The B1 Centauro is an Italian 8×8 wheeled light tank. It was developed in the 1980s by the Iveco – Fiat consortium.
+The B1 Centauro entered service in 1991.
+The B1 Centauro is intended for reconnaissance units.
+The rear of the chassis has a door to facilitate access on board and ammunition loading.
+In addition to its crew, four infantrymen can take place at the rear of the vehicle on folding seats,
+in place of part of the ammunition stock. The B1 Centauro is armed with a 105mm stabilized, manually loaded cannon.
+The B1 Centauro chassis gave birth to the VBM Freccia infantry vehicle.</string>
+
+    <!-- AAV -->
+    <string name="recon_aav_desc">The AAV, Assault Amphibious Vehicle, is an American amphibious armored personnel carrier. It was developed in the 1970s.
+The AAV entered service in 1972 under the name LVTP-7.
+Machine gun: M2HB 12.7mm.
+Automatic grenade launcher: Mk19 40mm.
+Crew: 3 + 21.</string>
+
+    <!-- Achzarit -->
+    <string name="recon_achzarit_desc">The Achzarit is an Israeli heavy armored personnel carrier.
+It was developed in the 1980s from the T-55 battle tank chassis.
+The Achzarit entered service in 1988.
+The Achzarit Mk II entered service in 1997.
+It has the new 850 hp engine and reinforced running gear with new road wheels, sprockets and tracks.
+Machine gun: 7.62mm MAG-58 remotely operated or 12.7mm remotely operated.
+Crew: 3 + 7.</string>
+
+    <!-- Jackal -->
+    <string name="recon_jackal_desc">The HMT 400 is a modular armored vehicle.
+It is developed by Supacat from the ATMP chassis in 4×4 HMT 400, 6×6 HMT 600 and 6×6 HMT Extenda Mk2 versions.
+The Jackal carries three crew members and can be employed for reconnaissance missions.
+It has a high level of mine protection and can receive an additional armor kit.
+The armament consists of a 12.7mm heavy machine gun or an automatic grenade launcher and a 7.62mm machine gun.</string>
+
+    <!-- ZTD-05 -->
+    <string name="recon_ztd05_desc">The ZTD-05 is a Chinese Heavy Weapons Vehicle. It was developed in the late 1990s.
+The ZTD-05 entered service in 2005.
+The ZTD-05 uses the chassis of the Chinese ZBD-05 amphibious infantry fighting vehicle, also called Type-05.
+The ZBD-ZTD vehicle family developed for marine infantry units is optimized for landing missions.
+It is equipped with a two-man turret armed with a stabilized 105mm cannon. It can fire while moving on land and water.
+Crew: 4.</string>
+
+    <!-- BMO-T -->
+    <string name="recon_bmot_desc">The BMO-T is a Russian heavy armored personnel carrier.
+It was developed in the 1990s from the T-72 battle tank chassis.
+The BMO-T entered service in 2001 in limited quantities.
+Russia is the only user of the BMO-T.
+Machine gun: 12.7mm.
+Rocket launcher: 30 PRO-A Shmel thermobaric effect.
+Crew: 2 + 7.</string>
+
+    <!-- Stryker -->
+    <string name="recon_stryker_desc">The M1126 Stryker is an American 8×8 wheeled armored personnel carrier.
+It was developed in the late 1990s.
+The M1126 Stryker entered service in 2002.
+The M1126 Stryker is developed from the Canadian LAV-III Kodiak based on the Piranha III armored vehicle mechanics.
+It has the M151 Protector remotely operated weapon station which can receive an M2HB 12.7mm heavy machine gun
+or a Mk 19 40mm automatic grenade launcher.
+Crew: 2 + 9.</string>
+
+    <!-- Namer -->
+    <string name="recon_namer_desc">The Namer is an Israeli heavy armored personnel carrier. It was developed in the 2000s.
+The Namer entered service in 2008.
+The Namer is developed from the Merkava Mk IV battle tank chassis.
+Its armament consists of 12.7mm and/or 7.62mm machine guns.
+In July 2017, the Namer was unveiled in heavy IFV (Infantry Fighting Vehicle) version.
+It is equipped with a remotely operated turret, armed with a 30mm automatic cannon.
+Machine gun: 12.7mm.
+Crew: 3 + 8.</string>
+
+    <!-- Bradley -->
+    <string name="recon_bradley_desc">The M2 Bradley is an American infantry fighting vehicle. It was developed in the 1970s.
+The M2 Bradley entered service in 1981.
+The M2 Bradley is armed with a 25mm Bushmaster cannon.
+From 1986, the M1A1 model receives two TOW anti-tank missiles.
+The M2 Bradley has undergone several modernization campaigns improving its combat capabilities, protection level,
+mobility and various equipment.
+The M2A3 model integrates Battlefield Digitization equipment.
+From the M2 Bradley, a reconnaissance version was developed under the name M3 Bradley.
+Crew: 3 + 7.</string>
+
+    <!-- Marder -->
+    <string name="recon_marder_desc">The SPz Marder is a German infantry fighting vehicle. It was developed in the 1960s.
+The SPz Marder entered service in 1971.
+The SPz Marder is equipped with a two-man turret on the superstructure armed with a 20mm Rh 202 automatic cannon
+and a 7.62mm MG3A1 machine gun.
+The SPz Marder has been delivered to Indonesia, Jordan and Chile. Within the German armed forces,
+the SPz Marder is being replaced by the new SPz Puma infantry fighting vehicle.
+Crew: 3 + 6 to 7.</string>
+
+    <!-- Puma -->
+    <string name="recon_puma_desc">The SPz Puma is a German heavy infantry fighting vehicle. It was developed in the 2000s.
+The SPz Puma was developed to replace the SPz Marder in German mechanized infantry units.
+The SPz Puma is equipped with a remotely operated turret armed with a 30mm MK.30-2 cannon and a 5.56mm coaxial machine gun.
+It has two protection levels. Level A, Air-transportable, with complete mine protection and ballistic protection
+against 30mm ammunition from the front and 14.5mm laterally.
+The SPz Puma level A version remains air-transportable by A-400M transport aircraft.
+Crew: 3 + 6.</string>
+
+    <!-- M-113 -->
+    <string name="recon_m113_desc">The M113 is an American armored personnel carrier. It was developed in the 1950s.
+The M113 entered service in 1960.
+The M113 was developed for infantry units for missions of transporting a group of infantrymen.
+It has undergone several modernization campaigns.
+The M113 is derived into a wide range of specialized vehicles: command post, mortar, medical, air defense,
+engineer vehicle, anti-tank missile launcher, etc. It has been adopted by numerous armed forces worldwide.
+Machine gun: 12.7mm.
+Crew: 2 + 11.</string>
+
+    <!-- Boxer -->
+    <string name="recon_boxer_desc">The Boxer is a German 8×8 wheeled combat armored vehicle. It was developed in the 2000s.
+The Boxer entered service in 2009.
+The Boxer has a modular structure. The chassis, with the engine compartment and driver\'s position,
+can receive different specialized modules.
+The Boxer is offered for export with different equipment configurations and weapon systems.
+They replace part of the M113 and Fuchs TPz 1 vehicle fleet.
+The Boxer is put into service by Lithuania under the designation Vilkas,
+by Australia with licensed production and by the United Kingdom.
+Machine gun: 7.62mm / 12.7mm. / AGL: 40mm.
+Crew: 3 + 8.</string>
+
+    <!-- BMP-1 -->
+    <string name="recon_bmp1_desc">The BMP-1 is a Russian infantry fighting vehicle. It was developed in the Soviet Union in the early 1960s.
+The BMP-1 entered service in 1966.
+The BMP-1, Boyevaya Machina Pekhoty – infantry fighting vehicle, is the first armored vehicle of its category.
+It was developed to strengthen the capabilities of mechanized infantry units.
+The BMP-1 is an amphibious vehicle capable of fighting in NBC environment.
+Its crew consists of the vehicle commander, gunner, driver and eight infantrymen.
+The BMP-1 is equipped with a single-man turret armed with a 73mm 2A28 Grom smoothbore cannon,
+a 7.62mm PKTM coaxial machine gun and the 9M14M Malyutka anti-tank missile, AT-3 Sagger.
+The infantrymen have the ability to fire from inside the vehicle through nine firing ports.
+Between 1966 and 1988, more than 20,000 BMP-1s were built.
+In August 2018, a new version of the BMP-1 was presented under the name BMP-1AM Basurman.</string>
+
+    <!-- BMP-2 -->
+    <string name="recon_bmp2_desc">The BMP-2 is a Russian infantry fighting vehicle. It was developed in the Soviet Union in the 1970s.
+The BMP-2 entered service in 1981.
+The BMP-2 is developed based on the BMP-1 infantry fighting vehicle chassis.
+The powertrain is at the front right and the driver\'s position at the front left. It is amphibious and NBC protected.
+To improve its firepower, the BMP-2 receives a two-man turret, armed with a 30mm 2A42 automatic cannon,
+a 7.62mm PKT coaxial machine gun and anti-tank missiles.
+The BMP-2 is adopted by many armies worldwide.
+Crew: 3 + 7.</string>
+
+    <!-- BMP-3 -->
+    <string name="recon_bmp3_desc">The BMP-3 is a Russian infantry fighting vehicle. It was developed in the Soviet Union in the 1980s.
+The BMP-3 entered service in 1987.
+The BMP-3 is the most heavily armed vehicle of its category. Its armament consists of the 100mm 2A70 low-pressure cannon,
+the 30mm 2A72 automatic cannon, the 7.62mm PKT coaxial machine gun.
+The BMP-3 can fire through the 100mm cannon the 9M117 anti-tank missile of the 9K166-3 Basnya system, AT-12 Swinger.
+The BMP-3 chassis adopts the configuration of the Russian airborne combat armored vehicle family BMD.
+Crew: 3 + 7.</string>
+
+    <!-- BRDM-2 (additional) -->
+    <string name="recon_brdm2_extra_desc">The BRDM-2 is a Russian reconnaissance armored vehicle. It was developed in the Soviet Union in the early 1950s.
+The BRDM-2 entered service in 1962.
+Its armament consists of the 14.5mm KPVT heavy machine gun and the 7.62mm PKT coaxial machine gun,
+identical to the Russian BTR-60/BTR-70/BTR-80 armored personnel carriers.
+The BRDM-2, in different versions, is used by the armed forces of more than 50 countries worldwide.
+Crew: 4.</string>
+
+    <!-- BTR-60 -->
+    <string name="recon_btr60_desc">The BTR-60 is a Russian 8×8 wheeled armored personnel carrier. It was developed in the Soviet Union in the early 1950s.
+The BTR-60 entered service in 1960.
+The BTR-60P open-top version carries two crew members and 12 to 14 infantrymen.
+The armament consists of a manually operated 12.7mm machine gun and one or more 7.62mm machine guns installed on the sides.
+The BTR-60PA version receives a roof and benefits from NBC protection.
+The BTR-60PB version is equipped with a single-man turret armed with the 14.5mm KPVT heavy machine gun and the 7.62mm PKT coaxial machine gun.
+The BTR-60PB carries three crew members and 8 infantrymen.
+The BTR-60, in different versions, is very widely exported worldwide. Within the Soviet army, then Russian, the BTR-60 is replaced from 1976 by the BTR-70.</string>
+
+    <!-- BTR-80 -->
+    <string name="recon_btr80_desc">The BTR-80 is a Russian 8×8 wheeled armored personnel carrier. It was developed in the Soviet Union in the early 1980s.
+The BTR-80 entered service in 1986.
+The BTR-80 has the same architecture as its predecessor the BTR-70, with the engine at the rear of the vehicle.
+Access on board is through double side doors.
+Machine gun: 14.5mm.
+Coaxial machine gun: 7.62mm.
+Crew: 3 + 7.</string>
+
+    <!-- BTR-70 -->
+    <string name="recon_btr70_desc">The BTR-70 is a Russian 8×8 wheeled armored personnel carrier. It was developed in the Soviet Union in the early 1970s.
+The BTR-70 entered service in 1976.
+The BTR-70 has the same architecture as its predecessor the BTR-60.
+The BTR-70 version is equipped with a single-man turret armed with the 14.5mm KPVT heavy machine gun and the 7.62mm PKT coaxial machine gun.
+Crew: 3 + 7.</string>
+
+    <!-- BTR-80A -->
+    <string name="recon_btr80a_desc">The BTR-80A 8x8 armored personnel carrier is designed and manufactured by Russia.
+It is intended for transporting troops on the battlefield and providing close fire support.
+It can also conduct reconnaissance, combat support and patrol missions.
+The first five BTR-80A vehicles were delivered to the Main Directorate of Presidential Security, based in Moscow,
+and were first publicly presented in May 1995.
+The BTR-80A is practically identical to the BTR-80, but it is equipped with a new single-man turret armed with a 30mm 2A72 cannon
+and a 7.62mm PKTM machine gun.
+Crew: 3 + 7.</string>
+
+    <!-- JLTV Falcon -->
+    <string name="recon_jltv_desc">The JLTV, Joint Light Tactical Vehicle, is an American 4×4 wheeled armored vehicle. It was developed in the 2010s,
+as part of the HMMWV replacement program. The JLTV entered service in 2018.
+The JLTV is developed from the L-ATV, Light Combat Tactical All-Terrain Vehicle armored wheeled vehicle.
+It has the ballistic protection level and mine protection of an MRAP, Mine Resistant Ambush Protected level.
+The vehicle can receive different types of armament with remotely operated turrets.
+The JLTV is actively promoted for export.
+Armament: 12.7mm to 20mm.
+Crew: 2 + 2 to 3.</string>
+
+    <!-- Caiman -->
+    <string name="recon_caiman_desc">An MRAP type armored personnel carrier with a V-shaped hull.
+Country: United States. Period of use: 2007 to present. Crew: up to 10 people.
+Capability to install all known combat modules.</string>
+
+    <!-- Casspir -->
+    <string name="recon_casspir_desc">The Casspir is a troop transport vehicle created for the South African police and armed forces in the 1970s.
+It is distinguished by a wide wheelbase and reinforced floor to withstand mines.
+It has a roof-mounted 7.62mm machine gun, but armament is often significantly increased in the field by units using the vehicles.
+To protect the vehicle against mines, the lower part of the hull is raised, reinforced and V-shaped.
+Crew: 2 (+10 passengers).</string>
+
+    <!-- PVP -->
+    <string name="recon_pvp_desc">The PVP, Small Protected Vehicle, is a French 4×4 wheeled light armored vehicle. It was developed in the 2000s.
+The PVP entered service in 2008.
+The PVP has level 2 protection.
+The PVP is employed by the French army and exported to Chile (15 units), Togo (6 units) and Romania (16 units).
+Versions: PVP – 3 doors / PVP – 5 doors / PVP HD – 5 doors, extended.
+Machine gun: 7.62mm.
+Crew: 2 + 3 to 5.</string>
+
+    <!-- URAL Typhoon -->
+    <string name="recon_ural_typhoon_desc">The Ural-63095 / Ural-63099 Typhoon-U is a Russian 6×6 wheeled multi-role armored vehicle. It was developed in the 2010s.
+The Typhoon-U entered service in 2014.
+The Typhoon-U is part of the MRAP type vehicles, Mine Resistant Ambush Protected. It has a V-shaped monocoque hull and is equipped with shock-absorbing seats.
+They are employed in the Southern Military District for troop transport, reconnaissance, as command post vehicle, as CBRN vehicle.
+The vehicle can receive a remotely operated turret equipped with light weapons.
+Machine gun: 12.7mm optional.
+Crew: 3 + 16 Ural-63095 / 2 + 12 Ural-63099.</string>
+
+    <!-- BMP Terminator -->
+    <string name="recon_bmp_terminator_desc">The BMPT Terminator is a Russian heavy combat armored vehicle. It was developed in the 2000s-2010s.
+The BMPT entered service in 2011.
+The BMPT, Boyévaya Machina Podderjki Tankov – tank support combat vehicle, is intended for the fire support mission of tank units by destroying enemy anti-tank means.
+The BMPT Terminator uses the T-72 or T-90 battle tank chassis with the driver\'s position at the front center and the engine at the rear.
+The BMPT has a wide range of armament. The two-man turret on the superstructure is equipped with two 30mm 2A42 cannons,
+a 7.62mm PKT coaxial machine gun and four Ataka-T laser-guided supersonic anti-tank missiles.
+Two AG-17D automatic grenade launchers are installed at the front-left and front-right of the vehicle.
+The AG-17D are controlled, independently of the main armament, by two crew members installed on either side of the driver.
+Crew: 5.</string>
+
+    <!-- Boomerang -->
+    <string name="recon_boomerang_desc">The Boomerang is a project of the Russian 8×8 wheeled combat armored vehicle. It has been in development from the 2010s.
+The Boomerang is expected to enter service in 2019-2020.
+Versions: K-16 Boomerang – APC, armored personnel carrier / K-17 Boomerang – IFV, infantry fighting vehicle.
+K-16 Boomerang armament: Machine gun - 12.7mm.
+K-17 Boomerang armament: Machine gun - 30mm. Missile: 2×2 Kornet.
+Crew: 3 + 7 to 8.</string>
+
+    <!-- MTLB -->
+    <string name="recon_mtlb_desc">The MT-LB is a Russian multi-role transport armored vehicle. It was developed in the Soviet Union in the 1960s.
+The MT-LB entered service in 1964.
+The MT-LB is designed as an artillery tractor and equipment transporter. Subsequently,
+the MT-LB was adopted as a troop transport version, medical evacuation vehicle and platform for installing different systems and equipment.</string>
+
+    <!-- VBCI -->
+    <string name="recon_vbci_desc">The VBCI, Infantry Fighting Vehicle, is a French 8×8 wheeled combat armored vehicle. It was developed in the 2000s.
+The VBCI entered service in 2008.
+The VBCI was developed to replace the tracked AMX-10P infantry fighting vehicle.
+The VBCI is put into service within French Army infantry units in 2008 in two versions: VBCI-VCI,
+Infantry Fighting Vehicle, and VBCI-VPC, Command Post Vehicle.
+The VBCI-VCI version is equipped with the single-man Tarask turret armed with the 25mm M811 dual-feed automatic cannon and
+the 7.62mm MAG 58 coaxial machine gun. It can be used by the vehicle commander in remote control function.
+The VBCI-VPC version is equipped with two SIR stations and is armed with a remotely operated 12.7mm machine gun.
+Crew: 3 + 8.</string>
+
+    <!-- BTR-4 Bucephale -->
+    <string name="recon_btr4_desc">The BTR-4 is a Ukrainian 8×8 wheeled combat armored vehicle. It was developed in the 2000s.
+The BTR-4 entered service in 2011 in the Iraqi army and in 2014 in the Ukrainian army.
+The BTR-4 architecture differs from the lineage of the Soviet BTR-60/70/80 family.
+The BTR-4 is equipped with a remotely operated turret, armed with a 30mm cannon.
+Crew: 3 + 8.</string>
+
+    <!-- Scorpion -->
+    <string name="recon_scorpion_desc">The FV101 Scorpion is a British reconnaissance armored vehicle. It was developed in the 1960s.
+The FV101 Scorpion entered service in 1973.
+The FV101 Scorpion was developed as a reconnaissance vehicle.
+It is armed with the L23A1 76mm cannon and the L43A1 7.62mm coaxial machine gun.
+Scorpion left active service in the British army in 1994.
+Crew: 3.</string>
+
+    <!-- MaxxPro -->
+    <string name="recon_maxxpro_desc">MaxxPro is an armored military transport or recovery vehicle manufactured by the United States.
+It is an MRAP type vehicle with a V-shaped hull to protect against landmines.
+The MaxxPro is armed only with a roof turret that can accommodate a 7.62mm or 12.7mm machine gun but
+also other types of infantry weapons such as a TOW missile or a Mk19 automatic grenade launcher.
+Crew: 2 plus 8.</string>
+
+    <!-- ACV-1 -->
+    <string name="recon_acv1_desc">The SUPERAV is developed by Iveco and BAE Systems under the ACV, Amphibious Combat Vehicle program, for the United States Marine Corps.
+Cannon: up to 30mm.
+Machine gun: 12.7mm.
+Automatic grenade launcher: Mk19 40mm.
+Crew: 3 + 13.</string>
+
+    <!-- Ajax -->
+    <string name="recon_ajax_desc">The Ajax is a British combat armored vehicle. It was developed in the 2010s.
+The Ajax entered service in 2019.
+The Ajax is intended for reconnaissance and combat missions.
+The Ajax uses the tracked chassis of the ASCOD 2 armored vehicle.
+It is equipped with a turret armed with a 40mm CT40/40 CTAS cannon that uses telescoped ammunition and a 7.62mm L94A1 coaxial machine gun. The vehicle is equipped with a remotely operated turret.
+Crew: 2 + 4.</string>
+
+    <!-- Aravis -->
+    <string name="recon_aravis_desc">The VBHP, Highly Protected Armored Vehicle, Aravis is a French 4×4 wheeled armored vehicle. It was developed in the 2000s.
+The VBHP Aravis entered service in 2009.
+Cannon: 20mm.
+Coaxial machine gun: 7.62mm / 12.7mm.
+Crew: 2 + 5.</string>
+
+    <!-- BRM-3K -->
+    <string name="recon_brm3k_desc">The BRM-3K Rys (Lynx in Russian) is a Russian reconnaissance armored vehicle. It was developed in the 1990s.
+The BRM-3K Rys entered service in 1995.
+The BRM-3K Rys is developed on the BMP-3 infantry fighting vehicle chassis for reconnaissance units.
+Its missions are: observation, target detection, position determination of detected targets and intelligence transmission to higher echelons.
+The BRM-3K is equipped with a 1RL-133-3 Doppler effect ground surveillance radar, a laser rangefinder, a thermal camera,
+a navigation system, a data transmission system at a distance of 100 km while moving and 350 km stationary.
+Cannon: 30mm.
+Crew: 3 + 3.</string>
+
+    <!-- BTR-D -->
+    <string name="recon_btrd_desc">The BTR-D is a Russian armored personnel carrier for airborne units.
+It was developed in the Soviet Union in the early 1970s.
+The BTR-D entered service in 1974.
+The BTR-D is developed from the BMD-1 IFV chassis.
+It offers superior internal volume for installing different equipment and weapon systems.
+The BTR-D lacks a turret and can receive one or two 7.62mm machine guns. Amphibious.
+The BTR-D chassis was used for different armored vehicles.
+Machine gun: 7.62mm PKT.
+Crew: 3 + 10.</string>
+
+    <!-- Patria -->
+    <string name="recon_patria_desc">The Patria 6×6 is developed by the Finnish company.
+The vehicle can accommodate two crew members and ten infantrymen.
+The standard armament consists of a 12.7mm heavy machine gun.</string>
+
+    <!-- Cougar -->
+    <string name="recon_cougar_desc">The Cougar is an American MRAP type armored vehicle. It was developed in the 2000s.
+The Cougar entered service in 2002.
+The MRAP, Mine Resistant Ambush Protected, Cougar is designed to provide better protection to its crew against mines and explosive devices.
+The Cougar is developed in 4×4 and 6×6 versions.
+Machine gun: 12.7mm / 7.62mm.
+Crew: 2 + 4 Cougar 4×4 / 2 + 8 Cougar 6×6.</string>
+
+    <!-- Eitan -->
+    <string name="recon_eitan_desc">The Eitan is an Israeli 8×8 wheeled combat armored vehicle project. It is under development.
+The first demonstrator of the Eitan was unveiled by the Israeli Ministry of Defense on September 1, 2016.
+It is being developed to replace the fleet of M113 tracked armored personnel carriers.
+The Eitan can be declined in different versions: APC, wheeled IFV, command, medical evacuation, mortar carrier, engineer, etc.
+Armament: Machine gun: 12.7mm / 7.62mm.
+Crew: 3 + 9.</string>
+
+    <!-- ERC-90 Sagaie -->
+    <string name="recon_erc90_desc">The ERC-90 is a French 6×6 wheeled Heavy Weapons Vehicle. It was developed in the 1970s.
+The ERC-90 entered service in 1979.
+The ERC-90 is mainly used in reconnaissance units.
+The ERC-90 has amphibious capability and is propelled in water with two propellers.
+Cannon: 90mm.
+Crew: 3.</string>
+
+    <!-- Foxhound -->
+    <string name="recon_foxhound_desc">The LPPV, Light Protection Patrol Vehicle, Foxhound is a British 4×4 wheeled armored vehicle. It was developed in the 2000s.
+The Foxhound entered service in 2011.
+Machine gun: 2 x 7.62mm.
+Crew: 2 + 4.</string>
+
+    <!-- Scimitar -->
+    <string name="recon_scimitar_desc">The FV107 Scimitar is a British reconnaissance armored vehicle. It was developed in the 1960s.
+The FV107 Scimitar entered service in 1971.
+The FV107 Scimitar was developed as a reconnaissance vehicle.
+It is equipped with a two-man turret armed with the 30mm L21 Rarden automatic cannon and a 7.62mm coaxial machine gun.
+Crew: 3.</string>
+
+    <!-- GRF Vector -->
+    <string name="recon_grf_vector_desc">The GRF is a Dutch Special Forces vehicle. It was developed in the 2010s.
+The GRF (Ground force) is a light tactical platform air-transportable, specially designed for Special Forces units.
+The GRF can receive different configurations and integrate a wide range of armaments and equipment.
+Armament: M2 Browning 12.7mm. / HK GMG 40mm automatic grenade launcher.
+Crew: 3 + 1.</string>
+
+    <!-- Higuard -->
+    <string name="recon_higuard_desc">The Higuard is a French MRAP type Higuard armored vehicle. It was developed in the 2010s.
+The Higuard entered service in 2012.
+The pronounced V-shaped hull offers a high level of protection against mines and IEDs.
+The vehicle carries two crew members and ten infantrymen.
+The Higuard can receive a remotely operated turret armed with a 12.7mm heavy machine gun, a 7.62mm machine gun or 40mm automatic grenade launcher.</string>
+
+    <!-- Lazar-3 -->
+    <string name="recon_lazar3_desc">The Lazar-3 is a Serbian 8×8 wheeled combat armored vehicle. It was developed in the 2010s.
+The Lazar-3 entered service in 2018.
+The vehicle has five windows on each side and two windows at the rear allowing a good level of observation.
+Each window has a firing port for light weapons.
+In its IFV version, infantry fighting vehicle, the Lazar-3 can receive a turret armed with a 20mm or 30mm automatic cannon.
+The APC version, armored personnel carrier, is equipped with a remotely operated turret armed with a 12.7mm heavy machine gun.
+Armament: 30mm.
+Crew: 3 + 9.</string>
+
+    <!-- LMV Lince -->
+    <string name="recon_lmv_lince_desc">The LMV Lince is an Italian 4×4 wheeled multi-role armored vehicle. It was developed in the 1990s by Iveco.
+The LMV Lince entered service in 2001. The LMV, Light Multirole Vehicle, Lince (Lynx in Italian) is also called M65.
+It is designed for liaison, convoy escort and reconnaissance missions. Its armor protects against small caliber weapons.
+An additional armor kit offers protection against 12.7mm ammunition. The LMV Lince is widely exported worldwide.
+It is employed by the British army under the name Panther. Within the Russian army, it is employed under the name Rys, assembled under license by Kamaz.
+Crew: 1 + 4.</string>
+
+    <!-- Luchs -->
+    <string name="recon_luchs_desc">The SpPz Luchs is a German 8×8 wheeled reconnaissance armored vehicle. It was developed in the 1960s-1970s.
+The SpPz Luchs entered service in 1975. The SpPz, Spähpanzer, Luchs (Lynx) was developed for reconnaissance units.
+To optimize its mobility capability, it has an original architecture. The chassis has two driver positions installed at the front and rear.
+The vehicle can turn around and go in the opposite direction after being taken over by the rear driver.
+The SpPz Luchs is an amphibious vehicle, propelled in water with two propellers. The SpPz Luchs is equipped with a two-man turret, armed with the 20mm MK-20 Rh-202 cannon.
+In 1985, the Luchs A2 model receives a thermal camera. Within the German army, the Luchs is replaced by the Fennek 4×4 wheeled reconnaissance vehicle.
+Crew: 4.</string>
+
+    <!-- Pars-3 -->
+    <string name="recon_pars3_desc">The Pars III is a Turkish 8×8 wheeled combat armored vehicle. It was developed in the 2000s-2010s.
+The Pars III entered service in 2017. The Pars III, with a maximum weight of 30 tons, is equipped with a single-man Saber turret
+armed with the Orbital ATK M242 Bushmaster dual-feed automatic cannon and a 7.62mm coaxial machine gun.
+Its crew is three men and nine equipped infantrymen.
+Armament: 25mm.
+Crew: 3 + 9.</string>
+
+    <!-- LAV-25 -->
+    <string name="recon_lav25_desc">The LAV-25, Light Armoured Vehicle 25mm, is an American reconnaissance armored vehicle. It was developed in the 1970s-1980s.
+The LAV-25 entered service in 1983. The LAV-25 is employed within reconnaissance units.
+The LAV-25 is based on the 8×8 wheeled Piranha armored vehicle chassis.
+The LAV-25 is equipped with a two-man turret derived from the M2 Bradley infantry fighting vehicle.
+The armament consists of the 25mm M242 Bushmaster automatic cannon, a 7.62mm M240 coaxial machine gun.
+Crew: 3 + 6.</string>
+
+    <!-- Titus -->
+    <string name="recon_titus_desc">The Titus is a French 6×6 wheeled armored vehicle. It was developed in the 2010s by Nexter Systems.
+The vehicle can accommodate up to twelve infantrymen in addition to its crew of two to three men.
+The Titus has a high level of ballistic and mine protection.
+It can receive a remotely operated turret armed with a 20mm automatic cannon, a 12.7mm heavy machine gun or
+a 40mm automatic grenade launcher.
+Crew: 2-3 + 12.</string>
+
+    <!-- Typhoon-K -->
+    <string name="recon_typhoon_k_desc">The KamAZ-53949 Typhoon-K is a Russian 4×4 wheeled multi-role armored vehicle. It was developed in the 2010s.
+The Typhoon-K entered service in 2019. The 4×4 Typhoon-K is part of the MRAP type vehicles, Mine Resistant Ambush Protected.
+It has a V-shaped monocoque hull and is equipped with shock-absorbing seats.
+Armament: 12.7mm.
+Crew: 2 + 8.</string>
+
+    <!-- Griffon -->
+    <string name="recon_griffon_desc">The VBMR Griffon (Multi-Role Armored Vehicle) is a French 6×6 wheeled armored personnel carrier.
+It was developed by Nexter Systems. The VBMR Griffon entered service in 2019.
+Armament: 12.7mm / Automatic grenade launcher: 40mm.
+Crew: 2 + 8.</string>
+
+    <!-- VCR Panhard -->
+    <string name="recon_vcr_desc">The VCR, Wheeled Combat Vehicle, is a French 6×6 wheeled combat armored vehicle. It was developed in the 1970s.
+The VCR entered service in 1979. The VCR is based on the 4×4 wheeled M3 vehicle.
+It has the same running gear and engine as the ERC-90 Sagaie heavy weapons vehicle.
+The VCR is produced in several versions. The main version is the VCR/TT, Troop Transport.
+It can receive a 7.62mm machine gun or a 12.7mm heavy machine gun.
+The specific versions are equipped with HOT missiles, Milan missiles or a 20mm cannon.
+Crew: 3 + 9.</string>
+
+    <!-- GBC 180 -->
+    <string name="recon_gbc180_desc">GBC 180 - Gazelle Berliet Cargo (180 hp). It is mainly intended to transport personnel, freight or shelters
+and to perform specialized recovery (lot 7) and fuel supply (CCT) missions.
+All GBC 180 "torpedo cab platform with tarpaulin" are pre-equipped to receive a 12.7 ring mount.
+The GBC 180 is a 6 x 6 tactical vehicle, able to carry three people in the cab.</string>
+
+    <!-- ACMAT VT4 -->
+    <string name="recon_acmat_vt4_desc">Light command and liaison vehicle, unarmored, the 4X4 tactical vehicle (VT4) is a militarized 4x4 type,
+intended to provide liaisons for 5 soldiers or 4 FELIN equipped combatants in an operational context
+(domestic operations like Sentinelle or external operations in stabilization and normalization phase)
+and operational preparation (activity safety, maneuvers, training).
+The VT4 is a versatile light tactical vehicle replacing the P4 vehicle (Peugeot 4 wheel drive).
+It combines modernity, power, crossing capacity and has a complete driving profile
+(on road, on tracks and off-road).
+Pre-equipped to receive the window protection grille kit
+Pre-equipped to receive two PR4G radios,
+a command system type tactical touch computer and a GPS
+Equipped with light source concealment systems (black-out).
+Empty weight (EW): 2.66 tons.
+Payload: 770 kg.
+Range: 800 km.
+Crew: 5 soldiers or 4 combatants with FELIN gear and equipment.</string>
+
+    <!-- Peugeot P4 -->
+    <string name="recon_p4_desc">The Peugeot P4 is a light four-wheel drive vehicle produced by French automaker Peugeot from 1982 to 1992.
+Although equipped and powered by Peugeot, the P4 is a variant of the Mercedes-Benz G-Class built under license.</string>
+
+    <!-- Masstech T4 -->
+    <string name="recon_masstech_t4_desc">The Masstech T4 is a French light military vehicle, based on the Toyota Land Cruiser HZJ 76
+and modified by the company Technamm. In particular, the vehicle is equipped with a PR4G radio, a SITEL terminal and a DAGR GPS.
+It can carry four equipped combatants or five passengers. Deployed only in France with Operation Sentinelle,
+its engine, rustic and compatible with African and military fuels, authorizes its deployment in OPEX.</string>
+
+    <!-- TRM 2000 -->
+    <string name="recon_trm2000_desc">The Renault TRM 2000 is a French 4 wheel drive military truck
+(attested by its initials: Toutes Roues Motrices) designed for support missions in difficult terrain.
+It was produced from 1982 to 1990.</string>
+
+    <!-- VAB -->
+    <string name="recon_vab_desc">The VAB, Forward Armored Vehicle, is a French wheeled armored personnel carrier.
+The VAB entered service in 1976. The VAB is developed in 4×4 and 6×6 configurations.
+The VAB engine is installed behind the driver\'s position.
+A wide range of armored vehicles is developed on the VAB chassis.
+Among the main versions are the VAB PC Command post, VAB T20-13 with a 20mm cannon,
+VAB Mephisto with four HOT anti-tank missiles, VAB Engineer, VAB Medical, VAB CBRN Reconnaissance, VAB RASIT with a ground surveillance radar.
+Machine gun: 12.7mm.
+Crew: 2 + 10.
+Engine: V6 diesel, 220 hp.</string>
+
+    <!-- EE3 Jararaca -->
+    <string name="recon_ee3_desc">It was a very light four-wheeled reconnaissance vehicle, Brazilian army.
+In the 1970s and 1980s, the Brazilian army bought about 1,300 armored vehicles from Engesa,
+and 2,000 more vehicles were exported to other countries, especially to Arab states
+and in Africa in general (Libya, Tunisia and Iraq being the largest buyers).
+Crew: 3.
+Armament: 12.7mm machine gun.</string>
+
+    <!-- URAL-4320 -->
+    <string name="recon_ural4320_desc">The Ural-4320 is an all-terrain military truck produced by Ural Automotive Plant since 1976.
+This vehicle was designed to meet the Soviet army\'s needs for transporting troops and equipment
+in difficult conditions, such as rough terrain or extreme environments.</string>
+
+    <!-- BMD-1 -->
+    <string name="recon_bmd1_desc">The BMD-1 is a Russian infantry fighting vehicle for airborne units.
+It was developed in the Soviet Union in the early 1960s.
+The BMD-1 entered service in 1969.
+The single-man turret is armed with a 73mm 2A28 Grom cannon, a 7.62mm PKT coaxial machine gun.
+Crew: 2 + 5.</string>
+
+    <!-- BMD-2 -->
+    <string name="recon_bmd2_desc">The BMD-2 is a Russian infantry fighting vehicle for airborne units.
+It was developed in the Soviet Union in the early 1980s.
+The BMD-2 is developed from the BMD-1 chassis.
+It has the new weapon system with a single-man turret armed with the 30mm 2A42 cannon and
+a 7.62mm PKT coaxial machine gun.
+For anti-tank combat, it is equipped with a system capable of firing 9M111 Fagot AT-4 or 9M113 Konkurs AT-5 anti-tank missiles.
+Crew: 2 + 5.</string>
+
+    <!-- BMD-3 -->
+    <string name="recon_bmd3_desc">The BMD-3 is a Russian infantry fighting vehicle for airborne units.
+It was developed in the Soviet Union in the 1980s.
+The BMD-3 entered service in 1990.
+In the 1980s, the USSR sought to develop a new air-droppable infantry fighting vehicle to replace the BMD-1 and BMD-2 family.
+The BMD-3 is air-droppable.
+Cannon: 30mm 2A42 x100.2 calibers.
+Coaxial machine gun: 7.62mm PKT.
+Automatic hood grenade launcher: 30mm AG-17.
+Crew: 2 + 5.</string>
+
+    <!-- BMD-4 -->
+    <string name="recon_bmd4_desc">The BMD-4 is a Russian infantry fighting vehicle for airborne units. It was developed in the early 2000s.
+The BMD-4 entered service in 2004 in limited quantities.
+The BMD-4 has the same five-road-wheel chassis as its predecessor the BMD-3.
+The vehicle receives a new Bakhtcha-U turret which significantly increases firepower.
+The Bakhtcha-U turret is derived from the BMP-3 weapon system. It is equipped with a 100mm 2A70 cannon,
+a 30mm 2A72 automatic cannon and a 7.62mm PKT coaxial machine gun.
+The BMD-4 is air-droppable and optimized for airborne operations.
+Crew: 2 + 5.</string>
+
+    <!-- ZBD-05 -->
+    <string name="recon_zbd05_desc">The ZBD-05 is a Chinese amphibious infantry fighting vehicle. It was developed in the 2000s.
+The ZBD-05 entered service in 2005.
+The ZBD-05 is developed specifically for marine infantry units. The vehicle was unveiled in 2006 under the designation ZBD-2000.
+To improve its amphibious qualities, the ZBD-05 is equipped with a large front plow blade.
+The ZBD-05 is equipped with a two-man turret armed with the 30mm ZPT-99 automatic cannon, a 7.62mm coaxial machine gun and HJ-73C anti-tank missiles.
+The vehicle accommodates three crew members and nine equipped infantrymen.
+Several vehicles are developed on the ZTD-05 chassis.</string>
+
+</resources>
