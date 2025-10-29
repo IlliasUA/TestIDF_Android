@@ -118,26 +118,31 @@ fun AppNavigationWithSubscription(
             )
         }
 
-        // ИЗМЕНЕНО: Всегда начинаем с главного меню
-        val startDestination = "main_menu"
+        // ИЗМЕНЕНО: Начинаем с проверки подписки через обёртку главного меню
+        val startDestination = "main_menu_check"
 
         NavHost(navController, startDestination = startDestination) {
-            // Экран подписки (показывается при переходе в test_menu)
+            // НОВОЕ: Проверка подписки перед главным меню
+            composable("main_menu_check") {
+                MainMenuScreenWithSubscription(navController, subscriptionViewModel)
+            }
+
+            // Экран подписки
             composable("subscription") {
                 SubscriptionScreen(navController, subscriptionViewModel)
             }
 
-            // Главное меню доступно всегда
+            // Главное меню (доступно после проверки подписки)
             composable("main_menu") {
                 MainMenuScreen(navController = navController)
             }
 
-            // НОВОЕ: Test menu с проверкой подписки
+            // Test menu доступен напрямую (подписка уже проверена)
             composable("test_menu") {
-                TestMenuScreenWithSubscription(navController, subscriptionViewModel)
+                TestMenuScreen(navController = navController)
             }
 
-            // Все остальные маршруты (защищены подпиской через test_menu)
+            // Все остальные маршруты
             composable("creation") {
                 CreationScreen(
                     navController = navController,
@@ -243,10 +248,11 @@ fun AppNavigationWithSubscription(
 }
 
 /**
- * НОВОЕ: Обёртка для TestMenuScreen с проверкой подписки
+ * НОВОЕ: Обёртка для MainMenuScreen с проверкой подписки
+ * Проверка выполняется ПЕРЕД показом главного меню
  */
 @Composable
-fun TestMenuScreenWithSubscription(
+fun MainMenuScreenWithSubscription(
     navController: androidx.navigation.NavController,
     subscriptionViewModel: SubscriptionViewModel = viewModel()
 ) {
@@ -254,12 +260,12 @@ fun TestMenuScreenWithSubscription(
 
     when {
         subscriptionState.isLoading -> {
-            // Показываем экран загрузки
+            // Показываем экран загрузки/проверки подписки
             SubscriptionScreen(navController, subscriptionViewModel)
         }
         subscriptionState.isActive -> {
-            // Подписка активна - показываем TestMenuScreen
-            TestMenuScreen(navController)
+            // Подписка активна - показываем MainMenuScreen
+            MainMenuScreen(navController)
         }
         else -> {
             // Нет подписки - показываем экран подписки
