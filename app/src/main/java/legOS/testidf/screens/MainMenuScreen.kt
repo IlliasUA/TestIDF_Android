@@ -15,14 +15,12 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import kotlinx.coroutines.delay
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -33,7 +31,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
+import androidx.core.view.WindowCompat
 import androidx.navigation.NavController
+import kotlinx.coroutines.delay
 import legOS.testidf.LocaleManager
 import legOS.testidf.R
 import legOS.testidf.components.LanguageButton
@@ -43,14 +43,43 @@ import java.io.IOException
 @Composable
 fun MainMenuScreen(navController: NavController) {
     val context = LocalContext.current
-    val activity = context as? Activity
+    val activity = context as? ComponentActivity
     val configuration = LocalConfiguration.current
-    val windowSizeClass = calculateWindowSizeClass(activity = context as ComponentActivity)
+    val windowSizeClass = calculateWindowSizeClass(activity = activity!!)
     val density = LocalDensity.current
     val showQuitConfirmation = remember { mutableStateOf(false) }
 
-    // Получаем текущий язык
+    // Получаем текующий язык
     val currentLanguage = remember { mutableStateOf(LocaleManager.getCurrentLanguage(context)) }
+
+    // Состояние загрузки при смене языка
+    val isChangingLanguage = remember { mutableStateOf(false) }
+
+    // Триггер для пересоздания Activity
+    val recreateTrigger = remember { mutableStateOf(false) }
+
+    // Обработчик смены языка с экраном загрузки
+    val onLanguageChange: (LocaleManager.Language) -> Unit = { newLanguage ->
+        isChangingLanguage.value = true
+        LocaleManager.setLanguage(context, newLanguage)
+        currentLanguage.value = newLanguage
+
+        // Переприменяем edge-to-edge перед recreate
+        activity?.window?.let { window ->
+            WindowCompat.setDecorFitsSystemWindows(window, false)
+        }
+
+        // Активируем триггер для LaunchedEffect
+        recreateTrigger.value = !recreateTrigger.value
+    }
+
+    // LaunchedEffect для пересоздания Activity (вызывается при изменении триггера)
+    LaunchedEffect(recreateTrigger.value) {
+        if (isChangingLanguage.value) {
+            delay(300) // Небольшая задержка для отображения загрузки
+            activity?.recreate()
+        }
+    }
 
     // Tailles adaptatives basées sur la densité de l'écran et la taille de la fenêtre
     val screenHeightDp = with(density) { configuration.screenHeightDp.dp }
@@ -85,48 +114,70 @@ fun MainMenuScreen(navController: NavController) {
             )
         }
 
-        // Contenu avec marges sécurisées
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .systemBarsPadding()
-        ) {
-            // Mise en page adaptative
-            when {
-                windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact -> {
-                    MainMenuCompactLayout(
-                        navController = navController,
-                        showQuitConfirmation = showQuitConfirmation,
-                        isLandscape = isLandscape,
-                        isCompactHeight = isCompactHeight,
-                        screenWidth = screenWidthDp,
-                        screenHeight = screenHeightDp
+        // Экран загрузки при смене языка
+        if (isChangingLanguage.value) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.7f)),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(64.dp),
+                        color = MaterialTheme.colorScheme.primary
                     )
-                }
-                else -> {
-                    MainMenuLargeLayout(
-                        navController = navController,
-                        showQuitConfirmation = showQuitConfirmation,
-                        isLandscape = isLandscape,
-                        isCompactHeight = isCompactHeight,
-                        screenWidth = screenWidthDp,
-                        screenHeight = screenHeightDp
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = stringResource(R.string.loading),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.White
                     )
                 }
             }
-
-            // Bouton de changement de langue (coin supérieur droit)
-            LanguageButton(
-                currentLanguage = currentLanguage.value,
-                onLanguageChange = { newLanguage ->
-                    LocaleManager.setLanguage(context, newLanguage)
-                    currentLanguage.value = newLanguage
-                    activity?.recreate()
-                },
+        } else {
+            // Contenu avec marges sécurisées
+            Box(
                 modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(16.dp)
-            )
+                    .fillMaxSize()
+                    .systemBarsPadding()
+            ) {
+                // Mise en page adaptative
+                when {
+                    windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact -> {
+                        MainMenuCompactLayout(
+                            navController = navController,
+                            showQuitConfirmation = showQuitConfirmation,
+                            isLandscape = isLandscape,
+                            isCompactHeight = isCompactHeight,
+                            screenWidth = screenWidthDp,
+                            screenHeight = screenHeightDp
+                        )
+                    }
+                    else -> {
+                        MainMenuLargeLayout(
+                            navController = navController,
+                            showQuitConfirmation = showQuitConfirmation,
+                            isLandscape = isLandscape,
+                            isCompactHeight = isCompactHeight,
+                            screenWidth = screenWidthDp,
+                            screenHeight = screenHeightDp
+                        )
+                    }
+                }
+
+                // Bouton de changement de langue (coin supérieur droit)
+                LanguageButton(
+                    currentLanguage = currentLanguage.value,
+                    onLanguageChange = onLanguageChange,
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(16.dp)
+                )
+            }
         }
     }
 

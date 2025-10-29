@@ -42,11 +42,15 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // ✅ НОВОЕ: Включаем edge-to-edge для Android 15+
+        // ✅ КРИТИЧНО: Включаем edge-to-edge для Android 15+
+        // Это нужно делать КАЖДЫЙ РАЗ при создании/пересоздании Activity
         enableEdgeToEdge()
 
-        // ✅ НОВОЕ: Настраиваем window для правильной работы с системными панелями
+        // ✅ КРИТИЧНО: Настраиваем window для правильной работы с системными панелями
+        // Это обеспечивает работу на весь экран без отступов
         WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        Log.d("MainActivity", "onCreate: edge-to-edge applied, DecorFitsSystemWindows = false")
 
         setContent {
             MaterialTheme {
@@ -58,6 +62,15 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // ✅ ДОПОЛНИТЕЛЬНО: Переприменяем настройки при возврате в приложение
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        Log.d("MainActivity", "onResume: DecorFitsSystemWindows reapplied")
     }
 }
 
