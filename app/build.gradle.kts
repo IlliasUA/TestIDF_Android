@@ -14,7 +14,7 @@ android {
         applicationId = "legOS.testidf"
         minSdk = 24
         targetSdk = 35
-        versionCode = 17  // Увеличена версия для нового релиза с исправлениями
+        versionCode = 18  // Увеличена версия для нового релиза с исправлениями
         versionName = "1.2.2"  // Обновлена версия
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -34,15 +34,28 @@ class MainActivity : ComponentActivity() {
 
     /**
      * КРИТИЧНО: Переопределяем attachBaseContext для применения языка
+     * Этот метод вызывается ДО onCreate() и позволяет установить язык
+     * до загрузки ресурсов
      */
     override fun attachBaseContext(newBase: Context) {
-        val context = LocaleManager.applyLanguage(newBase)
+        Log.d("MainActivity", "========================================")
+        Log.d("MainActivity", "attachBaseContext called")
+
+        // Применяем сохраненный язык
+        val context = LocaleManager.applyLanguageSimple(newBase)
+
+        val currentLang = LocaleManager.getCurrentLanguage(context)
+        Log.d("MainActivity", "Language applied in attachBaseContext: ${currentLang.code}")
+
         super.attachBaseContext(context)
-        Log.d("MainActivity", "attachBaseContext: Language applied")
+        Log.d("MainActivity", "========================================")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.d("MainActivity", "========================================")
+        Log.d("MainActivity", "onCreate called")
 
         // ✅ КРИТИЧНО: Принудительно переприменяем язык в onCreate
         // Это гарантирует корректную работу на реальных устройствах
@@ -50,6 +63,7 @@ class MainActivity : ComponentActivity() {
 
         val savedLanguage = LocaleManager.getCurrentLanguage(this)
         Log.d("MainActivity", "onCreate: Current language = ${savedLanguage.code}")
+        Log.d("MainActivity", "Current Locale.getDefault() = ${java.util.Locale.getDefault().language}")
 
         // ✅ Включаем edge-to-edge для Android 15+
         enableEdgeToEdge()
@@ -63,6 +77,7 @@ class MainActivity : ComponentActivity() {
                 )
 
         Log.d("MainActivity", "onCreate: Setup complete")
+        Log.d("MainActivity", "========================================")
 
         setContent {
             MaterialTheme {
@@ -79,8 +94,15 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
 
+        Log.d("MainActivity", "========================================")
+        Log.d("MainActivity", "onResume called")
+
         // ✅ Переприменяем язык при возврате в приложение
+        // Это важно для случаев, когда пользователь меняет системный язык
         LocaleManager.forceApplyLanguage(this)
+
+        val currentLang = LocaleManager.getCurrentLanguage(this)
+        Log.d("MainActivity", "onResume: Language = ${currentLang.code}")
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
@@ -92,6 +114,17 @@ class MainActivity : ComponentActivity() {
                 )
 
         Log.d("MainActivity", "onResume: Language and UI reapplied")
+        Log.d("MainActivity", "========================================")
+    }
+
+    /**
+     * НОВОЕ: Переопределяем onRestart для дополнительной надёжности
+     */
+    override fun onRestart() {
+        super.onRestart()
+
+        Log.d("MainActivity", "onRestart called - reapplying language")
+        LocaleManager.forceApplyLanguage(this)
     }
 }
 

@@ -29,13 +29,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
-import androidx.core.view.WindowCompat
 import androidx.navigation.NavController
 import legOS.testidf.LocaleManager
 import legOS.testidf.R
 import legOS.testidf.components.LanguageButton
 import java.io.IOException
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -50,16 +48,30 @@ fun MainMenuScreen(navController: NavController) {
     // Получаем текующий язык
     val currentLanguage = remember { mutableStateOf(LocaleManager.getCurrentLanguage(context)) }
 
+    // ИСПРАВЛЕНО v2: Новый обработчик смены языка
     val onLanguageChange: (LocaleManager.Language) -> Unit = { newLanguage ->
-        Log.d("MainMenuScreen", "=== Language change requested: ${newLanguage.code} ===")
+        Log.d("MainMenuScreen", "========================================")
+        Log.d("MainMenuScreen", "Language change requested: ${newLanguage.code}")
+        Log.d("MainMenuScreen", "Current language: ${currentLanguage.value.code}")
 
-        // Сохраняем язык (это также обновит Application Context если доступен)
-        LocaleManager.setLanguage(context, newLanguage)
+        if (newLanguage != currentLanguage.value) {
+            Log.d("MainMenuScreen", "Language is different, applying change...")
 
-        Log.d("MainMenuScreen", "Language saved, recreating Activity...")
+            // Шаг 1: Подготавливаем контекст и сохраняем язык
+            LocaleManager.setLanguageAndPrepareRecreate(context, newLanguage)
 
-        // Пересоздаем Activity - LocaleManager уже обновил все что нужно
-        activity?.recreate()
+            Log.d("MainMenuScreen", "Language prepared, recreating Activity...")
+
+            // Шаг 2: Пересоздаем Activity
+            // После recreate() автоматически вызовется attachBaseContext
+            // который загрузит сохраненный язык
+            activity?.recreate()
+
+            Log.d("MainMenuScreen", "Activity.recreate() called")
+        } else {
+            Log.d("MainMenuScreen", "Language is the same, ignoring")
+        }
+        Log.d("MainMenuScreen", "========================================")
     }
 
     // Tailles adaptatives basées sur la densité de l'écran et la taille de la fenêtre
