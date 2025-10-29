@@ -32,10 +32,6 @@ import java.io.IOException
 
 class MainActivity : ComponentActivity() {
 
-    /**
-     * КРИТИЧНО: Переопределяем attachBaseContext для применения языка
-     * Вызывается при создании базового контекста Activity
-     */
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(LocaleManager.applyLanguage(newBase))
     }
@@ -43,23 +39,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // ✅ КРИТИЧНО: Переприменяем выбранный язык в onCreate
-        // Это гарантирует, что язык сохраняется после recreate()
-        // Обновляем ресурсы с сохраненным языком
         val savedLanguage = LocaleManager.getCurrentLanguage(this)
         LocaleManager.setLanguage(this, savedLanguage)
 
         Log.d("MainActivity", "onCreate: Current language = ${savedLanguage.code}")
 
-        // ✅ КРИТИЧНО: Включаем edge-to-edge для Android 15+
-        // Это нужно делать КАЖДЫЙ РАЗ при создании/пересоздании Activity
         enableEdgeToEdge()
-
-        // ✅ КРИТИЧНО: Настраиваем window для правильной работы с системными панелями
-        // Это обеспечивает работу на весь экран без отступов
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        // ✅ ДОПОЛНИТЕЛЬНО: Принудительно устанавливаем флаги системного UI
         @Suppress("DEPRECATION")
         window.decorView.systemUiVisibility = (
                 android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
@@ -67,7 +54,7 @@ class MainActivity : ComponentActivity() {
                         android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 )
 
-        Log.d("MainActivity", "onCreate: edge-to-edge applied, DecorFitsSystemWindows = false")
+        Log.d("MainActivity", "onCreate: edge-to-edge applied")
 
         setContent {
             MaterialTheme {
@@ -75,7 +62,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     contentColor = MaterialTheme.colorScheme.onBackground
                 ) {
-                    AppNavigationWithSubscription()
+                    AppNavigation()
                 }
             }
         }
@@ -84,10 +71,8 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
 
-        // ✅ ДОПОЛНИТЕЛЬНО: Переприменяем настройки при возврате в приложение
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        // ✅ ДОПОЛНИТЕЛЬНО: Переприменяем флаги системного UI
         @Suppress("DEPRECATION")
         window.decorView.systemUiVisibility = (
                 android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
@@ -95,25 +80,23 @@ class MainActivity : ComponentActivity() {
                         android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 )
 
-        Log.d("MainActivity", "onResume: DecorFitsSystemWindows and UI flags reapplied")
+        Log.d("MainActivity", "onResume: UI flags reapplied")
     }
 }
 
 @Composable
-fun AppNavigationWithSubscription(
-    subscriptionViewModel: SubscriptionViewModel = viewModel()
-) {
+fun AppNavigation() {
     val navController = rememberNavController()
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // Фоновое изображение с прозрачностью 75%
+        // Фоновое изображение
         val context = LocalContext.current
         val backgroundBitmap = try {
             context.assets.open("images/background.png").use { inputStream ->
                 BitmapFactory.decodeStream(inputStream)
             }
         } catch (e: IOException) {
-            Log.e("AppNavigation", "Failed to load background image from images/background.png", e)
+            Log.e("AppNavigation", "Failed to load background image", e)
             null
         }
         backgroundBitmap?.let {
@@ -127,31 +110,27 @@ fun AppNavigationWithSubscription(
             )
         }
 
-        // ИЗМЕНЕНО: Начинаем с проверки подписки через обёртку главного меню
-        val startDestination = "main_menu_check"
+        // ✅ ИЗМЕНЕНО: Стартуем с главного меню БЕЗ проверки подписки
+        val startDestination = "main_menu"
 
         NavHost(navController, startDestination = startDestination) {
-            // НОВОЕ: Проверка подписки перед главным меню
-            composable("main_menu_check") {
-                MainMenuScreenWithSubscription(navController, subscriptionViewModel)
-            }
-
-            // Экран подписки
-            composable("subscription") {
-                SubscriptionScreen(navController, subscriptionViewModel)
-            }
-
-            // Главное меню (доступно после проверки подписки)
+            // ✅ Главное меню - доступно сразу, БЕЗ проверки подписки
             composable("main_menu") {
                 MainMenuScreen(navController = navController)
             }
 
-            // Test menu доступен напрямую (подписка уже проверена)
+            // ✅ КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: Test menu с проверкой подписки
+            // Проверка подписки происходит ЗДЕСЬ, при переходе в меню тестов
             composable("test_menu") {
-                TestMenuScreen(navController = navController)
+                TestMenuScreenWithSubscription(navController, viewModel())
             }
 
-            // Все остальные маршруты
+            // Экран подписки
+            composable("subscription") {
+                SubscriptionScreen(navController, viewModel())
+            }
+
+            // Все остальные маршруты остаются без изменений
             composable("creation") {
                 CreationScreen(
                     navController = navController,
@@ -175,7 +154,6 @@ fun AppNavigationWithSubscription(
             composable("chef_sessions") {
                 ChefSessionsScreen(navController)
             }
-
             composable("session_results/{sessionId}") { backStackEntry ->
                 val sessionId = backStackEntry.arguments?.getString("sessionId") ?: ""
                 SessionResultsScreen(navController, sessionId)
@@ -184,14 +162,12 @@ fun AppNavigationWithSubscription(
                 val sessionId = backStackEntry.arguments?.getString("sessionId") ?: ""
                 TakeTestScreen(navController, sessionId)
             }
-
             composable("test_completed") {
                 TestCompletedScreen(navController)
             }
             composable("participant_registration") {
                 ParticipantRegistrationScreen(navController)
             }
-
             composable("participant_waiting") {
                 ParticipantWaitingScreen(navController)
             }
@@ -257,27 +233,34 @@ fun AppNavigationWithSubscription(
 }
 
 /**
- * НОВОЕ: Обёртка для MainMenuScreen с проверкой подписки
- * Проверка выполняется ПЕРЕД показом главного меню
+ * ✅ КЛЮЧЕВАЯ ФУНКЦИЯ: Обёртка для TestMenuScreen с проверкой подписки
+ *
+ * Проверка подписки происходит ТОЛЬКО при переходе в Test Menu,
+ * а не при запуске приложения
  */
 @Composable
-fun MainMenuScreenWithSubscription(
+fun TestMenuScreenWithSubscription(
     navController: androidx.navigation.NavController,
     subscriptionViewModel: SubscriptionViewModel = viewModel()
 ) {
     val subscriptionState by subscriptionViewModel.uiState.collectAsState()
 
+    Log.d("TestMenuWithSub", "State: loading=${subscriptionState.isLoading}, active=${subscriptionState.isActive}, testMode=${subscriptionState.isTestMode}")
+
     when {
         subscriptionState.isLoading -> {
             // Показываем экран загрузки/проверки подписки
+            Log.d("TestMenuWithSub", "Showing subscription check screen")
             SubscriptionScreen(navController, subscriptionViewModel)
         }
-        subscriptionState.isActive -> {
-            // Подписка активна - показываем MainMenuScreen
-            MainMenuScreen(navController)
+        subscriptionState.isActive || subscriptionState.isTestMode -> {
+            // Подписка активна ИЛИ тест мод - показываем TestMenuScreen
+            Log.d("TestMenuWithSub", "Subscription active, showing TestMenuScreen")
+            TestMenuScreen(navController)
         }
         else -> {
             // Нет подписки - показываем экран подписки
+            Log.d("TestMenuWithSub", "No subscription, showing subscription screen")
             SubscriptionScreen(navController, subscriptionViewModel)
         }
     }

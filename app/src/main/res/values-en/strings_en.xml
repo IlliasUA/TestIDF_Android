@@ -13,7 +13,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="copyright">© 2025 IliaUA. All Rights Reserved.</string>
-    <string name="privacy_notice">By using this app, you agree to our Privacy Policy and Terms of Use, which are specified in the "Info" section.</string>
+    <string name="privacy_notice">By using this app, you agree to our Privacy Policy and Terms of Use, which are specified in the \"Info\" section.</string>
 
     <!-- Test menu -->
     <string name="return_tab">Back</string>

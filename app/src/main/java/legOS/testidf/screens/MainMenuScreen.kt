@@ -19,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
-import kotlinx.coroutines.delay
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -50,72 +49,17 @@ fun MainMenuScreen(navController: NavController) {
     // Получаем текующий язык
     val currentLanguage = remember { mutableStateOf(LocaleManager.getCurrentLanguage(context)) }
 
-    // Состояние загрузки при смене языка
-    val isChangingLanguage = remember { mutableStateOf(false) }
-
-    // Триггер для пересоздания Activity
-    val recreateTrigger = remember { mutableStateOf(false) }
-
-    // Обработчик смены языка с экраном загрузки
+    // УПРОЩЕННАЯ ЛОГИКА: Просто вызываем recreate() после смены языка
     val onLanguageChange: (LocaleManager.Language) -> Unit = { newLanguage ->
-        // Показываем загрузку
-        isChangingLanguage.value = true
+        Log.d("MainMenuScreen", "=== Language change requested: ${newLanguage.code} ===")
 
-        // КРИТИЧНО: Сразу переприменяем настройки экрана
-        activity?.window?.let { window ->
-            WindowCompat.setDecorFitsSystemWindows(window, false)
-        }
-
-        // Принудительно устанавливаем флаги системного UI
-        activity?.window?.let { window ->
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = (
-                    android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                            android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                            android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    )
-        }
-
-        // Применяем новый язык
+        // Сохраняем язык
         LocaleManager.setLanguage(context, newLanguage)
-        currentLanguage.value = newLanguage
 
-        // Снова переприменяем настройки окна
-        activity?.window?.let { window ->
-            WindowCompat.setDecorFitsSystemWindows(window, false)
-        }
+        Log.d("MainMenuScreen", "Language saved, recreating Activity...")
 
-        // Активируем триггер для LaunchedEffect
-        recreateTrigger.value = !recreateTrigger.value
-    }
-
-    // LaunchedEffect для пересоздания Activity (вызывается при изменении триггера)
-    LaunchedEffect(recreateTrigger.value) {
-        if (isChangingLanguage.value) {
-            // Сразу переприменяем настройки экрана
-            activity?.window?.let { window ->
-                WindowCompat.setDecorFitsSystemWindows(window, false)
-            }
-
-            // Принудительно устанавливаем флаги окна
-            activity?.window?.let { window ->
-                @Suppress("DEPRECATION")
-                window.decorView.systemUiVisibility = (
-                        android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                                android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                                android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        )
-            }
-
-            delay(300) // Задержка для отображения загрузки
-
-            // Ещё раз переприменяем перед recreate
-            activity?.window?.let { window ->
-                WindowCompat.setDecorFitsSystemWindows(window, false)
-            }
-
-            activity?.recreate()
-        }
+        // Пересоздаем Activity - теперь это безопасно, т.к. нет проверки подписки на старте
+        activity?.recreate()
     }
 
     // Tailles adaptatives basées sur la densité de l'écran et la taille de la fenêtre
@@ -151,70 +95,44 @@ fun MainMenuScreen(navController: NavController) {
             )
         }
 
-        // Экран загрузки при смене языка
-        if (isChangingLanguage.value) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black.copy(alpha = 0.7f)),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(64.dp),
-                        color = MaterialTheme.colorScheme.primary
+        // Contenu avec marges sécurisées
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding()
+        ) {
+            // Mise en page adaptative
+            when {
+                windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact -> {
+                    MainMenuCompactLayout(
+                        navController = navController,
+                        showQuitConfirmation = showQuitConfirmation,
+                        isLandscape = isLandscape,
+                        isCompactHeight = isCompactHeight,
+                        screenWidth = screenWidthDp,
+                        screenHeight = screenHeightDp
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = stringResource(R.string.loading),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.White
+                }
+                else -> {
+                    MainMenuLargeLayout(
+                        navController = navController,
+                        showQuitConfirmation = showQuitConfirmation,
+                        isLandscape = isLandscape,
+                        isCompactHeight = isCompactHeight,
+                        screenWidth = screenWidthDp,
+                        screenHeight = screenHeightDp
                     )
                 }
             }
-        } else {
-            // Contenu avec marges sécurisées
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .systemBarsPadding()
-            ) {
-                // Mise en page adaptative
-                when {
-                    windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact -> {
-                        MainMenuCompactLayout(
-                            navController = navController,
-                            showQuitConfirmation = showQuitConfirmation,
-                            isLandscape = isLandscape,
-                            isCompactHeight = isCompactHeight,
-                            screenWidth = screenWidthDp,
-                            screenHeight = screenHeightDp
-                        )
-                    }
-                    else -> {
-                        MainMenuLargeLayout(
-                            navController = navController,
-                            showQuitConfirmation = showQuitConfirmation,
-                            isLandscape = isLandscape,
-                            isCompactHeight = isCompactHeight,
-                            screenWidth = screenWidthDp,
-                            screenHeight = screenHeightDp
-                        )
-                    }
-                }
 
-                // Bouton de changement de langue (coin supérieur droit)
-                LanguageButton(
-                    currentLanguage = currentLanguage.value,
-                    onLanguageChange = onLanguageChange,
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(16.dp)
-                )
-            }
+            // Bouton de changement de langue (coin supérieur droit)
+            LanguageButton(
+                currentLanguage = currentLanguage.value,
+                onLanguageChange = onLanguageChange,
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(16.dp)
+            )
         }
     }
 
