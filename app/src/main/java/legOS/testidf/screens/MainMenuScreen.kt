@@ -34,6 +34,8 @@ import legOS.testidf.LocaleManager
 import legOS.testidf.R
 import legOS.testidf.components.LanguageButton
 import java.io.IOException
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -48,7 +50,13 @@ fun MainMenuScreen(navController: NavController) {
     // Получаем текующий язык
     val currentLanguage = remember { mutableStateOf(LocaleManager.getCurrentLanguage(context)) }
 
-    // ИСПРАВЛЕНО v2: Новый обработчик смены языка
+    // НОВОЕ: Состояние загрузки при смене языка
+    var isChangingLanguage by remember { mutableStateOf(false) }
+
+    // НОВОЕ: CoroutineScope для управления корутинами
+    val coroutineScope = rememberCoroutineScope()
+
+    // ИСПРАВЛЕНО v3: Новый обработчик смены языка с индикатором загрузки
     val onLanguageChange: (LocaleManager.Language) -> Unit = { newLanguage ->
         Log.d("MainMenuScreen", "========================================")
         Log.d("MainMenuScreen", "Language change requested: ${newLanguage.code}")
@@ -57,17 +65,26 @@ fun MainMenuScreen(navController: NavController) {
         if (newLanguage != currentLanguage.value) {
             Log.d("MainMenuScreen", "Language is different, applying change...")
 
-            // Шаг 1: Подготавливаем контекст и сохраняем язык
-            LocaleManager.setLanguageAndPrepareRecreate(context, newLanguage)
+            // Показываем индикатор загрузки
+            isChangingLanguage = true
 
-            Log.d("MainMenuScreen", "Language prepared, recreating Activity...")
+            // Используем coroutine для задержки перед recreate
+            coroutineScope.launch {
+                // Небольшая задержка чтобы индикатор успел отобразиться
+                delay(100)
 
-            // Шаг 2: Пересоздаем Activity
-            // После recreate() автоматически вызовется attachBaseContext
-            // который загрузит сохраненный язык
-            activity?.recreate()
+                // Шаг 1: Подготавливаем контекст и сохраняем язык
+                LocaleManager.setLanguageAndPrepareRecreate(context, newLanguage)
 
-            Log.d("MainMenuScreen", "Activity.recreate() called")
+                Log.d("MainMenuScreen", "Language prepared, recreating Activity...")
+
+                // Шаг 2: Пересоздаем Activity
+                // После recreate() автоматически вызовется attachBaseContext
+                // который загрузит сохраненный язык
+                activity?.recreate()
+
+                Log.d("MainMenuScreen", "Activity.recreate() called")
+            }
         } else {
             Log.d("MainMenuScreen", "Language is the same, ignoring")
         }
@@ -107,6 +124,36 @@ fun MainMenuScreen(navController: NavController) {
             )
         }
 
+        // НОВОЕ: Индикатор загрузки при смене языка
+        if (isChangingLanguage) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.7f)),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(64.dp),
+                        color = MaterialTheme.colorScheme.primary,
+                        strokeWidth = 6.dp
+                    )
+                    Text(
+                        text = if (currentLanguage.value == LocaleManager.Language.FRENCH) {
+                            "Changement de langue..."
+                        } else {
+                            "Changing language..."
+                        },
+                        style = MaterialTheme.typography.titleLarge,
+                        color = Color.White
+                    )
+                }
+            }
+        }
+
         // Contenu avec marges sécurisées
         Box(
             modifier = Modifier
@@ -122,7 +169,8 @@ fun MainMenuScreen(navController: NavController) {
                         isLandscape = isLandscape,
                         isCompactHeight = isCompactHeight,
                         screenWidth = screenWidthDp,
-                        screenHeight = screenHeightDp
+                        screenHeight = screenHeightDp,
+                        isChangingLanguage = isChangingLanguage  // НОВОЕ: передаем состояние
                     )
                 }
                 else -> {
@@ -132,19 +180,23 @@ fun MainMenuScreen(navController: NavController) {
                         isLandscape = isLandscape,
                         isCompactHeight = isCompactHeight,
                         screenWidth = screenWidthDp,
-                        screenHeight = screenHeightDp
+                        screenHeight = screenHeightDp,
+                        isChangingLanguage = isChangingLanguage  // НОВОЕ: передаем состояние
                     )
                 }
             }
 
             // Bouton de changement de langue (coin supérieur droit)
-            LanguageButton(
-                currentLanguage = currentLanguage.value,
-                onLanguageChange = onLanguageChange,
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(16.dp)
-            )
+            // Скрываем кнопку во время смены языка
+            if (!isChangingLanguage) {
+                LanguageButton(
+                    currentLanguage = currentLanguage.value,
+                    onLanguageChange = onLanguageChange,
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(16.dp)
+                )
+            }
         }
     }
 
@@ -188,7 +240,8 @@ private fun MainMenuCompactLayout(
     isLandscape: Boolean,
     isCompactHeight: Boolean,
     screenWidth: Dp,
-    screenHeight: Dp
+    screenHeight: Dp,
+    isChangingLanguage: Boolean = false  // НОВОЕ: параметр для контроля загрузки
 ) {
     val scrollState = rememberScrollState()
 
@@ -198,204 +251,94 @@ private fun MainMenuCompactLayout(
     val buttonSpacing = if (isCompactHeight) 8.dp else 12.dp
     val buttonWidth = if (isLandscape) 0.9f else 0.85f
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(horizontal = horizontalPadding, vertical = verticalPadding),
-        verticalArrangement = if (isCompactHeight) Arrangement.SpaceBetween else Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // Espaceur supérieur
-        if (!isCompactHeight) {
-            Spacer(Modifier.height(screenHeight * 0.35f))
-        } else {
-            Spacer(Modifier.height(40.dp))
-        }
-
-        // Titre (masqué sur les très petits écrans)
-        if (!isCompactHeight || screenHeight > 400.dp) {
-            Text(
-                text = "",
-                style = MaterialTheme.typography.headlineSmall.copy(
-                    fontSize = when {
-                        isCompactHeight -> 16.sp
-                        screenHeight < 600.dp -> 18.sp
-                        else -> 20.sp
-                    }
-                ),
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = if (isCompactHeight) 8.dp else 16.dp)
-            )
-        }
-
-        // Boutons du menu
-        if (isLandscape && screenWidth > 600.dp) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(
-                    space = min(16.dp, screenWidth * 0.02f),
-                    alignment = Alignment.CenterHorizontally
-                ),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                MenuButton(
-                    text = stringResource(R.string.menu_button),
-                    onClick = { navController.navigate("test_menu") },
-                    modifier = Modifier.weight(1f),
-                    isCompact = isCompactHeight
-                )
-                MenuButton(
-                    text = stringResource(R.string.info_button),
-                    onClick = { navController.navigate("info_screen") },
-                    modifier = Modifier.weight(1f),
-                    isCompact = isCompactHeight
-                )
-                MenuButton(
-                    text = stringResource(R.string.quit_button),
-                    onClick = { showQuitConfirmation.value = true },
-                    modifier = Modifier.weight(1f),
-                    isCompact = isCompactHeight
-                )
-            }
-        } else {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(buttonSpacing),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                MenuButton(
-                    text = stringResource(R.string.menu_button),
-                    onClick = { navController.navigate("test_menu") },
-                    modifier = Modifier.fillMaxWidth(buttonWidth),
-                    isCompact = isCompactHeight
-                )
-                MenuButton(
-                    text = stringResource(R.string.info_button),
-                    onClick = { navController.navigate("info_screen") },
-                    modifier = Modifier.fillMaxWidth(buttonWidth),
-                    isCompact = isCompactHeight
-                )
-                MenuButton(
-                    text = stringResource(R.string.quit_button),
-                    onClick = { showQuitConfirmation.value = true },
-                    modifier = Modifier.fillMaxWidth(buttonWidth),
-                    isCompact = isCompactHeight
-                )
-            }
-        }
-
-        // Espaceur inférieur
-        if (isLandscape) {
-            Spacer(Modifier.weight(1f))
-        } else {
-            Spacer(Modifier.weight(1f).height(screenHeight * 0.05f))
-        }
-
-        // Texte juridique
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-            modifier = Modifier.padding(bottom = if (isLandscape) 2.dp else 4.dp)
-        ) {
-            Text(
-                text = stringResource(R.string.copyright),
-                style = MaterialTheme.typography.bodySmall.copy(
-                    fontSize = when {
-                        isCompactHeight -> 8.sp
-                        screenHeight < 600.dp -> 10.sp
-                        else -> 12.sp
-                    }
-                ),
-                color = MaterialTheme.colorScheme.onBackground,
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = stringResource(R.string.privacy_notice),
-                style = MaterialTheme.typography.bodySmall.copy(
-                    fontSize = when {
-                        isCompactHeight -> 5.sp
-                        screenHeight < 600.dp -> 6.sp
-                        else -> 7.sp
-                    }
-                ),
-                color = MaterialTheme.colorScheme.onBackground,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
-        }
-    }
-}
-
-@Composable
-private fun MainMenuLargeLayout(
-    navController: NavController,
-    showQuitConfirmation: MutableState<Boolean>,
-    isLandscape: Boolean,
-    isCompactHeight: Boolean,
-    screenWidth: Dp,
-    screenHeight: Dp
-) {
-    val scrollState = rememberScrollState()
-
-    // Marges adaptatives
-    val horizontalPadding = min(32.dp, screenWidth * 0.05f)
-    val verticalPadding = min(32.dp, screenHeight * 0.04f)
-
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(horizontal = horizontalPadding, vertical = verticalPadding),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+    // НОВОЕ: Показываем контент только если НЕ идет смена языка
+    if (!isChangingLanguage) {
         Column(
             modifier = Modifier
-                .weight(1f)
-                .padding(end = if (isLandscape) min(32.dp, screenWidth * 0.04f) else 0.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(horizontal = horizontalPadding, vertical = verticalPadding),
+            verticalArrangement = if (isCompactHeight) Arrangement.SpaceBetween else Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Espaceur supérieur
             if (!isCompactHeight) {
                 Spacer(Modifier.height(screenHeight * 0.35f))
             } else {
-                Spacer(Modifier.height(48.dp))
+                Spacer(Modifier.height(40.dp))
+            }
+
+            // Titre (masqué sur les très petits écrans)
+            if (!isCompactHeight || screenHeight > 400.dp) {
+                Text(
+                    text = "",
+                    style = MaterialTheme.typography.headlineSmall.copy(
+                        fontSize = when {
+                            isCompactHeight -> 16.sp
+                            screenHeight < 600.dp -> 18.sp
+                            else -> 20.sp
+                        }
+                    ),
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.padding(bottom = if (isCompactHeight) 8.dp else 16.dp)
+                )
             }
 
             // Boutons du menu
-            Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    if (isCompactHeight) 12.dp else 16.dp
-                ),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                val buttonWidth = when {
-                    screenWidth > 1000.dp -> 0.4f
-                    screenWidth > 700.dp -> 0.5f
-                    else -> 0.6f
+            if (isLandscape && screenWidth > 600.dp) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(
+                        space = min(16.dp, screenWidth * 0.02f),
+                        alignment = Alignment.CenterHorizontally
+                    ),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    MenuButton(
+                        text = stringResource(R.string.menu_button),
+                        onClick = { navController.navigate("test_menu") },
+                        modifier = Modifier.weight(1f),
+                        isCompact = isCompactHeight
+                    )
+                    MenuButton(
+                        text = stringResource(R.string.info_button),
+                        onClick = { navController.navigate("info_screen") },
+                        modifier = Modifier.weight(1f),
+                        isCompact = isCompactHeight
+                    )
+                    MenuButton(
+                        text = stringResource(R.string.quit_button),
+                        onClick = { showQuitConfirmation.value = true },
+                        modifier = Modifier.weight(1f),
+                        isCompact = isCompactHeight
+                    )
                 }
-
-                MenuButton(
-                    text = stringResource(R.string.menu_button),
-                    onClick = { navController.navigate("test_menu") },
-                    modifier = Modifier.fillMaxWidth(buttonWidth),
-                    isCompact = isCompactHeight
-                )
-                MenuButton(
-                    text = stringResource(R.string.info_button),
-                    onClick = { navController.navigate("info_screen") },
-                    modifier = Modifier.fillMaxWidth(buttonWidth),
-                    isCompact = isCompactHeight
-                )
-                MenuButton(
-                    text = stringResource(R.string.quit_button),
-                    onClick = { showQuitConfirmation.value = true },
-                    modifier = Modifier.fillMaxWidth(buttonWidth),
-                    isCompact = isCompactHeight
-                )
+            } else {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(buttonSpacing),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    MenuButton(
+                        text = stringResource(R.string.menu_button),
+                        onClick = { navController.navigate("test_menu") },
+                        modifier = Modifier.fillMaxWidth(buttonWidth),
+                        isCompact = isCompactHeight
+                    )
+                    MenuButton(
+                        text = stringResource(R.string.info_button),
+                        onClick = { navController.navigate("info_screen") },
+                        modifier = Modifier.fillMaxWidth(buttonWidth),
+                        isCompact = isCompactHeight
+                    )
+                    MenuButton(
+                        text = stringResource(R.string.quit_button),
+                        onClick = { showQuitConfirmation.value = true },
+                        modifier = Modifier.fillMaxWidth(buttonWidth),
+                        isCompact = isCompactHeight
+                    )
+                }
             }
 
             // Espaceur inférieur
@@ -408,16 +351,16 @@ private fun MainMenuLargeLayout(
             // Texte juridique
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(4.dp),
+                verticalArrangement = Arrangement.spacedBy(2.dp),
                 modifier = Modifier.padding(bottom = if (isLandscape) 2.dp else 4.dp)
             ) {
                 Text(
                     text = stringResource(R.string.copyright),
                     style = MaterialTheme.typography.bodySmall.copy(
                         fontSize = when {
-                            isCompactHeight -> 10.sp
-                            screenHeight < 700.dp -> 12.sp
-                            else -> 14.sp
+                            isCompactHeight -> 8.sp
+                            screenHeight < 600.dp -> 10.sp
+                            else -> 12.sp
                         }
                     ),
                     color = MaterialTheme.colorScheme.onBackground,
@@ -427,15 +370,132 @@ private fun MainMenuLargeLayout(
                     text = stringResource(R.string.privacy_notice),
                     style = MaterialTheme.typography.bodySmall.copy(
                         fontSize = when {
-                            isCompactHeight -> 6.sp
-                            screenHeight < 700.dp -> 7.sp
-                            else -> 8.sp
+                            isCompactHeight -> 5.sp
+                            screenHeight < 600.dp -> 6.sp
+                            else -> 7.sp
                         }
                     ),
                     color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
+            }
+        }
+    }
+}
+
+@Composable
+private fun MainMenuLargeLayout(
+    navController: NavController,
+    showQuitConfirmation: MutableState<Boolean>,
+    isLandscape: Boolean,
+    isCompactHeight: Boolean,
+    screenWidth: Dp,
+    screenHeight: Dp,
+    isChangingLanguage: Boolean = false  // НОВОЕ: параметр для контроля загрузки
+) {
+    val scrollState = rememberScrollState()
+
+    // Marges adaptatives
+    val horizontalPadding = min(32.dp, screenWidth * 0.05f)
+    val verticalPadding = min(32.dp, screenHeight * 0.04f)
+
+    // НОВОЕ: Показываем контент только если НЕ идет смена языка
+    if (!isChangingLanguage) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(horizontal = horizontalPadding, vertical = verticalPadding),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = if (isLandscape) min(32.dp, screenWidth * 0.04f) else 0.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                // Espaceur supérieur
+                if (!isCompactHeight) {
+                    Spacer(Modifier.height(screenHeight * 0.35f))
+                } else {
+                    Spacer(Modifier.height(48.dp))
+                }
+
+                // Boutons du menu
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(
+                        if (isCompactHeight) 12.dp else 16.dp
+                    ),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    val buttonWidth = when {
+                        screenWidth > 1000.dp -> 0.4f
+                        screenWidth > 700.dp -> 0.5f
+                        else -> 0.6f
+                    }
+
+                    MenuButton(
+                        text = stringResource(R.string.menu_button),
+                        onClick = { navController.navigate("test_menu") },
+                        modifier = Modifier.fillMaxWidth(buttonWidth),
+                        isCompact = isCompactHeight
+                    )
+                    MenuButton(
+                        text = stringResource(R.string.info_button),
+                        onClick = { navController.navigate("info_screen") },
+                        modifier = Modifier.fillMaxWidth(buttonWidth),
+                        isCompact = isCompactHeight
+                    )
+                    MenuButton(
+                        text = stringResource(R.string.quit_button),
+                        onClick = { showQuitConfirmation.value = true },
+                        modifier = Modifier.fillMaxWidth(buttonWidth),
+                        isCompact = isCompactHeight
+                    )
+                }
+
+                // Espaceur inférieur
+                if (isLandscape) {
+                    Spacer(Modifier.weight(1f))
+                } else {
+                    Spacer(Modifier.weight(1f).height(screenHeight * 0.05f))
+                }
+
+                // Texte juridique
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    modifier = Modifier.padding(bottom = if (isLandscape) 2.dp else 4.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.copyright),
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontSize = when {
+                                isCompactHeight -> 10.sp
+                                screenHeight < 700.dp -> 12.sp
+                                else -> 14.sp
+                            }
+                        ),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = stringResource(R.string.privacy_notice),
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontSize = when {
+                                isCompactHeight -> 6.sp
+                                screenHeight < 700.dp -> 7.sp
+                                else -> 8.sp
+                            }
+                        ),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                }
             }
         }
     }

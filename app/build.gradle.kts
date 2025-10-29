@@ -17,6 +17,12 @@ android {
         versionCode = 18  // Увеличена версия для нового релиза с исправлениями
         versionName = "1.2.2"  // Обновлена версия
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // ========================================
+        // КРИТИЧНО: Указываем все поддерживаемые языки
+        // Это предотвращает исключение ресурсов при сборке AAB
+        // ========================================
+        resourceConfigurations += listOf("fr", "en")
     }
 
     buildFeatures {
@@ -30,8 +36,32 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+
+            // ========================================
+            // КРИТИЧНО: Отключаем удаление неиспользуемых ресурсов
+            // Google Play может удалить английские строки если считает их "неиспользуемыми"
+            // ========================================
+            isShrinkResources = false
+
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("debug")
+        }
+
+        debug {
+            // Для отладки также отключаем
+            isShrinkResources = false
+        }
+    }
+
+    // ========================================
+    // НОВОЕ: Настройки для Android App Bundle
+    // Гарантируем что все языки будут включены в AAB
+    // ========================================
+    bundle {
+        language {
+            // Отключаем разделение по языкам
+            // Все языки будут в одном APK
+            enableSplit = false
         }
     }
 
