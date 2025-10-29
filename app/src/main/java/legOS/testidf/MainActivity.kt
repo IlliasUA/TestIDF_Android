@@ -50,6 +50,14 @@ class MainActivity : ComponentActivity() {
         // Это обеспечивает работу на весь экран без отступов
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
+        // ✅ ДОПОЛНИТЕЛЬНО: Принудительно устанавливаем флаги системного UI
+        @Suppress("DEPRECATION")
+        window.decorView.systemUiVisibility = (
+                android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                        android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                        android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                )
+
         Log.d("MainActivity", "onCreate: edge-to-edge applied, DecorFitsSystemWindows = false")
 
         setContent {
@@ -70,7 +78,15 @@ class MainActivity : ComponentActivity() {
         // ✅ ДОПОЛНИТЕЛЬНО: Переприменяем настройки при возврате в приложение
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        Log.d("MainActivity", "onResume: DecorFitsSystemWindows reapplied")
+        // ✅ ДОПОЛНИТЕЛЬНО: Переприменяем флаги системного UI
+        @Suppress("DEPRECATION")
+        window.decorView.systemUiVisibility = (
+                android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                        android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                        android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                )
+
+        Log.d("MainActivity", "onResume: DecorFitsSystemWindows and UI flags reapplied")
     }
 }
 

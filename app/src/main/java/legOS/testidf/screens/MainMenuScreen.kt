@@ -1,6 +1,5 @@
 package legOS.testidf.screens
 
-import android.app.Activity
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.util.Log
@@ -33,7 +32,6 @@ import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavController
-import kotlinx.coroutines.delay
 import legOS.testidf.LocaleManager
 import legOS.testidf.R
 import legOS.testidf.components.LanguageButton
@@ -60,11 +58,29 @@ fun MainMenuScreen(navController: NavController) {
 
     // Обработчик смены языка с экраном загрузки
     val onLanguageChange: (LocaleManager.Language) -> Unit = { newLanguage ->
+        // Показываем загрузку
         isChangingLanguage.value = true
+
+        // КРИТИЧНО: Сразу переприменяем настройки экрана
+        activity?.window?.let { window ->
+            WindowCompat.setDecorFitsSystemWindows(window, false)
+        }
+
+        // Принудительно устанавливаем флаги системного UI
+        activity?.window?.let { window ->
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = (
+                    android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                            android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                            android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    )
+        }
+
+        // Применяем новый язык
         LocaleManager.setLanguage(context, newLanguage)
         currentLanguage.value = newLanguage
 
-        // Переприменяем edge-to-edge перед recreate
+        // Снова переприменяем настройки окна
         activity?.window?.let { window ->
             WindowCompat.setDecorFitsSystemWindows(window, false)
         }
@@ -76,7 +92,28 @@ fun MainMenuScreen(navController: NavController) {
     // LaunchedEffect для пересоздания Activity (вызывается при изменении триггера)
     LaunchedEffect(recreateTrigger.value) {
         if (isChangingLanguage.value) {
-            delay(300) // Небольшая задержка для отображения загрузки
+            // Сразу переприменяем настройки экрана
+            activity?.window?.let { window ->
+                WindowCompat.setDecorFitsSystemWindows(window, false)
+            }
+
+            // Принудительно устанавливаем флаги окна
+            activity?.window?.let { window ->
+                @Suppress("DEPRECATION")
+                window.decorView.systemUiVisibility = (
+                        android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                                android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                                android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        )
+            }
+
+            delay(300) // Задержка для отображения загрузки
+
+            // Ещё раз переприменяем перед recreate
+            activity?.window?.let { window ->
+                WindowCompat.setDecorFitsSystemWindows(window, false)
+            }
+
             activity?.recreate()
         }
     }
