@@ -63,6 +63,16 @@ object LocaleManager {
         // КРИТИЧНО: Обновляем ресурсы приложения
         val newContext = updateResources(context, language.code)
 
+        // НОВОЕ: Если доступен applicationContext, обновляем и его
+        try {
+            val appContext = context.applicationContext
+            if (appContext != null && appContext != context) {
+                updateApplicationResources(appContext)
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not update application context: ${e.message}")
+        }
+
         Log.d(TAG, "Language set complete: ${language.code}")
         Log.d(TAG, "===========================================")
 
@@ -71,7 +81,7 @@ object LocaleManager {
 
     /**
      * КРИТИЧНО: Обновляет конфигурацию ресурсов с новой локалью
-     * Работает на всех версиях Android
+     * ИСПРАВЛЕНО: Безопасная версия для использования в attachBaseContext
      */
     private fun updateResources(context: Context, languageCode: String): Context {
         Log.d(TAG, "updateResources: Setting locale to $languageCode")
@@ -81,18 +91,15 @@ object LocaleManager {
 
         Log.d(TAG, "Default locale set: ${Locale.getDefault()}")
 
+        // Обновляем ресурсы текущего контекста
         val resources = context.resources
         val config = Configuration(resources.configuration)
-
-        // Устанавливаем локаль в конфигурацию
         config.setLocale(locale)
 
-        // КРИТИЧНО ДЛЯ РЕАЛЬНЫХ УСТРОЙСТВ:
-        // Обновляем конфигурацию напрямую через resources
         @Suppress("DEPRECATION")
         resources.updateConfiguration(config, resources.displayMetrics)
 
-        // Для Android N+ также создаем новый контекст
+        // Для Android N+ создаем новый контекст
         val newContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Log.d(TAG, "Creating new context for Android N+")
             context.createConfigurationContext(config)
@@ -107,12 +114,47 @@ object LocaleManager {
     }
 
     /**
+     * НОВОЕ: Простой метод для attachBaseContext (без обращения к applicationContext)
+     */
+    fun applyLanguageSimple(context: Context): Context {
+        val language = getCurrentLanguage(context)
+        Log.d(TAG, "applyLanguageSimple: Applying language ${language.code}")
+        return updateResources(context, language.code)
+    }
+
+    /**
+     * НОВОЕ: Обновляет Application Context (вызывается из Application.onCreate)
+     */
+    fun updateApplicationResources(context: Context) {
+        try {
+            val language = getCurrentLanguage(context)
+            Log.d(TAG, "updateApplicationResources: Updating to ${language.code}")
+
+            val locale = Locale(language.code)
+            Locale.setDefault(locale)
+
+            val resources = context.resources
+            val config = Configuration(resources.configuration)
+            config.setLocale(locale)
+
+            @Suppress("DEPRECATION")
+            resources.updateConfiguration(config, resources.displayMetrics)
+
+            Log.d(TAG, "Application resources updated successfully")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error updating application resources", e)
+        }
+    }
+
+    /**
      * ИСПРАВЛЕНО: Применяет язык при запуске Activity
      * Используется в attachBaseContext и onCreate
      */
     fun applyLanguage(context: Context): Context {
         val language = getCurrentLanguage(context)
         Log.d(TAG, "applyLanguage: Applying language ${language.code}")
+
+        // Безопасный метод без обращения к applicationContext
         return updateResources(context, language.code)
     }
 
@@ -127,21 +169,23 @@ object LocaleManager {
         val locale = Locale(language.code)
         Locale.setDefault(locale)
 
+        // Обновляем Activity resources
         val resources = activity.resources
         val config = Configuration(resources.configuration)
         config.setLocale(locale)
 
-        // КРИТИЧНО: Обновляем конфигурацию напрямую
         @Suppress("DEPRECATION")
         resources.updateConfiguration(config, resources.displayMetrics)
 
-        // Также обновляем application resources
-        val appResources = activity.applicationContext.resources
-        val appConfig = Configuration(appResources.configuration)
-        appConfig.setLocale(locale)
-
-        @Suppress("DEPRECATION")
-        appResources.updateConfiguration(appConfig, appResources.displayMetrics)
+        // НОВОЕ: Также обновляем Application Context, если доступен
+        try {
+            val appContext = activity.applicationContext
+            if (appContext != null) {
+                updateApplicationResources(appContext)
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not update application context: ${e.message}")
+        }
 
         Log.d(TAG, "forceApplyLanguage: Language forcefully applied")
     }

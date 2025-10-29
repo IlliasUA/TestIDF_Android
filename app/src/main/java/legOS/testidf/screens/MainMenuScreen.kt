@@ -35,6 +35,7 @@ import legOS.testidf.LocaleManager
 import legOS.testidf.R
 import legOS.testidf.components.LanguageButton
 import java.io.IOException
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -49,16 +50,15 @@ fun MainMenuScreen(navController: NavController) {
     // Получаем текующий язык
     val currentLanguage = remember { mutableStateOf(LocaleManager.getCurrentLanguage(context)) }
 
-    // УПРОЩЕННАЯ ЛОГИКА: Просто вызываем recreate() после смены языка
     val onLanguageChange: (LocaleManager.Language) -> Unit = { newLanguage ->
         Log.d("MainMenuScreen", "=== Language change requested: ${newLanguage.code} ===")
 
-        // Сохраняем язык
+        // Сохраняем язык (это также обновит Application Context если доступен)
         LocaleManager.setLanguage(context, newLanguage)
 
         Log.d("MainMenuScreen", "Language saved, recreating Activity...")
 
-        // Пересоздаем Activity - теперь это безопасно, т.к. нет проверки подписки на старте
+        // Пересоздаем Activity - LocaleManager уже обновил все что нужно
         activity?.recreate()
     }
 
