@@ -40,12 +40,27 @@ class MainActivity : ComponentActivity() {
     override fun attachBaseContext(newBase: Context) {
         Log.d("MainActivity", "========================================")
         Log.d("MainActivity", "attachBaseContext called")
+        Log.d("MainActivity", "System locale: ${java.util.Locale.getDefault()}")
+
+        // НОВОЕ: Логируем доступные локали в ресурсах
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            val locales = newBase.resources.configuration.locales
+            Log.d("MainActivity", "Available locales in resources: ${locales}")
+        }
 
         // Применяем сохраненный язык
         val context = LocaleManager.applyLanguageSimple(newBase)
 
         val currentLang = LocaleManager.getCurrentLanguage(context)
         Log.d("MainActivity", "Language applied in attachBaseContext: ${currentLang.code}")
+
+        // НОВОЕ: Проверяем что ресурсы загрузились правильно
+        try {
+            val testString = context.getString(R.string.app_name)
+            Log.d("MainActivity", "Test string loaded: $testString")
+        } catch (e: Exception) {
+            Log.e("MainActivity", "ERROR loading resources!", e)
+        }
 
         super.attachBaseContext(context)
         Log.d("MainActivity", "========================================")
@@ -64,6 +79,15 @@ class MainActivity : ComponentActivity() {
         val savedLanguage = LocaleManager.getCurrentLanguage(this)
         Log.d("MainActivity", "onCreate: Current language = ${savedLanguage.code}")
         Log.d("MainActivity", "Current Locale.getDefault() = ${java.util.Locale.getDefault().language}")
+
+        // НОВОЕ: Проверяем строки после применения языка
+        try {
+            val menuButton = getString(R.string.menu_button)
+            val quitButton = getString(R.string.quit_button)
+            Log.d("MainActivity", "Strings check - Menu: $menuButton, Quit: $quitButton")
+        } catch (e: Exception) {
+            Log.e("MainActivity", "ERROR reading strings!", e)
+        }
 
         // ✅ Включаем edge-to-edge для Android 15+
         enableEdgeToEdge()
