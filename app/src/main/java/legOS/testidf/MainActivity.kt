@@ -33,7 +33,8 @@ import java.io.IOException
 class MainActivity : ComponentActivity() {
 
     /**
-     * НОВОЕ: Переопределяем attachBaseContext для применения языка
+     * КРИТИЧНО: Переопределяем attachBaseContext для применения языка
+     * Вызывается при создании базового контекста Activity
      */
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(LocaleManager.applyLanguage(newBase))
@@ -41,6 +42,14 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // ✅ КРИТИЧНО: Переприменяем выбранный язык в onCreate
+        // Это гарантирует, что язык сохраняется после recreate()
+        // Обновляем ресурсы с сохраненным языком
+        val savedLanguage = LocaleManager.getCurrentLanguage(this)
+        LocaleManager.setLanguage(this, savedLanguage)
+
+        Log.d("MainActivity", "onCreate: Current language = ${savedLanguage.code}")
 
         // ✅ КРИТИЧНО: Включаем edge-to-edge для Android 15+
         // Это нужно делать КАЖДЫЙ РАЗ при создании/пересоздании Activity
