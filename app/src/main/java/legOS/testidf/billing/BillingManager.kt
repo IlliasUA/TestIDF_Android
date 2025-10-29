@@ -26,7 +26,7 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
         private const val TAG = "BillingManager"
 
         // ID продукта подписки (ЗАМЕНИТЕ на ваш реальный ID из Google Play Console)
-        const val SUBSCRIPTION_PRODUCT_ID = "tanks_hunter_annual_subscription_test"
+        const val SUBSCRIPTION_PRODUCT_ID = "tanks_hunter_annual_subscription_0.1"
 
         // Файл для сохранения статуса подписки
         private const val SUBSCRIPTION_CACHE_FILE = "subscription_status.txt"
