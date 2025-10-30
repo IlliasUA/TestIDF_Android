@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SPRAT -->
+    <string name="genie_sprat_desc">Como parte del apoyo directo a las unidades comprometidas en zonas de combate, el Ejército dispone del Sistema de Colocación Rápida de Armaduras (SPRAT). para cruzar brechas secas o húmedas entre 3 y 24m. SPRAT le da al Ejército la capacidad de cruzar brechas de 24 m de ancho con sus tanques Leclerc, en condiciones tácticas.</string>
+
+    <!-- Biber -->
+    <string name="genie_biber_desc">El Biber es un puente lanzado por vehículo blindado alemán. Forma parte de los vehículos de apoyo al combate. Su predecesor fue el colocador de puentes M48 y su sucesor es el Leguan. En los años 1960, la compañía MaK lo desarrolló para el Ejército alemán, basado en el tanque Leopard 1.</string>
+
+    <!-- Buffalo -->
+    <string name="genie_buffalo_desc">El Buffalo Mine Protected Clearance Vehicle es un vehículo de ingeniería militar estadounidense. Mientras que el Casspir era un vehículo de cuatro ruedas, el Buffalo tiene un par adicional. También está equipado con un gran brazo articulado, que un operador puede usar para examinar una mina sospechosa a distancia segura, mientras permanece protegido. Armamento principal: ametralladora Browning M2 de 12,7 mm.</string>
+
+    <!-- DACHS -->
+    <string name="genie_dachs_desc">El Pionierpanzer está diseñado para remolcar vehículos dañados, pero su misión principal es trabajar en el terreno, asegurar el acceso y salida de obstáculos de agua, construir fortificaciones y realizar otras tareas destinadas a eliminar diversos obstáculos en el campo de batalla. Los primeros vehículos de producción de este tipo fueron puestos en servicio en la Bundeswehr en abril de 1989. A finales de 1990, se habían fabricado y entregado al ejército alemán 36 Pionierpanzer 2A1 – apodados informalmente Tejón.</string>
+
+    <!-- GSP -->
+    <string name="genie_gsp_desc">GSP-55 es un vehículo anfibio de orugas militar ruso capaz de transportar vehículos en su techo y transportarlos en agua como una barcaza o ferry. Puede ser utilizado como puente y por lo tanto como vehículo colocador de puentes, desplegando varios en serie si es necesario.</string>
+
+    <!-- IRM-2 -->
+    <string name="genie_irm2_desc">El IMR-2 (donde IMR significa Inzhenernaya mashina razgrazhdeniya) es un vehículo de ingenieros de combate ruso introducido en 1982. Actualmente en servicio con las Fuerzas Armadas Rusas.</string>
+
+    <!-- M3 Amphibius -->
+    <string name="genie_m3_amphibius_desc">El M3 Amphibious Rig es un vehículo militar anfibio alemán, utilizado para asegurar el cruce de tanques y otros vehículos a través de obstáculos de agua. Puede ser ensamblado para formar tanto puentes como cruces de ferry.</string>
+
+    <!-- M9 ACE -->
+    <string name="genie_m9_ace_desc">Una excavadora blindada desarrollada por Estados Unidos para ingeniería militar. Ha estado en servicio con el Ejército de EE.UU. desde 1988. Sus misiones principales son: despejar obstáculos con su pala de excavadora frontal, cavar trincheras y construir instalaciones protectoras, desarrollar pistas auxiliares, abrir rutas de acceso a puntos de cruce. Su misión fundamental es acompañar a las fuerzas blindadas aliadas para abrir camino durante los avances.</string>
+
+    <!-- MDK-2 -->
+    <string name="genie_mdk2_desc">MDK-2M (AT-T) vehículo excavador de trincheras de orugas del ejército de la URSS.</string>
+
+    <!-- PMM-2 -->
+    <string name="genie_pmm2_desc">El vehículo colocador de puentes PPM-2 está diseñado para asegurar el cruce de obstáculos de agua por tanques, cañones autopropulsados y otros vehículos militares.</string>
+
+    <!-- PTS -->
+    <string name="genie_pts_desc">PTS es un transporte de tropas anfibio de orugas militar soviético capaz de transportar vehículos en su techo y transportarlos en agua como una barcaza o ferry.</string>
+
+    <!-- AMX-30 EBG -->
+    <string name="genie_amx30_ebg_desc">El vehículo de ingenieros blindado (EBG) es un tanque de ingeniería montado sobre el mismo chasis que los tanques AMX-30B2. Su misión es despejar y preparar el camino para otros vehículos.</string>
+
+    <!-- AMX-30 EBG SDPMAC -->
+    <string name="genie_amx30_ebg_sdpmac_desc">El sistema pirotécnico de desminado de minas antitanque (SDPMAC) es un conjunto compuesto por el lanzador israelí CARPET montado en el vehículo de ingenieros blindado (EBG).</string>
+
+    <!-- EFA -->
+    <string name="genie_efa_desc">Sucesor del ferry Gillois mejorado, el vehículo de cruce delantero (EFA) es un equipo anfibio autónomo diseñado para cruces continuos (puente) o discontinuos (ferry) para vehículos hasta MLC (Military Load Class) 70. El EFA incluye un casco que contiene la cabina de la tripulación, sala de máquinas, ejes y un compartimento trasero, 2 rampas articuladas, 2 aletas de soporte flotante y una estación de control acuático removible.</string>
+
+    <!-- EGAME -->
+    <string name="genie_egame_desc">Vehículo de desarrollo de ingeniería. Una excavadora con ruedas con 4 ruedas de tracción y dirección, el EGAME está destinado a ser desplegado lo más cerca posible de las fuerzas de primer escalón (destacamento precursor) y se beneficia de protección balística removible.</string>
+
+    <!-- EGRAP -->
+    <string name="genie_egrap_desc">Vehículo de ingeniería de protección rápida. Cargadora-excavadora de la gama civil, este vehículo tiene como objetivo facilitar el despliegue, movimiento y protección de una fuerza.</string>
+
+    <!-- Manitou -->
+    <string name="genie_manitou_desc">El manipulador telescópico MLT 625-75 H es una máquina muy compacta. Especialmente dedicada a actividades agrícolas.</string>
+
+    <!-- PPLD -->
+    <string name="genie_ppld_desc">El transportador de recuperación multipropósito pesado - PPLD permite en particular la evacuación de vehículos dañados. Tiene 4 ejes de tracción total (8x8) que le permiten conducir en todo tipo de carreteras y caminos y en todas las condiciones climáticas.</string>
+
+    <!-- VDM Souvim -->
+    <string name="genie_vdm_souvim_desc">El sistema de despeje de rutas minadas (SOUVIM) permite asegurar una ruta ligeramente contaminada con minas antitanque o antipersonal detectables o de presión. Su vocación es participar en misiones de apoyo a la movilidad asegurando, en largas distancias, la apertura rápida de rutas ligeramente minadas (minado de acoso) en 2º escalón o en el área trasera de unidades mayores (zona de flujo logístico) en un conflicto de baja intensidad.</string>
+
+    <!-- TC-910 -->
+    <string name="genie_tc910_desc">Tractor cargador (TC) 910.</string>
+
+    <!-- TNA -->
+    <string name="genie_tna_desc">Transporte de un tractor nivelador lanzable desde el aire (TNA).</string>
+</resources>

@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Application name -->
+    <string name="app_name">Tanks Hunter: Quiz</string>
+
+    <!-- Main menu -->
+    <string name="main_menu_title">Menú Principal</string>
+    <string name="menu_button">MENÚ</string>
+    <string name="info_button">INFO</string>
+    <string name="quit_button">SALIR</string>
+    <string name="quit_confirmation_title">Confirmación</string>
+    <string name="quit_confirmation_message">¿Realmente desea salir de la aplicación?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="copyright">© 2025 IliaUA. Todos los derechos reservados.</string>
+    <string name="privacy_notice">Al usar esta aplicación, acepta nuestra Política de Privacidad y Términos de Uso, que se especifican en la sección \"Info\".</string>
+
+    <!-- Test menu -->
+    <string name="return_tab">Atrás</string>
+    <string name="categories_tab">Categorías</string>
+    <string name="modes_tab">Modos</string>
+    <string name="search_tab">Buscar</string>
+    <string name="news_tab">Actualizaciones</string>
+    <string name="help_button">Ayuda</string>
+
+    <!-- Categories -->
+    <string name="category_tanks">Tanques de Combate</string>
+    <string name="category_artillery">Artillería</string>
+    <string name="category_recon">Reconocimiento</string>
+    <string name="category_engineer">Ingeniería</string>
+    <string name="category_air">Avión/Helicóptero</string>
+
+    <!-- Modes -->
+    <string name="mode_advanced">Test Avanzado</string>
+    <string name="mode_final">Test Final</string>
+    <string name="mode_collective">Test Colectivo</string>
+    <string name="mode_creation">Creación</string>
+    <string name="hall_of_fame">🏆 Salón de la Fama</string>
+
+    <!-- Time selection -->
+    <string name="time_selection_title">Seleccione el tiempo por pregunta</string>
+    <string name="time_selection_category_label">Categoría</string>
+    <string name="seconds">%d segundos</string>
+    <string name="back_button">Atrás</string>
+    <string name="continue_button">Continuar</string>
+
+    <!-- Player name -->
+    <string name="enter_name_title">Ingrese su nombre</string>
+    <string name="name_label">Nombre</string>
+    <string name="player_label">Jugador:</string>
+
+    <!-- Final test confirmation -->
+    <string name="confirmation_final_test_message">Confirmar el test FINAL para %s</string>
+    <string name="confirm_button">Confirmar</string>
+    <string name="cancel_button">Cancelar</string>
+
+    <!-- Collective test -->
+    <string name="competition_title">Elija su rol</string>
+    <string name="competition_mode">Modo Competición</string>
+    <string name="competition_description">Organice tests\npara su equipo</string>
+    <string name="role_chef">Líder</string>
+    <string name="role_subordinate">Participante</string>
+    <string name="beta_warning_title">Versión Beta</string>
+    <string name="beta_warning_message">El modo Test Colectivo está en fase beta. Pueden ocurrir interrupciones temporales. Pedimos disculpas por cualquier inconveniente.</string>
+    <string name="close_button">Cerrar</string>
+
+    <!-- Admin registration -->
+    <string name="create_group_title">Crear un grupo</string>
+    <string name="your_name_label">Su nombre</string>
+    <string name="your_name_placeholder">Ej: Juan García</string>
+    <string name="group_name_label">Nombre del grupo</string>
+    <string name="group_name_placeholder">Ej: Escuadrón Alfa</string>
+    <string name="create_group_button">Crear grupo</string>
+    <string name="min_characters">Mínimo 2 caracteres</string>
+
+    <!-- Group code dialog -->
+    <string name="group_created_title">¡Grupo creado!</string>
+    <string name="share_code_message">Comparta este código con sus participantes:</string>
+    <string name="copy_code_button">Copiar código</string>
+    <string name="code_copied">✓ ¡Código copiado!</string>
+    <string name="important_note">¡Guarde este código para que sus participantes puedan unirse!</string>
+
+    <!-- ParticipantWaitingScreen -->
+    <string name="welcome_participant">¡Bienvenido, %s!</string>
+    <string name="group_closed_title">Información</string>
+    <string name="group_closed_subtitle">El líder abandonó la sesión</string>
+    <string name="group_closed_details">La competición ha terminado. Puede permanecer en esta página o salir cuando lo desee.</string>
+    <string name="leave_group_title">¿Salir del grupo?</string>
+    <string name="leave_group_message">¿Está seguro de que desea salir? Necesitará ingresar el código del grupo nuevamente para unirse.</string>
+    <string name="leave">Salir</string>
+    <string name="tests_available">Tests disponibles</string>
+    <string name="no_tests_message">El líder enviará un test pronto.\nSerá notificado automáticamente.</string>
+    <string name="group_closed_no_tests">El grupo está cerrado.\nNo hay tests disponibles.</string>
+
+    <!-- Participant registration -->
+    <string name="join_group_title">Unirse a un grupo</string>
+    <string name="group_code_label">Código del grupo</string>
+    <string name="group_code_placeholder">Ej: ABC123</string>
+    <string name="join_button">Unirse</string>
+    <string name="invalid_code">Código de grupo inválido</string>
+    <string name="joined_group">¡Se unió a %s!</string>
+
+    <!-- ChefSessionsScreen -->
+    <string name="my_sessions_title">Mis tests</string>
+    <string name="refresh">Actualizar</string>
+    <string name="stat_tests_created">Tests creados</string>
+    <string name="stat_completed">Completados</string>
+    <string name="stat_in_progress">En progreso</string>
+    <string name="no_sessions_created">No se han creado tests</string>
+    <string name="session_questions">%d preguntas</string>
+    <string name="session_participants">%d participantes</string>
+
+    <!-- TakeTestScreen -->
+    <string name="question_progress">Pregunta %d de %d</string>
+    <string name="time_remaining">%ds restantes</string>
+    <string name="quit_test_title">¿Abandonar el test?</string>
+    <string name="quit_test_message">¿Está seguro de que desea abandonar? Su progreso se perderá.</string>
+    <string name="submitting_results">Enviando resultados...</string>
+    <string name="results_submitted">¡Resultados enviados!</string>
+
+    <!-- Send test -->
+    <string name="send_test_screen_title">Enviar test</string>
+    <string name="group_code_info">Código del grupo: %s</string>
+    <string name="participants_header">Participantes</string>
+    <string name="participant_count">%d participantes</string>
+    <string name="no_participants_message">No hay participantes en el grupo</string>
+    <string name="sending_test">Enviar</string>
+    <string name="test_sent_title">¡Test enviado!</string>
+    <string name="test_sent_message">Test enviado a %d participantes</string>
+    <string name="results_available">Resultados disponibles</string>
+    <string name="no_results_message">Esperando resultados...</string>
+    <string name="no_tests_created">No se han creado tests</string>
+
+    <!-- Participant waiting -->
+    <string name="waiting_title">Esperando tests</string>
+    <string name="leave_group_button">Salir del grupo</string>
+    <string name="no_tests_available">No hay tests disponibles</string>
+    <string name="test_available">Test disponible</string>
+    <string name="questions_count">%d preguntas</string>
+    <string name="time_limit">%d segundos/pregunta</string>
+    <string name="start_test_button">Comenzar</string>
+    <string name="results_title">Resultados</string>
+    <string name="your_result">Su resultado</string>
+    <string name="rank_display">Posición: %d</string>
+    <string name="score_display">%d/%d (%d%%)</string>
+    <string name="no_results">No hay resultados disponibles</string>
+    <string name="group_closed_message">El líder abandonó la sesión</string>
+    <string name="return_to_menu">Volver al menú</string>
+
+    <!-- Test completed -->
+    <string name="test_completed_title">¡Test completado!</string>
+    <string name="test_completed_message">Sus resultados han sido enviados al líder.\n¡Gracias por participar!</string>
+
+    <!-- Session results -->
+    <string name="results_screen_title">Resultados</string>
+    <string name="statistics_title">Estadísticas</string>
+    <string name="test_info">%d preguntas • %ds/pregunta</string>
+    <string name="stat_participants">Participantes</string>
+    <string name="stat_average">Promedio</string>
+    <string name="stat_best">Mejor</string>
+    <string name="waiting_results">Esperando resultados</string>
+    <string name="test_number">Test %d</string>
+    <string name="detailed_results">Resultados detallados</string>
+    <string name="correct_answers">%d/%d correctas</string>
+    <string name="close">Cerrar</string>
+    <string name="details_unavailable">Detalles no disponibles</string>
+    <string name="question_number">Pregunta %d</string>
+    <string name="answer_label">Respuesta:</string>
+
+    <!-- Creation -->
+    <string name="creation_title">Crear un test personalizado</string>
+    <string name="select_items">Seleccione al menos 4 elementos</string>
+    <string name="selected_items">%d elementos seleccionados</string>
+    <string name="time_per_question">Tiempo por pregunta (segundos)</string>
+    <string name="create_test_button">Crear test</string>
+    <string name="test_created_success">¡Test creado exitosamente!</string>
+    <string name="min_items_error">Se requieren mínimo 4 elementos para crear un test</string>
+
+    <!-- Custom Test Screen -->
+    <string name="no_questions_found">No se encontraron preguntas</string>
+    <string name="your_answer">Su respuesta</string>
+    <string name="enter_name">Ingrese el nombre…</string>
+    <string name="clear">Limpiar</string>
+    <string name="validate">Enviar</string>
+    <string name="quit">Salir</string>
+    <string name="image_not_found">Imagen no encontrada: %s</string>
+    <string name="enter_equipment_name">Ingrese el nombre del equipo…</string>
+    <string name="change_language">Cambiar Idioma</string>
+
+    <!-- Custom Results Screen -->
+    <string name="test_completed">¡Test Completado!</string>
+    <string name="custom_test_completed">¡Test Personalizado Completado!</string>
+    <string name="score">Puntuación: %1$d / %2$d</string>
+    <string name="percentage">(%d%%)</string>
+    <string name="by_category">Por categoría:</string>
+    <string name="results_by_category">Resultados por categoría:</string>
+    <string name="test">Test</string>
+    <string name="menu">Menú</string>
+    <string name="question_number_short">Pregunta %d</string>
+    <string name="category_label">Categoría: %s</string>
+    <string name="correct_answer">Correcto: %s</string>
+    <string name="correct_answer_label">Respuesta correcta: %s</string>
+    <string name="your_answer_label">Usted: %s</string>
+    <string name="your_answer_result">Su respuesta: %s</string>
+    <string name="no_answer">Ninguna</string>
+    <string name="no_answer_given">Sin respuesta</string>
+    <string name="correct_mark">✓ Correcto</string>
+    <string name="incorrect_mark">✗ Incorrecto</string>
+    <string name="image_unavailable">Imagen\nno disponible</string>
+    <string name="image_not_available">Imagen no disponible</string>
+    <string name="question_with_category">Pregunta %1$d - %2$s</string>
+
+    <!-- Custom Time Selection Screen -->
+    <string name="custom_test">Test Personalizado</string>
+    <string name="elements_selected">%d elementos seleccionados</string>
+    <string name="select_time_per_question">Seleccione el tiempo por pregunta</string>
+    <string name="seconds_format">%d segundos</string>
+    <string name="no_element_selected">¡No hay elementos seleccionados!</string>
+    <string name="selected_elements">Elementos seleccionados:</string>
+    <string name="and_more">... y %d más</string>
+
+    <!-- Subscription -->
+    <string name="subscription_title">Tanks Hunter: Quiz</string>
+    <string name="subscription_subtitle">Suscripción anual</string>
+    <string name="features_title">Funciones incluidas:</string>
+    <string name="feature_categories">✓ Tests por categorías</string>
+    <string name="feature_advanced">✓ Test avanzado y final</string>
+    <string name="feature_multiplayer">✓ Modo multijugador</string>
+    <string name="feature_creation">✓ Creación de tests personalizados</string>
+    <string name="feature_catalog">✓ Catálogo completo</string>
+    <string name="feature_hall_of_fame">✓ Salón de la Fama</string>
+    <string name="feature_updates">✓ Actualizaciones regulares</string>
+    <string name="subscribe_button">Suscribirse ahora</string>
+    <string name="subscription_renew_info">La suscripción se renueva automáticamente cada año.</string>
+    <string name="subscription_active">Suscripción activa</string>
+    <string name="subscription_active_message">Tiene acceso a todas las funciones de la aplicación.</string>
+    <string name="test_mode_title">Modo de Prueba</string>
+    <string name="test_mode_message">Está utilizando una versión de prueba de la aplicación.</string>
+    <string name="test_access">Acceso de prueba</string>
+    <string name="checking_subscription">Verificando suscripción...</string>
+    <string name="retry_button">Reintentar</string>
+
+    <!-- Help -->
+    <string name="help_title">Guía</string>
+
+    <!-- HelpScreen - Main sections -->
+    <string name="help_categories_title">📚 Categorías</string>
+    <string name="help_categories_description">Pruebe sus conocimientos por categoría militar:</string>
+
+    <string name="help_categories_tanks_title">Tanques de Combate</string>
+    <string name="help_categories_tanks_desc">Identifique tanques de combate</string>
+
+    <string name="help_categories_artillery_title">Artillería</string>
+    <string name="help_categories_artillery_desc">Reconozca sistemas de artillería</string>
+
+    <string name="help_categories_recon_title">Reconocimiento</string>
+    <string name="help_categories_recon_desc">Vehículos de reconocimiento y exploración</string>
+
+    <string name="help_categories_engineer_title">Ingeniería</string>
+    <string name="help_categories_engineer_desc">Equipo de ingeniería militar</string>
+
+    <string name="help_categories_air_title">Avión/Helicóptero</string>
+    <string name="help_categories_air_desc">Aeronaves militares</string>
+
+    <string name="help_advanced_title">🎯 Test Avanzado</string>
+    <string name="help_advanced_description">Una mezcla de todas las categorías para probar su conocimiento general. Preguntas más difíciles y cronometradas.</string>
+
+    <string name="help_final_title">🏆 Test Final</string>
+    <string name="help_final_description">¡La prueba definitiva! Todas las categorías, preguntas complejas, tiempo limitado. Sus resultados se registrarán en el Salón de la Fama.</string>
+
+    <string name="help_collective_title">👥 Test Colectivo</string>
+    <string name="help_collective_description">Modo multijugador en tiempo real:</string>
+
+    <string name="help_collective_chef_title">Líder</string>
+    <string name="help_collective_chef_desc">Cree un grupo y envíe tests a los participantes</string>
+
+    <string name="help_collective_participant_title">Participante</string>
+    <string name="help_collective_participant_desc">Únase a un grupo con un código y realice tests</string>
+
+    <string name="help_collective_competition_title">Competición</string>
+    <string name="help_collective_competition_desc">Compare sus puntuaciones en tiempo real</string>
+
+    <string name="help_creation_title">✏️ Creación</string>
+    <string name="help_creation_description">Cree sus propios tests personalizados:</string>
+
+    <string name="help_creation_custom_title">Preguntas personalizadas</string>
+    <string name="help_creation_custom_desc">Agregue sus propias preguntas e imágenes</string>
+
+    <string name="help_creation_flexible_title">Configuración flexible</string>
+    <string name="help_creation_flexible_desc">Establezca el tiempo por pregunta</string>
+
+    <string name="help_search_title">🔍 Buscar</string>
+    <string name="help_search_description">Explore el catálogo completo de vehículos militares y equipos con características detalladas.</string>
+
+    <!-- News -->
+    <string name="news_title">📰 Noticias</string>
+    <string name="news_screen_title">📰 Noticias</string>
+    <string name="news_back_button">Atrás</string>
+
+    <!-- News Items -->
+    <string name="news_date_oct_28_2025">28 de octubre de 2025</string>
+    <string name="news_version_1_2_2_title">🌍 Versión 1.2.2 - Soporte de Idioma Inglés</string>
+    <string name="news_version_1_2_2_content">¡Nueva actualización de idioma!\n\n• Interfaz en inglés agregada\n• Cambio entre francés e inglés\n• Botón de idioma en la esquina superior derecha\n• Su elección se guarda automáticamente\n\n¡La aplicación ahora admite interfaz multilingüe para una mejor experiencia de usuario!</string>
+
+    <string name="news_date_oct_25_2025">25 de octubre de 2025</string>
+    <string name="news_version_1_2_1_title">🎉 Versión 1.2.1 - Mejoras y Correcciones</string>
+    <string name="news_version_1_2_1_content">Actualización importante de la aplicación con varias mejoras:\n\n• Sección de Noticias agregada\n• Interfaz de usuario mejorada\n• Errores menores corregidos\n• Optimización del rendimiento</string>
+
+    <!-- Catalog/Search Screen -->
+    <string name="catalog_title">Catálogo</string>
+    <string name="search_placeholder">Buscar...</string>
+    <string name="searching">Buscando...</string>
+    <string name="start_typing_to_search">Comience a escribir para buscar</string>
+    <string name="no_results_for">No hay resultados para \"%s\"</string>
+    <string name="results_found">%d resultado(s) encontrado(s)</string>
+    <string name="main_image">Imagen principal: %s</string>
+    <string name="additional_images">Imágenes adicionales:</string>
+    <string name="additional_image">Imagen adicional: %s</string>
+    <string name="description_not_available">Descripción no disponible</string>
+    <string name="image_not_found_item">Imagen no encontrada</string>
+    <string name="clear_search">Limpiar</string>
+    <string name="back_to_menu">Atrás</string>
+
+    <!-- Session Results Screen -->
+    <string name="session_results_title">Resultados (%d)</string>
+    <string name="statistics_header">Estadísticas</string>
+    <string name="questions_with_time">%1$d preguntas • %2$ds/pregunta</string>
+    <string name="test_number_label">Test %d</string>
+    <string name="waiting_for_results">Esperando resultados</string>
+    <string name="participants_count">Participantes</string>
+    <string name="average_score">Promedio</string>
+    <string name="best_score_label">Mejor</string>
+    <string name="correct_answers_count">%1$d/%2$d correctas</string>
+    <string name="percentage_value">%d%%</string>
+    <string name="participant_score_details">Puntuación: %1$d/%2$d (%3$d%%)</string>
+    <string name="close_dialog">Cerrar</string>
+    <string name="details_not_available">Detalles no disponibles</string>
+    <string name="question_number_label">Pregunta %d</string>
+    <string name="user_answer_label">Respuesta: %s</string>
+    <string name="back_navigation">Atrás</string>
+    <string name="session_no_results">No hay resultados disponibles</string>
+
+    <!-- hall_of_fame_title -->
+    <string name="hall_of_fame_title">Salón de la Fama</string>
+    <string name="no_score_available">No hay puntuación disponible</string>
+    <string name="return_button">Atrás</string>
+
+    <!-- TestScreen -->
+    <string name="test_background_image">Imagen de Fondo</string>
+    <string name="test_question_image">Imagen de la Pregunta</string>
+    <string name="test_image_not_found">Imagen no encontrada: %s</string>
+    <string name="test_quit_button">Salir</string>
+    <string name="test_quit_confirmation_title">Confirmación</string>
+    <string name="test_quit_confirmation_message">¿Está seguro?</string>
+    <string name="test_quit_yes">Sí</string>
+    <string name="test_quit_no">No</string>
+    <string name="test_question_progress">Pregunta %1$d / %2$d</string>
+    <string name="test_time_remaining">Tiempo restante: %ds</string>
+    <string name="test_player_name_default">Anónimo</string>
+
+    <!-- ResultsScreen -->
+    <string name="results_score">Puntuación: %1$d / %2$d</string>
+    <string name="results_percentage_label">Resultado: %d%%</string>
+    <string name="results_incorrect_answers">%d respuestas incorrectas</string>
+    <string name="results_restart_button">Reiniciar</string>
+    <string name="results_return_button">Atrás</string>
+    <string name="results_more_info_button">Más información</string>
+    <string name="results_question_label">Pregunta %d</string>
+    <string name="results_correct_label">Correcto: %s</string>
+    <string name="results_your_answer_label">Su respuesta: %s</string>
+    <string name="results_no_answer">Ninguna</string>
+    <string name="results_image_not_found">Imagen no encontrada: %s</string>
+
+    <!-- MoreInfoScreen -->
+    <string name="more_info_question_not_found">Pregunta no encontrada</string>
+    <string name="more_info_background_image">Imagen de Fondo</string>
+    <string name="more_info_correct_answer">Respuesta correcta: %s</string>
+    <string name="more_info_image">Imagen</string>
+    <string name="more_info_no_description">No hay descripción disponible</string>
+    <string name="more_info_return_button">Atrás</string>
+
+    <!-- Common errors -->
+    <string name="error_generic">Error: %s</string>
+    <string name="error_network">Error de red. Verifique su conexión</string>
+    <string name="error_loading">Error de carga</string>
+    <string name="loading">Cargando...</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="error_title">Error</string>
+
+    <!-- InfoScreen - General Information -->
+    <string name="info_app_title">Tanks Hunter: Quiz (v 1.0)</string>
+    <string name="info_general_title">Información General</string>
+
+    <!-- Section 1: Privacy Policy -->
+    <string name="info_privacy_title">1. Política de Privacidad</string>
+
+    <string name="info_privacy_intro_subtitle">Introducción</string>
+    <string name="info_privacy_intro_content">Esta Política de Privacidad describe cómo la aplicación \"Tanks Hunter: Quiz\" (\"la Aplicación\") recopila, utiliza y protege la información del usuario. La Aplicación funciona principalmente sin conexión y no recopila ningún dato personal. Sin embargo, el modo \"Test Colectivo\" requiere una conexión a Internet para permitir el juego multijugador en tiempo real y puede resultar en la recopilación y almacenamiento de cierta información.</string>
+
+    <string name="info_privacy_data_subtitle">Datos Recopilados</string>
+    <string name="info_privacy_data_content">- Modo sin conexión: No se recopilan datos personales. Todas las funciones sin conexión funcionan sin requerir conexión o almacenamiento externo.\n\n- Modo \"Test Colectivo\" (requiere Internet):\n\nPara permitir el modo multijugador en tiempo real, recopilamos temporalmente la siguiente información:\n\n- Nombre de usuario o seudónimo proporcionado por el usuario\n- Resultados del test (puntuación, respuestas)\n- Datos de sesión de grupo (códigos de grupo, identificadores de sesión)\n\nEstos datos se almacenan temporalmente en un servidor remoto y se utilizan únicamente para gestionar sesiones de grupo y mostrar resultados en tiempo real.</string>
+
+    <string name="info_privacy_usage_subtitle">Uso de Datos</string>
+    <string name="info_privacy_usage_content">Los datos recopilados en el modo \"Test Colectivo\" se utilizan únicamente para:\n\n- Mostrar resultados de participantes en sesiones de grupo\n- Permitir la comparación de puntuaciones entre usuarios\n- Gestionar sesiones de tests en tiempo real\n\nEsta información no se comparte con terceros con fines comerciales y se mantiene solo durante el tiempo necesario para el funcionamiento del modo colectivo.</string>
+
+    <string name="info_privacy_security_subtitle">Seguridad</string>
+    <string name="info_privacy_security_content">Tomamos medidas razonables para proteger los datos almacenados como parte del modo \"Test Colectivo\". Los datos se transmiten y almacenan de forma segura. Sin embargo, ningún método de transmisión por Internet o almacenamiento electrónico es completamente seguro, y no podemos garantizar seguridad absoluta.</string>
+
+    <string name="info_privacy_children_subtitle">Privacidad de los Niños</string>
+    <string name="info_privacy_children_content">La Aplicación no está recomendada para niños menores de 13 años. No recopilamos intencionalmente información personal de niños menores de 14 años. Si usted es padre o tutor y cree que su hijo nos ha proporcionado información personal, contáctenos en tanks.hunterquiz@gmail.com para que podamos tomar las medidas apropiadas.</string>
+
+    <string name="info_privacy_changes_subtitle">Cambios en la Política de Privacidad</string>
+    <string name="info_privacy_changes_content">Podemos actualizar esta Política de Privacidad de vez en cuando. Cualquier cambio se publicará en la Aplicación o en esta página con una fecha de actualización revisada. Le recomendamos que revise esta política regularmente.</string>
+
+    <string name="info_privacy_contact_subtitle">Contáctenos</string>
+    <string name="info_privacy_contact_content">Si tiene alguna pregunta sobre esta Política de Privacidad, contáctenos en: tanks.hunterquiz@gmail.com</string>
+
+    <!-- Section 2: Terms of Use -->
+    <string name="info_terms_title">2. Términos de Uso</string>
+
+    <string name="info_terms_acceptance_subtitle">Aceptación de Términos</string>
+    <string name="info_terms_acceptance_content">Al descargar, instalar y usar la aplicación Tanks Hunter: Quiz (\"la Aplicación\"), usted acepta estar sujeto a estos Términos de Uso (\"Términos\"). Si no acepta estos Términos, por favor no use la Aplicación.</string>
+
+    <string name="info_terms_description_subtitle">Descripción de la Aplicación</string>
+    <string name="info_terms_description_content">La Aplicación ofrece tests educativos e informativos sobre equipamiento militar, organizados en varias categorías, con un test final. La Aplicación funciona principalmente sin conexión y no requiere conexión a Internet para la mayoría de sus funciones. Sin embargo, el modo \"Test Colectivo\" requiere una conexión a Internet estable para permitir el juego multijugador en tiempo real, sincronización de resultados y gestión de sesiones de grupo.</string>
+
+    <string name="info_terms_usage_subtitle">Uso Permitido</string>
+    <string name="info_terms_usage_content">Está autorizado a usar la Aplicación solo para fines personales y no comerciales. No debe:\n\n- Modificar, realizar ingeniería inversa, descompilar o intentar extraer el código fuente de la Aplicación.\n- Usar la Aplicación para fines ilegales o no autorizados.\n- Copiar, distribuir o reproducir el contenido de la Aplicación sin autorización previa.</string>
+
+    <string name="info_terms_intellectual_subtitle">Propiedad Intelectual</string>
+    <string name="info_terms_intellectual_content">Todo el contenido de la Aplicación, incluidos textos, imágenes y otros elementos, está protegido por las leyes de propiedad intelectual. No puede reproducir, distribuir o usar este contenido sin autorización expresa, excepto en el contexto del uso normal de la Aplicación.</string>
+
+    <string name="info_terms_payment_subtitle">Pago</string>
+    <string name="info_terms_payment_content">La Aplicación está disponible mediante una suscripción anual en Google Play Store. El precio de la suscripción se indica en la tienda de aplicaciones. La suscripción se renueva automáticamente cada año y se puede cancelar en cualquier momento en la configuración de Google Play.</string>
+
+    <string name="info_terms_liability_subtitle">Limitación de Responsabilidad</string>
+    <string name="info_terms_liability_content">La Aplicación se proporciona \"tal cual\". No garantizamos que la Aplicación esté libre de errores o funcione sin interrupciones. En la medida permitida por la ley, no seremos responsables de daños directos, indirectos, incidentales o consecuentes que surjan del uso de la Aplicación.</string>
+
+    <string name="info_terms_modifications_subtitle">Modificaciones de los Términos</string>
+    <string name="info_terms_modifications_content">Nos reservamos el derecho de modificar estos Términos en cualquier momento. Los cambios se publicarán en la Aplicación o en esta página con una fecha de actualización revisada.</string>
+
+    <string name="info_terms_contact_subtitle">Contáctenos</string>
+    <string name="info_terms_contact_content">Para cualquier pregunta sobre estos Términos, contáctenos en: tanks.hunterquiz@gmail.com</string>
+
+    <!-- Section 3: License -->
+    <string name="info_license_title">3. Licencia</string>
+
+    <string name="info_license_usage_subtitle">Licencia de Uso</string>
+    <string name="info_license_usage_content">La aplicación Tanks Hunter: Quiz (\"la Aplicación\") se licencia, no se vende, al usuario para uso personal y no comercial de acuerdo con estos términos.</string>
+
+    <string name="info_license_scope_subtitle">Alcance de la Licencia</string>
+    <string name="info_license_scope_content">- Está autorizado a instalar y usar la Aplicación en un dispositivo compatible que posea o controle.\n- La licencia no es transferible y no se puede compartir con otros usuarios o dispositivos.\n- No puede copiar, modificar, distribuir, vender o alquilar la Aplicación o cualquier parte de ella sin autorización previa por escrito.</string>
+
+    <string name="info_license_intellectual_subtitle">Propiedad Intelectual</string>
+    <string name="info_license_intellectual_content">La Aplicación, incluido su código, textos, imágenes y cualquier otro contenido, es propiedad del equipo de desarrollo de Arsenal Quiz o sus licenciantes. Todos los derechos no expresamente otorgados en esta licencia están reservados.</string>
+
+    <string name="info_license_restrictions_subtitle">Restricciones</string>
+    <string name="info_license_restrictions_content">No debe:\n- Intentar realizar ingeniería inversa, descompilar o extraer el código fuente de la Aplicación.\n- Usar la Aplicación para fines contrarios a las leyes aplicables.\n- Eliminar o modificar avisos de derechos de autor u otras marcas propietarias en la Aplicación.</string>
+
+    <string name="info_license_termination_subtitle">Terminación</string>
+    <string name="info_license_termination_content">La licencia terminará automáticamente si no cumple con los términos de esta licencia. En este caso, debe desinstalar la Aplicación y cesar todo uso.</string>
+
+    <!-- Section 4: Contact Information -->
+    <string name="info_contact_title">4. Información de Contacto</string>
+    <string name="info_contact_content">Para cualquier pregunta, comentario o solicitud relacionada con la aplicación \"Tanks Hunter: Quiz\", contáctenos en:\n\nCorreo electrónico: tanks.hunterquiz@gmail.com\n\nNos esforzamos por responder a todas las consultas lo más rápido posible.</string>
+
+    <!-- Section 5: Disclaimer -->
+    <string name="info_disclaimer_title">5. Descargo de Responsabilidad</string>
+
+    <string name="info_disclaimer_content_subtitle">Contenido de la Aplicación</string>
+    <string name="info_disclaimer_content_content">La aplicación \"Tanks Hunter: Quiz\" proporciona tests educativos e informativos sobre equipamiento militar. El contenido, incluidos textos e imágenes, se proporciona solo con fines educativos e informativos. No garantizamos la exactitud, integridad o actualidad de la información contenida en la Aplicación.</string>
+
+    <string name="info_disclaimer_sources_subtitle">Fuentes de Contenido</string>
+    <string name="info_disclaimer_sources_content">Los textos e imágenes utilizados en la Aplicación provienen de fuentes públicas disponibles en Internet. Aunque hemos tenido cuidado al seleccionar contenido que esté libre de derechos o se use de acuerdo con la legislación aplicable, no podemos garantizar que todo el contenido esté libre de derechos de autor u otras restricciones. Si cree que el contenido de la Aplicación viola sus derechos, contáctenos en tanks.hunterquiz@gmail.com para resolver la situación.</string>
+
+    <string name="info_disclaimer_liability_subtitle">Responsabilidad</string>
+    <string name="info_disclaimer_liability_content">En la medida permitida por la ley, el equipo de desarrollo de \"Tanks Hunter: Quiz\" no será responsable de daños directos, indirectos, incidentales, especiales o consecuentes que surjan del uso o la incapacidad de usar la Aplicación. La Aplicación se proporciona \"tal cual\", sin garantía de ningún tipo, expresa o implícita.</string>
+
+    <string name="info_disclaimer_risk_subtitle">Uso Bajo Su Propio Riesgo</string>
+    <string name="info_disclaimer_risk_content">Usted usa la Aplicación bajo su propio riesgo. No somos responsables de errores u omisiones en el contenido, ni de las consecuencias derivadas del uso de la información proporcionada.</string>
+
+    <string name="info_disclaimer_contact_subtitle">Contacto</string>
+    <string name="info_disclaimer_contact_content">Para cualquier reclamo o pregunta sobre este Descargo de Responsabilidad, contáctenos en: tanks.hunterquiz@gmail.com\n\nSi desea mantenerse informado sobre actualizaciones o hacer una pregunta, únase a nuestro grupo de Telegram: t.me/Tanks_Hunter</string>
+</resources>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Reconnaissance vehicle descriptions - Spanish -->
+
+    <!-- BRDM-2 -->
+    <string name="recon_brdm_2_desc">El BRDM-2 es un vehículo blindado de reconocimiento ruso. Fue desarrollado en la Unión Soviética a principios de los años 1950. El BRDM-2 entró en servicio en 1962. Su armamento consiste en la ametralladora pesada KPVT de 14,5 mm y la ametralladora coaxial PKT de 7,62 mm, idéntica a los vehículos blindados de transporte de tropas rusos BTR-60/BTR-70/BTR-80. El BRDM-2, en diferentes versiones, es utilizado por las fuerzas armadas de más de 50 países en el mundo. Tripulación: 4</string>
+
+    <!-- Dingo -->
+    <string name="recon_dingo_desc">El ATF Dingo es un vehículo blindado militar producido por Alemania. El armamento estándar del Dingo es una torreta de ametralladora de calibre 7,62 mm. Puede ser reemplazada por una ametralladora de 12,7 mm o por un lanzagranadas automático HK GMG.</string>
+
+    <!-- Eagle V -->
+    <string name="recon_eagle_v_desc">El Eagle V es un vehículo blindado multifunción con ruedas 4×4 suizo. Fue desarrollado en los años 2010 por GDELS-Mowag, General Dynamics European Land Systems-Mowag. El Eagle V entró en servicio en 2015.</string>
+
+    <!-- Komatsu LAV -->
+    <string name="recon_komatsu_lav_desc">El Komatsu LAV, Light Armored Vehicle, es un vehículo blindado ligero con ruedas 4×4 japonés. Fue desarrollado en los años 1990. El Komatsu LAV entró en servicio en 2001. Está optimizado para misiones de reconocimiento y patrulla. La caja del vehículo está protegida contra munición de 7,62 mm. El vehículo puede recibir en superestructura una ametralladora pesada de 12,7 mm o una ametralladora de 7,62 mm. La versión antitanque está equipada con misiles Type 87 o Type 01 LMAT. Tripulación: 4 + 1.</string>
+
+    <!-- Serval -->
+    <string name="recon_serval_desc">El VBMR-L (Véhicules Blindés Multi-Rôles Légers) Serval es un vehículo blindado con ruedas 4×4 francés. Fue desarrollado por Nexter Systems y Texelis. El VBMR-L Serval entró en servicio en 2022. Será desarrollado en varias versiones: Transporte de tropas, Puesto de mando, Observación de artillería, Vehículo de ingeniería, Evacuación médica, SA2R, Grupo de comunicación táctica, etc. El VBMR-L Serval está equipado con medios de comunicación y del sistema de información y de combate SCORPION (SICS). Armamento: Ametralladora 12,7 mm. Tripulación: 2 + 8.</string>
+
+    <!-- GAZ 2330 Tigr -->
+    <string name="recon_gaz_2330_tigr_desc">El GAZ-2330 Tigr es un vehículo blindado con ruedas 4×4 ruso. Fue desarrollado a principios de los años 2000. El Tigr entró en servicio en 2006. El GAZ-2330 Tigr es un vehículo blindado multifunción. Es utilizado para misiones de transporte de tropas, patrulla, reconocimiento, transporte de equipos. Sin armamento orgánico. Tripulación: 2 + 7.</string>
+
+    <!-- URO Vamtac -->
+    <string name="recon_uro_vamtac_desc">El Vamtac es un vehículo blindado ligero con ruedas 4×4 español. Fue desarrollado en los años 1980-1990 por URO Vehiculos Especiales. El Vamtac entró en servicio en 1998. El Vamtac es exportado a Arabia Saudita, República Dominicana, Ghana, Indonesia, Irak, Malasia, Marruecos, Portugal, Rumania y Singapur. También se comercializa en su versión civil.</string>
+
+    <!-- VBL -->
+    <string name="recon_vbl_desc">El VBL, Véhicule Blindé Léger, es un vehículo blindado ligero con ruedas 4×4 francés. Fue desarrollado en los años 1980. El VBL entró en servicio en 1990. El VBL está particularmente adaptado para misiones de reconocimiento por sus dimensiones y su nivel sonoro reducidos. La versión base tiene una tripulación de tres hombres: piloto, jefe de abordo y explorador. El VBL puede integrar diferentes sistemas de armas: ametralladora de 7,62 mm en un montaje de anillo, ametralladora de 12,7 mm en un montaje de torreta, lanzagranadas automático de 40 mm, misiles antitanque MILAN o TOW. El VBL tiene capacidad anfibia y es propulsado en el agua por una hélice.</string>
+
+    <!-- Fennek -->
+    <string name="recon_fennek_desc">El Fennek es un vehículo blindado con ruedas 4×4 alemán. Fue desarrollado en los años 1990. El Fennek entró en servicio en 2003. El Fennek tiene la cabina en el centro al frente del vehículo y dos miembros de la tripulación están colocados lado a lado en la parte central. El grupo motopropulsor está colocado en la parte trasera del vehículo. La versión de reconocimiento está equipada con un módulo óptico retráctil. Diferentes modelos son desarrollados para las unidades de reconocimiento, antitanque, ingeniería, defensa tierra-aire, observación de artillería. Armamento: 7,62 mm / 12,7 mm / Lanzagranadas automático de 40 mm. Tripulación: 3.</string>
+
+    <!-- Grizzly -->
+    <string name="recon_grizzly_desc">Revelado al gran público por primera vez durante la Fiesta Nacional del 14 de julio de 2023. Diseñado para misiones de reconocimiento y de intervención de las fuerzas especiales francesas. El Grizzly está equipado con una torreta de anillo capaz de recibir armas pesadas, como la M2HB en calibre 12,7 mm o la LGA en calibre 40 mm, así como tres soportes de ametralladoras en calibre 7,62 mm.</string>
+
+    <!-- Humvee -->
+    <string name="recon_humvee_desc">El HMMWV, High Mobility Multipurpose Wheeled Vehicle, es una familia de vehículos con ruedas 4×4 estadounidenses. Fue desarrollado en los años 1980. El HMMWV entró en servicio en 1984. El HMMWV es llamado más comúnmente Humvee. Está muy ampliamente difundido en el mundo. A partir de 2018, el HMMWV comienza a ser reemplazado por el vehículo blindado de la categoría MRAP JLTV.</string>
+
+    <!-- Fuchs -->
+    <string name="recon_fuchs_desc">El TPz1 Fuchs es un transporte blindado de personal con ruedas 6×6 alemán. Fue desarrollado a finales de los años 1970. Armamento: Ametralladora 7,62 mm. Tripulación: 2 + 8.</string>
+
+    <!-- Piranha V -->
+    <string name="recon_piranha_v_desc">El vehículo de combate de infantería Piranha V (VCI) es la variante de quinta generación de la familia de vehículos Mowag Piranha. Lugar de origen: Suiza. El Piranha V entró en servicio en 2015. Utilizado por: Dinamarca / Mónaco / España / Rumania.</string>
+
+    <!-- BMR-600 -->
+    <string name="recon_bmr_600_desc">El BMR-600 es un transporte blindado de personal con ruedas 6×6 español. Fue desarrollado en los años 1970. El BMR-600 entró en servicio en 1979. Casi 1.500 BMR-600 fueron producidos en diferentes versiones. Fue exportado a Egipto, Arabia Saudita y Perú. Armamento: 12,7 mm, M2HB. Tripulación: 3 + 8.</string>
+
+    <!-- Wiesel -->
+    <string name="recon_wiesel_desc">El Wiesel es un vehículo blindado de reconocimiento alemán. Fue desarrollado en los años 1980. El Wiesel entró en servicio en 1989. El Wiesel es desarrollado en dos versiones principales: el Wiesel 1 Mk 20 armado con un cañón automático de doble alimentación Mk 20 Rh 202 de 20 mm destinado a misiones de reconocimiento y apoyo de fuego y el Wiesel 1 TOW destinado al combate antitanque. Tripulación: 2 – Wiesel Mk20 / 3 – Wiesel TOW.</string>
+
+    <!-- Freccia -->
+    <string name="recon_freccia_desc">El VBM Freccia, Veicolo Blindato Medio, es un vehículo blindado de combate de infantería con ruedas 8×8 italiano. Fue desarrollado en los años 2000. El Freccia entró en servicio en 2008. El chasis del Freccia es desarrollado a partir del chasis del carro ligero italiano B1 Centauro. El Freccia está equipado con una torreta biplaza HITFIST 25 Plus armada con un cañón Oerlikon KBA de 25 mm. El armamento se completa con dos ametralladoras de 7,62 mm y la capacidad de recibir misiles antitanque Spike. Tripulación: 3 + 8.</string>
+
+    <!-- XA-180 -->
+    <string name="recon_xa_180_desc">El XA-180 es un transporte blindado de personal con ruedas 6×6 finlandés. Fue desarrollado en los años 1980. El XA-180 entró en servicio en 1984. El XA-180 es conocido también bajo el nombre Pasi, Panssari Sisu – Blindado Sisu en finlandés. Fue desarrollado a solicitud del ejército finlandés para reemplazar los vehículos blindados de transporte de tropas BTR-60 soviéticos. El XA-180 es desarrollado en varias versiones y exportado a los Países Bajos, Noruega, Suecia, Irlanda y Estonia. Armamento: 12,7 mm o 7,62 mm. Tripulación: 2 + 10 a 16.</string>
+
+    <!-- Pandur-2 -->
+    <string name="recon_pandur_2_desc">Pandur II: vehículo blindado de transporte de tropas originario de Austria.</string>
+
+    <!-- Cobra -->
+    <string name="recon_cobra_desc">El Cobra es un vehículo blindado de combate con ruedas 4×4 turco. Fue desarrollado en los años 1990. El Cobra es empleado por las fuerzas armadas de Turquía, Georgia, Azerbaiyán, Pakistán, Argelia, Baréin, Emiratos Árabes Unidos, Kazajistán, Kosovo, Nigeria, Bangladesh, Macedonia, Montenegro y Eslovenia.</string>
+
+    <!-- ULAN-30 -->
+    <string name="recon_ulan_30_desc">El Ulan es un vehículo blindado de combate de infantería austriaco. Fue desarrollado a principios de los años 1990. El Ulan entró en servicio en 2001. Cañón: 30 mm, Mauser MK 30/2. Ametralladora coaxial: 7,62 mm. Tripulación: 3 + 8.</string>
+
+    <!-- Pizarro -->
+    <string name="recon_pizarro_desc">El Pizarro es un vehículo blindado de combate de infantería español. Fue desarrollado a principios de los años 1990. El Pizarro entró en servicio en 2001. El Pizarro es desarrollado en el marco del programa ASCOD, Austrian Spanish Cooperation Development, del futuro vehículo blindado de combate de infantería para las fuerzas armadas austriacas y españolas. La versión austriaca, bautizada Ulan, tiene varias diferencias. Cañón: 30 mm. Ametralladora coaxial: 7,62 mm. Tripulación: 3 + 8.</string>
+
+    <!-- PTL-02 -->
+    <string name="recon_ptl_02_desc">El PTL-02 es un vehículo con armamento pesado chino. Fue desarrollado en los años 1990 – principios de 2000. El PTL-02 entró en servicio en 2012. El PTL-02 es desarrollado para dotar a las unidades de infantería de apoyo de fuego. Emplea el chasis reforzado del vehículo blindado de transporte de tropas con ruedas 6×6 WZ-551. El armamento principal está compuesto del cañón de 100 mm. La dotación de munición es de 30 proyectiles. Tripulación: 4 + 1.</string>
+
+    <!-- Centauro -->
+    <string name="recon_centauro_desc">El B1 Centauro es un carro ligero con ruedas 8×8 italiano. Fue desarrollado en los años 1980 por el consorcio Iveco – Fiat. El B1 Centauro entró en servicio en 1991. El B1 Centauro está destinado a las unidades de reconocimiento. La parte trasera del chasis tiene una puerta para facilitar el acceso a bordo y la carga de municiones. Además de su tripulación, cuatro infantes pueden tomar lugar en la parte trasera del vehículo en asientos plegables, en lugar de una parte del stock de munición. El B1 Centauro está armado con un cañón de 105 mm estabilizado, de carga manual. El chasis del B1 Centauro dio origen al vehículo de infantería VBM Freccia.</string>
+
+    <!-- AAV -->
+    <string name="recon_aav_desc">El AAV, Assault Amphibious Vehicle, es un transporte blindado de personal anfibio estadounidense. Fue desarrollado en los años 1970. El AAV entró en servicio en 1972 bajo el nombre LVTP-7. Ametralladora: M2HB 12,7 mm. Lanzagranadas automáticos: Mk19 40 mm. Tripulación: 3 + 21.</string>
+
+    <!-- Achzarit -->
+    <string name="recon_achzarit_desc">El Achzarit es un transporte blindado de personal pesado israelí. Fue desarrollado en los años 1980 a partir del chasis del tanque de combate T-55. El Achzarit entró en servicio en 1988. El Achzarit Mk II entró en servicio en 1997. Tiene la nueva motorización de 850 cv y el tren de rodaje reforzado con nuevos rodillos, los piñones y las orugas. Ametralladora: 7,62 mm MAG-58 teledirigida o 12,7 mm teledirigida. Tripulación: 3 + 7.</string>
+
+    <!-- Jackal -->
+    <string name="recon_jackal_desc">El HMT 400 es un vehículo blindado modular. Fue desarrollado por Supacat a partir del chasis ATMP en versión 4×4 HMT 400, 6×6 HMT 600 y 6×6 HMT Extenda Mk2. El Jackal transporta tres miembros de tripulación y puede ser empleado para misiones de reconocimiento. Está dotado de un importante nivel de protección antiminas y puede recibir un kit de blindaje adicional. El armamento está compuesto de una ametralladora pesada de 12,7 mm o de un lanzagranadas automático y de una ametralladora de 7,62 mm.</string>
+
+    <!-- ZTD-05 -->
+    <string name="recon_ztd_05_desc">El ZTD-05 es un Vehículo con Armamento Pesado chino. Fue desarrollado a finales de los años 1990. El ZTD-05 entró en servicio en 2005. El ZTD-05 utiliza el chasis del vehículo de combate de infantería anfibio chino ZBD-05, llamado también Type-05. La familia de vehículos ZBD-ZTD desarrollada para las unidades de la infantería de marina está optimizada para misiones de desembarco. Está equipado con una torreta biplaza armada con un cañón estabilizado de 105 mm. Es capaz de disparar en movimiento en tierra y en el agua. Tripulación: 4.</string>
+
+    <!-- BMO-T -->
+    <string name="recon_bmo_t_desc">El BMO-T es un transporte blindado de personal pesado ruso. Fue desarrollado en los años 1990 a partir del chasis del tanque de combate T-72. El BMO-T entró en servicio en 2001 en cantidad restringida. Rusia es el único usuario del BMO-T. Ametralladora: 12,7 mm. Lanzacohetes: 30 PRO-A Shmel de efectos termobáricos. Tripulación: 2 + 7.</string>
+
+    <!-- Stryker -->
+    <string name="recon_stryker_desc">El M1126 Stryker es un vehículo blindado de transporte de tropas con ruedas 8×8 estadounidense. Fue desarrollado a finales de los años 1990. El M1126 Stryker entró en servicio en 2002. El M1126 Stryker es desarrollado a partir del LAV-III Kodiak canadiense sobre la base mecánica del vehículo blindado Piranha III. Tiene la torreta de montaje teledirigida RWS M151 Protector que puede recibir una ametralladora pesada M2HB de 12,7 mm o un lanzagranadas automático Mk 19 de 40 mm. Tripulación: 2 + 9.</string>
+
+    <!-- Namer -->
+    <string name="recon_namer_desc">El Namer es un transporte blindado de personal pesado israelí. Fue desarrollado en los años 2000. El Namer entró en servicio en 2008. El Namer es desarrollado a partir del chasis del tanque de combate Merkava Mk IV. Su armamento consiste en ametralladoras de 12,7 mm y/o de 7,62 mm. En julio de 2017, el Namer es revelado en versión VBCI, Vehículo Blindado de Combate de Infantería, pesado. Está dotado de una torreta teledirigida, armada con un cañón automático de 30 mm. Ametralladora: 12,7 mm. Tripulación: 3 + 8.</string>
+
+    <!-- Bradley -->
+    <string name="recon_bradley_desc">El M2 Bradley es un vehículo de combate de infantería estadounidense. Fue desarrollado en los años 1970. El M2 Bradley entró en servicio en 1981. El M2 Bradley está armado con un cañón Bushmaster de 25 mm. A partir de 1986, el modelo M1A1 recibe dos misiles antitanque TOW. El M2 Bradley ha seguido varias campañas de modernización mejorando sus capacidades de combate, su nivel de protección, su movilidad y diversos equipos. El modelo M2A3 integra el equipo de Digitalización del Espacio de Batalla. A partir del M2 Bradley, una versión de reconocimiento es desarrollada bajo el nombre M3 Bradley. Tripulación: 3 + 7.</string>
+
+    <!-- Marder -->
+    <string name="recon_marder_desc">El SPz Marder es un vehículo de combate de infantería alemán. Fue desarrollado en los años 1960. El SPz Marder entró en servicio en 1971. El SPz Marder está equipado con una torreta biplaza en superestructura armada con un cañón automático Rh 202 de 20 mm y una ametralladora MG3A1 de 7,62 mm. El SPz Marder fue entregado a Indonesia, Jordania y Chile. En el seno de las fuerzas armadas alemanas, el SPz Marder está siendo reemplazado por el nuevo vehículo de combate de infantería SPz Puma. Tripulación: 3 + 6 a 7.</string>
+
+    <!-- Puma -->
+    <string name="recon_puma_desc">El SPz Puma es un vehículo de combate de infantería pesado alemán. Fue desarrollado en los años 2000. El SPz Puma es desarrollado para reemplazar al SPz Marder en el seno de las unidades de infantería mecanizada alemanas. El SPz Puma está equipado con una torreta teledirigida armada con un cañón MK.30-2 de 30 mm y una ametralladora coaxial de 5,56 mm. Tiene dos niveles de protección. El nivel A, Aerotransportable, con la protección antiminas completa y la protección balística contra munición de 30 mm de frente y de 14,5 mm en lateral. La versión SPz Puma nivel A permanece aerotransportable por avión de transporte A-400M. Tripulación: 3 + 6.</string>
+
+    <!-- M-113 -->
+    <string name="recon_m_113_desc">El M113 es un transporte blindado de personal estadounidense. Fue desarrollado en los años 1950. El M113 entró en servicio en 1960. El M113 es desarrollado para las unidades de infantería para misiones de transporte de un grupo de infantes. Ha seguido varias campañas de modernización. El M113 se deriva en una amplia gama de vehículos especializados: puesto de mando, mortero, médico, defensa tierra-aire, vehículo de ingeniería, lanzamisiles antitanque, etc. Fue adoptado por muy numerosas fuerzas armadas en el mundo. Ametralladora: 12,7 mm. Tripulación: 2 + 11.</string>
+
+    <!-- Boxer -->
+    <string name="recon_boxer_desc">El Boxer es un vehículo blindado de combate con ruedas 8×8 alemán. Fue desarrollado en los años 2000. El Boxer entró en servicio en 2009. El Boxer tiene una estructura modular. El chasis, con el compartimento motor y la cabina, puede recibir diferentes módulos especializados. El Boxer es propuesto a la exportación con diferentes configuraciones de equipo y de sistema de armas. Reemplazan una parte del parque de vehículos M113 y Fuchs TPz 1. El Boxer es puesto en servicio por Lituania bajo la denominación Vilkas, por Australia con la producción bajo licencia y por el Reino Unido. Ametralladora: 7,62 mm / 12,7 mm / LGA: 40mm. Tripulación: 3 + 8.</string>
+
+    <!-- BMR600 -->
+    <string name="recon_bmr600_desc">El BMR-600 es un transporte blindado de personal con ruedas 6×6 español. Fue desarrollado en los años 1970. El BMR-600, Blindado Medio sobre Ruedas – blindado medio con ruedas, es desarrollado para equipar las unidades de infantería del ejército español. El vehículo puede acoger dos miembros de tripulación y once infantes. El armamento está compuesto de una ametralladora pesada de 12,7 mm. Casi 1.500 BMR-600 fueron producidos en diferentes versiones. Fue exportado a Egipto, Arabia Saudita y Perú.</string>
+
+    <!-- Pandur-1 -->
+    <string name="recon_pandur_1_desc">El Pandur 1 es un vehículo blindado con ruedas de transporte de tropas, construido por la firma austriaca. El vehículo está armado con una ametralladora de 7,62 mm o de 12,7 mm.</string>
+
+    <!-- ZBD-05 -->
+    <string name="recon_zbd_05_desc">El ZBD-05 es un vehículo de combate de infantería anfibio chino. Fue desarrollado en los años 2000. El ZBD-05 entró en servicio en 2005. El ZBD-05 es desarrollado especialmente para las unidades de fusileros-marinos. El vehículo fue revelado en 2006 bajo la denominación ZBD-2000. Para mejorar sus cualidades anfibias, el ZBD-05 está equipado con una importante hoja frontal. El ZBD-05 está equipado con una torreta biplaza armada con el cañón automático ZPT-99 de 30 mm, una ametralladora coaxial de 7,62 mm y misiles antitanque HJ-73C. El vehículo acoge tres miembros de tripulación y nueve infantes equipados. Varios vehículos son desarrollados sobre el chasis del ZTD-05.</string>
+
+    <!-- BMD-1 -->
+    <string name="recon_bmd_1_desc">El BMD-1 es un vehículo blindado de combate de infantería ruso destinado a las unidades de paracaidistas. Fue desarrollado en la Unión Soviética a principios de los años 1960. El BMD-1 entró en servicio en 1969. La torreta monoplaza está armada con un cañón 2A28 Grom de 73 mm, una ametralladora coaxial PKT de 7,62 mm. Tripulación: 2 + 5.</string>
+
+    <!-- BMD-2 -->
+    <string name="recon_bmd_2_desc">El BMD-2 es un vehículo blindado de combate de infantería ruso destinado a las unidades de paracaidistas. Fue desarrollado en la Unión Soviética a principios de los años 1980. El BMD-2 es desarrollado a partir del chasis del BMD-1. Tiene el nuevo sistema de armas con una torreta monoplaza armada con el cañón 2A42 de 30 mm y una ametralladora coaxial PKT de 7,62 mm. Para la lucha antitanque, está dotado de un sistema apto para disparar misiles antitanque 9M111 Fagot AT-4 o 9M113 Konkurs AT-5. Tripulación: 2 + 5.</string>
+
+    <!-- BMD-3 -->
+    <string name="recon_bmd_3_desc">El BMD-3 es un vehículo blindado de combate de infantería ruso destinado a las unidades de paracaidistas. Fue desarrollado en la Unión Soviética en los años 1980. El BMD-3 entró en servicio en 1990. En los años 1980, la URSS busca desarrollar un nuevo vehículo blindado de combate de infantería lanzable en paracaídas para reemplazar la familia BMD-1 y BMD-2. El BMD-3 es lanzable en paracaídas. Cañón: 30 mm 2A42 x100.2 calibres. Ametralladora coaxial: 7,62 mm PKT. Lanzagranadas automático de capó: 30 mm AG-17. Tripulación: 2 + 5.</string>
+
+    <!-- BMD-4 -->
+    <string name="recon_bmd_4_desc">El BMD-4 es un vehículo blindado de combate de infantería ruso destinado a las unidades de paracaidistas. Fue desarrollado a principios de los años 2000. El BMD-4 entró en servicio en 2004 en cantidad restringida. El BMD-4 tiene el mismo chasis de cinco rodillos que su predecesor el BMD-3. El vehículo recibe una nueva torreta Bakhtcha-U que permite aumentar significativamente la potencia de fuego. La torreta Bakhtcha-U se deriva del sistema de armas del BMP-3. Está equipada con un cañón 2A70 de 100 mm, un cañón automático 2A72 de 30 mm y una ametralladora coaxial PKT de 7,62 mm. El BMD-4 es lanzable en paracaídas y optimizado para las operaciones aerotransportadas. Tripulación: 2 + 5.</string>
+
+    <!-- BMP-1 -->
+    <string name="recon_bmp_1_desc">El BMP-1 es un vehículo blindado de combate de infantería ruso. Fue desarrollado en la Unión Soviética a principios de los años 1960. El BMP-1 entró en servicio en 1966. El BMP-1, Boyevaya Machina Pekhoty – vehículo de combate de infantería, es el primer vehículo blindado de su categoría. Fue desarrollado para reforzar las capacidades de las unidades de infantería mecanizadas. El BMP-1 es un vehículo anfibio y apto para combatir en ambiente NRBQ. Su tripulación está compuesta del jefe de vehículo, del tirador, del piloto y de ocho infantes. El BMP-1 está dotado de una torreta monoplaza armada con un cañón 2A28 Grom de ánima lisa de 73 mm, una ametralladora coaxial PKTM de 7,62 mm y el misil antitanque 9M14M Malyutka, AT-3 Sagger. Los infantes tienen la capacidad de disparar desde el interior del vehículo por nueve trampillas de disparo. Entre 1966 y 1988, más de 20.000 BMP-1 fueron construidos. En agosto de 2018, una nueva versión del BMP-1 es presentada bajo el nombre BMP-1AM Basurman.</string>
+
+    <!-- BMP-2 -->
+    <string name="recon_bmp_2_desc">El BMP-2 es un vehículo de combate de infantería ruso. Fue desarrollado en la Unión Soviética en los años 1970. El BMP-2 entró en servicio en 1981. El BMP-2 es desarrollado sobre la base del chasis del vehículo blindado de combate de infantería BMP-1. El grupo motopropulsor está al frente derecho y el puesto del piloto al frente izquierdo. Es anfibio y protegido NBQ. Para mejorar sus capacidades de fuego, el BMP-2 recibe una torreta biplaza, armada con un cañón automático 2A42 de 30 mm, una ametralladora coaxial PKT de 7,62 mm y misiles antitanque. El BMP-2 es adoptado por numerosos ejércitos en el mundo. Tripulación: 3 + 7.</string>
+
+    <!-- BMP-3 -->
+    <string name="recon_bmp_3_desc">El BMP-3 es un vehículo de combate de infantería ruso. Fue desarrollado en la Unión Soviética en los años 1980. El BMP-3 entró en servicio en 1987. El BMP-3 es el vehículo más fuertemente armado de su categoría. Su armamento está compuesto del cañón de baja presión 2A70 de 100 mm, del cañón automático 2A72 de 30 mm, de la ametralladora coaxial PKT de 7,62 mm. El BMP-3 puede disparar por el cañón de 100 mm el misil antitanque 9M117 del sistema 9K166-3 Basnya, AT-12 Swinger. El chasis del BMP-3 adopta la configuración de la familia de vehículos blindados de combate de unidades de paracaidistas rusos BMD. Tripulación: 3 + 7.</string>
+
+    <!-- BTR-60 -->
+    <string name="recon_btr_60_desc">El BTR-60 es un vehículo blindado de transporte de tropas con ruedas 8×8 ruso. Fue desarrollado en la Unión Soviética a principios de los años 1950. El BTR-60 entró en servicio en 1960. La versión BTR-60P de techo abierto transporta dos miembros de tripulación y 12 a 14 infantes. El armamento está compuesto de una ametralladora de 12,7 mm accionada manualmente y de una o varias ametralladoras de 7,62 mm instaladas en los flancos. La versión BTR-60PA recibe un techo y se beneficia de la protección NBQ. La versión BTR-60PB está equipada con una torreta de montaje monoplaza armada con la ametralladora pesada KPVT de 14,5 mm y la ametralladora coaxial PKT de 7,62 mm. El BTR-60PB transporta tres miembros de tripulación y 8 infantes. El BTR-60, en diferentes versiones, está muy ampliamente exportado en el mundo. En el seno del ejército soviético, luego ruso, el BTR-60 es reemplazado a partir de 1976 por el BTR-70.</string>
+
+    <!-- BTR-80 -->
+    <string name="recon_btr_80_desc">El BTR-80 es un vehículo blindado de transporte de tropas con ruedas 8×8 ruso. Fue desarrollado en la Unión Soviética a principios de los años 1980. El BTR-80 entró en servicio en 1986. El BTR-80 tiene la misma arquitectura que su predecesor el BTR-70, con la motorización en la parte trasera del vehículo. El acceso a bordo se efectúa por las puertas laterales dobles. Ametralladora: 14,5 mm. Ametralladora coaxial: 7,62 mm. Tripulación: 3 + 7.</string>
+
+    <!-- BTR-70 -->
+    <string name="recon_btr_70_desc">El BTR-70 es un vehículo blindado de transporte de tropas con ruedas 8×8 ruso. Fue desarrollado en la Unión Soviética a principios de los años 1970. El BTR-70 entró en servicio en 1976. El BTR-70 tiene la misma arquitectura que su predecesor el BTR-60. La versión BTR-70 está equipada con una torreta de montaje monoplaza armada con la ametralladora pesada KPVT de 14,5 mm y la ametralladora coaxial PKT de 7,62 mm. Tripulación: 3 + 7.</string>
+
+    <!-- BTR-80A -->
+    <string name="recon_btr_80a_desc">El transporte blindado de tropas BTR-80A 8x8 es diseñado y fabricado por Rusia. Está destinado al transporte de tropas en el campo de batalla y a proporcionar apoyo de fuego cercano. También puede llevar a cabo misiones de reconocimiento, de apoyo al combate y de patrulla. Los cinco primeros vehículos BTR-80A fueron entregados a la Dirección principal de la seguridad presidencial, con sede en Moscú, y fueron presentados públicamente por primera vez en mayo de 1995. El BTR-80A es prácticamente idéntico al BTR-80, pero está equipado con una nueva torreta monoplaza armada con un cañón de 30 mm 2A72 y una ametralladora PKTM de 7,62 mm. Tripulación: 3 + 7.</string>
+
+    <!-- JLTV Falcon -->
+    <string name="recon_jltv_falcon_desc">El JLTV, Joint Light Tactical Vehicle, es un vehículo blindado con ruedas 4×4 estadounidense. Fue desarrollado en los años 2010, en el marco del programa de reemplazo del HMMWV. El JLTV entró en servicio en 2018. El JLTV es desarrollado a partir del vehículo blindado con ruedas L-ATV, Light Combat Tactical All-Terrain Vehicle. Tiene el nivel de protección balística y la protección antiminas del nivel de un MRAP, Mine Resistant Ambush Protected. El vehículo puede recibir diferentes tipos de armamento con torretas de montaje teledirigidas. El JLTV es activamente promovido a la exportación. Armamento: 12,7 mm a 20 mm. Tripulación: 2 + 2 a 3.</string>
+
+    <!-- Caiman -->
+    <string name="recon_caiman_desc">Un blindado de transporte de tropas (BTT) de tipo MRAP con un fondo en forma de V. País: Estados Unidos. Período de utilización: 2007 a hoy. Tripulación: hasta 10 personas. Capacidad de instalación de todos los módulos de combate conocidos.</string>
+
+    <!-- Casspir -->
+    <string name="recon_casspir_desc">El Casspir es un vehículo de transporte de tropas creado para la policía y las fuerzas armadas sudafricanas en los años 1970. Se distingue por una gran distancia entre ejes y un piso reforzado para resistir a las minas. Este tiene una ametralladora de 7,62 mm montada en el techo, pero el armamento es a menudo considerablemente aumentado en el terreno por las unidades que utilizan los vehículos. Para proteger el vehículo contra las minas, la parte inferior de la caja está elevada, reforzada y en forma de V. Tripulación: 2 (+10 pasajeros).</string>
+
+    <!-- PVP -->
+    <string name="recon_pvp_desc">El PVP, Petit Véhicule Protégé, es un vehículo ligero blindado con ruedas 4×4 francés. Fue desarrollado en los años 2000. El PVP entró en servicio en 2008. El PVP tiene la protección de nivel 2. El PVP es empleado por el ejército francés y exportado a Chile (15 ejemplares), a Togo (6 ejemplares) y a Rumania (16 ejemplares). Versiones: PVP – 3 puertas / PVP – 5 puertas / PVP HD – 5 puertas, alargado. Ametralladora: 7,62 mm. Tripulación: 2 + 3 a 5.</string>
+
+    <!-- URAL Typhoon -->
+    <string name="recon_ural_typhoon_desc">El Ural-63095 / Ural-63099 Typhoon-U es un vehículo blindado multifunción con ruedas 6×6 ruso. Fue desarrollado en los años 2010. El Typhoon-U entró en servicio en 2014. El Typhoon-U forma parte de vehículos del tipo MRAP, Mine Resistant Ambush Protected. Tiene la caja monocasco en V y está equipado con asientos que absorben los choques. Son empleados en la región militar Sur para el transporte de tropas, el reconocimiento, en vehículo de puesto de mando, en vehículo NRBQ. El vehículo puede recibir una torreta de montaje teledirigida equipada con armamentos ligeros. Ametralladora: 12,7 mm en opción. Tripulación: 3 + 16 Ural-63095 / 2 + 12 Ural-63099.</string>
+
+    <!-- BMP Terminator -->
+    <string name="recon_bmp_terminator_desc">El BMPT Terminator es un vehículo blindado de combate pesado ruso. Fue desarrollado en los años 2000-2010. El BMPT entró en servicio en 2011. El BMPT, Boyévaya Machina Podderjki Tankov – vehículo de combate de apoyo de tanque, está destinado a la misión de apoyo de fuego de unidades de tanques de combate por la destrucción de medios antitanque adversos. El BMPT Terminator utiliza el chasis del tanque de combate T-72 o del T-90 con la cabina al frente centro y la motorización en la parte trasera. El BMPT tiene una amplia panoplia de armamento. La torreta biplaza en superestructura está dotada de dos cañones 2A42 de 30 mm, de una ametralladora coaxial PKT de 7,62 mm y de cuatro misiles supersónicos antitanque de guiado láser Ataka-T. Dos lanzagranadas automáticos AG-17D están instalados en el frente-izquierdo y el frente-derecho del vehículo. Los AG-17D son comandados, independientemente del armamento principal, por dos miembros de tripulación instalados a ambos lados del piloto. Tripulación: 5.</string>
+
+    <!-- Boomerang -->
+    <string name="recon_boomerang_desc">El Boomerang es un proyecto de vehículo blindado de combate con ruedas 8×8 ruso. Está en desarrollo a partir de los años 2010. La puesta en servicio del Boomerang está prevista para 2019-2020. Versiones: K-16 Boomerang – VBTT, vehículo blindado de transporte de tropas / K-17 Boomerang – VBCI, vehículo blindado de combate de infantería. Armamento del K-16 Boomerang: Ametralladora - 12,7 mm. Armamento del K-17 Boomerang: Ametralladora - 30 mm. Misil: 2×2 Kornet. Tripulación: 3 + 7 a 8.</string>
+
+    <!-- MTLB -->
+    <string name="recon_mtlb_desc">El MT-LB es un vehículo blindado de transporte multifunción ruso. Fue desarrollado en la Unión Soviética en los años 1960. El MT-LB entró en servicio en 1964. El MT-LB es diseñado como un tractor de cañón de artillería y un transportador de material. Posteriormente, el MT-LB fue adoptado en versión de transporte de tropas, vehículo de evacuación médica y plataforma de instalación de diferentes sistemas y equipos.</string>
+
+    <!-- VBCI -->
+    <string name="recon_vbci_desc">El VBCI, Véhicule Blindé de Combat d'Infanterie, es un vehículo blindado de combate con ruedas 8×8 francés. Fue desarrollado en los años 2000. El VBCI entró en servicio en 2008. El VBCI es desarrollado para reemplazar al vehículo de combate de infantería de orugas AMX-10P. El VBCI es puesto en servicio en el seno de las unidades de la infantería del Ejército francés en 2008 en dos versiones: VBCI-VCI, Vehículo de Combate de Infantería, y VBCI-VPC, Vehículo Puesto de Comando. La versión VBCI-VCI está equipada con la torreta monoplaza Tarask armada con el cañón automático M811 de 25 mm de doble alimentación y la ametralladora coaxial MAG 58 de 7,62 mm. Puede ser utilizada por el jefe de vehículo en función telecomandada. La versión VBCI-VPC está equipada con dos estaciones SIR y está armada con una ametralladora teledirigida de 12,7 mm. Tripulación: 3 + 8.</string>
+
+    <!-- BTR-4 Bucephale -->
+    <string name="recon_btr_4_bucephale_desc">El BTR-4 es un vehículo blindado de combate con ruedas 8×8 ucraniano. Fue desarrollado en los años 2000. El BTR-4 entró en servicio en 2011 en el ejército iraquí y en 2014 en el ejército ucraniano. La arquitectura del BTR-4 difiere de la línea de la familia BTR-60/70/80 soviéticos. El BTR-4 está equipado con una torreta teledirigida, armada con un cañón de 30 mm. Tripulación: 3 + 8.</string>
+
+    <!-- Scorpion -->
+    <string name="recon_scorpion_desc">El FV101 Scorpion es un vehículo blindado de reconocimiento británico. Fue desarrollado en los años 1960. El FV101 Scorpion entró en servicio en 1973. El FV101 Scorpion es desarrollado como un vehículo de reconocimiento. Está armado con el cañón L23A1 de 76 mm y la ametralladora coaxial L43A1 de 7,62 mm. Scorpion dejó el servicio activo del ejército británico en 1994. Tripulación: 3.</string>
+
+    <!-- MaxxPro -->
+    <string name="recon_maxxpro_desc">MaxxPro es un vehículo blindado militar de transporte de tropas o de recuperación fabricado por Estados Unidos. Este es un vehículo del tipo MRAP con un casco en V para protegerse contra las minas terrestres. El MaxxPro está armado únicamente con una torreta en el techo que puede acoger un fusil ametrallador de 7,62 mm o 12,7 mm pero también otros tipos de arma de infantería como un misil TOW o un lanzagranadas automático Mk19. Tripulación: 2 más 8.</string>
+
+    <!-- ACV-1 -->
+    <string name="recon_acv_1_desc">El SUPERAV es desarrollado por Iveco y BAE Systems en el marco del programa ACV, Amphibious Combat Vehicle, para el Cuerpo de Marines de Estados Unidos. Cañón: hasta 30 mm. Ametralladora: 12,7 mm. Lanzagranadas automático: Mk19 40 mm. Tripulación: 3 + 13.</string>
+
+    <!-- Ajax -->
+    <string name="recon_ajax_desc">El Ajax es un vehículo blindado de combate británico. Fue desarrollado en los años 2010. El Ajax entró en servicio en 2019. El Ajax está destinado a misiones de reconocimiento y de combate. El Ajax emplea el chasis de orugas del vehículo blindado ASCOD 2. Está equipado con una torreta armada con un cañón CT40/40 CTAS de 40 mm que emplea la munición telescopada y una ametralladora coaxial L94A1 de 7,62 mm. El vehículo está dotado de una torreta de montaje teledirigida. Tripulación: 2 + 4.</string>
+
+    <!-- Aravis -->
+    <string name="recon_aravis_desc">El VBHP, Véhicule Blindé Hautement Protégé, Aravis es un vehículo blindado con ruedas 4×4 francés. Fue desarrollado en los años 2000. El VBHP Aravis entró en servicio en 2009. Cañón: 20 mm. Ametralladora coaxial: 7,62 mm / 12,7 mm. Tripulación: 2 + 5.</string>
+
+    <!-- BRM-3K -->
+    <string name="recon_brm_3k_desc">El BRM-3K Rys (Lince en ruso) es un vehículo blindado de reconocimiento ruso. Fue desarrollado en los años 1990. El BRM-3K Rys entró en servicio en 1995. El BRM-3K Rys es desarrollado sobre el chasis del vehículo blindado de combate de infantería BMP-3 para las unidades de reconocimiento. Sus misiones son: observación, detección de objetivos, determinación de posición de objetivos detectados y transmisión de inteligencia a los escalones superiores. El BRM-3K está equipado con un radar terrestre de efecto Doppler 1RL-133-3, un telémetro láser, una cámara térmica, un sistema de navegación, un sistema de transmisión de datos a una distancia de 100 km en movimiento y 350 km detenido. Cañón: 30 mm. Tripulación: 3 + 3.</string>
+
+    <!-- BTR-D -->
+    <string name="recon_btr_d_desc">El BTR-D es un transporte blindado de personal ruso destinado a las unidades de paracaidistas. Fue desarrollado en la Unión Soviética a principios de los años 1970. El BTR-D entró en servicio en 1974. El BTR-D es desarrollado a partir del chasis del VBCI BMD-1. Ofrece un volumen interno superior para instalar diferentes equipos y sistemas de armas. El BTR-D está desprovisto de una torreta y puede recibir una o dos ametralladoras de 7,62 mm. Anfibio. El chasis del BTR-D ha servido para diferentes vehículos blindados. Ametralladora: 7,62 mm PKT. Tripulación: 3 + 10.</string>
+
+    <!-- Patria -->
+    <string name="recon_patria_desc">El Patria 6×6 es desarrollado por la sociedad finlandesa. El vehículo puede acoger dos miembros de tripulación y diez infantes. El armamento estándar está compuesto de una ametralladora pesada de 12,7 mm.</string>
+
+    <!-- Cougar -->
+    <string name="recon_cougar_desc">El Cougar es un vehículo blindado del tipo MRAP estadounidense. Fue desarrollado en los años 2000. El Cougar entró en servicio en 2002. El MRAP, Mine Resistant Ambush Protected, Cougar es diseñado para proporcionar una mejor protección a su tripulación frente a las minas y a los artefactos explosivos. El Cougar es desarrollado en versión 4×4 y 6×6. Ametralladora: 12,7 mm / 7,62 mm. Tripulación: 2 + 4 Cougar 4×4 / 2 + 8 Cougar 6×6.</string>
+
+    <!-- Eitan -->
+    <string name="recon_eitan_desc">El Eitan es un proyecto de vehículo blindado de combate con ruedas 8×8 israelí. Está en curso de desarrollo. El primer demostrador del Eitan es revelado por el ministerio israelí de Defensa el 1 de septiembre de 2016. Está en desarrollo para reemplazar la flota de vehículos blindados de transporte de tropas de orugas M113. El Eitan puede ser declinado en diferentes versiones: VBTT, VBCI con ruedas, mando, evacuación médica, portamortero, ingeniería, etc. Armamento: Ametralladora: 12,7 mm / 7,62 mm. Tripulación: 3 + 9.</string>
+
+    <!-- ERC-90 Sagaie -->
+    <string name="recon_erc_90_sagaie_desc">El ERC-90 es un VAL, Vehículo con Armamento Pesado, con ruedas 6×6 francés. Fue desarrollado en los años 1970. El ERC-90 entró en servicio en 1979. El ERC-90 es principalmente utilizado en las unidades de reconocimiento. El ERC-90 tiene capacidad anfibia y es propulsado en el agua con dos hélices. Cañón: 90 mm. Tripulación: 3.</string>
+
+    <!-- Foxhound -->
+    <string name="recon_foxhound_desc">El LPPV, Light Protection Patrol Vehicle, Foxhound es un vehículo blindado con ruedas 4×4 británico. Fue desarrollado en los años 2000. El Foxhound entró en servicio en 2011. Ametralladora: 2 x 7,62 mm. Tripulación: 2 + 4.</string>
+
+    <!-- Scimitar -->
+    <string name="recon_scimitar_desc">El FV107 Scimitar es un vehículo blindado de reconocimiento británico. Fue desarrollado en los años 1960. El FV107 Scimitar entró en servicio en 1971. El FV107 Scimitar es desarrollado como un vehículo de reconocimiento. Está equipado con una torreta biplaza armada con el cañón automático L21 Rarden de 30 mm y la ametralladora coaxial de 7,62 mm. Tripulación: 3.</string>
+
+    <!-- GRF Vector -->
+    <string name="recon_grf_vector_desc">El GRF es un vehículo de Fuerzas especiales neerlandés. Fue desarrollado en los años 2010. El GRF (Ground force) es una plataforma táctica ligera aerotransportable, especialmente diseñada para las unidades de Fuerzas especiales. El GRF puede recibir diferentes configuraciones e integrar un amplio panel de armamentos y equipos. Armamento: M2 Browning 12,7 mm / Lanzagranadas automático HK GMG 40 mm. Tripulación: 3 + 1.</string>
+
+    <!-- Higuard -->
+    <string name="recon_higuard_desc">El Higuard es un vehículo blindado francés Higuard del tipo MRAP. Fue desarrollado en los años 2010. El Higuard entró en servicio en 2012. La caja en V pronunciado ofrece un importante nivel de protección contra las minas y los IED. El vehículo transporta dos miembros de tripulación y diez infantes. El Higuard puede recibir una torreta de montaje teledirigida armada con una ametralladora pesada de 12,7 mm, una ametralladora de 7,62 mm o lanzagranadas automático de 40 mm.</string>
+
+    <!-- Lazar-3 -->
+    <string name="recon_lazar_3_desc">El Lazar-3 es un vehículo blindado de combate con ruedas 8×8 serbio. Fue desarrollado en los años 2010. El Lazar-3 entró en servicio en 2018. El vehículo está equipado con cinco vidrios de cada lado y dos vidrios en la parte trasera permitiendo un buen nivel de observación. Cada vidrio está provisto de una trampilla de disparo para armamento ligero. En su versión VBCI, vehículo blindado de combate de infantería, el Lazar-3 puede recibir una torreta armada con un cañón automático de 20 mm o de 30 mm. La versión VBTT, vehículo blindado de transporte de tropas, está equipada con una torreta de montaje teledirigida armada con una ametralladora pesada de 12,7 mm. Armamento: 30 mm. Tripulación: 3 + 9.</string>
+
+    <!-- LMV Lince -->
+    <string name="recon_lmv_lince_desc">El LMV Lince es un vehículo blindado multifunción con ruedas 4×4 italiano. Fue desarrollado en los años 1990 por Iveco. El LMV Lince entró en servicio en 2001. El LMV, Light Multirole Vehicle, Lince (Lince en italiano) también es llamado M65. Está diseñado para misiones de enlace, escolta de convoy y reconocimiento. Su blindaje protege contra armamento de pequeño calibre. Un kit de blindaje adicional ofrece la protección contra munición de 12,7 mm. El LMV Lince está ampliamente exportado en el mundo. Es empleado por el ejército británico bajo el nombre Panther. En el seno del ejército ruso, es empleado bajo el nombre Rys, ensamblado bajo licencia por Kamaz. Tripulación: 1 + 4.</string>
+
+    <!-- Luchs -->
+    <string name="recon_luchs_desc">El SpPz Luchs es un vehículo blindado de reconocimiento con ruedas 8×8 alemán. Fue desarrollado en los años 1960-1970. El SpPz Luchs entró en servicio en 1975. El SpPz, Spähpanzer, Luchs (Lince) es desarrollado para las unidades de reconocimiento. Para optimizar su capacidad de movilidad, está dotado de una arquitectura original. El chasis está equipado con dos puestos de pilotaje instalados al frente y en la parte trasera. El vehículo puede partir en el sentido inverso después de haber sido tomado en cuenta por el piloto trasero. El SpPz Luchs es un vehículo anfibio, propulsado en el agua con dos hélices. El SpPz Luchs está equipado con una torreta biplaza, armada con el cañón MK-20 Rh-202 de 20 mm. En 1985, el modelo Luchs A2 recibe una cámara térmica. En el seno del ejército alemán, el Luchs es reemplazado por el vehículo de reconocimiento con ruedas 4×4 Fennek. Tripulación: 4.</string>
+
+    <!-- Pars-3 -->
+    <string name="recon_pars_3_desc">El Pars III es un vehículo blindado de combate con ruedas 8×8 turco. Fue desarrollado en los años 2000-2010. El Pars III entró en servicio en 2017. El Pars III, de un peso máximo de 30 toneladas, está equipado con una torreta monoplaza Saber armada con el cañón automático Orbital ATK M242 Bushmaster de doble aprovisionamiento y una ametralladora coaxial de 7,62 mm. Su tripulación es de tres hombres y nueve infantes equipados. Armamento: 25 mm. Tripulación: 3 + 9.</string>
+
+    <!-- LAV-25 -->
+    <string name="recon_lav_25_desc">El LAV-25, Light Armoured Vehicle 25 mm, es un vehículo blindado de reconocimiento estadounidense. Fue desarrollado en los años 1970-1980. El LAV-25 entró en servicio en 1983. El LAV-25 es empleado en el seno de las unidades de reconocimiento. El LAV-25 está basado en el chasis del vehículo blindado con ruedas 8×8 Piranha. El LAV-25 está equipado con una torreta biplaza derivada del vehículo de combate de infantería M2 Bradley. El armamento está compuesto del cañón automático M242 Bushmaster de 25 mm, una ametralladora coaxial M240 de 7,62 mm. Tripulación: 3 + 6.</string>
+
+    <!-- Titus -->
+    <string name="recon_titus_desc">El Titus es un vehículo blindado con ruedas 6×6 francés. Fue desarrollado en los años 2010 por Nexter Systems. El vehículo puede acoger hasta doce infantes además de su tripulación de dos a tres hombres. El Titus está dotado de un importante nivel de protección balística y antiminas. Puede recibir una torreta de montaje teledirigida armada con un cañón automático de 20 mm, una ametralladora pesada de 12,7 mm o un lanzagranadas automático de 40 mm. Tripulación: 2-3 + 12.</string>
+
+    <!-- Typhoon-K -->
+    <string name="recon_typhoon_k_desc">El KamAZ-53949 Typhoon-K es un vehículo blindado multifunción con ruedas 4×4 ruso. Fue desarrollado en los años 2010. El Typhoon-K entró en servicio en 2019. El Typhoon-K 4×4 forma parte de vehículos del tipo MRAP, Mine Resistant Ambush Protected. Tiene la caja monocasco en V y está equipado con asientos que absorben los choques. Armamento: 12,7 mm. Tripulación: 2 + 8.</string>
+
+    <!-- Griffon -->
+    <string name="recon_griffon_desc">El VBMR Griffon (Véhicule Blindé Multi-Rôles) es un transporte blindado de personal con ruedas 6×6 francés. Fue desarrollado por Nexter Systems. El VBMR Griffon entró en servicio en 2019. Armamento: 12,7 mm / Lanzagranadas automático: 40 mm. Tripulación: 2 + 8.</string>
+
+    <!-- VCR Panhard -->
+    <string name="recon_vcr_panhard_desc">El VCR, Véhicule de Combat à Roues, es un vehículo blindado de combate con ruedas 6×6 francés. Fue desarrollado en los años 1970. El VCR entró en servicio en 1979. El VCR está basado en el vehículo con ruedas 4×4 M3. Tiene el mismo tren de rodaje y motorización que el vehículo con armamento pesado ERC-90 Sagaie. El VCR es producido en varias versiones. La versión principal es el VCR/TT, Transporte de Tropas. Puede recibir una ametralladora de 7,62 mm o una ametralladora pesada de 12,7 mm. Las versiones específicas están equipadas con misiles HOT, misiles Milan o un cañón de 20 mm. Tripulación: 3 + 9.</string>
+
+    <!-- GBC 180 -->
+    <string name="recon_gbc_180_desc">GBC 180 - Gazelle Berliet Cargo (180 cv). Está principalmente destinado a transportar personal, carga o refugios y asegurar misiones especializadas de recuperación (lote 7) y de suministro de combustible (CCT). Todos los GBC 180 "cabina torpedo plataforma con barandillas lona" están predispuestos para recibir un montaje de anillo de 12,7. El GBC 180 es un vehículo táctico 6 x 6, que puede llevar tres personas en la cabina.</string>
+
+    <!-- ACMAT VT4 -->
+    <string name="recon_acmat_vt4_desc">Vehículo de mando y enlace ligero, no blindado, el vehículo táctico 4X4 (VT4) es de tipo 4x4 militarizado, destinado a asegurar enlaces para 5 soldados o 4 combatientes equipados FELIN en un contexto operacional (operaciones interiores tipo Sentinelle u operaciones exteriores en fase de estabilización y normalización) y de preparación operacional (seguridad actividades, maniobras, formación y entrenamiento). El VT4 es un vehículo ligero táctico polivalente que reemplaza al vehículo P4 (Peugeot 4 ruedas motrices). Alía modernidad, potencia, capacidad de franqueo y tiene un perfil de rodaje completo (en carretera, fuera de carretera y en todo terreno). Pre-equipado para recibir el kit de rejillas de protección de vidrios. Pre-equipado para recibir dos puestos PR4G, un sistema de mando tipo ordenador táctil y un GPS. Equipado con sistemas de ocultación de fuentes luminosas (apagón). Peso vacío: 2,66 toneladas. Carga útil: 770 kg. Alcance: 800 km. Tripulaciones: 5 soldados o 4 combatientes con vestimenta y equipo FELIN.</string>
+
+    <!-- Peugeot P4 -->
+    <string name="recon_peugeot_p4_desc">El Peugeot P4 es un vehículo ligero de cuatro ruedas motrices producido por el constructor automovilístico francés Peugeot de 1982 a 1992. Aunque equipado y motorizado por Peugeot, el P4 es una variante del Mercedes-Benz Clase G construido bajo licencia.</string>
+
+    <!-- Masstech T4 -->
+    <string name="recon_masstech_t4_desc">El Masstech T4 es un vehículo militar ligero francés, basado en el Toyota Land Cruiser HZJ 76 y modificado por la sociedad Technamm. En particular, el vehículo está dotado de una radio PR4G, de un terminal SITEL y de un GPS DAGR. Puede embarcar cuatro combatientes equipados o cinco pasajeros. Desplegado únicamente en Francia con la Operación Sentinelle, su motor, rústico y compatible con los combustibles africanos y militares, autoriza su envío en OPEX.</string>
+
+    <!-- TRM 2000 -->
+    <string name="recon_trm_2000_desc">El Renault TRM 2000 es un camión militar francés de 4 ruedas motrices (atestiguado por sus iniciales: Toutes Roues Motrices) diseñado para misiones de apoyo en terreno difícil. Fue producido de 1982 a 1990.</string>
+
+    <!-- VAB -->
+    <string name="recon_vab_desc">El VAB, Véhicule de l'Avant Blindé, es un transporte blindado de personal con ruedas francés. El VAB entró en servicio en 1976. El VAB es desarrollado en configuración 4×4 y 6×6. La motorización del VAB está instalada detrás de la cabina. Una amplia gama de vehículos blindados es desarrollada sobre el chasis del VAB. Entre las versiones principales están el VAB PC Puesto de mando, VAB T20-13 con un cañón de 20 mm, VAB Mephisto con cuatro misiles antitanque HOT, VAB Génie, VAB Sanitaire, VAB Reconnaissance NRBQ, VAB RASIT con un radar terrestre. Ametralladora: 12,7 mm. Tripulación: 2 + 10. Motor: V6 diésel, 220 cv.</string>
+
+    <!-- EE3 Jararaca -->
+    <string name="recon_ee3_jararaca_desc">Este era un vehículo de reconocimiento muy ligero de cuatro ruedas, blindado brasileño. En los años 1970 y 1980, el ejército brasileño compró aproximadamente 1300 vehículos blindados a Engesa, y 2000 vehículos más fueron exportados hacia otros países, especialmente hacia los estados árabes y en África en general (Libia, Túnez e Irak siendo los mayores compradores). Tripulación: 3. Armamento: ametralladora de 12,7 mm.</string>
+
+    <!-- URAL-4320 -->
+    <string name="recon_ural_4320_desc">El Ural-4320 es un camión militar todo terreno producido por la Planta Automotriz Ural desde 1976. Este vehículo fue diseñado para responder a las necesidades del ejército soviético en materia de transporte de tropas y de material en condiciones difíciles, tales como terrenos accidentados o ambientes extremos.</string>
+
+</resources>
