@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- BM2 Vehicle Descriptions - Portuguese -->
+
+    <!-- BRDM-2 -->
+    <string name="bm2_brdm2_description">O BRDM-2 é um veículo russo blindado de reconhecimento. Foi desenvolvido na União Soviética no início dos anos 1950.\nSeu armamento consiste em uma metralhadora pesada KPVT de 14,5 mm e uma metralhadora coaxial PKT de 7,62 mm,\nidênticas aos transportadores blindados de pessoal russos BTR-60/BTR-70/BTR-80.\nO BRDM-2, em várias versões, é usado pelas forças armadas de mais de 50 países em todo o mundo.\nEntrou em serviço em 1962.\nTripulação: 4.</string>
+
+    <!-- BRM-1K -->
+    <string name="bm2_brm1k_description">O BRM-1K é um veículo russo blindado de reconhecimento. Foi desenvolvido a partir do veículo de combate de infantaria BMP-1 nos anos 1970.\nTem a mesma arquitetura do BMP-1 com o motor na frente à direita e a posição do motorista na frente à esquerda.\nO BRM-1K recebeu uma nova torre biplace ao contrário da torre monoposto do BMP-1.\nO armamento consiste no canhão 2A28 Grom de 73 mm, idêntico ao BMP-1.\nCanhão: 73 mm 2A28 Grom.\nTripulação: 6.</string>
+
+    <!-- BRM-3K -->
+    <string name="bm2_brm3k_description">O BRM-3K Rys (Lince em russo) é um veículo russo blindado de reconhecimento, entrou em serviço em 1995.\nÉ desenvolvido no chassi do veículo de combate de infantaria BMP-3 para unidades de reconhecimento.\nSuas missões são: observação, detecção de alvos, determinação da posição de alvos detectados e transmissão de inteligência aos escalões superiores.\nO BRM-3K está equipado com um radar Doppler terrestre 1RL-133-3, telêmetro a laser, câmera térmica,\nsistema de navegação, sistema de transmissão de dados a uma distância de 100 km em movimento e 350 km estacionário.\nCanhão: 30 mm.\nTripulação: 3 + 3.</string>
+
+    <!-- Scimitar -->
+    <string name="bm2_scimitar_description">O FV107 Scimitar é um veículo britânico blindado de reconhecimento, entrou em serviço em 1971.\nEstá equipado com uma torre biplace armada com um canhão automático L21 Rarden de 30 mm e uma metralhadora coaxial de 7,62 mm.\nTripulação: 3.</string>
+
+    <!-- BMP-1 -->
+    <string name="bm2_bmp1_description">O BMP-1 é um veículo russo de combate de infantaria, entrou em serviço em 1966.\nÉ o primeiro veículo de sua categoria, desenvolvido para aumentar as capacidades das unidades de infantaria mecanizada.\nO BMP-1 é um veículo anfíbio capaz de operar em ambiente NBQ.\nSua tripulação consiste no comandante, artilheiro, motorista e oito soldados de infantaria.\nO BMP-1 tem uma torre monoposto armada com um canhão de alma lisa 2A28 Grom de 73 mm,\numa metralhadora coaxial PKTM de 7,62 mm e o míssil antitanque 9M14M Malyutka, AT-3 Sagger.\nOs soldados de infantaria podem atirar de dentro do veículo através de nove portinholas de tiro.\nEntre 1966 e 1988, mais de 20.000 BMP-1s foram construídos. Em agosto de 2018, uma nova versão do BMP-1 foi apresentada como BMP-1AM Basurmanin.\nTripulação: 3 + 8.</string>
+
+    <!-- BMP-2 -->
+    <string name="bm2_bmp2_description">O BMP-2 é um veículo russo de combate de infantaria, entrou em serviço em 1981.\nÉ desenvolvido no chassi do veículo de combate de infantaria BMP-1.\nO trem de força está na frente à direita e a posição do motorista na frente à esquerda. É anfíbio e protegido NBQ.\nPara melhorar sua potência de fogo, o BMP-2 recebe uma torre biplace, armada com um canhão automático 2A42 de 30 mm,\numa metralhadora coaxial PKT de 7,62 mm e mísseis antitanque.\nAdotado por muitos exércitos em todo o mundo.\nTripulação: 3 + 7.</string>
+
+    <!-- BMP-3 -->
+    <string name="bm2_bmp3_description">O BMP-3 é um veículo russo de combate de infantaria, entrou em serviço em 1987.\nÉ o veículo mais fortemente armado em sua categoria.\nSeu armamento consiste em um canhão de baixa pressão 2A70 de 100 mm, um canhão automático 2A72 de 30 mm,\numa metralhadora coaxial PKT de 7,62 mm.\nO BMP-3 pode disparar através do canhão de 100 mm o míssil antitanque 9M117 do sistema 9K166-3 Basnya, AT-12 Swinger.\nO chassi do BMP-3 adota a configuração da família de veículos de combate BMD dos paraquedistas russos.\nTripulação: 3 + 7.</string>
+
+    <!-- MTLB -->
+    <string name="bm2_mtlb_description">O MTLB é um veículo russo blindado de transporte multiuso, entrou em serviço em 1964.\nÉ projetado como um trator de canhões de artilharia e transportador de equipamentos.\nPosteriormente, o MTLB foi adotado na versão de transporte de tropas, veículo de evacuação médica e plataforma para instalação de vários sistemas e equipamentos.\nTripulação: 2 + 11.</string>
+
+    <!-- BMD-1 -->
+    <string name="bm2_bmd1_description">O BMD-1 é um veículo russo aerotransportado de combate de infantaria para unidades paraquedistas, entrou em serviço em 1969.\nA torre monoposto é armada com um canhão 2A28 Grom de 73 mm, uma metralhadora coaxial PKT de 7,62 mm.\nTripulação: 2 + 5.</string>
+
+    <!-- BMD-2 -->
+    <string name="bm2_bmd2_description">O BMD-2 é um veículo russo aerotransportado de combate de infantaria para unidades paraquedistas, desenvolvido nos anos 1980.\nÉ desenvolvido a partir do chassi do BMD-1. Tem o novo sistema de armas com uma torre monoposto armada com um canhão 2A42 de 30 mm\ne uma metralhadora coaxial PKT de 7,62 mm.\nPara combate antitanque, está equipado com um sistema capaz de disparar mísseis antitanque 9M111 Fagot AT-4 ou 9M113 Konkurs AT-5.\nTripulação: 2 + 5.</string>
+
+    <!-- BMD-3 -->
+    <string name="bm2_bmd3_description">O BMD-3 é um veículo russo aerotransportado de combate de infantaria para unidades paraquedistas, entrou em serviço em 1990.\nÉ lançável por paraquedas.\nCanhão: 30 mm 2A42 x100.2 calibre.\nMetralhadora coaxial: 7,62 mm PKT.\nLançador automático de granadas do casco: 30 mm AG-17.\nTripulação: 2 + 5.</string>
+
+    <!-- BMD-4 -->
+    <string name="bm2_bmd4_description">O BMD-4 é um veículo russo aerotransportado de combate de infantaria para unidades paraquedistas, entrou em serviço em 2004.\nTem o mesmo chassi de cinco rodas que seu predecessor, o BMD-3.\nO veículo recebe uma nova torre Bakhtcha-U que aumenta significativamente a potência de fogo.\nA torre Bakhtcha-U é derivada do sistema de armas do veículo de combate de infantaria BMP-3.\nCanhão: 100 mm / 30 mm.\nMetralhadora coaxial: 7,62 mm.\nTripulação: 2 + 6.</string>
+
+    <!-- BTR-60 -->
+    <string name="bm2_btr60_description">O BTR-60 é um transportador blindado de pessoal russo com rodas 8×8, entrou em serviço em 1960.\nA versão BTR-60P de topo aberto transporta dois tripulantes e 12 a 14 soldados de infantaria.\nO armamento consiste em uma metralhadora de 12,7 mm operada manualmente e uma ou mais metralhadoras de 7,62 mm montadas nas laterais.\nA versão BTR-60PA recebe um teto e se beneficia de proteção NBQ.\nA versão BTR-60PB está equipada com uma torre monoposto armada com uma metralhadora pesada KPVT de 14,5 mm e uma metralhadora coaxial PKT de 7,62 mm.\nMuito amplamente exportado em todo o mundo.\nTripulação: 3 + 8.</string>
+
+    <!-- BTR-70 -->
+    <string name="bm2_btr70_description">O BTR-70 é um transportador blindado de pessoal russo com rodas 8×8, entrou em serviço em 1976.\nTem a mesma arquitetura que seu predecessor, o BTR-60.\nA versão BTR-70 está equipada com uma torre monoposto armada com uma metralhadora pesada KPVT de 14,5 mm e uma metralhadora coaxial PKT de 7,62 mm.\nTripulação: 3 + 7.</string>
+
+    <!-- BTR-80 -->
+    <string name="bm2_btr80_description">O BTR-80 é um transportador blindado de pessoal russo com rodas 8×8, entrou em serviço em 1986.\nTem a mesma arquitetura que seu predecessor, o BTR-70, com o motor na parte traseira do veículo.\nO acesso a bordo é através de portas laterais duplas.\nMetralhadora: 14,5 mm.\nMetralhadora coaxial: 7,62 mm.\nTripulação: 3 + 7.</string>
+
+    <!-- PATRIA XA-180 -->
+    <string name="bm2_patria_xa180_description">O XA-180 é um transportador blindado de pessoal finlandês com rodas 6×6, entrou em serviço em 1984.\nFoi desenvolvido a pedido do exército finlandês para substituir os transportadores blindados de pessoal soviéticos BTR-60.\nO XA-180 é feito a partir do caminhão pesado Sisu SA-150.\nO XA-180 foi desenvolvido em várias versões e exportado para a Holanda, Noruega, Suécia, Irlanda e Estônia.\nO XA-180 em diferentes versões foi implantado no Afeganistão, Bósnia, Iraque, Kosovo, Líbano, Somália, Chade.\nMetralhadora: 12,7 mm ou 7,62 mm.\nTripulação: 2 + 10 a 16.</string>
+
+    <!-- TPZ FUCHS -->
+    <string name="bm2_tpz_fuchs_description">O TPz1 Fuchs é um transportador blindado de pessoal alemão com rodas 6×6, desenvolvido no final dos anos 1970.\nArmamento: metralhadora de 7,62 mm.\nTripulação: 2 + 8.</string>
+
+    <!-- BMR-600 -->
+    <string name="bm2_bmr600_description">O BMR-600 é um transportador blindado de pessoal espanhol com rodas 6×6, entrou em serviço em 1979.\nQuase 1.500 BMR-600s foram produzidos em diferentes versões.\nFoi exportado para o Egito, Arábia Saudita e Peru.\nArmamento: 12,7 mm, M2HB.\nTripulação: 3 + 8.</string>
+
+    <!-- PIRANHA-2 -->
+    <string name="bm2_piranha2_description">O Piranha 2 é um transportador blindado de pessoal suíço com rodas 4x4/6×6/8x8.\nO Piranha 2 foi uma versão melhorada da bem-sucedida família de veículos de combate com rodas da MOWAG.\nPode ser equipado com uma torre, em forma plana, formando um ângulo em sua base, colocada à esquerda,\nno centro do teto do veículo, com uma metralhadora de 12,7 mm e uma metralhadora de 7,62 mm.\nTripulação: 3 + 9.</string>
+
+    <!-- M1126 Stryker -->
+    <string name="bm2_m1126_stryker_description">O M1126 Stryker é um transportador blindado de pessoal americano com rodas 8×8, entrou em serviço em 2002.\nÉ desenvolvido a partir do LAV-III Kodiak canadense baseado no veículo blindado Piranha III.\nTem a torre remota M151 Protector RWS que pode receber uma metralhadora pesada M2HB de 12,7 mm\nou um lançador automático de granadas Mk 19 de 40 mm.\nEm junho de 2021, o Exército dos EUA selecionou a torre remota Samson armada com um canhão de 30 mm para equipar veículos de combate Stryker.\nTripulação: 2 + 9.</string>
+
+    <!-- M-113 -->
+    <string name="bm2_m113_description">O M113 é um transportador blindado de pessoal americano, entrou em serviço em 1960.\nFoi desenvolvido para unidades de infantaria para transportar um esquadrão de infantaria.\nPassou por várias campanhas de modernização.\nO M113 é derivado em uma ampla gama de veículos especializados: posto de comando, morteiro, médico, defesa aérea,\nveículo de engenharia, lançador de mísseis antitanque, etc.\nAdotado por numerosas forças armadas em todo o mundo.\nMetralhadora: 12,7 mm.\nTripulação: 2 + 11.</string>
+
+    <!-- SPZ Marder -->
+    <string name="bm2_spz_marder_description">O SPz Marder é um veículo alemão de combate de infantaria, entrou em serviço em 1971.\nEstá equipado com uma torre biplace em superestrutura armada com um canhão automático Rh 202 de 20 mm\ne uma metralhadora MG3A1 de 7,62 mm.\nEntregue à Indonésia, Jordânia e Chile.\nTripulação: 3 + 6 a 7.</string>
+
+    <!-- SPZ Puma -->
+    <string name="bm2_spz_puma_description">O SPz Puma é um veículo alemão pesado de combate de infantaria, desenvolvido nos anos 2000.\nÉ desenvolvido para substituir o SPz Marder nas unidades de infantaria mecanizada alemãs.\nO SPz Puma está equipado com uma torre remota armada com um canhão MK.30-2 de 30 mm e uma metralhadora coaxial de 5,56 mm.\nTem dois níveis de proteção. Nível A, Transportável por ar, com proteção completa contra minas e proteção balística\ncontra projéteis de 30 mm pela frente e 14,5 mm pelas laterais.\nTripulação: 3 + 6.</string>
+
+    <!-- M2A2 Bradley -->
+    <string name="bm2_m2a2_bradley_description">O M2A2 Bradley é um veículo americano de combate de infantaria, entrou em serviço em 1981.\nÉ armado com um canhão Bushmaster de 25 mm.\nA partir de 1986, o modelo M1A1 recebe dois mísseis antitanque TOW.\nO M2A2 Bradley passou por várias campanhas de modernização melhorando suas capacidades de combate, nível de proteção,\nmobilidade e vários equipamentos.\nUma versão de reconhecimento é desenvolvida como o M3 Bradley.\nTripulação: 3 + 7.</string>
+
+    <!-- MCV-80 Warrior -->
+    <string name="bm2_mcv80_warrior_description">O MCV-80 Warrior é um veículo britânico de combate de infantaria, entrou em serviço em 1987.\nÉ armado com um canhão automático L21A1 Rarden de 30 mm e uma metralhadora coaxial L94A1 de 7,62 mm.\nTripulação: 3 + 7.</string>
+
+    <!-- BMP-KSHM -->
+    <string name="bm2_bmp_kshm_description">O BMP-KSHM é um veículo blindado de comando baseado no chassi russo BMP-1, entrou em serviço em 1972.\nPara autodefesa, o BMP-KSHM está equipado com uma metralhadora PK de 7,62 mm.\nEmbora mantenha a torre monoposto padrão do BMP-1, seu canhão de 76 mm foi removido e substituído por uma antena telescópica maior,\nchamada HAWK EYE.\nO BMP-1KSh é totalmente anfíbio: sua propulsão aquática é fornecida por suas lagartas.\nTripulação: 3.</string>
+
+    <!-- R-142 NSA DEIMOS -->
+    <string name="bm2_r142_nsa_deimos_description">O R-142 Deimos é um veículo tático de comando e comunicações (nível batalhão/regimento) das forças terrestres russas.\nPermite estabelecer ligações de rádio bidirecionais com estações homólogas em todas as condições (dia/noite, todas as estações),\nestacionário e em movimento (até 40 km/h).\nAlcance operacional: 2000 km em modo telegráfico (recepção auditiva).\nTripulação: 3 a 4.</string>
+
+    <!-- T-55 -->
+    <string name="bm2_t55_description">O T-55 é um tanque russo de batalha principal, entrou em serviço em 1958.\nÉ amplamente distribuído em todo o mundo.\nFoi produzido sob licença na Polônia, Tchecoslováquia e Romênia.\nDesde a entrada em serviço, o T-55 participou de numerosos conflitos.\nPermanece em serviço em várias forças armadas.\nCanhão: 100 mm.\nMetralhadora: 12,7 mm.\nTripulação: 4.</string>
+
+    <!-- T-62 -->
+    <string name="bm2_t62_description">O T-62 é um tanque médio soviético, entrou em serviço em 1961.\nArmamento principal: canhão de 115 mm.\nTripulação: 4.</string>
+
+    <!-- T-64 -->
+    <string name="bm2_t64_description">O T-64 é um tanque soviético de batalha principal, entrou em serviço em 1965.\nÉ o primeiro tanque soviético a integrar carregamento automático.\nCanhão: 125 mm.\nMetralhadora: 12,7 mm.\nMíssil antitanque: AT-8 para T-64B.\nTripulação: 3.</string>
+
+    <!-- T-72 -->
+    <string name="bm2_t72_description">O T-72 é um tanque russo de batalha principal, entrou em serviço em 1973.\nCanhão: 125 mm.\nMetralhadora: 12,7 mm.\nTripulação: 3.</string>
+
+    <!-- T-80 -->
+    <string name="bm2_t80_description">O T-80 é um tanque russo de batalha principal, desenvolvido nos anos 1980.\nArmamento: Canhão - 125 mm.\nMetralhadora: 12,7 mm.\nTripulação: 3.</string>
+
+    <!-- T-90 -->
+    <string name="bm2_t90_description">O T-90 é um tanque russo de batalha principal, entrou em serviço em 1992.\nArmamento: Canhão - 125 mm.\nMetralhadora: 12,7 mm.\nTripulação: 3.</string>
+
+    <!-- T-14 -->
+    <string name="bm2_t14_description">O T-14 Armata é um projeto russo de tanque de batalha principal, em desenvolvimento desde o início dos anos 2010.\nEstá equipado com uma torre não tripulada controlada remotamente.\nToda a munição é armazenada no carregador automático instalado no poço da torre.\nOs três tripulantes estão posicionados na frente do chassi.\nCanhão: 125 mm.\nMetralhadora: 12,7 mm ou 7,62 mm.\nLançamento de produção em série anunciado para 2019.\nTripulação: 3.</string>
+
+    <!-- M1A1 Abrams -->
+    <string name="bm2_m1a1_abrams_description">O M1A1 Abrams é um tanque americano de batalha principal, entrou em serviço em 1980.\nOs primeiros modelos M1 Abrams estão equipados com um canhão M68 de 105 mm.\nA partir da versão M1A1, é armado com o canhão M256 de 120 mm.\nCanhão: 120 mm.\nMetralhadora: 12,7 mm.\nTripulação: 4.</string>
+
+    <!-- M-60 -->
+    <string name="bm2_m60_description">O M60 é um tanque americano de batalha principal, desenvolvido nos anos 1950.\nFoi amplamente exportado em todo o mundo.\nAinda está em serviço em várias forças armadas.\nArmamento: Canhão - 105 mm.\nMetralhadora: 12,7 mm Browning M2.\nVárias campanhas de modernização: M60A1 (1962), M60A2 (1970), M60A3 (1975).\nTripulação: 4.</string>
+
+    <!-- Leopard-1 -->
+    <string name="bm2_leopard1_description">O Leopard 1 é um tanque alemão de batalha principal, entrou em serviço em 1965.\nFoi amplamente exportado em todo o mundo.\nAtualmente, está em serviço na Turquia, Brasil e Chile.\nA partir de fevereiro de 2023, a Alemanha entrega Leopard 1 à Ucrânia.\nO chassi do Leopard 1 serviu de base para vários veículos de apoio.\nCanhão: 105 mm.\nMetralhadora: 7,62 mm.\nTripulação: 4.</string>
+
+    <!-- Leopard-2 -->
+    <string name="bm2_leopard2_description">O Leopard 2 é um tanque alemão de batalha principal, desenvolvido nos anos 1970.\nArmamento: Canhão - 120 mm.\nMetralhadora: 7,62 mm.\nTripulação: 4.</string>
+
+    <!-- Chieftain -->
+    <string name="bm2_chieftain_description">O Chieftain é um tanque britânico de batalha principal, entrou em serviço em 1966.\nFoi desenvolvido pela Leyland Motors.\nO Chieftain foi empregado em unidades blindadas britânicas até sua substituição pelo tanque de batalha principal Challenger 1.\nFoi exportado para Irã, Iraque, Kuwait, Jordânia e Omã.\nNa Jordânia, é empregado como Khalid e no Irã como Shir.\nArmamento: Canhão - 120 mm.\nMetralhadora: 7,62 mm.\nTripulação: 4.</string>
+
+    <!-- Challenger-1 -->
+    <string name="bm2_challenger1_description">O Challenger 1 é um tanque britânico de batalha principal, entrou em serviço em 1983.\nA modernização do Challenger 1 deu origem ao Challenger 2.\nCanhão: 120 mm.\nMetralhadora: 7,62 mm.\nTripulação: 4.</string>
+
+    <!-- Challenger-2 -->
+    <string name="bm2_challenger2_description">O Challenger 2 é um tanque britânico de batalha principal, entrou em serviço em 1998.\nÉ conhecido como FV4030.\nO Challenger 2 é o tanque principal do exército britânico.\nParticipou de combates no Kosovo e no Iraque.\nO Challenger 2 foi exportado para Omã em 38 unidades.\nEm 2021, o exército britânico receberá 148 tanques modernizados como Challenger 3.\nCanhão: 120 mm.\nMetralhadora: 7,62 mm.\nTripulação: 4.</string>
+
+    <!-- Ariete -->
+    <string name="bm2_ariete_description">O C1 Ariete é um tanque italiano de batalha principal, entrou em serviço em 1995.\nArmamento: Canhão - 120 mm.\nMetralhadora: 12,7 mm, 7,62 mm.\nTripulação: 4.</string>
+
+    <!-- ZTZ-98 -->
+    <string name="bm2_ztz98_description">O Type 98 (ZTZ-98) é um tanque chinês de batalha principal, introduzido em 1999 durante um desfile militar em Pequim.\nAssemelha-se ao T-72, mas a torre é soldada.\nSeu armamento principal é um canhão de alma lisa de 125 mm.\nTripulação: 3.</string>
+
+    <!-- ZTZ-99 -->
+    <string name="bm2_ztz99_description">O ZTZ-99 (Type-99) é um tanque chinês de batalha principal, entrou em serviço em 2003.\nEstá equipado com uma câmera térmica e mira panorâmica estabilizada do comandante com capacidade caçador-matador.\nO ZTZ-99 está equipado com um sistema de contramedida a laser omnidirecional instalado no teto da torre.\nCanhão: 125 mm.\nMetralhadora: 12,7 mm.\nTripulação: 3.</string>
+
+    <!-- Merkava-4 -->
+    <string name="bm2_merkava4_description">O Merkava Mk IV é um tanque israelense de batalha principal, entrou em serviço em 2004.\nO chassi do Merkava Mk IV serviu de base para o transportador blindado pesado de pessoal Namer.\nIsrael é o único usuário do tanque Merkava Mk IV.\nCanhão: 120 mm.\nMetralhadora: 7,62 mm/12,7 mm.\nMorteiro: 60 mm.\nTripulação: 4.</string>
+
+    <!-- PT-91 -->
+    <string name="bm2_pt91_description">O PT-91 Twardy é um tanque polonês de batalha principal, entrou em serviço em 1995.\nÉ desenvolvido pela Bumar Labedy a partir do tanque T-72M1.\nO PT-91 Twardy foi produzido em 232 unidades para as necessidades do exército polonês.\nEntre 2007 e 2010, foi exportado para a Malásia em 48 unidades como PT-91M Pendekar.\nArmamento: Canhão - 125 mm.\nMetralhadora coaxial: 7,62 mm.\nMetralhadora: 12,7 mm.\nTripulação: 3.</string>
+
+    <!-- RPG-7 -->
+    <string name="bm2_rpg7_description">O RPG-7 é um lançador russo de foguetes antitanque, entrou em serviço em 1961.\nÉ um lançador de foguetes antitanque leve, disparado do ombro, recarregável.\nO tubo lançador pode disparar uma ampla gama de foguetes.\nO RPG-7 pode ser equipado com uma mira PGO-7V ou mira noturna infravermelha NSP-2.\nMuito amplamente distribuído em todo o mundo, em serviço em quase 70 países.\nTripulação: 2.</string>
+
+    <!-- AT-4 -->
+    <string name="bm2_at4_description">O AT-4 Spigot / 9K111 Fagot é um míssil russo antitanque, entrou em serviço em 1973.\nÉ guiado por fio, semiautomático, portátil por uma equipe de duas pessoas.\nConsiste no posto de tiro com suporte 9P135 e míssil 9M111.\nO míssil é embalado em um tubo que serve como tubo de lançamento e embalagem tática.\nCalibres: 119 mm.\nPenetração: 200 mm.\nAlcance máximo: 2000 m.\nDistância mínima de tiro: 70 m.\nAdotado por muitos exércitos em todo o mundo.\nTripulação: 2.</string>
+
+    <!-- AT-7 -->
+    <string name="bm2_at7_description">O 9K115 Metis ou AT-7 Saxhorn é um sistema soviético/russo portátil antitanque de nível de companhia,\ncom comando semiautomático guiado por fio, pertencente à segunda geração de mísseis antitanque (ATGM).\nÉ projetado para engajar alvos blindados, fixos ou móveis, bem como pontos fortificados,\nvisualmente observáveis, a distâncias entre 40 e 2000 metros.\nTripulação: 2.</string>
+
+    <!-- SPG-9 -->
+    <string name="bm2_spg9_description">O SPG-9 (Lança em russo) é um lançador soviético pesado de granadas antitanque, entrou em serviço em 1963.\nEste sistema requer uma tripulação de quatro homens capazes de transportá-lo desmontado (em posição de marcha) por longas distâncias.\nCalibre: 73 mm.\nTripulação: 4.</string>
+
+    <!-- Artillery Systems -->
+
+    <!-- 2A-29 -->
+    <string name="bm2_2a29_description">O MT-12 ou 2A-29 é um canhão soviético antitanque de alma lisa de 100 mm,\nque serviu como principal artilharia antitanque rebocada no exército soviético desde o início dos anos 1970 até o final dos anos 1980.\nFoi amplamente usado na guerra russo-ucraniana.\nCalibre: 100 mm.\nTripulação: 6.</string>
+
+    <!-- 2S1 Gvozdika -->
+    <string name="bm2_2s1_gvozdika_description">O 2S1 Gvozdika é um obus autopropulsado soviético de 122 mm.\nÉ essencialmente uma versão estendida do MT-LB, com um obus 2A-18 (D-30) montado em uma torre.\nVeículo semianfíbio, pode também operar em tempestades de neve e em pântanos.\nÉ protegido contra efeitos NBQ e possui visão óptica infravermelha.\nCalibre: 122 mm.\nTripulação: 4.</string>
+
+    <!-- 2S3 Akatsiya -->
+    <string name="bm2_2s3_akatsiya_description">O 2S3 Akatsia é um canhão autopropulsado soviético projetado no final dos anos 1960, entrou em serviço em 1971.\nO Akatsia é projetado no chassi GM-123 que também é usado pelo 2S4 Tyulpan e 2S5 Giatsint-S.\nÉ compatível com toda a munição de 152 mm usada pelos canhões rebocados D-20, ML-20 e D-1.\nAinda em serviço em dezoito países.\nCalibre: 152 mm.\nTripulação: 4.</string>
+
+    <!-- 2S5 Giatsint -->
+    <string name="bm2_2s5_giatsint_description">O 2S5 Giatsint é um canhão russo de artilharia autopropulsado de 152 mm, entrou em serviço em 1976.\nCanhão: 152 mm, 2A37.\nAlcance: 30,5 km.\nCadência de tiro: 5-6 disparos por minuto.\nTripulação: 5.</string>
+
+    <!-- 2S7 Pion -->
+    <string name="bm2_2s7_pion_description">O 2S7 Pion é um canhão russo de artilharia autopropulsado de 203 mm, entrou em serviço em 1975.\nÉ capaz de disparar projéteis convencionais e projéteis com ogiva nuclear.\nSua distância máxima de tiro é de 47 km.\nO sistema de armas está instalado em um chassi de lagartas com sete rodas de apoio.\nO trem de rodagem é derivado do tanque T-80.\nCanhão: 2A44, 203 mm.\nTripulação: 7 (2S7) / 6 (2S7M).</string>
+
+    <!-- PZH-2000 -->
+    <string name="bm2_pzh2000_description">O PzH 2000 é um canhão alemão de artilharia autopropulsado, entrou em serviço em 1998.\nÉ desenvolvido para substituir o canhão de artilharia autopropulsado M109 de origem americana.\nÉ armado com um canhão de 155 mm permitindo um alcance de tiro de 56 km.\nO carregamento automático permite uma cadência de tiro muito alta de 8 a 10 disparos/min.\nO chassi do PzH 2000 é derivado do chassi do tanque alemão Leopard-2.\nAlcance: 30 km / 56 km projétil autopropulsado.\nTripulação: 5.</string>
+
+    <!-- M-109 Paladin -->
+    <string name="bm2_m109_paladin_description">O M109 é um canhão americano de artilharia autopropulsado, entrou em serviço em 1963.\nÉ amplamente exportado em todo o mundo.\nCanhão: 155 mm.\nAlcance M109: 14,6 km.\nAlcance M109A5: 22 km / 30 km projétil autopropulsado.\nCadência de tiro: 3-4 tiros/min.\nTripulação: 6 (M109) / 4 (M109A6).</string>
+
+    <!-- Self-Propelled Artillery continued -->
+    <string name="bm2_2s19_msta_description">O 2S19 Msta-S é um canhão russo de artilharia autopropulsado, entrou em serviço em 1989.\nÉ armado com um canhão 2A65 de 152 mm.\nSeu chassi é derivado do chassi do tanque T-80.\nO 2S19 Msta-S está equipado com um sistema de recarregamento de munição instalado na parte traseira do veículo.\nAlcance: 6,5 km a 24,7 km / 28,5 km projétil autopropulsado.\nCadência de tiro: 8 disparos por minuto.\nTripulação: 5.</string>
+
+    <string name="bm2_2s35_koalitsiya_description">O 2S35 Koalitsiya-SV é um canhão russo de artilharia autopropulsado, em desenvolvimento desde o início dos anos 2010.\nO chassi é derivado do tanque T-90.\nPara produção em massa, o sistema de armas 2S35 será instalado no chassi Armata.\nCanhão: 2A88 152 mm.\nAlcance: 40 km / 70 km projétil autopropulsado.\nCadência de tiro sustentada: 10 disparos por minuto.\nTripulação: 3.</string>
+
+    <string name="bm2_2s4_tioulpan_description">O 2S4 Tyulpan é um morteiro russo pesado autopropulsado de 240 mm.\nTripulação: 3.</string>
+
+    <string name="bm2_plz07_description">O PLZ-07 é um canhão chinês de artilharia autopropulsado de 122 mm, desenvolvido nos anos 2000.\nUsa o chassi do veículo de combate de infantaria ZBD-04.\nO PLZ-07 tem capacidade anfíbia, propulsionado na água pelo movimento das lagartas.\nO PLZ-07 é armado com um canhão de 122 mm derivado do canhão soviético D-30.\nA distância máxima de tiro é de 18 km com projétil padrão e 27 km com munição propulsionada.\nTripulação: 5.</string>
+
+    <!-- Towed Artillery -->
+    <string name="bm2_2a36_description">O 2A-36 Giatsint-B é uma peça de artilharia média usada pelas Forças Armadas da Federação Russa, desenvolvida a partir de 1968.\nExiste em uma versão autopropulsada de lagartas sem torre 2S5 Giatsint-S.\nO 2A-36 é amplamente usado pelas forças armadas ucranianas desde 2014 contra separatistas de Donbass e depois contra a Rússia.\nO exército russo os colocou de volta em serviço em 2022 devido a uma necessidade significativa de peças de artilharia.\nO canhão é de calibre 152 mm e é raiado.\nAlcance máximo de tiro com projétil HE-FRAG padrão é de 28,5 km e 30 a 33 km.\nTripulação: 6.</string>
+
+    <string name="bm2_105_m101_description">O M101 (105 mm) é um obus americano da Segunda Guerra Mundial, entrou em produção em massa em 1941.\nEsteve (ou ainda está) em serviço nos exércitos de muitos países ao redor do mundo.\nCalibre: 105 mm.\nTripulação: 8.</string>
+
+    <string name="bm2_122_d30_description">O obus D-30 de 122 mm é uma peça soviética de artilharia de campo considerada robusta e utilizável em condições difíceis, entrou em serviço nos anos 1960.\nCalibre: 122 mm.\nTripulação: 6.</string>
+
+    <string name="bm2_130_m46_description">O canhão M-46 de 130 mm é uma peça soviética de artilharia rebocada dos anos 1950,\ndestinada à artilharia de corpo.\nCalibre: 130 mm.\nTripulação: 8.</string>
+
+    <string name="bm2_2a65_description">O 2A65 Msta-B é um obus russo/soviético rebocado de 152 mm, projetado para destruir veículos blindados e fortificações.\nSua parte de artilharia tem um design semelhante ao do obus autopropulsado 2S19 do mesmo calibre.\nCalibre: 152 mm.\nTripulação: 6.</string>
+
+    <string name="bm2_155_m777_description">O M-777 é um obus americano rebocado de 155 mm.\nÉ usado pelas forças terrestres dos Estados Unidos, Austrália, Canadá, Índia, Arábia Saudita e Ucrânia.\nCalibre: 155 mm.\nTripulação: 7.</string>
+
+    <string name="bm2_152_d20_description">O obus-canhão de 152 mm M1955, também conhecido como D-20,\nfoi fabricado na União Soviética nos anos 1950.\nCalibre: 152 mm.\nTripulação: 8.</string>
+
+    <!-- Multiple Launch Rocket Systems -->
+    <string name="bm2_bm21_grad_description">O BM-21 Grad é um lançador múltiplo russo de foguetes de 122 mm, entrou em serviço em 1963.\nTem o chassi com rodas 6×6 do caminhão pesado Ural-375D.\nEstá equipado com 40 tubos de lançamento para foguetes de 122 mm.\nO alcance máximo varia por tipo de munição entre 14 km e 20,75 km.\nA nova gama de munições estende a distância de tiro até 40 km.\nA produção parou em 1988.\nTripulação: 3.</string>
+
+    <string name="bm2_bm30_smerch_description">O BM-30 Smerch ou 9A52-2 Smerch-M é um lançador múltiplo pesado autopropulsado de foguetes de 300 mm, entrou em serviço em 1989.\nÉ projetado para disparar uma salva completa de 12 projéteis de propelente sólido.\nEste sistema destina-se a neutralizar pessoal, blindados e alvos desprotegidos em áreas de concentração,\nbaterias de artilharia, postos de comando e depósitos de munição.\nUm programa para substituí-lo pelo Tornado-S começou em 2018.\nTripulação: 3.</string>
+
+    <string name="bm2_bm27_uragan_description">O BM-27 Uragan é um sistema de lançador múltiplo autopropulsado de foguetes projetado na União Soviética, entrou em serviço no final dos anos 1970.\nÉ capaz de lançar foguetes de 220 mm de 16 tubos de lançamento montados na parte traseira de um chassi ZIL-135 8x8.\nUma salva completa de 16 foguetes pode ser disparada em 20 segundos e pode engajar alvos dentro de um raio de 35 quilômetros.\nTripulação: 4.</string>
+
+    <string name="bm2_scud_b_description">O SCUD-B é um míssil balístico de alcance intermediário de origem russa,\ncapaz de transportar uma ogiva nuclear ou química, com um alcance efetivo máximo de 550 km.\nTripulação: 3.</string>
+
+    <string name="bm2_m270_mlrs_description">O M270 MLRS, Multiple Launch Rocket System, é um lançador múltiplo americano de foguetes, entrou em serviço em 1983.\nEstá instalado em um chassi de lagartas derivado do veículo de combate de infantaria M2 Bradley.\nSua cabine é protegida contra armas de pequeno calibre.\nEstá equipado com dois pods de seis foguetes de 227 mm.\nA produção parou em 2003.\nTripulação: 3.</string>
+
+    <string name="bm2_rm70_vampir_description">O lançador múltiplo de foguetes RM-70 é uma versão do exército tchecoslovaco e variante mais pesada do BM-21 Grad,\noferecendo desempenho superior a este sistema de artilharia de saturação de área, introduzido em 1971.\nO RM-70 substitui o caminhão Ural-375D 6x6 por um chassi Tatra T813 Kolos 8x8 como plataforma transportadora\npara o lançador de 40 foguetes.\nO novo veículo transportador fornece espaço suficiente para transportar um pacote adicional de 40 foguetes de 122 mm,\npermitindo recarregamento automático.\nCalibre: 122 mm.\nTripulação: 4.</string>
+
+    <!-- Mortars -->
+    <string name="bm2_82pm41_description">O morteiro 82PM-41, M-41 ou morteiro de 82 mm modelo 1941 era um morteiro soviético\nde calibre 82 milímetros desenvolvido durante a Segunda Guerra Mundial como um morteiro de infantaria,\ncom produção iniciada em 1941.\nCalibre: 82 mm.\nTripulação: 4.</string>
+
+    <string name="bm2_lav_m_description">O LAV-M, Light Armored Vehicle – Mortar, é um morteiro americano autopropulsado, entrou em serviço em 1986.\nUsa o chassi do veículo de reconhecimento LAV-25.\nO armamento consiste no morteiro M252 de 81 mm.\nPara autodefesa, o veículo está equipado com uma metralhadora M240E1 de 7,62 mm montada no teto.\nO estoque de munição é de 99 projéteis de morteiro de 81 mm e 1000 cartuchos de 7,62 mm.\nTripulação: 5.</string>
+
+    <!-- Engineering Vehicles -->
+    <string name="bm2_mdk2_description">O MDK-2M é um veículo soviético de lagartas escavador de trincheiras do exército.\nTripulação: 2.</string>
+
+    <string name="bm2_pzm_description">O PZM é um veículo soviético com rodas escavador de trincheiras do exército.\nTripulação: 2.</string>
+
+    <string name="bm2_gmz3_description">O GMZ-3 é um lançador soviético de minas de lagartas.\nÉ projetado para colocação mecanizada de minas antitanque, antilagarta e antibase no solo ou na neve\nno caminho de tanques e veículos blindados inimigos.\nTripulação: 3.</string>
+
+    <string name="bm2_umz3_description">O UMZ (Lançador Universal de Minas) é um veículo soviético de engenharia\ndestinado à mineração remota por projeção, construído em uma base de caminhão ZIL-131.\nTripulação: 3.</string>
+
+    <string name="bm2_ur77_description">O UR-77 \"Meteorit\" é um veículo soviético de combate, um lançador autopropulsado de foguetes para desminagem,\nprojetado na base do obus autopropulsado 2S1 \"Gvozdika\", produzido em massa desde 1978.\nTripulação: 2.</string>
+
+    <string name="bm2_m136_volcano_description">O M136 Volcano (Vehicle-Launched Scatterable Mine System)\né um sistema automatizado de colocação de minas desenvolvido pelo Exército dos EUA nos anos 1980.\nO sistema usa contêineres pré-carregados contendo múltiplas minas antipessoal (AP) e/ou antitanque (AT),\nque são espalhadas sobre uma área ampla quando ejetadas.\nTripulação: 2.</string>
+
+    <string name="bm2_kmt5_description">O KMT-5 é um arado soviético de minas de tanque de meados do século XX,\nprojetado para reconhecimento de campos minados e abertura de passagens.\nEssas brechas então permitem o movimento de blindados não equipados com dispositivos antiminas.\nTripulação: 2.</string>
+
+    <string name="bm2_imr2_description">O IMR-2 é um tanque russo de engenharia, introduzido em 1982.\nAinda em serviço nas forças armadas russas.\nTripulação: 2.</string>
+
+    <string name="bm2_mtu72_description">O lançador de ponte blindado MTU-72 é um veículo militar de engenharia projetado para implantar uma ponte de assalto,\npermitindo que tanques e outros veículos militares cruzem trincheiras e obstáculos de água,\nentrou em serviço em 1974.\nTripulação: 2.</string>
+
+    <string name="bm2_tmm3_description">O TMM-3 é projetado para estabelecer travessias sobre obstáculos de até 40 metros de largura\ne até 3 metros de profundidade, permitindo passagem de veículos com rodas e lagartas pesando até 60 toneladas.\nPaís: URSS/Rússia.\nTripulação: 3.</string>
+
+    <string name="bm2_tmm6_description">O TMM-6 é um veículo russo lançador de pontes, desenvolvido entre 1999 e o final dos anos 2000.\nTripulação: 3.</string>
+
+    <string name="bm2_pts2_description">O PTS-2 é um veículo soviético militar de lagartas de transporte anfíbio\ncapaz de transportar veículos em seu convés e transportá-los na água como uma barcaça ou balsa.\nTripulação: 2.</string>
+
+    <string name="bm2_souvim_description">O sistema de abertura de rota minada (SOUVIM) permite garantir uma rota levemente poluída\npor minas antitanque ou antipessoal, detectáveis ou ativadas por pressão.\nDestina-se a participar de missões de apoio à mobilidade garantindo,\nao longo de grandes distâncias, abertura rápida de rotas levemente minadas (mineração de assédio)\nem 2º escalão ou área traseira de unidades principais (zona de fluxo logístico) em conflito de baixa intensidade.\nTripulação: 2.</string>
+
+    <!-- Command and Electronic Vehicles -->
+    <string name="bm2_1v18_klyon_description">O 1V18 Klyon é um veículo soviético de comando, projetado no chassi BTR-60.\nTripulação: 5.</string>
+
+    <string name="bm2_1s91_straight_flush_description">O 1S91 (código OTAN - Straight Flush) é um radar móvel soviético de defesa aérea de longo alcance,\natualmente em serviço nas forças armadas russas.\nProjetado para operar com o sistema de mísseis antiaéreos 2K12 Kub, está montado em um chassi de lagartas GM-568.\nTripulação: 4.</string>
+
+    <!-- UAVs -->
+    <string name="bm2_rq7_shadow200_description">O RQ-7A Shadow 200 é um drone de reconhecimento desenvolvido pelos Estados Unidos.\nOperadores: Austrália, Estados Unidos, Suécia, Romênia.\nTripulação: 0.</string>
+
+    <!-- Aircraft -->
+    <string name="bm2_su25_description">O Su-25 Grach é uma aeronave de ataque ao solo, apoio aéreo aproximado e antitanque desenvolvida pela URSS nos anos 1970.\nTripulação: 1.</string>
+
+    <string name="bm2_f5e_description">O Northrop F-5E é uma família de aeronaves de caça leves e manobráveis, projetadas e fabricadas pela Northrop nos Estados Unidos,\ncom fabricação começando em 1962.\nTripulação: 1.</string>
+
+    <string name="bm2_typhoon_description">O Typhoon é uma aeronave de caça europeia. Primeiro voo em 27 de março de 1994.\nO Typhoon entrou em serviço em 2004.\nTambém é conhecido como EF-2000.\nÉ um caça bimotor multiuso, desenvolvido pelo consórcio Eurofighter,\ncomposto pelo Reino Unido, Alemanha, Itália e Espanha.\nCanhão: 27 mm, Mauser BK-27.\nPilones externos: 8 pilones sob as asas, 5 sob a fuselagem, 9.000 kg de armas.\nMísseis ar-ar: AIM-9 Sidewinder, AIM-120 AMRAAM, AIM-132 AMRAAM.\nMísseis ar-solo: AGM-88 HARM, AGM-65 Maverick, Storm Shadow.\nBombas: Paveway II.\nTripulação: 1.\nTeto: 19.800 m.\nAlcance: 1.389 km.\nAutonomia: 2.900 km, 3.790 km com 3 reabastecimentos.</string>
+
+    <!-- Air Defense Systems -->
+    <string name="bm2_sa6_description">O 2K12 Kub (código OTAN: SA-6 Gainful) é um sistema de armas antiaéreas equipado com mísseis superfície-ar,\nconstruído em mais de 500 unidades entre 1968 e 1985.\nOpera com um radar móvel, o 1S91.\nTripulação: 4.</string>
+
+    <string name="bm2_sa7_description">O 9K32 Strela-2, designado pela OTAN como SA-7 \"Grail\", é um sistema soviético de mísseis superfície-ar portátil,\nguiado por infravermelho com uma ogiva explosiva de alto poder.\nTripulação: 1.</string>
+
+    <string name="bm2_sa8_description">O 9K33 Osa (código OTAN: SA-8 Gecko) é um veículo antiaéreo altamente móvel equipado com mísseis superfície-ar de alcance muito curto,\nde projeto soviético.\nA velocidade máxima do míssil de acordo com as versões é Mach 2,4,\naltitude mínima de engajamento é de 25 metros, alcance efetivo máximo de altitude é de 5.000 metros.\nPrimeiro sistema de mísseis de defesa aérea a incorporar seus próprios radares de engajamento em um único veículo.\nTripulação: 5.</string>
+
+    <string name="bm2_roland2_description">O míssil franco-alemão Roland é um míssil superfície-ar de curto alcance.\nO sistema antiaéreo de curto alcance Roland é montado em um chassi blindado (AMX-30R para a França, Marder para a Alemanha)\nou em uma cabine com rodas transportável por ar.\nUm dos poucos mísseis estrangeiros comprados pelo Exército dos EUA.\nTripulação: 3.</string>
+
+    <string name="bm2_2s6_tunguska_description">O 2S-6 Tunguska (OTAN: SA-19 Grison) é um sistema soviético autopropulsado de artilharia antiaérea e mísseis superfície-ar,\ndesenvolvido nos anos 1970.\nSeu papel principal é proteger unidades blindadas e de infantaria contra helicópteros e aeronaves de ataque ao solo.\nPrincipais usuários: Rússia, Índia.\nTripulação: 4.</string>
+
+    <!-- Helicopters -->
+    <string name="bm2_ah64_description">O AH-64 Apache é um helicóptero de ataque americano, entrou em serviço em 1984.\nA versão AH-64D Apache Longbow pode receber um radar de ondas milimétricas AN/APG-78 Longbow instalado acima do rotor principal.\nA versão AH-64E Apache Guardian é a mais moderna atualmente em serviço.\nCanhão: 30 mm M230, capacidade de 1.200 cartuchos.\nMísseis ar-solo: até 16.\nMísseis ar-ar: 2.\nFoguetes: 70 mm.\nAmplamente exportado em todo o mundo.\nTripulação: 2.</string>
+
+    <string name="bm2_mi8_description">O Mi-8 é um helicóptero russo de transporte multiuso, entrou em serviço em 1965.\nDeu origem ao Mi-14 Haze com capacidade anfíbia, às versões de exportação Mi-17 e Mi-171.\nO Mi-8 é muito amplamente distribuído em todo o mundo.\nMais de 50 países o utilizam em suas forças armadas ou em versão civil.\nTripulação: 3.</string>
+
+    <string name="bm2_mi24_description">O Mi-24 é um helicóptero russo de ataque, entrou em serviço em 1972.\nÉ projetado usando muitos sistemas do helicóptero de transporte Mi-8.\nPode receber uma ampla gama de armas: foguetes, mísseis e cápsulas de canhões.\nO Mi-24 pode transportar um grupo de oito soldados no compartimento atrás da cabine.\nA primeira versão Mi-24A tem uma cabine de três tripulantes na configuração 1 + 2.\nA partir do modelo Mi-24B, é substituída por uma cabine em tandem.\nO Mi-24 é muito amplamente distribuído em todo o mundo.\nQuase sessenta países o empregam em suas forças armadas.\nMais de 3.500 unidades foram produzidas, todos os modelos combinados.\nMetralhadora: Yak-B rotativa 4 x 12,7 mm.\nCanhão: GSh-23L 23 mm / GSh-30K 30 mm.\nFoguetes: S-5, S-8, S-13, S-24.\nMísseis ar-solo: Shturm-V, Ataka-M.\nMísseis ar-ar: Igla-V, R-60M, R-63V.\nTripulação: 2 + 8 soldados.\nAlcance: 1000 km.</string>
+
+    <string name="bm2_mi28_description">O Mi-28 é um helicóptero russo de ataque.\nFoi desenvolvido na União Soviética, depois na Rússia nos anos 1980-2000.\nEntrou em serviço em 2008 na versão Mi-28N.\nEm 16 de agosto de 1996, a Mil apresentou a versão Mi-28N Night Hunter, capaz de combate noturno.\nO Mi-28N é um helicóptero biplace em tandem destinado a missões de ataque e combate antitanque.\nEm 2012, o Iraque encomendou quinze Mi-28N entregues em 2014-2016. Em março de 2014, a Argélia encomendou quarenta e dois Mi-28N.\nVersões: Mi-28 / Mi-28N / Mi-28NE / Mi-28UB / Mi-28NM.\nCanhão: 2A42 30 mm.\nFoguetes: S-8, S-13.\nMísseis ar-solo: Shturm-V, Ataka-V.\nMísseis ar-ar: Igla-V.\nTripulação: 2.\nAlcance: 450 km.</string>
+
+    <string name="bm2_ka50_description">O Ka-50 Black Shark (Hokum-A na designação da OTAN) é um helicóptero russo de reconhecimento e ataque.\nFoi desenvolvido na União Soviética nos anos 1980.\nPrimeiro voo em 17 de junho de 1982. O Ka-50 entrou em serviço em 1995.\nTripulação: 1.</string>
+
+    <string name="bm2_uh1_description">O UH-1, mais conhecido como Huey, é um helicóptero militar americano, implantado no Vietnã a partir de 1963.\nOs Hueys foram usados para evacuações médicas (MedEvac), comando e controle,\nassaltos aéreos, transporte de tropas e equipamentos, e como helicópteros de combate armados.\nTripulação: 2 + 11.</string>
+
+    <string name="bm2_uh60_description">O UH-60 Black Hawk é um helicóptero americano de transporte multiuso, entrou em serviço em 1979.\nÉ derivado em numerosas versões: para Forças Especiais, navalizado para a Marinha,\npara a Guarda Costeira, missões de busca e salvamento, evacuação médica,\ntransporte VIP e versões para transporte de equipamentos específicos:\nradar, C3 Comando-Controle-Comunicação, armas.\nProduzido em mais de quatro mil unidades para cerca de trinta países em todo o mundo.\nTripulação: 2 + 11.</string>
+
+</resources>

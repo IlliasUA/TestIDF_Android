@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SPRAT -->
+    <string name="genie_sprat_desc">Como parte do apoio direto às unidades engajadas em zonas de combate, o Exército possui o Sistema de Lançamento Rápido de Treliças (SPRAT) para atravessar lacunas secas ou úmidas entre 3 e 24m. O SPRAT dá ao Exército a capacidade de atravessar brechas de 24 m de largura com seus tanques Leclerc, em condições táticas.</string>
+
+    <!-- Biber -->
+    <string name="genie_biber_desc">O Biber é um veículo alemão blindado lançador de pontes. Faz parte dos veículos de apoio ao combate. Seu predecessor foi o lançador de pontes M48 e seu sucessor é o Leguan. Nos anos 1960, a empresa MaK o desenvolveu para o Exército Alemão, baseado no tanque Leopard 1.</string>
+
+    <!-- Buffalo -->
+    <string name="genie_buffalo_desc">O Buffalo Mine Protected Clearance Vehicle é um veículo americano militar de engenharia. Enquanto o Casspir era um veículo de quatro rodas, o Buffalo tem um par adicional. Também está equipado com um grande braço articulado, que um operador pode usar para examinar uma mina suspeita a uma distância segura, permanecendo protegido. Armamento principal: metralhadora Browning M2 de 12,7 mm.</string>
+
+    <!-- DACHS -->
+    <string name="genie_dachs_desc">O Pionierpanzer é projetado para rebocar veículos danificados, mas sua missão principal é trabalhar no terreno, garantir acesso e saída de obstáculos aquáticos, construir fortificações e realizar outras tarefas destinadas a eliminar vários obstáculos no campo de batalha. Os primeiros veículos de produção deste tipo foram comissionados na Bundeswehr em abril de 1989. Até o final de 1990, 36 Pionierpanzer 2A1 – informalmente apelidados de Badger (Texugo) – foram fabricados e entregues ao exército alemão.</string>
+
+    <!-- GSP -->
+    <string name="genie_gsp_desc">O GSP-55 é um veículo russo militar de lagartas anfíbio capaz de transportar veículos em seu teto e transportá-los na água como uma barcaça ou balsa. Pode ser usado como ponte e, portanto, como veículo lançador de pontes, implantando vários em série, se necessário.</string>
+
+    <!-- IRM-2 -->
+    <string name="genie_irm2_desc">O IMR-2 (onde IMR significa Inzhenernaya mashina razgrazhdeniya) é um veículo russo de engenharia de combate introduzido em 1982. Atualmente em serviço com as Forças Armadas Russas.</string>
+
+    <!-- M3 Amphibius -->
+    <string name="genie_m3_amphibius_desc">O M3 Amphibious Rig é um veículo militar anfíbio alemão, usado para garantir a travessia de tanques e outros veículos através de obstáculos aquáticos. Pode ser montado para formar tanto pontes quanto travessias de balsa.</string>
+
+    <!-- M9 ACE -->
+    <string name="genie_m9_ace_desc">Um trator de esteiras blindado desenvolvido pelos Estados Unidos para engenharia militar. Está em serviço no Exército dos EUA desde 1988. Suas principais missões são: limpeza de obstáculos com sua lâmina de trator frontal, escavação de trincheiras e construção de instalações de proteção, desenvolvimento de trilhas auxiliares, abertura de rotas de acesso a pontos de travessia. Sua missão fundamental é acompanhar as forças blindadas aliadas para abrir caminho durante os avanços.</string>
+
+    <!-- MDK-2 -->
+    <string name="genie_mdk2_desc">MDK-2M (AT-T) veículo de lagartas escavador de trincheiras do exército da URSS.</string>
+
+    <!-- PMM-2 -->
+    <string name="genie_pmm2_desc">O veículo lançador de pontes PPM-2 é projetado para garantir a travessia de obstáculos aquáticos por tanques, canhões autopropulsados e outros veículos militares.</string>
+
+    <!-- PTS -->
+    <string name="genie_pts_desc">O PTS é um veículo soviético militar de lagartas de transporte anfíbio de tropas capaz de transportar veículos em seu teto e transportá-los na água como uma barcaça ou balsa.</string>
+
+    <!-- AMX-30 EBG -->
+    <string name="genie_amx30_ebg_desc">O veículo blindado de engenharia (EBG) é um tanque de engenharia montado no mesmo chassi dos tanques AMX-30B2. Sua missão é limpar e preparar o caminho para outros veículos.</string>
+
+    <!-- AMX-30 EBG SDPMAC -->
+    <string name="genie_amx30_ebg_sdpmac_desc">O sistema pirotécnico de limpeza de minas antitanque (SDPMAC) é um conjunto composto pelo lançador israelense CARPET montado no veículo blindado de engenharia (EBG).</string>
+
+    <!-- EFA -->
+    <string name="genie_efa_desc">Sucessor da balsa Gillois melhorada, o veículo de travessia avançada (EFA) é um equipamento anfíbio autônomo projetado para travessias contínuas (ponte) ou descontínuas (balsa) para veículos até MLC (Classe de Carga Militar) 70. O EFA inclui um casco contendo a cabine da tripulação, sala de máquinas, eixos e um compartimento traseiro, 2 rampas articuladas, 2 abas de suporte flutuantes e uma estação de controle aquático removível.</string>
+
+    <!-- EGAME -->
+    <string name="genie_egame_desc">Veículo de desenvolvimento de engenharia. Um trator de esteiras com rodas com 4 rodas motrizes e direcionais, o EGAME destina-se a ser implantado o mais próximo possível das forças de primeiro escalão (destacamento precursor) e se beneficia de proteção balística removível.</string>
+
+    <!-- EGRAP -->
+    <string name="genie_egrap_desc">Veículo de engenharia de proteção rápida. Carregadeira-escavadeira da linha civil, este veículo visa facilitar a implantação, movimentação e proteção de uma força.</string>
+
+    <!-- Manitou -->
+    <string name="genie_manitou_desc">O manipulador telescópico MLT 625-75 H é uma máquina muito compacta. Especialmente dedicada a atividades agrícolas.</string>
+
+    <!-- PPLD -->
+    <string name="genie_ppld_desc">O transportador de recuperação multiuso pesado - PPLD permite em particular a evacuação de veículos danificados. Possui 4 eixos com tração nas quatro rodas (8x8) permitindo-lhe dirigir em todos os tipos de estradas e caminhos e em todas as condições climáticas.</string>
+
+    <!-- VDM Souvim -->
+    <string name="genie_vdm_souvim_desc">O sistema de limpeza de rotas minadas (SOUVIM) possibilita garantir uma rota levemente poluída com minas antitanque ou antipessoal detectáveis ou ativadas por pressão. Sua vocação é participar de missões de apoio à mobilidade garantindo, ao longo de grandes distâncias, a abertura rápida de rotas levemente minadas (mineração de assédio) em 2º escalão ou na área traseira de unidades principais (zona de fluxo logístico) em um conflito de baixa intensidade.</string>
+
+    <!-- TC-910 -->
+    <string name="genie_tc910_desc">Trator carregador (TC) 910.</string>
+
+    <!-- TNA -->
+    <string name="genie_tna_desc">Transporte de um trator nivelador lançável por paraquedas (TNA).</string>
+</resources>

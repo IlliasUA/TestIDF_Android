@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Artillery descriptions - Portuguese -->
+
+    <!-- 2S1 Gvozdika -->
+    <string name="art_2s1_gvozdika_desc">O 2S1 Gvozdika é um canhão autopropulsado soviético de 122mm. É essencialmente uma versão estendida do MT-LB, com um obus 2A18 (D-30) montado em uma torre e apresentando alta mobilidade. Um veículo semianfíbio, pode também operar em tempestades de neve e pântanos. É protegido contra efeitos NBQ e possui visão óptica infravermelha.</string>
+
+    <!-- 2S3 Akatsiya -->
+    <string name="art_2s3_akatsiya_desc">O 2S3 Akatsiya é um canhão autopropulsado soviético projetado no final dos anos 1960 em resposta ao M109 americano. O Akatsiya é construído no chassi GM-123 que também é usado pelo 2S4 Tyulpan e 2S5 Giatsint-S. Entrando em serviço nas forças armadas soviéticas em 1971, ainda está em serviço em dezoito países. O Akatsiya é compatível com toda a munição de 152mm usada pelos canhões rebocados D-20, ML-20 e D-1.</string>
+
+    <!-- 2S5 Giatsint -->
+    <string name="art_2s5_giatsint_desc">O 2S5 Giatsint-S é um canhão russo de artilharia autopropulsado de 152mm. Foi desenvolvido na União Soviética nos anos 1970. O 2S5 Giatsint-S entrou em serviço em 1976.\nCanhão: 152mm, 2A37.\nAlcance: 30,5 km.\nCadência de tiro: 5-6 disparos por minuto.\nTripulação: 5.</string>
+
+    <!-- 2S7 Pion -->
+    <string name="art_2s7_pion_desc">O 2S7 Pion é um canhão russo de artilharia autopropulsado de 203mm. Foi desenvolvido na União Soviética nos anos 1970. O 2S7 Pion entrou em serviço em 1975. O 2S7 Pion é um sistema de artilharia pesada capaz de disparar projéteis convencionais e projéteis com ogivas nucleares. Sua distância máxima de tiro é de 47 km. O sistema de armas está instalado em um chassi de lagartas com sete rodas de apoio. O trem de rodagem é derivado do tanque de batalha T-80.\nCanhão: 2A44, 203mm.\nTripulação: 7 – 2S7 / 6 – 2S7M.</string>
+
+    <!-- 2S19 Msta -->
+    <string name="art_2s19_msta_desc">O 2S19 Msta-S é um canhão russo de artilharia autopropulsado. Foi desenvolvido na União Soviética nos anos 1980. O 2S19 entrou em serviço em 1989. O 2S19 Msta-S é armado com um canhão 2A65 de 152mm. Seu chassi é derivado do chassi do tanque de batalha T-80. O 2S19 Msta-S está equipado com um sistema de recarregamento de munição instalado na parte traseira do veículo. A versão 2S19M1 está equipada com um canhão de 155mm.\nAlcance: 6,5 km a 24,7 km / 28,5 km projétil autopropulsado.\nCadência de tiro: 8 disparos por minuto.\nTripulação: 5.</string>
+
+    <!-- 122 D-30 -->
+    <string name="art_122_d30_desc">O obus D-30 de 122mm é uma arma que entrou em serviço na União das Repúblicas Socialistas Soviéticas (URSS) nos anos 1960. É uma peça de artilharia de campo considerada robusta e utilizável em condições difíceis.</string>
+
+    <!-- AS-90 -->
+    <string name="art_as90_desc">O AS-90 é um canhão britânico de artilharia autopropulsado. Foi desenvolvido nos anos 1980. O AS-90 entrou em serviço em 1992. O AS-90, Artillery System 1990, foi desenvolvido para as unidades de artilharia do Reino Unido para substituir os M109s americanos. O AS-90 é armado com um canhão de 155mm que tem 39 calibres de comprimento com um alcance máximo de 24,7 km com um projétil padrão. Nos anos 2000, a versão AS-90 Braveheart recebeu um canhão de 52 calibres de comprimento que aumentou seu alcance máximo para 40 km. O sistema de armas AS-90 Braveheart é produzido sob licença na Polônia para equipar o canhão de artilharia polonês Krab.\nTripulação: 5.</string>
+
+    <!-- CAESAR -->
+    <string name="art_caesar_desc">O Caesar, Caminhão Equipado com Sistema de Artilharia, é um canhão francês de artilharia autopropulsado de 155mm. Foi desenvolvido nos anos 1990-2000 pela Nexter Systems. O Caesar entrou em serviço em 2008. O Caesar em serviço com as unidades de artilharia francesas está instalado no chassi do caminhão pesado Sherpa 6×6 produzido pela RTD, Renault Trucks Defence, agora Arquus. O alcance de tiro está entre 4,5 km e 42 km. O alcance máximo com projétil autopropulsado é superior a 50 km.\nCadência de tiro: 6 disparos/min.\nTripulação: 4 a 5.</string>
+
+    <!-- M109 Paladin -->
+    <string name="art_m109_paladin_desc">O M109 é um canhão americano de artilharia autopropulsado. Foi desenvolvido nos anos 1950-1960. O M109 entrou em serviço em 1963. O M109 é muito amplamente exportado em todo o mundo.\nCanhão: 155mm.\nAlcance M109: 14,6 km.\nAlcance M109A5: 22 km / 30 km projétil autopropulsado.\nCadência de tiro: 3-4 tiros/min.\nTripulação: 6 – M109 / 4 – M109A6.</string>
+
+    <!-- PzH 2000 -->
+    <string name="art_pzh2000_desc">O PzH 2000 é um canhão alemão de artilharia autopropulsado. Foi desenvolvido nos anos 1990. O PzH 2000 entrou em serviço em 1998. O PzH 2000, Panzerhaubitze 2000, foi desenvolvido para substituir o canhão de artilharia autopropulsado M109 de origem americana. É armado com um canhão de 155mm permitindo um alcance de tiro de 56 km. O carregamento automatizado permite uma cadência de tiro muito alta de 8 a 10 disparos/min. O chassi do PzH 2000 é derivado do chassi do tanque de batalha alemão Leopard-2.\nAlcance: 30 km / 56 km projétil autopropulsado.\nTripulação: 5.</string>
+
+    <!-- RCH155 Boxer -->
+    <string name="art_rch155_boxer_desc">O RCH 155 é um canhão alemão de artilharia autopropulsado. Foi desenvolvido nos anos 2010-2020. O RCH 155 entrou em serviço em 2025. Usa o chassi com rodas 8×8 do veículo blindado de combate Boxer. O sistema de armas RCH 155 consiste no módulo AGM, Artillery Gun Module, armado com um canhão de 155mm. A cadência máxima de tiro é de 9 tiros/min. O RCH 155 foi encomendado para o exército ucraniano e financiado pelo governo alemão.</string>
+
+    <!-- 2A-36 -->
+    <string name="art_2a36_desc">O obus 2A36 Giatsint-B é uma peça de artilharia média usada pelas Forças Armadas da Federação Russa. Existe uma versão de canhão autopropulsado de lagartas sem torre 2S5 Giatsint-S. O 2A36 foi desenvolvido a partir de 1968. O 2A36 é amplamente usado pelas forças armadas ucranianas desde 2014 contra separatistas de Donbass e depois contra a Rússia. O exército russo os coloca de volta em serviço em 2022 devido a uma necessidade significativa de peças de artilharia. O canhão é de calibre 152mm e é raiado. O alcance máximo de tiro com o projétil HE-FRAG padrão é de 28,5 km e 30 a 33 km.</string>
+
+    <!-- 2S4 -->
+    <string name="art_2s4_desc">Morteiro russo pesado autopropulsado 2S4 Tyulpan de 240mm.</string>
+
+    <!-- 2S35 Koalitsiya -->
+    <string name="art_2s35_koalitsiya_desc">O 2S35 Koalitsiya-SV é um canhão russo de artilharia autopropulsado. Está em desenvolvimento desde o início dos anos 2010. O chassi derivado do tanque T-90. Para produção em larga escala, o sistema de armas 2S35 será instalado no chassi Armata.\nCanhão: 2A88 152mm.\nAlcance: 40 km / 70 km projétil autopropulsado.\nCadência de tiro sustentada: 10 disparos por minuto.\nTripulação: 3.</string>
+
+    <!-- 152D-20 -->
+    <string name="art_152d20_desc">O canhão-obus M1955 de 152mm, também conhecido como D-20, foi fabricado na União Soviética nos anos 1950.</string>
+
+    <!-- FV-433 Abbot -->
+    <string name="art_fv433_abbot_desc">O FV433 \'Abbot\', um canhão autopropulsado de 105mm, às vezes era designado \'L109\', provavelmente para evitar confusão com o obus M109 de 155mm, que entrou em serviço no Reino Unido aproximadamente na mesma época.</string>
+
+    <!-- M-777 -->
+    <string name="art_m777_desc">Um obus rebocado de calibre 155mm. É usado pelas forças terrestres dos Estados Unidos, Austrália, Canadá, Índia, Arábia Saudita e Ucrânia.</string>
+
+    <!-- PLZ-07 -->
+    <string name="art_plz07_desc">O PLZ-07 é um canhão chinês de artilharia autopropulsado de 122mm. Foi desenvolvido nos anos 2000. O PLZ-07 usa o chassi do veículo de combate de infantaria ZBD-04. O PLZ-07 tem capacidade anfíbia, propulsionado na água pelo movimento das lagartas. O PLZ-07 é armado com um canhão de 122mm derivado do canhão soviético D-30. A distância máxima de tiro é de 18 km com um projétil padrão e 27 km com munição propulsionada.</string>
+
+    <!-- 2S25 Sprout -->
+    <string name="art_2s25_sprout_desc">O 2S25 Sprut-SD é um tanque leve russo lançável por paraquedas. Foi desenvolvido nos anos 1990. O 2S25 Sprut-SD entrou em serviço em 2007. O 2S25 Sprut-SD é destinado às unidades de paraquedistas. Seu chassi é derivado do veículo de combate de infantaria BMD-3 estendido para sete rodas de apoio. O 2S25 Sprut-SD é armado com um canhão 2A75 de 125mm derivado do canhão 2A46 dos tanques de batalha russos. Pode disparar toda a gama de munição padrão de 125mm. O 2S25 Sprut-SD tem capacidade anfíbia.\nTripulação: 3.</string>
+
+    <!-- Dana VZ-77 -->
+    <string name="art_dana_vz77_desc">O vz.77 Dana é um canhão tchecoslovaco de artilharia autopropulsado. Foi desenvolvido nos anos 1970, na ex-Tchecoslováquia. O vz.77 Dana entrou em serviço em 1980. O canhão de artilharia autopropulsado vz.77 Dana de 152mm é um sistema de artilharia em um chassi com rodas 8×8. O vz.77 Dana está em serviço na República Tcheca, Eslováquia, Polônia, Azerbaijão, Líbia, Geórgia e Chipre.\nTripulação: 4 + 1.</string>
+
+    <!-- 2S9 Nona -->
+    <string name="art_2s9_nona_desc">O 2S9 Nona-S é um canhão-morteiro russo autopropulsado. Foi desenvolvido na União Soviética nos anos 1970. O 2S9 Nona-S entrou em serviço em 1981. O chassi, derivado do transportador blindado de pessoal de lagartas BTR-D, tem capacidade anfíbia. O 2S9 Nona-S é armado com um canhão-morteiro raiado 2A51 de 120mm instalado em uma torre de duas pessoas. O alcance de tiro é de 8,85 km com um projétil convencional e 17 km com um projétil propulsionado.\nCadência de tiro: 6-8 disparos por minuto.\nTripulação: 4.</string>
+
+    <!-- 2S34 Hosta -->
+    <string name="art_2s34_hosta_desc">O 2S34 Hosta é um canhão russo de artilharia autopropulsado. Foi desenvolvido nos anos 2000. O 2S34 Hosta entrou em serviço em 2008. O 2S34 Hosta é um projeto de modernização profunda do canhão de artilharia autopropulsado 2S1 Gvozdika. Usa o mesmo chassi de lagartas com sete rodas de apoio. O canhão 2A31 de 122mm do 2S1 Gvozdika é substituído pelo canhão-morteiro 2A80-1 de 120mm. O 2S34 Hosta é um veículo anfíbio e se move na água usando o movimento das lagartas. A Rússia é o único país a usar o 2S34 Hosta.\nAlcance: 14 km.\nTripulação: 4.</string>
+
+    <!-- 2S43 Malva -->
+    <string name="art_2s43_malva_desc">O 2S43 Malva é um canhão russo de artilharia autopropulsado. O 2S43 Malva usa o chassi com rodas BAZ-6010 8×8. O sistema de armas consiste em um canhão de 152mm instalado na parte traseira do chassi. O alcance máximo do canhão é de 24,5 km com uma cadência de tiro de 7 tiros/min.\nTripulação: 5.</string>
+
+    <!-- Archer FH-77 -->
+    <string name="art_archer_fh77_desc">O canhão autopropulsado multiuso sueco de 155mm FH77 BW L52 "Archer". Uma característica distintiva do sistema é a automação completa do processo de carregamento, permitindo assim uma cadência de tiro aumentada. Uma velocidade de deslocamento fora de estrada de até 70 km/h. Um alcance de tiro de até 40 km com munição convencional de 155mm e até 60 km com munições guiadas de alta precisão. No modo automático, os 21 projéteis da reserva total podem ser disparados em 2,5 minutos.</string>
+
+    <!-- 2S40 Floks -->
+    <string name="art_2s40_floks_desc">O 2S40 Floks é um canhão-morteiro russo autopropulsado de 120mm. Foi desenvolvido nos anos 2010-2020. O 2S40 Floks entrou em serviço em 2023. O 2S40 Floks usa o chassi do caminhão pesado Ural-4320 6×6. O 2S40 Floks é armado com o canhão-morteiro raiado 2A80 de 120mm. Este canhão-morteiro também está instalado nos canhões autopropulsados de lagartas 2S31 Vena e 2S34 Hosta. O alcance máximo está entre 7 e 10 km dependendo do tipo de munição. Cada veículo transporta 60 projéteis. Para autodefesa, pode receber uma metralhadora de 12,7mm.\nTripulação: 4.</string>
+
+    <!-- AUF-1 -->
+    <string name="art_auf1_desc">O AUF1 é um canhão francês de artilharia autopropulsado. Foi desenvolvido nos anos 1970. O AUF1 entrou em serviço em 1978 na Arábia Saudita e em 1982 na França. O AUF1 é capaz de disparar os primeiros seis projéteis em 45 segundos. O chassi do AUF1 é derivado do chassi do tanque de batalha francês AMX-30, com o motor na parte traseira do veículo. A partir de 2008, o AUF1 é parcialmente substituído pelo canhão de artilharia autopropulsado com rodas francês Caesar nas unidades de artilharia francesas. Em junho de 2014, a França estendeu a vida útil ativa do AUF1 até 2025.\nCanhão: 155mm.\nAlcance: 23,5 km / 28 km projétil autopropulsado.\nCadência de tiro: 6 disparos em 45 seg.\nTripulação: 4.</string>
+
+    <!-- SGH Eva -->
+    <string name="art_sgh_eva_desc">O EVA é um canhão autopropulsado eslovaco. Está equipado com um obus de 155mm/L52 e tem um alcance máximo de tiro de 41 quilômetros.</string>
+
+    <!-- BM-21 Grad -->
+    <string name="art_bm21_grad_desc">O BM-21 Grad é um lançador múltiplo russo de foguetes de 122mm. Foi desenvolvido na União Soviética nos anos 1950-1960. O BM-21 Grad entrou em serviço em 1963. A produção parou em 1988. O BM-21 Grad tem o chassi com rodas 6×6 do caminhão pesado Ural-375D. BM-21 (Boevaya Machina) – veículo de combate, está equipado com 40 tubos de lançamento de foguetes de 122mm. O alcance máximo varia dependendo do tipo de munição entre 14 km e 20,75 km. A nova gama de munições estende a distância de tiro até 40 km.</string>
+
+    <!-- M142 HIMARS -->
+    <string name="art_m142_himars_desc">O M142 HIMARS é um lançador múltiplo americano de foguetes. Foi desenvolvido nos anos 1990. O M142 HIMARS entrou em serviço em 2005. O M142 HIMARS, High Mobility Artillery Rocket System, tem o mesmo sistema de armas que o Lançador Múltiplo de Foguetes M270 MLRS com um bloco de seis foguetes de 227mm. 6 foguetes de 227mm ou 1 foguete MGM-140 ATACMS / Metralhadora: 7,62mm.\nTripulação: 3.</string>
+
+    <!-- M-110 -->
+    <string name="art_m110_desc">O M110 é um canhão americano de artilharia autopropulsado de 203mm. Foi desenvolvido nos anos 1950-1960. O M110 entrou em serviço em 1962. O M110 foi desenvolvido a pedido do Exército dos EUA para um novo sistema de artilharia aerotransportável. O M110 é armado com um canhão M2A2 de 203,2mm. Até sua retirada de serviço em 1994, o M110 foi o canhão de artilharia autopropulsado mais poderoso das Forças Terrestres dos EUA.</string>
+
+    <!-- Zuzana-2 -->
+    <string name="art_zuzana2_desc">O Zuzana de 155mm é um sistema de artilharia autopropulsado desenvolvido pela Eslováquia.</string>
+
+    <!-- M-901 ITV -->
+    <string name="art_m901_itv_desc">O M901 ITV, Improved TOW Vehicle, é um veículo blindado americano de combate antitanque. Foi desenvolvido nos anos 1970. O M901 ITV entrou em serviço em 1979. O M901 ITV é um veículo blindado especializado em combate antitanque e antiblindagem. O sistema de armas consiste no módulo elevável armado com dois mísseis TOW, Tube-launched Optically tracked Wire-guided. Dez mísseis de reserva são armazenados dentro do veículo. O M901 ITV usa o chassi do transportador blindado de pessoal americano M113. O M901 ITV foi exportado para a Grécia, Portugal, Tailândia, Egito, Marrocos, Tunísia, Paquistão, Kuwait, Jordânia, Bahrein. Foi retirado do serviço ativo no Exército dos EUA.</string>
+</resources>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Complete tank descriptions - Portuguese (ALL information translated) -->
+
+    <string name="desc_abrams">O M1 Abrams é um tanque americano de batalha principal, desenvolvido nos anos 1970.
+Entrou em serviço em 1980.
+Os primeiros modelos do M1 Abrams foram equipados com um canhão M68 de 105 mm.
+A partir da versão M1A1, é armado com o canhão M256 de 120 mm.
+Canhão principal: 120 mm.
+Metralhadora: 12,7 mm.
+Tripulação: 4.</string>
+
+    <string name="desc_ariete">O C1 Ariete é um tanque italiano de batalha principal, desenvolvido nos anos 1980-1990.
+Entrou em serviço em 1995.
+Canhão principal: 120 mm.
+Metralhadoras: 12,7 mm, 7,62 mm.
+Tripulação: 4.</string>
+
+    <string name="desc_challenger_1">O Challenger 1 é um tanque britânico de batalha principal, desenvolvido nos anos 1980.
+Entrou em serviço em 1983.
+A modernização do Challenger 1 deu origem ao Challenger 2, que entrou em serviço em 1998.
+No Reino Unido, o Challenger 1 foi retirado de serviço com a chegada do Challenger 2.
+Canhão principal: 120 mm.
+Metralhadora: 7,62 mm.
+Tripulação: 4.</string>
+
+    <string name="desc_challenger_2">O Challenger 2 é um tanque britânico de batalha principal, desenvolvido nos anos 1990.
+Entrou em serviço em 1998.
+Conhecido como FV4030, é o tanque de batalha principal do Exército Britânico.
+Participou de combates no Kosovo e no Iraque.
+Exportado para Omã em 38 unidades.
+Em 2021, o Exército Britânico anunciou a modernização de 148 tanques sob a designação Challenger 3.
+Canhão principal: 120 mm.
+Metralhadora: 7,62 mm.
+Tripulação: 4.</string>
+
+    <string name="desc_chieftain">O Chieftain é um tanque britânico de batalha principal, desenvolvido nos anos 1950-1960 pela Leyland Motors.
+Entrou em serviço em 1966.
+Passou por várias campanhas de modernização até a versão Chieftain Mk-11.
+Empregado em unidades blindadas britânicas até sua substituição pelo Challenger 1 em 1983.
+Exportado para Irã, Iraque, Kuwait, Jordânia (sob a designação Khalid) e Omã (sob a designação Shir).
+Versões: Chieftain Mk.1 (1966), Chieftain Mk.5 (1972), Khalid, Shir.
+Canhão principal: 120 mm.
+Metralhadora: 7,62 mm.
+Tripulação: 4.</string>
+
+    <string name="desc_leopard_2">O Leopard 2 é um tanque alemão de batalha principal, desenvolvido nos anos 1970.
+Versões: Leopard 2A0 (1979), Leopard 2A1 (1982), Leopard 2A2 (1983), Leopard 2A3 (1984), Leopard 2A4 (1985), Leopard 2A5 (2000), Leopard 2A6 (2001), Leopard 2A7 (2014), Leopard 2A7V (2021), Leopard 2A8 (2023).
+Canhão principal: 120 mm.
+Metralhadora: 7,62 mm.
+Tripulação: 4.</string>
+
+    <string name="desc_leopard_1">O Leopard 1 é um tanque alemão de batalha principal, desenvolvido nos anos 1950-1960.
+Entrou em serviço em 1965.
+Amplamente exportado, está atualmente em serviço na Turquia, Brasil e Chile.
+Desde fevereiro de 2023, a Alemanha tem entregado tanques Leopard 1 à Ucrânia.
+O chassi do Leopard 1 serviu de base para vários veículos de apoio.
+Versões: Leopard 1A1, 1A1A1, 1A2, 1A3, 1A4, 1A5.
+Canhão principal: 105 mm.
+Metralhadora: 7,62 mm.
+Tripulação: 4.</string>
+
+    <string name="desc_t_55">O T-55 é um tanque russo de batalha principal, desenvolvido na União Soviética nos anos 1950.
+Entrou em serviço em 1958.
+Muito amplamente distribuído, foi produzido sob licença na Polônia, Tchecoslováquia e Romênia.
+Participou de numerosos conflitos e permanece em serviço em várias forças armadas.
+Versões: T-55K, T-55A, T-55AK, T-55AM.
+Canhão principal: 100 mm.
+Metralhadora: 12,7 mm.
+Tripulação: 4.</string>
+
+    <string name="desc_m_60">O M60 é um tanque americano de batalha principal, desenvolvido nos anos 1950.
+Muito amplamente exportado, permanece em serviço em várias forças armadas.
+Passou por várias campanhas de modernização: M60A1 (1962), M60A2 (1970), M60A3 (1975).
+Canhão principal: 105 mm.
+Metralhadora: 12,7 mm Browning M2.
+Tripulação: 4.</string>
+
+    <string name="desc_magach_7">Os tanques Magach são versões adaptadas às necessidades israelenses dos tanques americanos M48 e M60.
+Versões: Magach 5, Magach 6B Gal Batash, Magach 6M Tadach, Magach 7A, Magach 7C.
+Canhão principal: 105 mm.
+Metralhadoras: 7,62 mm, 12,7 mm Browning.
+Tripulação: 4.</string>
+
+    <string name="desc_merkava_4">O Merkava Mk IV é um tanque israelense de batalha principal, desenvolvido nos anos 1990.
+Entrou em serviço em 2004.
+Seu chassi serviu de base para o transportador blindado de pessoal pesado Namer.
+Israel é o único usuário do Merkava Mk IV.
+Canhão principal: 120 mm.
+Metralhadoras: 7,62 mm, 12,7 mm.
+Morteiro: 60 mm.
+Tripulação: 4.</string>
+
+    <string name="desc_t_62">O T-62 é um tanque médio soviético, que entrou em serviço em 1961.
+Canhão principal: 115 mm.
+Tripulação: 4 (comandante do tanque, operador da torre, carregador, motorista).</string>
+
+    <string name="desc_t_64">O T-64 é um tanque soviético de batalha principal, desenvolvido nos anos 1960.
+Entrou em serviço em 1965.
+Primeiro tanque soviético a integrar carregamento automático.
+Versões: T-64A, T-64B, T-64BM Bulat.
+Canhão principal: 125 mm.
+Metralhadora: 12,7 mm.
+Míssil antitanque: AT-8 (T-64B).
+Tripulação: 3.</string>
+
+    <string name="desc_t_64_extended">O T-64 é um tanque soviético de batalha principal, desenvolvido nos anos 1960.
+Entrou em serviço em 1965.
+Primeiro tanque soviético a integrar carregamento automático.
+Versões: T-64A, T-64B, T-64BM Bulat.
+Canhão principal: 125 mm.
+Metralhadora: 12,7 mm.
+Míssil antitanque: AT-8 (T-64B).
+Tripulação: 3.</string>
+
+    <string name="desc_t_72">O T-72 é um tanque russo de batalha principal, desenvolvido nos anos 1960-1970.
+Entrou em serviço em 1973.
+Versões: T-72, T-72K, T-72A, T-72M, T-72AV, T-72B, T-72B1, T-72BK, T-72C, T-72BM, T-72B3.
+Canhão principal: 125 mm.
+Metralhadora: 12,7 mm.
+Tripulação: 3.</string>
+
+    <string name="desc_t_80">O T-80 é um tanque russo de batalha principal, desenvolvido nos anos 1980.
+Versões: T-80U, T-80UK, T-80UD, T-80UE-1.
+Canhão principal: 125 mm.
+Metralhadora: 12,7 mm.
+Tripulação: 3.</string>
+
+    <string name="desc_t_90">O T-90 é um tanque russo de batalha principal, desenvolvido nos anos 1990.
+Entrou em serviço em 1992.
+Versões: T-90A, T-90M, T-90MS.
+Canhão principal: 125 mm.
+Metralhadora: 12,7 mm.
+Tripulação: 3.</string>
+
+    <string name="desc_amx_30">O AMX-30 é um tanque francês de batalha principal, desenvolvido nos anos 1960.
+Entrou em serviço em 1967.
+Quase 3.500 tanques AMX-30 foram produzidos para o exército francês e para exportação.
+Substituído pelo tanque Leclerc no exército francês.
+Versões: AMX-30B (1967), AMX-30B2 (1980).
+Canhão principal: 105 mm.
+Metralhadora: 7,62 mm ANF1.
+Tripulação: 4.</string>
+
+    <string name="desc_arjun_mk1">O Arjun é um tanque indiano de batalha principal, desenvolvido nos anos 1990-2000.
+Entrou em serviço em 2004.
+Canhão principal: 120 mm.
+Metralhadora: 12,7 mm.
+Tripulação: 4.</string>
+
+    <string name="desc_k_1">O K1 é um tanque sul-coreano de batalha principal, desenvolvido nos anos 1970-1980 pela Hyundai (agora Rotem) com assistência técnica da General Dynamics.
+Entrou em serviço em 1987.
+Conhecido sob as designações Type 88 e 88-Tank, foi desenvolvido para combater os tanques norte-coreanos T-62.
+Sua produção foi substituída pelo K2 Black Panther a partir de 2014.
+Versões: K1/Type 88/88-Tank (1987), K1A1 (2001), K1A2 (2013).
+Canhão principal: 105 mm (K1), 120 mm (K1A1).
+Metralhadora: 12,7 mm.
+Tripulação: 4.</string>
+
+    <string name="desc_merkava_3">O Merkava Mk 3 é um tanque israelense de batalha principal, que entrou em serviço em 1990.
+Canhão principal: 120 mm MG251 (alma lisa).
+Metralhadoras: três MAG de 7,62 mm.
+Tripulação: 4 (comandante do tanque, motorista, artilheiro, carregador).</string>
+
+    <string name="desc_pt_91">O PT-91 Twardy é um tanque polonês de batalha principal, desenvolvido nos anos 1990 pela Bumar Labedy baseado no T-72M1.
+Entrou em serviço em 1995.
+Produzido em 232 unidades para o exército polonês e exportado para a Malásia (48 unidades sob o nome PT-91M Pendekar, 2007-2010).
+Canhão principal: 125 mm.
+Metralhadoras: 7,62 mm (coaxial), 12,7 mm.
+Tripulação: 3.</string>
+
+    <string name="desc_type_10">O Type 10 é um tanque japonês de batalha principal, desenvolvido nos anos 2000 pela Mitsubishi Heavy Industries.
+Entrou em serviço em 2012.
+Canhão principal: 120 mm (44 calibres, 36 projéteis).
+Metralhadoras: 7,62 mm (coaxial), 12,7 mm.
+Tripulação: 3.</string>
+
+    <string name="desc_type_98">O Type 98 (ZTZ-98) é um tanque chinês de batalha principal, introduzido em 1999 durante um desfile militar em Pequim.
+Assemelhando-se ao T-72, distingue-se por uma torre soldada.
+Canhão principal: 125 mm (alma lisa).
+Tripulação: 3.</string>
+
+    <string name="desc_type_99">O ZTZ-99 (Type 99) é um tanque chinês de batalha principal, desenvolvido nos anos 1990-2000.
+Entrou em serviço em 2003.
+Equipado com câmera térmica, mira panorâmica estabilizada com capacidade caçador-matador e sistema de contramedidas a laser omnidirecional.
+Versões: ZTZ-99G, ZTZ-99A1, ZTZ-99A2.
+Canhão principal: 125 mm.
+Metralhadora: 12,7 mm.
+Tripulação: 3.</string>
+
+    <string name="desc_merkava_1">O Merkava Mk 1 é um tanque israelense de batalha principal, entregue às Forças de Defesa de Israel (IDF) a partir de 1979.
+Superior ao T-72 sírio.
+Versões: Merkava 1, Merkava 1B.
+Canhão principal: 105 mm.
+Metralhadora: 7,62 mm (coaxial).
+Tripulação: 4.</string>
+
+    <string name="desc_amx_13">O AMX-13 é um tanque leve francês, produzido entre 1953 e 1985.
+Canhão principal: 105 mm (autopropulsado).
+Tripulação: 3.</string>
+
+    <string name="desc_k_2_black_panther">O K2 Black Panther é um tanque sul-coreano de batalha principal, desenvolvido nos anos 2000.
+Entrou em serviço em 2014.
+Canhão principal: 120 mm (55 calibres).
+Tripulação: 3.</string>
+
+    <string name="desc_leclerc">O Leclerc é um tanque francês de batalha principal, desenvolvido nos anos 1980.
+Entrou em serviço em 1991.
+Substituiu os tanques AMX-30 nas unidades blindadas francesas.
+388 unidades foram entregues aos Emirados Árabes Unidos entre 2000 e 2003.
+Implantado no Kosovo e no Líbano.
+Canhão principal: 120 mm.
+Metralhadoras: 12,7 mm (coaxial), 7,62 mm.
+Tripulação: 3.</string>
+
+    <string name="desc_tr_85">O TR-85, Tanc Românesc model 1985, é um tanque romeno de batalha principal, desenvolvido nos anos 1980.
+Entrou em serviço em 1986.
+Desenvolvido a partir do TR-580, uma versão alongada do T-55, é usado exclusivamente pela Romênia.
+Versões: TR-85, TR-85M1 Bizonul.
+Canhão principal: 100 mm.
+Metralhadora: 12,7 mm.
+Tripulação: 4.</string>
+
+    <string name="desc_vt_4">O VT-4 (MBT-3000) é um tanque chinês de batalha principal, apresentado em 2012.
+Em 2016, o exército tailandês adquiriu 28 tanques VT-4.
+Canhão principal: 125 mm.
+Metralhadora: 12,7 mm.
+Tripulação: 3.</string>
+
+    <string name="desc_jaguar">O EBRC Jaguar, Engin Blindé de Reconnaissance et de Combat (Veículo Blindado de Reconhecimento e Combate), é um veículo blindado francês de combate com rodas 6×6, desenvolvido nos anos 2010.
+Entrou em serviço em 2022.
+Destinado a substituir o AMX-10RCR.
+Canhão principal: 40 mm.
+Metralhadora: 7,62 mm.
+Tripulação: 3.</string>
+
+    <string name="desc_strv_103">O Stridsvagn 103 (Strv 103) é um tanque sueco de batalha principal, desenvolvido nos anos 1950.
+Perfeitamente anfíbio com uma saia de flutuação instalável em 20 minutos, é propulsionado na água por suas lagartas a 6 km/h.
+Versões: Strv 103A, 103B, 103C, 103D.
+Canhão principal: 105 mm.
+Metralhadoras: duas de 7,62 mm.
+Tripulação: 3.</string>
+
+    <string name="desc_t_14_armata">O T-14 Armata é um tanque russo de batalha principal, em desenvolvimento desde os anos 2010.
+A produção em série foi anunciada para 2019.
+Equipado com uma torre não tripulada operada remotamente com munição armazenada em um carregador automático.
+Os três tripulantes estão localizados na frente do chassi.
+Canhão principal: 125 mm.
+Metralhadoras: 12,7 mm ou 7,62 mm.
+Tripulação: 3.</string>
+
+    <string name="desc_type_16_mcv">O Type 16 MCV, Maneuver Combat Vehicle, é um tanque leve japonês com rodas 8×8, desenvolvido nos anos 2010.
+Entrou em serviço em 2016.
+Armado com um canhão estabilizado de 105 mm com carregamento manual, com o conjunto motopropulsor na frente à esquerda e o motorista à direita.
+Pode receber blindagem adicional.
+Canhão principal: 105 mm.
+Metralhadora: 12,7 mm.
+Tripulação: 4.</string>
+
+    <string name="desc_ztl_11">O ZTL-11 é um tanque leve chinês com rodas 8×8, desenvolvido nos anos 2010.
+Entrou em serviço em 2014.
+Baseado no chassi ZBL-09, inclui um estabilizador de arma e uma câmera térmica.
+O canhão de 105 mm pode disparar projéteis explosivos, de carga moldada e antitanque subcalibre.
+Canhão principal: 105 mm.
+Metralhadora: 12,7 mm.
+Tripulação: 4.</string>
+
+</resources>
