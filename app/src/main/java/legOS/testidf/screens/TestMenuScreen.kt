@@ -393,6 +393,38 @@ private fun SideTabBar(
     iconNews: ImageBitmap?,
     navController: NavController
 ) {
+    val configuration = LocalConfiguration.current
+    val density = LocalDensity.current
+    val screenHeightDp = with(density) { configuration.screenHeightDp.dp }
+
+    // Адаптивные размеры в зависимости от высоты экрана
+    val isVeryCompact = screenHeightDp < 400.dp
+    val isCompact = screenHeightDp < 500.dp
+
+    val iconSize = when {
+        isVeryCompact -> 24.dp
+        isCompact -> 28.dp
+        else -> 32.dp
+    }
+
+    val itemHeight = when {
+        isVeryCompact -> 56.dp
+        isCompact -> 64.dp
+        else -> 70.dp
+    }
+
+    val verticalPadding = when {
+        isVeryCompact -> 4.dp
+        isCompact -> 6.dp
+        else -> 8.dp
+    }
+
+    val fontSize = when {
+        isVeryCompact -> 7.sp
+        isCompact -> 8.sp
+        else -> 9.sp
+    }
+
     Surface(
         modifier = Modifier
             .width(80.dp)
@@ -403,7 +435,7 @@ private fun SideTabBar(
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .padding(horizontal = 2.dp, vertical = 8.dp),
+                .padding(horizontal = 2.dp, vertical = verticalPadding),
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -412,7 +444,9 @@ private fun SideTabBar(
                 label = stringResource(R.string.return_tab),
                 isSelected = false,
                 onClick = { onTabSelected(0) },
-                iconSize = 32.dp
+                iconSize = iconSize,
+                itemHeight = itemHeight,
+                fontSize = fontSize
             )
 
             SideTabBarItem(
@@ -420,7 +454,9 @@ private fun SideTabBar(
                 label = stringResource(R.string.categories_tab),
                 isSelected = selectedTab == 1,
                 onClick = { onTabSelected(1) },
-                iconSize = 32.dp
+                iconSize = iconSize,
+                itemHeight = itemHeight,
+                fontSize = fontSize
             )
 
             SideTabBarItem(
@@ -428,7 +464,9 @@ private fun SideTabBar(
                 label = stringResource(R.string.modes_tab),
                 isSelected = selectedTab == 2,
                 onClick = { onTabSelected(2) },
-                iconSize = 32.dp
+                iconSize = iconSize,
+                itemHeight = itemHeight,
+                fontSize = fontSize
             )
 
             SideTabBarItem(
@@ -436,7 +474,9 @@ private fun SideTabBar(
                 label = stringResource(R.string.search_tab),
                 isSelected = selectedTab == 3,
                 onClick = { onTabSelected(3) },
-                iconSize = 32.dp
+                iconSize = iconSize,
+                itemHeight = itemHeight,
+                fontSize = fontSize
             )
 
             SideTabBarItem(
@@ -444,7 +484,9 @@ private fun SideTabBar(
                 label = stringResource(R.string.news_tab),
                 isSelected = false,
                 onClick = { navController.navigate("news_screen") },
-                iconSize = 32.dp
+                iconSize = iconSize,
+                itemHeight = itemHeight,
+                fontSize = fontSize
             )
         }
     }
@@ -515,13 +557,15 @@ private fun SideTabBarItem(
     label: String,
     isSelected: Boolean,
     onClick: () -> Unit,
-    iconSize: Dp
+    iconSize: Dp,
+    itemHeight: Dp = 70.dp,
+    fontSize: androidx.compose.ui.unit.TextUnit = 9.sp
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp)
-            .padding(horizontal = 2.dp, vertical = 2.dp),
+            .height(itemHeight)
+            .padding(horizontal = 2.dp, vertical = 1.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -551,12 +595,13 @@ private fun SideTabBarItem(
             }
         }
 
-        Spacer(Modifier.height(2.dp))
+        Spacer(Modifier.height(1.dp))
 
         Text(
             text = label,
             style = MaterialTheme.typography.labelSmall.copy(
-                fontSize = 9.sp
+                fontSize = fontSize,
+                lineHeight = (fontSize.value * 1.1).sp
             ),
             color = if (isSelected) {
                 MaterialTheme.colorScheme.primary
