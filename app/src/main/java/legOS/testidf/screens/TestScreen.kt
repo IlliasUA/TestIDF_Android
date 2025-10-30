@@ -575,39 +575,55 @@ private fun TestScreenLandscapeLayout(
                 Text(
                     text = stringResource(R.string.test_time_remaining, timeRemaining),
                     style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
-                    color = if (timeRemaining <= 5) Color.Red else MaterialTheme.colorScheme.onSurface
+                    color = if (timeRemaining <= 3) Color(0xFF8B0000) else MaterialTheme.colorScheme.onSurface
                 )
                 LinearProgressIndicator(
                     progress = { timeRemaining.toFloat() / initialTimeLimit },
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
                         .padding(top = 8.dp),
-                    color = if (timeRemaining <= 5) Color.Red else MaterialTheme.colorScheme.primary
+                    color = if (timeRemaining <= 3 && timeRemaining > 0) Color(0xFF8B0000) else Color(0xFF32CD32),
+                    trackColor = Color.Transparent
                 )
             }
 
-            LazyColumn(
+            // Отображение опций в два столбика
+            Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                contentPadding = PaddingValues(vertical = 8.dp)
+                verticalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterVertically),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                items(currentQuestion.options.size) { index ->
-                    Button(
-                        onClick = { onAnswer(currentQuestion.options[index]) },
-                        modifier = Modifier
-                            .fillMaxWidth(0.85f)
-                            .height(48.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = MaterialTheme.colorScheme.onPrimary
-                        ),
-                        shape = MaterialTheme.shapes.medium
+                currentQuestion.options.chunked(2).forEach { rowOptions ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(0.95f),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
                     ) {
-                        Text(
-                            text = currentQuestion.options[index],
-                            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
-                            maxLines = 2
-                        )
+                        rowOptions.forEach { option ->
+                            Button(
+                                onClick = { onAnswer(option) },
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(44.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.primary,
+                                    contentColor = MaterialTheme.colorScheme.onPrimary
+                                ),
+                                shape = MaterialTheme.shapes.medium,
+                                contentPadding = PaddingValues(horizontal = 6.dp, vertical = 4.dp)
+                            ) {
+                                Text(
+                                    text = option,
+                                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 11.sp),
+                                    maxLines = 2,
+                                    textAlign = TextAlign.Center,
+                                    lineHeight = 13.sp
+                                )
+                            }
+                        }
+                        // Если нечетное количество опций, добавляем пустое пространство
+                        if (rowOptions.size == 1) {
+                            Spacer(modifier = Modifier.weight(1f))
+                        }
                     }
                 }
             }
@@ -616,7 +632,7 @@ private fun TestScreenLandscapeLayout(
                 onClick = onQuit,
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
-                    .height(48.dp)
+                    .height(44.dp)
                     .padding(vertical = 4.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.tertiary,
@@ -626,7 +642,7 @@ private fun TestScreenLandscapeLayout(
             ) {
                 Text(
                     text = stringResource(R.string.test_quit_button),
-                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp)
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp)
                 )
             }
 
