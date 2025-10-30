@@ -13,14 +13,14 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="copyright">© 2025 IliaUA. All Rights Reserved.</string>
-    <string name="privacy_notice">By using this app, you agree to our Privacy Policy and Terms of Use, which are specified in the \"Info\" section.</string>
+    <string name="privacy_notice">En utilisant cette application, vous acceptez notre Politique de confidentialité et nos Conditions d\'utilisation, qui sont précisées dans la section \"Info\".</string>
 
     <!-- Menu de test -->
     <string name="return_tab">Retour</string>
     <string name="categories_tab">Catégories</string>
     <string name="modes_tab">Modes</string>
     <string name="search_tab">Rechercher</string>
-    <string name="news_tab">News</string>
+    <string name="news_tab">Mises à jour</string>
     <string name="help_button">Aide</string>
 
     <!-- Catégories -->
