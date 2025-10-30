@@ -14,7 +14,7 @@ android {
         applicationId = "legOS.testidf"
         minSdk = 24
         targetSdk = 35
-        versionCode = 23  // Увеличена версия для исправления языковой проблемы AAB
+        versionCode = 24  // Без подписки!
         versionName = "1.2.3"  // Обновлена версия
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

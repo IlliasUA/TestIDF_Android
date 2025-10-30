@@ -187,12 +187,13 @@ fun AppNavigation() {
                 MainMenuScreen(navController = navController)
             }
 
-            // Test menu с проверкой подписки
+            // ⚠️⚠️⚠️ ИЗМЕНЕНО: Test menu БЕЗ проверки подписки ⚠️⚠️⚠️
+            // ВРЕМЕННО: Подписка отключена для тестирования
             composable("test_menu") {
-                TestMenuScreenWithSubscription(navController, viewModel())
+                TestMenuScreen(navController)
             }
 
-            // Экран подписки
+            // Экран подписки (оставляем для возможности тестирования)
             composable("subscription") {
                 SubscriptionScreen(navController, viewModel())
             }
@@ -301,6 +302,8 @@ fun AppNavigation() {
 
 /**
  * Обёртка для TestMenuScreen с проверкой подписки
+ *
+ * ⚠️ ВРЕМЕННО НЕ ИСПОЛЬЗУЕТСЯ - оставлено для будущего восстановления
  */
 @Composable
 fun TestMenuScreenWithSubscription(

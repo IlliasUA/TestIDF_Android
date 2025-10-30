@@ -19,6 +19,8 @@ import java.io.File
  * Менеджер для управления подписками через Google Play Billing
  *
  * ОБНОВЛЕНО: Полная поддержка backward compatible базовых планов
+ *
+ * ⚠️ ВРЕМЕННО ОТКЛЮЧЕНО: Подписка временно деактивирована для тестирования
  */
 class BillingManager(private val context: Context) : PurchasesUpdatedListener {
 
@@ -59,12 +61,26 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
 
     /**
      * Инициализация Billing Client
+     *
+     * ⚠️⚠️⚠️ ВРЕМЕННО ОТКЛЮЧЕНО ⚠️⚠️⚠️
+     * Подписка отключена для тестирования - всем предоставляется бесплатный доступ
      */
     fun initialize() {
         Log.d(TAG, "========================================")
-        Log.d(TAG, "Initializing BillingManager...")
+        Log.d(TAG, "⚠️⚠️⚠️ SUBSCRIPTION TEMPORARILY DISABLED ⚠️⚠️⚠️")
+        Log.d(TAG, "Granting free access to all users for testing")
+        Log.d(TAG, "========================================")
 
         logDeviceInfo()
+
+        // ВРЕМЕННОЕ ОТКЛЮЧЕНИЕ: Даем доступ всем без проверки
+        _subscriptionState.value = SubscriptionState.TestMode
+        saveCachedSubscriptionStatus(true)
+        return
+
+        /* =====================================================================
+         * ЗАКОММЕНТИРОВАННЫЙ КОД - ВОССТАНОВИТЬ КОГДА НУЖНА ПОДПИСКА
+         * =====================================================================
 
         // Проверяем эмулятор
         if (isRunningOnEmulator()) {
@@ -137,6 +153,8 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
             _subscriptionState.value = SubscriptionState.TestMode
             saveCachedSubscriptionStatus(true)
         }
+
+        ===================================================================== */
     }
 
     /**
