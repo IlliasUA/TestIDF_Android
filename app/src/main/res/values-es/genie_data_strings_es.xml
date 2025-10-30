@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- SPRAT -->
-    <string name="genie_sprat_desc">Como parte del apoyo directo a las unidades comprometidas en zonas de combate, el Ejército dispone del Sistema de Colocación Rápida de Armaduras (SPRAT). para cruzar brechas secas o húmedas entre 3 y 24m. SPRAT le da al Ejército la capacidad de cruzar brechas de 24 m de ancho con sus tanques Leclerc, en condiciones tácticas.</string>
+    <string name="genie_sprat_desc">Como parte del apoyo directo a las unidades comprometidas en zonas de combate, el Ejército dispone del Sistema de Colocación Rápida de Armaduras (SPRAT) para cruzar brechas secas o húmedas entre 3 y 24m. SPRAT le da al Ejército la capacidad de cruzar brechas de 24 m de ancho con sus tanques Leclerc, en condiciones tácticas.</string>
 
     <!-- Biber -->
     <string name="genie_biber_desc">El Biber es un puente lanzado por vehículo blindado alemán. Forma parte de los vehículos de apoyo al combate. Su predecesor fue el colocador de puentes M48 y su sucesor es el Leguan. En los años 1960, la compañía MaK lo desarrolló para el Ejército alemán, basado en el tanque Leopard 1.</string>

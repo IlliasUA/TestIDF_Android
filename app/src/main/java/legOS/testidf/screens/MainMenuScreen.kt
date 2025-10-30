@@ -142,10 +142,10 @@ fun MainMenuScreen(navController: NavController) {
                         strokeWidth = 6.dp
                     )
                     Text(
-                        text = if (currentLanguage.value == LocaleManager.Language.FRENCH) {
-                            "Changement de langue..."
-                        } else {
-                            "Changing language..."
+                        text = when (currentLanguage.value) {
+                            LocaleManager.Language.FRENCH -> "Changement de langue..."
+                            LocaleManager.Language.ENGLISH -> "Changing language..."
+                            LocaleManager.Language.SPANISH -> "Cambiando idioma..."
                         },
                         style = MaterialTheme.typography.titleLarge,
                         color = Color.White

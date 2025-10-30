@@ -13,7 +13,7 @@ import java.util.Locale
  * Gestionnaire de localisation de l'application
  * Gère le changement de langue dans l'application
  *
- * ИСПРАВЛЕНО v5: Полная поддержка AAB (Android App Bundle) от Google Play
+ * ИСПРАВЛЕНО v6: Полная поддержка AAB с тремя языками (EN, FR, ES)
  */
 object LocaleManager {
 
@@ -26,7 +26,8 @@ object LocaleManager {
      */
     enum class Language(val code: String, val displayName: String) {
         ENGLISH("en", "EN"),
-        FRENCH("fr", "FR")
+        FRENCH("fr", "FR"),
+        SPANISH("es", "ES")
     }
 
     /**
@@ -51,7 +52,7 @@ object LocaleManager {
     }
 
     /**
-     * НОВОЕ: Получить системный язык
+     * НОВОЕ: Получить системный язык с поддержкой испанского
      */
     private fun getSystemLanguage(): Language {
         val systemLocale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -64,6 +65,7 @@ object LocaleManager {
         return when (systemLocale.language) {
             "en" -> Language.ENGLISH
             "fr" -> Language.FRENCH
+            "es" -> Language.SPANISH
             else -> Language.FRENCH // По умолчанию французский
         }
     }
