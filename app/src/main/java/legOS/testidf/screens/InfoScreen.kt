@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -120,7 +121,9 @@ private fun InfoCompactLayout(navController: NavController) {
         }
 
         Box(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(1f)
+                .clip(MaterialTheme.shapes.large)
         ) {
             LazyColumn(
                 state = listState,
@@ -170,6 +173,7 @@ private fun InfoLandscapeLayout(navController: NavController) {
                 .weight(0.6f)
                 .fillMaxHeight()
                 .padding(end = 16.dp)
+                .clip(MaterialTheme.shapes.large)
         ) {
             LazyColumn(
                 state = listState,
@@ -444,7 +448,8 @@ private fun LegalSectionCard(section: LegalSection) {
         colors = CardDefaults.cardColors(
             containerColor = softWhiteColor.copy(alpha = 0.95f)
         ),
-        border = BorderStroke(1.dp, Color(0xFFE0E0E0).copy(alpha = 0.7f))
+        border = BorderStroke(1.dp, Color(0xFFE0E0E0).copy(alpha = 0.7f)),
+        shape = MaterialTheme.shapes.large
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
