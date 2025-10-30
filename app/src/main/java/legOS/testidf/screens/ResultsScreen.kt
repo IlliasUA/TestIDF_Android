@@ -340,7 +340,7 @@ private fun ResultsPortraitLayout(
         )
 
         LazyColumn(
-            modifier = Modifier.weight(0.4f),
+            modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(questions.size) { index ->
@@ -407,7 +407,7 @@ private fun ResultsPortraitLayout(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 24.dp),
+                .padding(bottom = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Button(
@@ -447,7 +447,5 @@ private fun ResultsPortraitLayout(
                 Text(stringResource(R.string.results_restart_button), style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp))
             }
         }
-
-        Spacer(modifier = Modifier.height(8.dp))
     }
 }
