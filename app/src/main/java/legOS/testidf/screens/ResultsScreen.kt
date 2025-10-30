@@ -332,12 +332,11 @@ private fun ResultsPortraitLayout(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Spacer(modifier = Modifier.height(8.dp)) // Espace léger en haut pour éviter la superposition
-
         Text(
             stringResource(R.string.results_score, correctAnswers, questions.size),
             style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.onSurface
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.padding(top = 4.dp)
         )
 
         LazyColumn(
@@ -406,9 +405,24 @@ private fun ResultsPortraitLayout(
         }
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            Button(
+                onClick = { navController.navigate("test_menu") },
+                modifier = Modifier
+                    .weight(1f)
+                    .height(48.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                    contentColor = MaterialTheme.colorScheme.onTertiary
+                )
+            ) {
+                Text(stringResource(R.string.results_return_button), style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp))
+            }
+
             Button(
                 onClick = {
                     if (category == "final") {
@@ -424,7 +438,7 @@ private fun ResultsPortraitLayout(
                 },
                 modifier = Modifier
                     .weight(1f)
-                    .height(56.dp),
+                    .height(48.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.tertiary,
                     contentColor = MaterialTheme.colorScheme.onTertiary
@@ -432,21 +446,8 @@ private fun ResultsPortraitLayout(
             ) {
                 Text(stringResource(R.string.results_restart_button), style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp))
             }
-
-            Button(
-                onClick = { navController.navigate("test_menu") },
-                modifier = Modifier
-                    .weight(1f)
-                    .height(56.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.tertiary,
-                    contentColor = MaterialTheme.colorScheme.onTertiary
-                )
-            ) {
-                Text(stringResource(R.string.results_return_button), style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp))
-            }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
