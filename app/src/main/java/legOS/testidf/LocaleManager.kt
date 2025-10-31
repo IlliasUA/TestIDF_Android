@@ -13,7 +13,7 @@ import java.util.Locale
  * Gestionnaire de localisation de l'application
  * Gère le changement de langue dans l'application
  *
- * ИСПРАВЛЕНО v6: Полная поддержка AAB с тремя языками (EN, FR, ES)
+ * ИСПРАВЛЕНО v7: Полная поддержка AAB с четырьмя языками (EN, FR, ES, PT)
  */
 object LocaleManager {
 
@@ -27,7 +27,8 @@ object LocaleManager {
     enum class Language(val code: String, val displayName: String) {
         ENGLISH("en", "EN"),
         FRENCH("fr", "FR"),
-        SPANISH("es", "ES")
+        SPANISH("es", "ES"),
+        PORTUGUESE("pt", "PT")
     }
 
     /**
@@ -52,7 +53,7 @@ object LocaleManager {
     }
 
     /**
-     * НОВОЕ: Получить системный язык с поддержкой испанского
+     * ОБНОВЛЕНО: Получить системный язык с поддержкой португальского
      */
     private fun getSystemLanguage(): Language {
         val systemLocale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -66,6 +67,7 @@ object LocaleManager {
             "en" -> Language.ENGLISH
             "fr" -> Language.FRENCH
             "es" -> Language.SPANISH
+            "pt" -> Language.PORTUGUESE
             else -> Language.FRENCH // По умолчанию французский
         }
     }

@@ -146,6 +146,7 @@ fun MainMenuScreen(navController: NavController) {
                             LocaleManager.Language.FRENCH -> "Changement de langue..."
                             LocaleManager.Language.ENGLISH -> "Changing language..."
                             LocaleManager.Language.SPANISH -> "Cambiando idioma..."
+                            LocaleManager.Language.PORTUGUESE -> "Mudando idioma..."
                         },
                         style = MaterialTheme.typography.titleLarge,
                         color = Color.White
