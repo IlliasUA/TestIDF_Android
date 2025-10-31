@@ -56,7 +56,7 @@ fun MainMenuScreen(navController: NavController) {
     // НОВОЕ: CoroutineScope для управления корутинами
     val coroutineScope = rememberCoroutineScope()
 
-    // ИСПРАВЛЕНО v3: Новый обработчик смены языка с индикатором загрузки
+    // ИСПРАВЛЕНО v4: Новый обработчик смены языка с индикатором загрузки (добавлен китайский)
     val onLanguageChange: (LocaleManager.Language) -> Unit = { newLanguage ->
         Log.d("MainMenuScreen", "========================================")
         Log.d("MainMenuScreen", "Language change requested: ${newLanguage.code}")
@@ -124,7 +124,7 @@ fun MainMenuScreen(navController: NavController) {
             )
         }
 
-        // НОВОЕ: Индикатор загрузки при смене языка
+        // ОБНОВЛЕНО: Индикатор загрузки при смене языка с поддержкой китайского
         if (isChangingLanguage) {
             Box(
                 modifier = Modifier
@@ -147,6 +147,7 @@ fun MainMenuScreen(navController: NavController) {
                             LocaleManager.Language.ENGLISH -> "Changing language..."
                             LocaleManager.Language.SPANISH -> "Cambiando idioma..."
                             LocaleManager.Language.PORTUGUESE -> "Mudando idioma..."
+                            LocaleManager.Language.CHINESE -> "正在更换语言..."  // "Changing language..." по-китайски
                         },
                         style = MaterialTheme.typography.titleLarge,
                         color = Color.White

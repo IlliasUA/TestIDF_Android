@@ -14,15 +14,15 @@ android {
         applicationId = "legOS.testidf"
         minSdk = 24
         targetSdk = 35
-        versionCode = 27  // Увеличена версия для обновления с португальским языком
-        versionName = "1.2.5"  // Обновлена версия
+        versionCode = 28  // Увеличена версия для обновления с китайским языком
+        versionName = "1.2.6"  // Обновлена версия
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // ========================================
         // КРИТИЧНО: Указываем все поддерживаемые языки в правильном порядке
         // Первый язык = язык по умолчанию
         // ========================================
-        resourceConfigurations += listOf("fr", "en", "es", "pt")
+        resourceConfigurations += listOf("fr", "en", "es", "pt", "cn")
     }
 
     buildFeatures {
