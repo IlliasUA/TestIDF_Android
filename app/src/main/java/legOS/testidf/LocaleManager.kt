@@ -13,7 +13,7 @@ import java.util.Locale
  * Gestionnaire de localisation de l'application
  * Gère le changement de langue dans l'application
  *
- * ИСПРАВЛЕНО v8: Полная поддержка AAB с пятью языками (EN, FR, ES, PT, ZH)
+ * ИСПРАВЛЕНО v9: Флаги стран вместо текстовых обозначений (FR, EN, ES, PT, CN)
  */
 object LocaleManager {
 
@@ -22,14 +22,14 @@ object LocaleManager {
     private const val TAG = "LocaleManager"
 
     /**
-     * Langues disponibles
+     * Langues disponibles avec des drapeaux
      */
     enum class Language(val code: String, val displayName: String) {
-        ENGLISH("en", "EN"),
-        FRENCH("fr", "FR"),
-        SPANISH("es", "ES"),
-        PORTUGUESE("pt", "PT"),
-        CHINESE("cn", "CN")
+        ENGLISH("en", "🇬🇧"),
+        FRENCH("fr", "🇫🇷"),
+        SPANISH("es", "🇪🇸"),
+        PORTUGUESE("pt", "🇵🇹"),
+        CHINESE("cn", "🇨🇳")
     }
 
     /**

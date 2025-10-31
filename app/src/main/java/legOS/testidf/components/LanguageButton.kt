@@ -18,6 +18,8 @@ import legOS.testidf.LocaleManager
 /**
  * Кнопка смены языка с выпадающим меню для глобального изменения языка приложения
  * Поддерживает пять языков: Французский, Английский, Испанский, Португальский и Китайский
+ *
+ * ОБНОВЛЕНО v2: Использует флаги стран вместо текстовых обозначений
  */
 @Composable
 fun LanguageButton(
@@ -31,7 +33,7 @@ fun LanguageButton(
         modifier = modifier,
         horizontalAlignment = Alignment.End
     ) {
-        // Главная кнопка (активный язык)
+        // Главная кнопка (активный язык) - отображаем только флаг
         FloatingActionButton(
             onClick = {
                 isExpanded = !isExpanded
@@ -40,24 +42,13 @@ fun LanguageButton(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Icon(
-                    Icons.Default.Language,
-                    contentDescription = "Change Language",
-                    modifier = Modifier.size(24.dp)
+            Text(
+                text = currentLanguage.displayName,
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Normal
                 )
-                Spacer(Modifier.height(2.dp))
-                Text(
-                    text = currentLanguage.displayName,
-                    style = MaterialTheme.typography.labelSmall.copy(
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                )
-            }
+            )
         }
 
         // Выпадающее меню с другими языками
@@ -84,24 +75,13 @@ fun LanguageButton(
                             containerColor = MaterialTheme.colorScheme.onPrimary,
                             contentColor = MaterialTheme.colorScheme.primary
                         ) {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center
-                            ) {
-                                Icon(
-                                    Icons.Default.Language,
-                                    contentDescription = "Select ${language.displayName}",
-                                    modifier = Modifier.size(24.dp)
+                            Text(
+                                text = language.displayName,
+                                style = MaterialTheme.typography.headlineMedium.copy(
+                                    fontSize = 28.sp,
+                                    fontWeight = FontWeight.Normal
                                 )
-                                Spacer(Modifier.height(2.dp))
-                                Text(
-                                    text = language.displayName,
-                                    style = MaterialTheme.typography.labelSmall.copy(
-                                        fontSize = 10.sp,
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                )
-                            }
+                            )
                         }
                     }
                 }
