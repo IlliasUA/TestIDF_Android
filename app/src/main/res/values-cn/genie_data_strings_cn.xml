@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SPRAT -->
+    <string name="genie_sprat_desc">作为对参与作战区域部队的直接支援的一部分，陆军拥有快速桁架铺设系统（SPRAT），用于跨越3至24米的干燥或潮湿间隙。SPRAT使陆军能够在战术条件下用其勒克莱尔坦克跨越24米宽的突破口。</string>
+
+    <!-- Biber -->
+    <string name="genie_biber_desc">Biber是德国装甲车载架桥车。它是战斗支援车辆的一部分。其前身是M48架桥车，继任者是Leguan。1960年代，MaK公司基于豹1坦克为德国陆军开发了它。</string>
+
+    <!-- Buffalo -->
+    <string name="genie_buffalo_desc">Buffalo防雷清障车是美国军事工程车辆。虽然Casspir是四轮车辆，但Buffalo有额外的一对轮子。它还配备了一个大型铰接臂，操作员可以使用它在安全距离内检查可疑地雷，同时保持掩护。主要武器：勃朗宁M2 12.7毫米机枪。</string>
+
+    <!-- DACHS -->
+    <string name="genie_dachs_desc">Pionierpanzer设计用于拖曳受损车辆，但其主要任务是在地形上作业，确保进出水障碍物，建造防御工事并执行旨在消除战场上各种障碍物的其他任务。这种类型的第一批生产车辆于1989年4月在联邦国防军投入使用。到1990年底，已经制造了36辆Pionierpanzer 2A1——非正式昵称为Badger（獾）——并交付给德国陆军。</string>
+
+    <!-- GSP -->
+    <string name="genie_gsp_desc">GSP-55是俄罗斯军用履带式两栖车辆，能够在其车顶携带车辆并像驳船或渡轮一样在水上运输它们。它可以用作桥梁，因此也可以作为架桥车辆，必要时可以部署多个串联使用。</string>
+
+    <!-- IRM-2 -->
+    <string name="genie_irm2_desc">IMR-2（IMR代表Inzhenernaya mashina razgrazhdeniya）是俄罗斯战斗工程车，1982年推出。目前在俄罗斯武装部队服役。</string>
+
+    <!-- M3 Amphibius -->
+    <string name="genie_m3_amphibius_desc">M3两栖装备是德国两栖军用车辆，用于确保坦克和其他车辆跨越水障碍物。它可以组装形成桥梁和渡轮通道。</string>
+
+    <!-- M9 ACE -->
+    <string name="genie_m9_ace_desc">由美国为军事工程开发的装甲推土机。自1988年以来一直在美国陆军服役。其主要任务是：用其前部推土机铲清除障碍物，挖掘战壕和建造防护设施，开发辅助通道，开辟通往渡口的通道。其基本任务是伴随盟军装甲部队在推进期间开路。</string>
+
+    <!-- MDK-2 -->
+    <string name="genie_mdk2_desc">MDK-2M（AT-T）苏联军队履带式战壕挖掘车。</string>
+
+    <!-- PMM-2 -->
+    <string name="genie_pmm2_desc">PPM-2架桥车旨在确保坦克、自行火炮和其他军用车辆跨越水障碍物。</string>
+
+    <!-- PTS -->
+    <string name="genie_pts_desc">PTS是苏联军用履带式两栖部队运输车，能够在其车顶携带车辆并像驳船或渡轮一样在水上运输它们。</string>
+
+    <!-- AMX-30 EBG -->
+    <string name="genie_amx30_ebg_desc">装甲工程车（EBG）是安装在与AMX-30B2坦克相同底盘上的工程坦克。其任务是清理和为其他车辆准备道路。</string>
+
+    <!-- AMX-30 EBG SDPMAC -->
+    <string name="genie_amx30_ebg_sdpmac_desc">烟火反坦克地雷清除系统（SDPMAC）是由安装在装甲工程车（EBG）上的以色列CARPET发射器组成的装置。</string>
+
+    <!-- EFA -->
+    <string name="genie_efa_desc">作为改进型Gillois渡轮的继任者，前进渡口车辆（EFA）是自主两栖设备，设计用于最高MLC（军事载荷等级）70的车辆的连续（桥梁）或非连续（渡轮）通过。EFA包括一个包含乘员舱、发动机舱、车轴和后部舱室的船体、2个铰接坡道、2个浮筒支撑板和一个可拆卸的水上控制站。</string>
+
+    <!-- EGAME -->
+    <string name="genie_egame_desc">工程开发车辆。具有4个驱动和转向轮的轮式推土机，EGAME旨在尽可能靠近第一梯队部队（先遣分队）部署，并具有可拆卸的弹道防护。</string>
+
+    <!-- EGRAP -->
+    <string name="genie_egrap_desc">快速防护工程车辆。来自民用系列的装载机-挖掘机，该车辆旨在促进部队的部署、移动和防护。</string>
+
+    <!-- Manitou -->
+    <string name="genie_manitou_desc">MLT 625-75 H伸缩臂叉装机是一台非常紧凑的机器。专门用于农业活动。</string>
+
+    <!-- PPLD -->
+    <string name="genie_ppld_desc">重型多用途回收运输车 - PPLD特别允许疏散受损车辆。它有4个全轮驱动轴（8x8），使其能够在所有类型的道路和小径上以及在所有天气条件下行驶。</string>
+
+    <!-- VDM Souvim -->
+    <string name="genie_vdm_souvim_desc">布雷路线清除系统（SOUVIM）使得能够保护被可探测或压力式反坦克或反人员地雷轻度污染的路线。其使命是通过确保在长距离上快速开辟轻度布雷路线（骚扰布雷），在低强度冲突中的第二梯队或主要单位的后方区域（后勤流动区）参与机动支援任务。</string>
+
+    <!-- TC-910 -->
+    <string name="genie_tc910_desc">装载拖拉机（TC）910。</string>
+
+    <!-- TNA -->
+    <string name="genie_tna_desc">可空投平地机拖拉机运输（TNA）。</string>
+</resources>

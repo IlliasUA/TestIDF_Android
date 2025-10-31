@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- BM2 载具描述 - 中文 -->
+
+    <!-- BRDM-2 -->
+    <string name="bm2_brdm2_description">BRDM-2是苏联装甲侦察车。它于1950年代初在苏联开发。\n其武器包括一挺14.5毫米KPVT重机枪和一挺7.62毫米PKT同轴机枪，\n与俄罗斯装甲运兵车BTR-60/BTR-70/BTR-80相同。\nBRDM-2的各种版本被全球50多个国家的武装部队使用。\n1962年服役。\n乘员：4人。</string>
+
+    <!-- BRM-1K -->
+    <string name="bm2_brm1k_description">BRM-1K是苏联装甲侦察车。它于1970年代从BMP-1步兵战车发展而来。\n它与BMP-1具有相同的结构，发动机位于前部右侧，驾驶员位置在前部左侧。\nBRM-1K配备了新的双座炮塔，不同于BMP-1的单座炮塔。\n武器包括73毫米2A28 Grom火炮，与BMP-1相同。\n火炮：73毫米2A28 Grom。\n乘员：6人。</string>
+
+    <!-- BRM-3K -->
+    <string name="bm2_brm3k_description">BRM-3K Rys（俄语中的猞猁）是俄罗斯装甲侦察车，1995年服役。\n它是在BMP-3步兵战车底盘上为侦察部队开发的。\n其任务包括：观察、目标探测、确定被探测目标的位置并将情报传输到上级。\nBRM-3K配备1RL-133-3地面多普勒雷达、激光测距仪、热像仪、\n导航系统、移动时传输距离100公里和静止时350公里的数据传输系统。\n火炮：30毫米。\n乘员：3 + 3人。</string>
+
+    <!-- Scimitar -->
+    <string name="bm2_scimitar_description">FV107 Scimitar是英国装甲侦察车，1971年服役。\n它配备双座炮塔，装备30毫米L21 Rarden自动炮和7.62毫米同轴机枪。\n乘员：3人。</string>
+
+    <!-- BMP-1 -->
+    <string name="bm2_bmp1_description">BMP-1是苏联步兵战车，1966年服役。\n它是同类车辆中的第一种，为增强机械化步兵部队的能力而开发。\nBMP-1是两栖车辆，能够在核生化环境中作战。\n其乘员包括车长、炮手、驾驶员和八名步兵。\nBMP-1配备单座炮塔，装备73毫米2A28 Grom滑膛炮、\n7.62毫米PKTM同轴机枪和9M14M Malyutka反坦克导弹（AT-3 Sagger）。\n步兵可以通过九个射击孔从车内射击。\n1966年至1988年间，生产了超过20,000辆BMP-1。2018年8月，推出了BMP-1的新版本BMP-1AM Basurmanin。\n乘员：3 + 8人。</string>
+
+    <!-- BMP-2 -->
+    <string name="bm2_bmp2_description">BMP-2是苏联步兵战车，1981年服役。\n它是在BMP-1步兵战车底盘上开发的。\n动力系统位于前部右侧，驾驶员位置在前部左侧。它具有两栖能力和核生化防护。\n为提高火力，BMP-2配备了双座炮塔，装备30毫米2A42自动炮、\n7.62毫米PKT同轴机枪和反坦克导弹。\n被世界许多军队采用。\n乘员：3 + 7人。</string>
+
+    <!-- BMP-3 -->
+    <string name="bm2_bmp3_description">BMP-3是俄罗斯步兵战车，1987年服役。\n它是同类车辆中武器装备最重的。\n其武器包括100毫米2A70低压炮、30毫米2A72自动炮、\n7.62毫米PKT同轴机枪。\nBMP-3可以通过100毫米炮发射9K166-3 Basnya系统的9M117反坦克导弹（AT-12 Swinger）。\nBMP-3底盘采用俄罗斯空降兵BMD战车系列的配置。\n乘员：3 + 7人。</string>
+
+    <!-- MTLB -->
+    <string name="bm2_mtlb_description">MTLB是苏联多用途装甲运输车，1964年服役。\n它被设计为火炮牵引车和装备运输车。\n后来，MTLB被采用为部队运输版本、医疗后送车辆和安装各种系统和设备的平台。\n乘员：2 + 11人。</string>
+
+    <!-- BMD-1 -->
+    <string name="bm2_bmd1_description">BMD-1是苏联空降步兵战车，用于空降部队，1969年服役。\n单座炮塔装备73毫米2A28 Grom火炮、7.62毫米PKT同轴机枪。\n乘员：2 + 5人。</string>
+
+    <!-- BMD-2 -->
+    <string name="bm2_bmd2_description">BMD-2是苏联空降步兵战车，用于空降部队，1980年代开发。\n它是从BMD-1底盘发展而来。它配备新的武器系统，单座炮塔装备30毫米2A42火炮\n和7.62毫米PKT同轴机枪。\n用于反坦克作战，它配备了能够发射9M111 Fagot AT-4或9M113 Konkurs AT-5反坦克导弹的系统。\n乘员：2 + 5人。</string>
+
+    <!-- BMD-3 -->
+    <string name="bm2_bmd3_description">BMD-3是俄罗斯空降步兵战车，用于空降部队，1990年服役。\n可空投。\n火炮：30毫米2A42 x100.2倍径。\n同轴机枪：7.62毫米PKT。\n车体自动榴弹发射器：30毫米AG-17。\n乘员：2 + 5人。</string>
+
+    <!-- BMD-4 -->
+    <string name="bm2_bmd4_description">BMD-4是俄罗斯空降步兵战车，用于空降部队，2004年服役。\n它与前身BMD-3具有相同的五轮底盘。\n该车配备新的Bakhtcha-U炮塔，显著提高了火力。\nBakhtcha-U炮塔源自BMP-3步兵战车的武器系统。\n火炮：100毫米/30毫米。\n同轴机枪：7.62毫米。\n乘员：2 + 6人。</string>
+
+    <!-- BTR-60 -->
+    <string name="bm2_btr60_description">BTR-60是苏联8×8轮式装甲运兵车，1960年服役。\n敞篷BTR-60P版本可运输两名乘员和12至14名步兵。\n武器包括一挺手动操作的12.7毫米机枪和一挺或多挺安装在侧面的7.62毫米机枪。\nBTR-60PA版本配备了车顶并具有核生化防护。\nBTR-60PB版本配备单座炮塔，装备14.5毫米KPVT重机枪和7.62毫米PKT同轴机枪。\n在全球范围内广泛出口。\n乘员：3 + 8人。</string>
+
+    <!-- BTR-70 -->
+    <string name="bm2_btr70_description">BTR-70是苏联8×8轮式装甲运兵车，1976年服役。\n它与前身BTR-60具有相同的结构。\nBTR-70版本配备单座炮塔，装备14.5毫米KPVT重机枪和7.62毫米PKT同轴机枪。\n乘员：3 + 7人。</string>
+
+    <!-- BTR-80 -->
+    <string name="bm2_btr80_description">BTR-80是苏联8×8轮式装甲运兵车，1986年服役。\n它与前身BTR-70具有相同的结构，发动机位于车辆后部。\n通过双侧门进入车内。\n机枪：14.5毫米。\n同轴机枪：7.62毫米。\n乘员：3 + 7人。</string>
+
+    <!-- PATRIA XA-180 -->
+    <string name="bm2_patria_xa180_description">XA-180是芬兰6×6轮式装甲运兵车，1984年服役。\n它是应芬兰军队的要求开发的，用于替换苏联BTR-60装甲运兵车。\nXA-180由Sisu SA-150重型卡车改装而成。\nXA-180开发了多个版本，并出口到荷兰、挪威、瑞典、爱尔兰和爱沙尼亚。\n不同版本的XA-180曾部署在阿富汗、波斯尼亚、伊拉克、科索沃、黎巴嫩、索马里、乍得。\n机枪：12.7毫米或7.62毫米。\n乘员：2 + 10至16人。</string>
+
+    <!-- TPZ FUCHS -->
+    <string name="bm2_tpz_fuchs_description">TPz1 Fuchs是德国6×6轮式装甲运兵车，1970年代末开发。\n武器：7.62毫米机枪。\n乘员：2 + 8人。</string>
+
+    <!-- BMR-600 -->
+    <string name="bm2_bmr600_description">BMR-600是西班牙6×6轮式装甲运兵车，1979年服役。\n生产了近1,500辆不同版本的BMR-600。\n出口到埃及、沙特阿拉伯和秘鲁。\n武器：12.7毫米，M2HB。\n乘员：3 + 8人。</string>
+
+    <!-- PIRANHA-2 -->
+    <string name="bm2_piranha2_description">Piranha 2是瑞士4x4/6×6/8x8轮式装甲运兵车。\nPiranha 2是MOWAG成功的轮式战车系列的改进版本。\n可配备炮塔，扁平形状，在其底部形成角度，放置在左侧，\n在车顶中央，配备12.7毫米机枪和7.62毫米机枪。\n乘员：3 + 9人。</string>
+
+    <!-- M1126 Stryker -->
+    <string name="bm2_m1126_stryker_description">M1126 Stryker是美国8×8轮式装甲运兵车，2002年服役。\n它是从基于Piranha III装甲车的加拿大LAV-III Kodiak发展而来。\n它配备M151 Protector RWS遥控炮塔，可以装备12.7毫米M2HB重机枪\n或40毫米Mk 19自动榴弹发射器。\n2021年6月，美国陆军选择了装备30毫米火炮的Samson遥控炮塔来装备Stryker战车。\n乘员：2 + 9人。</string>
+
+    <!-- M-113 -->
+    <string name="bm2_m113_description">M113是美国装甲运兵车，1960年服役。\n它是为步兵部队运输步兵班而开发的。\n它经历了多次现代化改造。\nM113衍生出多种专用车辆：指挥所、迫击炮、医疗、防空、\n工程车、反坦克导弹发射器等。\n被世界各地众多武装部队采用。\n机枪：12.7毫米。\n乘员：2 + 11人。</string>
+
+    <!-- SPZ Marder -->
+    <string name="bm2_spz_marder_description">SPz Marder是德国步兵战车，1971年服役。\n它配备上层结构的双座炮塔，装备20毫米Rh 202自动炮\n和7.62毫米MG3A1机枪。\n交付给印度尼西亚、约旦和智利。\n乘员：3 + 6至7人。</string>
+
+    <!-- SPZ Puma -->
+    <string name="bm2_spz_puma_description">SPz Puma是德国重型步兵战车，2000年代开发。\n它是为替换德国机械化步兵部队中的SPz Marder而开发的。\nSPz Puma配备遥控炮塔，装备30毫米MK.30-2火炮和5.56毫米同轴机枪。\n它有两种防护等级。A级，可空运，具有完整的地雷防护和弹道防护\n正面可防30毫米弹药，侧面可防14.5毫米弹药。\n乘员：3 + 6人。</string>
+
+    <!-- M2A2 Bradley -->
+    <string name="bm2_m2a2_bradley_description">M2A2 Bradley是美国步兵战车，1981年服役。\n它装备25毫米Bushmaster火炮。\n从1986年起，M1A1型号配备两枚TOW反坦克导弹。\nM2A2 Bradley经历了多次现代化改造，提高了其作战能力、防护等级、\n机动性和各种装备。\n侦察版本被开发为M3 Bradley。\n乘员：3 + 7人。</string>
+
+    <!-- MCV-80 Warrior -->
+    <string name="bm2_mcv80_warrior_description">MCV-80 Warrior是英国步兵战车，1987年服役。\n它装备30毫米L21A1 Rarden自动炮和7.62毫米L94A1同轴机枪。\n乘员：3 + 7人。</string>
+
+    <!-- BMP-KSHM -->
+    <string name="bm2_bmp_kshm_description">BMP-KSHM是基于苏联BMP-1底盘的装甲指挥车，1972年服役。\n为了自卫，BMP-KSHM配备7.62毫米PK机枪。\n尽管它保留了BMP-1的标准单座炮塔，但其76毫米炮已被拆除并替换为更大的伸缩天线，\n称为HAWK EYE。\nBMP-1KSh完全两栖：其水上推进由履带提供。\n乘员：3人。</string>
+
+    <!-- R-142 NSA DEIMOS -->
+    <string name="bm2_r142_nsa_deimos_description">R-142 Deimos是俄罗斯地面部队的战术指挥和通信车辆（营/团级）。\n它允许在所有条件下（昼夜、所有季节）建立双向无线电链接，\n静止和移动（最高40公里/小时）与同类站点。\n作战范围：电报模式2000公里（听觉接收）。\n乘员：3至4人。</string>
+
+    <!-- T-55 -->
+    <string name="bm2_t55_description">T-55是苏联主战坦克，1958年服役。\n它在全球范围内广泛分布。\n它在波兰、捷克斯洛伐克和罗马尼亚获得许可生产。\n自服役以来，T-55参加了许多冲突。\n它在多个武装部队中仍在服役。\n火炮：100毫米。\n机枪：12.7毫米。\n乘员：4人。</string>
+
+    <!-- T-62 -->
+    <string name="bm2_t62_description">T-62是苏联中型坦克，1961年服役。\n主要武器：115毫米火炮。\n乘员：4人。</string>
+
+    <!-- T-64 -->
+    <string name="bm2_t64_description">T-64是苏联主战坦克，1965年服役。\n它是第一辆集成自动装填的苏联坦克。\n火炮：125毫米。\n机枪：12.7毫米。\n反坦克导弹：T-64B为AT-8。\n乘员：3人。</string>
+
+    <!-- T-72 -->
+    <string name="bm2_t72_description">T-72是俄罗斯主战坦克，1973年服役。\n火炮：125毫米。\n机枪：12.7毫米。\n乘员：3人。</string>
+
+    <!-- T-80 -->
+    <string name="bm2_t80_description">T-80是俄罗斯主战坦克，1980年代开发。\n武器：火炮 - 125毫米。\n机枪：12.7毫米。\n乘员：3人。</string>
+
+    <!-- T-90 -->
+    <string name="bm2_t90_description">T-90是俄罗斯主战坦克，1992年服役。\n武器：火炮 - 125毫米。\n机枪：12.7毫米。\n乘员：3人。</string>
+
+    <!-- T-14 -->
+    <string name="bm2_t14_description">T-14 Armata是俄罗斯主战坦克项目，自2010年代初开始开发。\n它配备无人遥控炮塔。\n所有弹药都存放在安装在炮塔内的自动装填器中。\n三名乘员位于底盘前部。\n火炮：125毫米。\n机枪：12.7毫米或7.62毫米。\n2019年宣布启动批量生产。\n乘员：3人。</string>
+
+    <!-- M1A1 Abrams -->
+    <string name="bm2_m1a1_abrams_description">M1A1 Abrams是美国主战坦克，1980年服役。\n第一批M1 Abrams型号配备105毫米M68火炮。\n从M1A1版本开始，它装备120毫米M256火炮。\n火炮：120毫米。\n机枪：12.7毫米。\n乘员：4人。</string>
+
+    <!-- M-60 -->
+    <string name="bm2_m60_description">M60是美国主战坦克，1950年代开发。\n它在全球范围内广泛出口。\n它在多个武装部队中仍在服役。\n武器：火炮 - 105毫米。\n机枪：12.7毫米勃朗宁M2。\n多次现代化改造：M60A1（1962）、M60A2（1970）、M60A3（1975）。\n乘员：4人。</string>
+
+    <!-- Leopard-1 -->
+    <string name="bm2_leopard1_description">Leopard 1是德国主战坦克，1965年服役。\n它在全球范围内广泛出口。\n目前，它在土耳其、巴西和智利服役。\n从2023年2月起，德国向乌克兰交付Leopard 1。\nLeopard 1底盘作为各种支援车辆的基础。\n火炮：105毫米。\n机枪：7.62毫米。\n乘员：4人。</string>
+
+    <!-- Leopard-2 -->
+    <string name="bm2_leopard2_description">Leopard 2是德国主战坦克，1970年代开发。\n武器：火炮 - 120毫米。\n机枪：7.62毫米。\n乘员：4人。</string>
+
+    <!-- Chieftain -->
+    <string name="bm2_chieftain_description">Chieftain是英国主战坦克，1966年服役。\n它由Leyland Motors开发。\nChieftain在英国装甲部队中使用，直到被Challenger 1主战坦克取代。\n它出口到伊朗、伊拉克、科威特、约旦和阿曼。\n在约旦称为Khalid，在伊朗称为Shir。\n武器：火炮 - 120毫米。\n机枪：7.62毫米。\n乘员：4人。</string>
+
+    <!-- Challenger-1 -->
+    <string name="bm2_challenger1_description">Challenger 1是英国主战坦克，1983年服役。\nChallenger 1的现代化改造诞生了Challenger 2。\n火炮：120毫米。\n机枪：7.62毫米。\n乘员：4人。</string>
+
+    <!-- Challenger-2 -->
+    <string name="bm2_challenger2_description">Challenger 2是英国主战坦克，1998年服役。\n它被称为FV4030。\nChallenger 2是英国军队的主力坦克。\n它参加了科索沃和伊拉克的战斗。\nChallenger 2出口到阿曼38辆。\n2021年，英国军队将接收148辆现代化的Challenger 3坦克。\n火炮：120毫米。\n机枪：7.62毫米。\n乘员：4人。</string>
+
+    <!-- Ariete -->
+    <string name="bm2_ariete_description">C1 Ariete是意大利主战坦克，1995年服役。\n武器：火炮 - 120毫米。\n机枪：12.7毫米、7.62毫米。\n乘员：4人。</string>
+
+    <!-- ZTZ-98 -->
+    <string name="bm2_ztz98_description">98式（ZTZ-98）是中国主战坦克，1999年在北京的阅兵式上亮相。\n它类似于T-72，但炮塔是焊接的。\n其主要武器是125毫米滑膛炮。\n乘员：3人。</string>
+
+    <!-- ZTZ-99 -->
+    <string name="bm2_ztz99_description">ZTZ-99（99式）是中国主战坦克，2003年服役。\n它配备热像仪和稳定的车长全景瞄准具，具有猎杀能力。\nZTZ-99配备安装在炮塔顶部的全向激光对抗系统。\n火炮：125毫米。\n机枪：12.7毫米。\n乘员：3人。</string>
+
+    <!-- Merkava-4 -->
+    <string name="bm2_merkava4_description">Merkava Mk IV是以色列主战坦克，2004年服役。\nMerkava Mk IV底盘作为Namer重型装甲运兵车的基础。\n以色列是Merkava Mk IV坦克的唯一用户。\n火炮：120毫米。\n机枪：7.62毫米/12.7毫米。\n迫击炮：60毫米。\n乘员：4人。</string>
+
+    <!-- PT-91 -->
+    <string name="bm2_pt91_description">PT-91 Twardy是波兰主战坦克，1995年服役。\n它由Bumar Labedy从T-72M1坦克发展而来。\nPT-91 Twardy为波兰军队需求生产了232辆。\n2007年至2010年间，它以PT-91M Pendekar的名义出口到马来西亚48辆。\n武器：火炮 - 125毫米。\n同轴机枪：7.62毫米。\n机枪：12.7毫米。\n乘员：3人。</string>
+
+    <!-- RPG-7 -->
+    <string name="bm2_rpg7_description">RPG-7是苏联反坦克火箭发射器，1961年服役。\n它是一种轻型、肩扛式、可重装的反坦克火箭发射器。\n发射管可以发射多种火箭弹。\nRPG-7可以配备PGO-7V瞄准具或NSP-2红外夜视瞄准具。\n在全球范围内非常广泛分布，在近70个国家服役。\n乘员：2人。</string>
+
+    <!-- AT-4 -->
+    <string name="bm2_at4_description">AT-4 Spigot / 9K111 Fagot是苏联反坦克导弹，1973年服役。\n它是线控、半自动的，可由两人小组携带。\n它由带9P135支架的发射装置和9M111导弹组成。\n导弹包装在作为发射管和战术包装的管子中。\n口径：119毫米。\n穿透力：200毫米。\n最大射程：2000米。\n最小射击距离：70米。\n被世界许多军队采用。\n乘员：2人。</string>
+
+    <!-- AT-7 -->
+    <string name="bm2_at7_description">9K115 Metis或AT-7 Saxhorn是苏联/俄罗斯便携式连级反坦克系统，\n具有线控半自动指令，属于第二代反坦克导弹（ATGM）。\n它旨在打击装甲目标、固定或移动目标以及加固点，\n在40至2000米的距离内可视观察。\n乘员：2人。</string>
+
+    <!-- SPG-9 -->
+    <string name="bm2_spg9_description">SPG-9（俄语中的长矛）是苏联重型反坦克榴弹发射器，1963年服役。\n该系统需要四人乘员，能够在长距离上拆卸携带（行军位置）。\n口径：73毫米。\n乘员：4人。</string>
+
+    <!-- Artillery Systems -->
+
+    <!-- 2A-29 -->
+    <string name="bm2_2a29_description">MT-12或2A-29是苏联100毫米滑膛反坦克炮，\n从1970年代初到1980年代末，它是苏联军队的主要牵引式反坦克炮。\n它在俄乌战争中被广泛使用。\n口径：100毫米。\n乘员：6人。</string>
+
+    <!-- 2S1 Gvozdika -->
+    <string name="bm2_2s1_gvozdika_description">2S1 Gvozdika是苏联122毫米自行榴弹炮。\n它本质上是MT-LB的加长版本，在炮塔上安装了2A-18（D-30）榴弹炮。\n半两栖车辆，它也可以在暴风雪和沼泽中作战。\n它具有核生化防护并具有红外光学视野。\n口径：122毫米。\n乘员：4人。</string>
+
+    <!-- 2S3 Akatsiya -->
+    <string name="bm2_2s3_akatsiya_description">2S3 Akatsia是苏联自行火炮，1960年代末设计，1971年服役。\nAkatsia设计在GM-123底盘上，该底盘也用于2S4 Tyulpan和2S5 Giatsint-S。\n它与牵引式火炮D-20、ML-20和D-1使用的所有152毫米弹药兼容。\n仍在18个国家服役。\n口径：152毫米。\n乘员：4人。</string>
+
+    <!-- 2S5 Giatsint -->
+    <string name="bm2_2s5_giatsint_description">2S5 Giatsint是俄罗斯152毫米自行火炮，1976年服役。\n火炮：152毫米，2A37。\n射程：30.5公里。\n射速：每分钟5-6发。\n乘员：5人。</string>
+
+    <!-- 2S7 Pion -->
+    <string name="bm2_2s7_pion_description">2S7 Pion是俄罗斯203毫米自行火炮，1975年服役。\n它能够发射常规炮弹和核弹头炮弹。\n其最大射程为47公里。\n武器系统安装在带有七个负重轮的履带底盘上。\n行走装置源自T-80坦克。\n火炮：2A44，203毫米。\n乘员：7人（2S7）/ 6人（2S7M）。</string>
+
+    <!-- PZH-2000 -->
+    <string name="bm2_pzh2000_description">PzH 2000是德国自行火炮，1998年服役。\n它是为替换美国原产的M109自行火炮而开发的。\n它装备155毫米火炮，射程为56公里。\n自动装填允许每分钟8至10发的极高射速。\nPzH 2000底盘源自德国Leopard-2坦克底盘。\n射程：30公里/56公里自推进弹。\n乘员：5人。</string>
+
+    <!-- M-109 Paladin -->
+    <string name="bm2_m109_paladin_description">M109是美国自行火炮，1963年服役。\n它在全球范围内广泛出口。\n火炮：155毫米。\n射程M109：14.6公里。\n射程M109A5：22公里/30公里自推进弹。\n射速：每分钟3-4发。\n乘员：6人（M109）/ 4人（M109A6）。</string>
+
+    <!-- Self-Propelled Artillery continued -->
+    <string name="bm2_2s19_msta_description">2S19 Msta-S是俄罗斯自行火炮，1989年服役。\n它装备152毫米2A65火炮。\n其底盘源自T-80坦克底盘。\n2S19 Msta-S配备安装在车辆后部的弹药重装系统。\n射程：6.5公里至24.7公里/28.5公里自推进弹。\n射速：每分钟8发。\n乘员：5人。</string>
+
+    <string name="bm2_2s35_koalitsiya_description">2S35 Koalitsiya-SV是俄罗斯自行火炮，自2010年代初开始开发。\n底盘源自T-90坦克。\n对于批量生产，2S35武器系统将安装在Armata底盘上。\n火炮：2A88 152毫米。\n射程：40公里/70公里自推进弹。\n持续射速：每分钟10发。\n乘员：3人。</string>
+
+    <string name="bm2_2s4_tioulpan_description">2S4 Tyulpan是俄罗斯240毫米重型自行迫击炮。\n乘员：3人。</string>
+
+    <string name="bm2_plz07_description">PLZ-07是中国122毫米自行火炮，2000年代开发。\n它使用ZBD-04步兵战车的底盘。\nPLZ-07具有两栖能力，通过履带运动在水中推进。\nPLZ-07装备源自苏联D-30火炮的122毫米火炮。\n使用标准炮弹最大射程为18公里，使用推进弹药为27公里。\n乘员：5人。</string>
+
+    <!-- Towed Artillery -->
+    <string name="bm2_2a36_description">2A-36 Giatsint-B是俄罗斯联邦武装部队使用的中型火炮，从1968年开始开发。\n它存在自行履带式无炮塔版本2S5 Giatsint-S。\n自2014年以来，乌克兰武装部队广泛使用2A-36对抗顿巴斯分离主义者，然后对抗俄罗斯。\n由于对火炮的大量需求，俄罗斯军队在2022年将它们重新投入使用。\n火炮为152毫米口径，为膛线炮。\n使用标准高爆破片弹最大射程为28.5公里，30至33公里。\n乘员：6人。</string>
+
+    <string name="bm2_105_m101_description">M101（105毫米）是二战时期的美国榴弹炮，1941年开始大规模生产。\n它曾经（或仍然）在世界许多国家的军队中服役。\n口径：105毫米。\n乘员：8人。</string>
+
+    <string name="bm2_122_d30_description">D-30 122毫米榴弹炮是苏联野战火炮，被认为坚固且可在困难条件下使用，1960年代服役。\n口径：122毫米。\n乘员：6人。</string>
+
+    <string name="bm2_130_m46_description">M-46 130毫米火炮是1950年代的苏联牵引式火炮，\n用于军团炮兵。\n口径：130毫米。\n乘员：8人。</string>
+
+    <string name="bm2_2a65_description">2A65 Msta-B是俄罗斯/苏联152毫米牵引式榴弹炮，旨在摧毁装甲车辆和防御工事。\n其炮兵部分的设计与相同口径的2S19自行榴弹炮相似。\n口径：152毫米。\n乘员：6人。</string>
+
+    <string name="bm2_155_m777_description">M-777是美国155毫米牵引式榴弹炮。\n它被美国、澳大利亚、加拿大、印度、沙特阿拉伯和乌克兰的地面部队使用。\n口径：155毫米。\n乘员：7人。</string>
+
+    <string name="bm2_152_d20_description">152毫米加农榴弹炮M1955，也称为D-20，\n1950年代在苏联制造。\n口径：152毫米。\n乘员：8人。</string>
+
+    <!-- Multiple Launch Rocket Systems -->
+    <string name="bm2_bm21_grad_description">BM-21 Grad是苏联122毫米多管火箭炮，1963年服役。\n它具有Ural-375D重型卡车的6×6轮式底盘。\n它配备40个122毫米火箭弹发射管。\n最大射程根据弹药类型在14公里至20.75公里之间变化。\n新弹药系列将射程延长至40公里。\n1988年停产。\n乘员：3人。</string>
+
+    <string name="bm2_bm30_smerch_description">BM-30 Smerch或9A52-2 Smerch-M是300毫米重型自行多管火箭炮，1989年服役。\n它旨在发射12枚固体推进剂弹的完整齐射。\n该系统旨在消灭集结区的人员、装甲和无防护目标、\n炮兵连、指挥所和弹药库。\n2018年开始了用Tornado-S替换它的计划。\n乘员：3人。</string>
+
+    <string name="bm2_bm27_uragan_description">BM-27 Uragan是苏联设计的自行多管火箭炮系统，1970年代末服役。\n它能够从安装在ZIL-135 8x8底盘后部的16个发射管发射220毫米火箭弹。\n16枚火箭弹的完整齐射可在20秒内发射，可以打击35公里半径内的目标。\n乘员：4人。</string>
+
+    <string name="bm2_scud_b_description">SCUD-B是俄罗斯原产的中程弹道导弹，\n能够携带核或化学弹头，最大有效射程为550公里。\n乘员：3人。</string>
+
+    <string name="bm2_m270_mlrs_description">M270 MLRS，多管火箭炮系统，是美国多管火箭炮，1983年服役。\n它安装在源自M2 Bradley步兵战车的履带底盘上。\n其驾驶室具有小口径武器防护。\n它配备两个装有六枚227毫米火箭弹的发射箱。\n2003年停产。\n乘员：3人。</string>
+
+    <string name="bm2_rm70_vampir_description">RM-70多管火箭炮是捷克斯洛伐克军队版本，是BM-21 Grad的更重变体，\n为这种区域饱和炮兵系统提供优越性能，1971年推出。\nRM-70用Tatra T813 Kolos 8x8底盘替换Ural-375D 6x6卡车作为运载平台\n用于40枚火箭弹发射器。\n新的运载车辆提供足够的空间来携带额外的40枚122毫米火箭弹，\n允许自动重装。\n口径：122毫米。\n乘员：4人。</string>
+
+    <!-- Mortars -->
+    <string name="bm2_82pm41_description">82PM-41迫击炮，M-41或82毫米迫击炮1941年型是苏联迫击炮\n82毫米口径，二战期间作为步兵迫击炮开发，\n1941年开始生产。\n口径：82毫米。\n乘员：4人。</string>
+
+    <string name="bm2_lav_m_description">LAV-M，轻型装甲车 - 迫击炮，是美国自行迫击炮，1986年服役。\n它使用LAV-25侦察车的底盘。\n武器包括81毫米M252迫击炮。\n为了自卫，车辆配备安装在车顶的7.62毫米M240E1机枪。\n弹药储备为99发81毫米迫击炮弹和1000发7.62毫米弹药。\n乘员：5人。</string>
+
+    <!-- Engineering Vehicles -->
+    <string name="bm2_mdk2_description">MDK-2M是苏联军队履带式战壕挖掘车。\n乘员：2人。</string>
+
+    <string name="bm2_pzm_description">PZM是苏联军队轮式战壕挖掘车。\n乘员：2人。</string>
+
+    <string name="bm2_gmz3_description">GMZ-3是苏联履带式布雷车。\n它旨在在土壤或雪地中机械化铺设反坦克、反履带和反底盘地雷\n在敌方坦克和装甲车辆的路径上。\n乘员：3人。</string>
+
+    <string name="bm2_umz3_description">UMZ（通用布雷车）是苏联工程车辆\n用于通过投射进行远程布雷，建在ZIL-131卡车底座上。\n乘员：3人。</string>
+
+    <string name="bm2_ur77_description">UR-77 \"Meteorit\"是苏联战斗车辆，用于扫雷的自行火箭发射器，\n基于2S1 \"Gvozdika\"自行榴弹炮设计，自1978年以来大规模生产。\n乘员：2人。</string>
+
+    <string name="bm2_m136_volcano_description">M136 Volcano（车载散布式布雷系统）\n是美国陆军在1980年代开发的自动布雷系统。\n该系统使用预装容器，包含多个反人员（AP）和/或反坦克（AT）地雷，\n弹出时散布在广阔区域。\n乘员：2人。</string>
+
+    <string name="bm2_kmt5_description">KMT-5是20世纪中期的苏联坦克扫雷犁，\n为雷区侦察和开辟通道而设计。\n这些突破口然后允许未配备反雷装置的装甲移动。\n乘员：2人。</string>
+
+    <string name="bm2_imr2_description">IMR-2是俄罗斯工程坦克，1982年推出。\n仍在俄罗斯武装部队服役。\n乘员：2人。</string>
+
+    <string name="bm2_mtu72_description">MTU-72装甲架桥车是一种军事工程车辆，旨在部署突击桥，\n允许坦克和其他军用车辆穿越战壕和水障碍，\n1974年服役。\n乘员：2人。</string>
+
+    <string name="bm2_tmm3_description">TMM-3旨在建立跨越最宽40米障碍物的通道\n最深3米，允许重达60吨的轮式和履带式车辆通过。\n国家：苏联/俄罗斯。\n乘员：3人。</string>
+
+    <string name="bm2_tmm6_description">TMM-6是俄罗斯架桥车，1999年至2000年代末开发。\n乘员：3人。</string>
+
+    <string name="bm2_pts2_description">PTS-2是苏联军用履带式两栖运输车\n能够在其甲板上携带车辆并像驳船或渡轮一样在水上运输它们。\n乘员：2人。</string>
+
+    <string name="bm2_souvim_description">布雷路线开辟系统（SOUVIM）允许保护被轻度污染的路线\n通过可探测或压力激活的反坦克或反人员地雷。\n它旨在通过确保参与机动支援任务，\n在长距离上快速开辟轻度布雷路线（骚扰布雷）\n在低强度冲突中的主要单位的第二梯队或后方区域（后勤流动区）。\n乘员：2人。</string>
+
+    <!-- Command and Electronic Vehicles -->
+    <string name="bm2_1v18_klyon_description">1V18 Klyon是苏联指挥车，设计在BTR-60底盘上。\n乘员：5人。</string>
+
+    <string name="bm2_1s91_straight_flush_description">1S91（北约代号 - Straight Flush）是苏联原产的远程移动防空雷达，\n目前在俄罗斯武装部队服役。\n设计用于与2K12 Kub防空导弹系统配合使用，它安装在GM-568履带式底盘上。\n乘员：4人。</string>
+
+    <!-- UAVs -->
+    <string name="bm2_rq7_shadow200_description">RQ-7A Shadow 200是美国开发的侦察无人机。\n操作国：澳大利亚、美国、瑞典、罗马尼亚。\n乘员：0人。</string>
+
+    <!-- Aircraft -->
+    <string name="bm2_su25_description">Su-25 Grach是苏联在1970年代开发的对地攻击、近距离空中支援和反坦克飞机。\n乘员：1人。</string>
+
+    <string name="bm2_f5e_description">诺斯罗普F-5E是轻型和机动性战斗机系列，由美国诺斯罗普设计和制造，\n1962年开始制造。\n乘员：1人。</string>
+
+    <string name="bm2_typhoon_description">Typhoon是欧洲战斗机。1994年3月27日首飞。\nTyphoon于2004年服役。\n它也被称为EF-2000。\n它是双引擎、多用途战斗机，由欧洲战斗机联盟开发，\n由英国、德国、意大利和西班牙组成。\n火炮：27毫米，毛瑟BK-27。\n外部挂架：8个翼下挂架，5个机腹挂架，9,000公斤武器。\n空对空导弹：AIM-9 Sidewinder、AIM-120 AMRAAM、AIM-132 AMRAAM。\n空对地导弹：AGM-88 HARM、AGM-65 Maverick、Storm Shadow。\n炸弹：Paveway II。\n乘员：1人。\n升限：19,800米。\n航程：1,389公里。\n续航：2,900公里，3次空中加油后3,790公里。</string>
+
+    <!-- Air Defense Systems -->
+    <string name="bm2_sa6_description">2K12 Kub（北约代号：SA-6 Gainful）是配备地对空导弹的防空武器系统，\n1968年至1985年间建造了500多个单位。\n它与移动雷达1S91配合使用。\n乘员：4人。</string>
+
+    <string name="bm2_sa7_description">9K32 Strela-2，北约代号为SA-7 \"Grail\"，是苏联设计的便携式地对空导弹系统，\n红外制导，配有高爆弹头。\n乘员：1人。</string>
+
+    <string name="bm2_sa8_description">9K33 Osa（北约代号：SA-8 Gecko）是配备极短程地对空导弹的高度机动防空车辆，\n苏联设计。\n根据版本，最大导弹速度为2.4马赫，\n最小交战高度为25米，最大有效高度范围为5,000米。\n第一个在单一车辆上集成自己的交战雷达的防空导弹系统。\n乘员：5人。</string>
+
+    <string name="bm2_roland2_description">法德罗兰导弹是短程地对空导弹。\n罗兰短程防空系统安装在装甲底盘上（法国为AMX-30R，德国为Marder）\n或可空运的轮式驾驶室上。\n美国陆军购买的少数外国导弹之一。\n乘员：3人。</string>
+
+    <string name="bm2_2s6_tunguska_description">2S-6 Tunguska（北约：SA-19 Grison）是苏联原产的自行高炮和地对空导弹系统，\n1970年代开发。\n其主要作用是保护装甲和步兵部队免受直升机和对地攻击机的攻击。\n主要用户：俄罗斯、印度。\n乘员：4人。</string>
+
+    <!-- Helicopters -->
+    <string name="bm2_ah64_description">AH-64 Apache是美国攻击直升机，1984年服役。\nAH-64D Apache Longbow版本可以接收安装在主旋翼上方的AN/APG-78 Longbow毫米波雷达。\nAH-64E Apache Guardian版本是目前服役的最现代版本。\n火炮：30毫米M230，容量1,200发。\n空对地导弹：最多16枚。\n空对空导弹：2枚。\n火箭弹：70毫米。\n在全球范围内广泛出口。\n乘员：2人。</string>
+
+    <string name="bm2_mi8_description">Mi-8是俄罗斯多用途运输直升机，1965年服役。\n它诞生了具有两栖能力的Mi-14 Haze、出口版本Mi-17和Mi-171。\nMi-8在全球范围内非常广泛分布。\n超过50个国家在其武装部队或民用版本中使用它。\n乘员：3人。</string>
+
+    <string name="bm2_mi24_description">Mi-24是俄罗斯攻击直升机，1972年服役。\n它使用Mi-8运输直升机的许多系统设计。\n它可以接收多种武器：火箭弹、导弹和机炮吊舱。\nMi-24可以在驾驶舱后面的舱室中携带八名士兵。\n第一个Mi-24A版本采用1 + 2配置的三人驾驶舱。\n从Mi-24B型号开始，它被串联驾驶舱取代。\nMi-24在全球范围内非常广泛分布。\n近60个国家在其武装部队中使用它。\n所有型号合计生产了3,500多个单位。\n机枪：Yak-B旋转4 x 12.7毫米。\n火炮：GSh-23L 23毫米/ GSh-30K 30毫米。\n火箭弹：S-5、S-8、S-13、S-24。\n空对地导弹：Shturm-V、Ataka-M。\n空对空导弹：Igla-V、R-60M、R-63V。\n乘员：2 + 8名士兵。\n航程：1000公里。</string>
+
+    <string name="bm2_mi28_description">Mi-28是俄罗斯攻击直升机。\n它在1980-2000年代在苏联和俄罗斯开发。\n它于2008年以Mi-28N版本服役。\n1996年8月16日，米尔公司推出了能够进行夜间作战的Mi-28N Night Hunter版本。\nMi-28N是串联双座直升机，用于攻击和反坦克作战任务。\n2012年，伊拉克订购了15架Mi-28N，于2014-2016年交付。2014年3月，阿尔及利亚订购了42架Mi-28N。\n版本：Mi-28 / Mi-28N / Mi-28NE / Mi-28UB / Mi-28NM。\n火炮：2A42 30毫米。\n火箭弹：S-8、S-13。\n空对地导弹：Shturm-V、Ataka-V。\n空对空导弹：Igla-V。\n乘员：2人。\n航程：450公里。</string>
+
+    <string name="bm2_ka50_description">Ka-50 Black Shark（北约代号Hokum-A）是俄罗斯侦察和攻击直升机。\n它于1980年代在苏联开发。\n1982年6月17日首飞。Ka-50于1995年服役。\n乘员：1人。</string>
+
+    <string name="bm2_uh1_description">UH-1，更广为人知的名字是Huey，是美国军用直升机，从1963年在越南部署。\nHuey用于医疗后送（MedEvac）、指挥和控制、\n空中突击、部队和装备运输，以及武装炮艇。\n乘员：2 + 11人。</string>
+
+    <string name="bm2_uh60_description">UH-60 Black Hawk是美国多用途运输直升机，1979年服役。\n它衍生出多个版本：用于特种部队、海军的海军化版本、\n用于海岸警卫队、搜救任务、医疗后送、\n贵宾运输以及用于运输特定装备的版本：\n雷达、C3指挥-控制-通信、武器。\n为全球约30个国家生产了4000多个单位。\n乘员：2 + 11人。</string>
+
+</resources>

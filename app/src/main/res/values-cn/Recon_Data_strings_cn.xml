@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 侦察车辆描述 - 中文 -->
+
+    <!-- BRDM-2 -->
+    <string name="recon_brdm_2_desc">BRDM-2是俄罗斯装甲侦察车。它于1950年代初在苏联开发。BRDM-2于1962年服役。其武器包括14.5毫米KPVT重机枪和7.62毫米PKT同轴机枪，与俄罗斯装甲运兵车BTR-60/BTR-70/BTR-80相同。BRDM-2的不同版本被全球50多个国家的武装部队使用。乘员：4人</string>
+
+    <!-- Dingo -->
+    <string name="recon_dingo_desc">ATF Dingo是德国生产的军用装甲车。Dingo的标准武器是7.62毫米口径机枪炮塔。它可以被12.7毫米机枪或HK GMG自动榴弹发射器取代。</string>
+
+    <!-- Eagle V -->
+    <string name="recon_eagle_v_desc">Eagle V是瑞士多用途轮式装甲车4×4。它由GDELS-Mowag，通用动力欧洲陆地系统-Mowag在2010年代开发。Eagle V于2015年服役。</string>
+
+    <!-- Komatsu LAV -->
+    <string name="recon_komatsu_lav_desc">小松LAV，轻型装甲车，是日本轻型轮式装甲车4×4。它于1990年代开发。小松LAV于2001年服役。它针对侦察和巡逻任务进行了优化。车身可防护7.62毫米弹药。车辆可以在上层结构上配备12.7毫米重机枪或7.62毫米机枪。反坦克版本配备87式或01式LMAT导弹。乘员：4 + 1人。</string>
+
+    <!-- Serval -->
+    <string name="recon_serval_desc">VBMR-L（轻型多用途装甲车）Serval是法国轮式装甲车4×4。它由Nexter Systems和Texelis开发。VBMR-L Serval于2022年服役。它将开发多个版本：部队运输、指挥所、火炮观察、工程车辆、医疗后送、SA2R、战术通信组等。VBMR-L Serval配备通信手段和SCORPION作战信息系统（SICS）。武器：12.7毫米机枪。乘员：2 + 8人。</string>
+
+    <!-- GAZ 2330 Tigr -->
+    <string name="recon_gaz_2330_tigr_desc">GAZ-2330 Tigr是俄罗斯轮式装甲车4×4。它于2000年代初开发。Tigr于2006年服役。GAZ-2330 Tigr是多用途装甲车。它用于部队运输、巡逻、侦察、装备携带任务。无固有武器。乘员：2 + 7人。</string>
+
+    <!-- URO Vamtac -->
+    <string name="recon_uro_vamtac_desc">Vamtac是西班牙轻型轮式装甲车4×4。它由URO Vehiculos Especiales在1980-1990年代开发。Vamtac于1998年服役。Vamtac出口到沙特阿拉伯、多米尼加共和国、加纳、印度尼西亚、伊拉克、马来西亚、摩洛哥、葡萄牙、罗马尼亚和新加坡。它也以民用版本商业化。</string>
+
+    <!-- VBL -->
+    <string name="recon_vbl_desc">VBL，轻型装甲车，是法国轻型轮式装甲车4×4。它于1980年代开发。VBL于1990年服役。VBL特别适合侦察任务，因其尺寸和降低的噪音水平。基本版本有三名乘员：驾驶员、车长和侦察兵。VBL可以集成不同的武器系统：环形支架上的7.62毫米机枪、炮塔支架中的12.7毫米机枪、40毫米自动榴弹发射器、MILAN或TOW反坦克导弹。VBL具有两栖能力，由螺旋桨在水中推进。</string>
+
+    <!-- Fennek -->
+    <string name="recon_fennek_desc">Fennek是德国轮式装甲车4×4。它于1990年代开发。Fennek于2003年服役。Fennek的驾驶舱位于车辆前部中央，两名乘员并排放置在中央部分。动力系统位于车辆后部。侦察版本配备可伸缩光学模块。为侦察、反坦克、工程、防空、火炮观察单位开发了不同型号。武器：7.62毫米/12.7毫米/40毫米自动榴弹发射器。乘员：3人。</string>
+
+    <!-- Grizzly -->
+    <string name="recon_grizzly_desc">在2023年7月14日国庆节期间首次向公众展示。为法国特种部队的侦察和干预任务设计。Grizzly配备环形炮塔，能够接收重型武器，如12.7毫米口径的M2HB或40毫米口径的LGA，以及三个7.62毫米口径机枪支架。</string>
+
+    <!-- Humvee -->
+    <string name="recon_humvee_desc">HMMWV，高机动性多用途轮式车辆，是美国轮式车辆4×4系列。它于1980年代开发。HMMWV于1984年服役。HMMWV通常被称为Humvee。它在世界范围内广泛分布。从2018年起，HMMWV开始被MRAP类别的JLTV装甲车取代。</string>
+
+    <!-- Fuchs -->
+    <string name="recon_fuchs_desc">TPz1 Fuchs是德国轮式装甲运兵车6×6。它于1970年代末开发。武器：7.62毫米机枪。乘员：2 + 8人。</string>
+
+    <!-- Piranha V -->
+    <string name="recon_piranha_v_desc">Piranha V步兵战车（VCI）是Mowag Piranha车辆系列的第五代变体。原产地：瑞士。Piranha V于2015年服役。使用国：丹麦/摩纳哥/西班牙/罗马尼亚。</string>
+
+    <!-- BMR-600 -->
+    <string name="recon_bmr_600_desc">BMR-600是西班牙轮式装甲运兵车6×6。它于1970年代开发。BMR-600于1979年服役。生产了近1,500辆不同版本的BMR-600。它出口到埃及、沙特阿拉伯和秘鲁。武器：12.7毫米，M2HB。乘员：3 + 8人。</string>
+
+    <!-- Wiesel -->
+    <string name="recon_wiesel_desc">Wiesel是德国装甲侦察车。它于1980年代开发。Wiesel于1989年服役。Wiesel开发了两个主要版本：装备双进弹20毫米Mk 20 Rh 202自动炮的Wiesel 1 Mk 20，用于侦察和火力支援任务；以及用于反坦克作战的Wiesel 1 TOW。乘员：2人 – Wiesel Mk20 / 3人 – Wiesel TOW。</string>
+
+    <!-- Freccia -->
+    <string name="recon_freccia_desc">VBM Freccia，中型装甲车，是意大利轮式步兵战车8×8。它于2000年代开发。Freccia于2008年服役。Freccia的底盘是从意大利B1 Centauro轻型坦克底盘开发的。Freccia配备HITFIST 25 Plus双座炮塔，装备25毫米Oerlikon KBA火炮。武器由两挺7.62毫米机枪和可接收Spike反坦克导弹的能力组成。乘员：3 + 8人。</string>
+
+    <!-- XA-180 -->
+    <string name="recon_xa_180_desc">XA-180是芬兰轮式装甲运兵车6×6。它于1980年代开发。XA-180于1984年服役。XA-180也被称为Pasi，芬兰语中的装甲Sisu。它是应芬兰军队的要求开发的，用于替换苏联BTR-60装甲运兵车。XA-180开发了多个版本，并出口到荷兰、挪威、瑞典、爱尔兰和爱沙尼亚。武器：12.7毫米或7.62毫米。乘员：2 + 10至16人。</string>
+
+    <!-- Pandur-2 -->
+    <string name="recon_pandur_2_desc">Pandur II：来自奥地利的装甲运兵车。</string>
+
+    <!-- Cobra -->
+    <string name="recon_cobra_desc">Cobra是土耳其轮式战斗装甲车4×4。它于1990年代开发。Cobra被土耳其、格鲁吉亚、阿塞拜疆、巴基斯坦、阿尔及利亚、巴林、阿联酋、哈萨克斯坦、科索沃、尼日利亚、孟加拉国、马其顿、黑山和斯洛文尼亚的武装部队使用。</string>
+
+    <!-- ULAN-30 -->
+    <string name="recon_ulan_30_desc">Ulan是奥地利步兵战车。它于1990年代初开发。Ulan于2001年服役。火炮：30毫米，毛瑟MK 30/2。同轴机枪：7.62毫米。乘员：3 + 8人。</string>
+
+    <!-- Pizarro -->
+    <string name="recon_pizarro_desc">Pizarro是西班牙步兵战车。它于1990年代初开发。Pizarro于2001年服役。Pizarro是在ASCOD计划框架内开发的，奥地利-西班牙合作开发，为奥地利和西班牙武装部队的未来步兵战车。奥地利版本称为Ulan，有几个不同之处。火炮：30毫米。同轴机枪：7.62毫米。乘员：3 + 8人。</string>
+
+    <!-- PTL-02 -->
+    <string name="recon_ptl_02_desc">PTL-02是中国重型武器车辆。它于1990年代末至2000年代初开发。PTL-02于2012年服役。PTL-02是为步兵部队提供火力支援而开发的。它使用轮式装甲运兵车6×6 WZ-551的加固底盘。主要武器由100毫米火炮组成。弹药装载量为30发炮弹。乘员：4 + 1人。</string>
+
+    <!-- Centauro -->
+    <string name="recon_centauro_desc">B1 Centauro是意大利轮式轻型坦克8×8。它由依维柯-菲亚特联盟在1980年代开发。B1 Centauro于1991年服役。B1 Centauro用于侦察部队。底盘后部有一扇门，便于登车和装载弹药。除了乘员外，四名步兵可以坐在车辆后部的折叠座椅上，代替部分弹药库存。B1 Centauro装备稳定的105毫米火炮，手动装填。B1 Centauro底盘产生了VBM Freccia步兵车。</string>
+
+    <!-- AAV -->
+    <string name="recon_aav_desc">AAV，突击两栖车，是美国两栖装甲运兵车。它于1970年代开发。AAV于1972年以LVTP-7的名称服役。机枪：M2HB 12.7毫米。自动榴弹发射器：Mk19 40毫米。乘员：3 + 21人。</string>
+
+    <!-- Achzarit -->
+    <string name="recon_achzarit_desc">Achzarit是以色列重型装甲运兵车。它于1980年代从T-55主战坦克底盘开发。Achzarit于1988年服役。Achzarit Mk II于1997年服役。它具有850马力的新动力系统和加固的行走装置、新负重轮、驱动轮和履带。机枪：7.62毫米MAG-58遥控或12.7毫米遥控。乘员：3 + 7人。</string>
+
+    <!-- Jackal -->
+    <string name="recon_jackal_desc">HMT 400是模块化装甲车。它由Supacat从ATMP底盘的4×4 HMT 400、6×6 HMT 600和6×6 HMT Extenda Mk2版本开发。Jackal运送三名乘员，可用于侦察任务。它具有高水平的防雷保护，可以接收附加装甲套件。武器包括12.7毫米重机枪或自动榴弹发射器和7.62毫米机枪。</string>
+
+    <!-- ZTD-05 -->
+    <string name="recon_ztd_05_desc">ZTD-05是中国重型武器车辆。它于1990年代末开发。ZTD-05于2005年服役。ZTD-05使用中国两栖步兵战车ZBD-05的底盘，也称为05式。为海军陆战队部队开发的ZBD-ZTD车辆系列针对登陆任务进行了优化。它配备装有稳定的105毫米火炮的双座炮塔。它能够在陆地和水上移动射击。乘员：4人。</string>
+
+    <!-- BMO-T -->
+    <string name="recon_bmo_t_desc">BMO-T是俄罗斯重型装甲运兵车。它于1990年代从T-72主战坦克底盘开发。BMO-T于2001年以有限数量服役。俄罗斯是BMO-T的唯一用户。机枪：12.7毫米。火箭发射器：30枚PRO-A Shmel热压效应。乘员：2 + 7人。</string>
+
+    <!-- Stryker -->
+    <string name="recon_stryker_desc">M1126 Stryker是美国轮式装甲运兵车8×8。它于1990年代末开发。M1126 Stryker于2002年服役。M1126 Stryker是从基于Piranha III装甲车机械基础的加拿大LAV-III Kodiak开发的。它配备M151 Protector遥控炮塔，可以接收12.7毫米M2HB重机枪或40毫米Mk 19自动榴弹发射器。乘员：2 + 9人。</string>
+
+    <!-- Namer -->
+    <string name="recon_namer_desc">Namer是以色列重型装甲运兵车。它于2000年代开发。Namer于2008年服役。Namer是从Merkava Mk IV主战坦克底盘开发的。其武器包括12.7毫米和/或7.62毫米机枪。2017年7月，Namer以重型步兵战车版本公开。它配备遥控炮塔，装备30毫米自动炮。机枪：12.7毫米。乘员：3 + 8人。</string>
+
+    <!-- Bradley -->
+    <string name="recon_bradley_desc">M2 Bradley是美国步兵战车。它于1970年代开发。M2 Bradley于1981年服役。M2 Bradley装备25毫米Bushmaster火炮。从1986年起，M1A1型号配备两枚TOW反坦克导弹。M2 Bradley经历了多次现代化改造，提高了其作战能力、防护等级、机动性和各种装备。M2A3型号集成了战场数字化设备。从M2 Bradley开发了侦察版本M3 Bradley。乘员：3 + 7人。</string>
+
+    <!-- Marder -->
+    <string name="recon_marder_desc">SPz Marder是德国步兵战车。它于1960年代开发。SPz Marder于1971年服役。SPz Marder配备上层结构双座炮塔，装备20毫米Rh 202自动炮和7.62毫米MG3A1机枪。SPz Marder交付给印度尼西亚、约旦和智利。在德国武装部队中，SPz Marder正在被新型步兵战车SPz Puma取代。乘员：3 + 6至7人。</string>
+
+    <!-- Puma -->
+    <string name="recon_puma_desc">SPz Puma是德国重型步兵战车。它于2000年代开发。SPz Puma是为替换德国机械化步兵部队中的SPz Marder而开发的。SPz Puma配备遥控炮塔，装备30毫米MK.30-2火炮和5.56毫米同轴机枪。它有两种防护等级。A级，可空运，具有完整的防雷保护和弹道防护，正面可防30毫米弹药，侧面可防14.5毫米弹药。SPz Puma A级版本仍可由A-400M运输机空运。乘员：3 + 6人。</string>
+
+    <!-- M-113 -->
+    <string name="recon_m_113_desc">M113是美国装甲运兵车。它于1950年代开发。M113于1960年服役。M113是为步兵部队运输步兵班而开发的。它经历了多次现代化改造。M113衍生出多种专用车辆：指挥所、迫击炮、医疗、防空、工程车、反坦克导弹发射器等。它被世界各地众多武装部队采用。机枪：12.7毫米。乘员：2 + 11人。</string>
+
+    <!-- Boxer -->
+    <string name="recon_boxer_desc">Boxer是德国轮式战斗装甲车8×8。它于2000年代开发。Boxer于2009年服役。Boxer具有模块化结构。底盘，包括发动机舱和驾驶舱，可以接收不同的专用模块。Boxer以不同的装备配置和武器系统出口。它们替换了部分M113和Fuchs TPz 1车辆。Boxer被立陶宛以Vilkas的名称服役，被澳大利亚许可生产使用，被英国使用。机枪：7.62毫米/12.7毫米/自动榴弹发射器：40毫米。乘员：3 + 8人。</string>
+
+    <!-- BMR600 -->
+    <string name="recon_bmr600_desc">BMR-600是西班牙轮式装甲运兵车6×6。它于1970年代开发。BMR-600，轮式中型装甲车，是为装备西班牙陆军步兵部队而开发的。车辆可容纳两名乘员和十一名步兵。武器包括12.7毫米重机枪。生产了近1,500辆不同版本的BMR-600。它出口到埃及、沙特阿拉伯和秘鲁。</string>
+
+    <!-- Pandur-1 -->
+    <string name="recon_pandur_1_desc">Pandur 1是由奥地利公司制造的轮式装甲运兵车。车辆装备7.62毫米或12.7毫米机枪。</string>
+
+    <!-- ZBD-05 -->
+    <string name="recon_zbd_05_desc">ZBD-05是中国两栖步兵战车。它于2000年代开发。ZBD-05于2005年服役。ZBD-05是专门为海军陆战队部队开发的。该车于2006年以ZBD-2000的名称公开。为改善其两栖性能，ZBD-05配备了大型前推土板。ZBD-05配备双座炮塔，装备30毫米ZPT-99自动炮、7.62毫米同轴机枪和HJ-73C反坦克导弹。车辆容纳三名乘员和九名装备步兵。在ZTD-05底盘上开发了多种车辆。</string>
+
+    <!-- BMD-1 -->
+    <string name="recon_bmd_1_desc">BMD-1是俄罗斯空降步兵战车。它于1960年代初在苏联开发。BMD-1于1969年服役。单座炮塔装备73毫米2A28 Grom火炮、7.62毫米PKT同轴机枪。乘员：2 + 5人。</string>
+
+    <!-- BMD-2 -->
+    <string name="recon_bmd_2_desc">BMD-2是俄罗斯空降步兵战车。它于1980年代初在苏联开发。BMD-2是从BMD-1底盘开发的。它具有新的武器系统，单座炮塔装备30毫米2A42火炮和7.62毫米PKT同轴机枪。对于反坦克作战，它配备能够发射9M111 Fagot AT-4或9M113 Konkurs AT-5反坦克导弹的系统。乘员：2 + 5人。</string>
+
+    <!-- BMD-3 -->
+    <string name="recon_bmd_3_desc">BMD-3是俄罗斯空降步兵战车。它于1980年代在苏联开发。BMD-3于1990年服役。在1980年代，苏联寻求开发新的可空投步兵战车来替换BMD-1和BMD-2系列。BMD-3可空投。火炮：30毫米2A42 x100.2倍径。同轴机枪：7.62毫米PKT。车体自动榴弹发射器：30毫米AG-17。乘员：2 + 5人。</string>
+
+    <!-- BMD-4 -->
+    <string name="recon_bmd_4_desc">BMD-4是俄罗斯空降步兵战车。它于2000年代初开发。BMD-4于2004年以有限数量服役。BMD-4与前身BMD-3具有相同的五轮底盘。车辆配备新的Bakhtcha-U炮塔，可显著提高火力。Bakhtcha-U炮塔源自BMP-3的武器系统。它配备100毫米2A70火炮、30毫米2A72自动炮和7.62毫米PKT同轴机枪。BMD-4可空投，针对空降作战进行了优化。乘员：2 + 5人。</string>
+
+    <!-- BMP-1 -->
+    <string name="recon_bmp_1_desc">BMP-1是俄罗斯步兵战车。它于1960年代初在苏联开发。BMP-1于1966年服役。BMP-1，步兵战车，是同类中的第一辆装甲车。它是为增强机械化步兵部队的能力而开发的。BMP-1是两栖车辆，能够在核生化环境中作战。其乘员包括车长、炮手、驾驶员和八名步兵。BMP-1配备单座炮塔，装备73毫米2A28 Grom滑膛炮、7.62毫米PKTM同轴机枪和9M14M Malyutka反坦克导弹（AT-3 Sagger）。步兵可以通过九个射击孔从车内射击。1966年至1988年间，生产了超过20,000辆BMP-1。2018年8月，推出了BMP-1的新版本BMP-1AM Basurman。</string>
+
+    <!-- BMP-2 -->
+    <string name="recon_bmp_2_desc">BMP-2是俄罗斯步兵战车。它于1970年代在苏联开发。BMP-2于1981年服役。BMP-2是在BMP-1步兵战车底盘基础上开发的。动力系统在前部右侧，驾驶员位置在前部左侧。它具有两栖能力和核生化防护。为提高火力，BMP-2配备双座炮塔，装备30毫米2A42自动炮、7.62毫米PKT同轴机枪和反坦克导弹。BMP-2被世界许多军队采用。乘员：3 + 7人。</string>
+
+    <!-- BMP-3 -->
+    <string name="recon_bmp_3_desc">BMP-3是俄罗斯步兵战车。它于1980年代在苏联开发。BMP-3于1987年服役。BMP-3是同类中武器装备最重的车辆。其武器包括100毫米2A70低压炮、30毫米2A72自动炮、7.62毫米PKT同轴机枪。BMP-3可以通过100毫米炮发射9K166-3 Basnya系统的9M117反坦克导弹（AT-12 Swinger）。BMP-3底盘采用俄罗斯空降兵BMD战车系列的配置。乘员：3 + 7人。</string>
+
+    <!-- BTR-60 -->
+    <string name="recon_btr_60_desc">BTR-60是俄罗斯轮式装甲运兵车8×8。它于1950年代初在苏联开发。BTR-60于1960年服役。敞篷BTR-60P版本运送两名乘员和12至14名步兵。武器包括手动操作的12.7毫米机枪和安装在侧面的一挺或多挺7.62毫米机枪。BTR-60PA版本配备车顶并具有核生化防护。BTR-60PB版本配备单座炮塔，装备14.5毫米KPVT重机枪和7.62毫米PKT同轴机枪。BTR-60PB运送三名乘员和8名步兵。不同版本的BTR-60在世界范围内广泛出口。在苏联军队，然后是俄罗斯军队中，BTR-60从1976年起被BTR-70取代。</string>
+
+    <!-- BTR-80 -->
+    <string name="recon_btr_80_desc">BTR-80是俄罗斯轮式装甲运兵车8×8。它于1980年代初在苏联开发。BTR-80于1986年服役。BTR-80与前身BTR-70具有相同的结构，发动机位于车辆后部。通过双侧门进入车内。机枪：14.5毫米。同轴机枪：7.62毫米。乘员：3 + 7人。</string>
+
+    <!-- BTR-70 -->
+    <string name="recon_btr_70_desc">BTR-70是俄罗斯轮式装甲运兵车8×8。它于1970年代初在苏联开发。BTR-70于1976年服役。BTR-70与前身BTR-60具有相同的结构。BTR-70版本配备单座炮塔，装备14.5毫米KPVT重机枪和7.62毫米PKT同轴机枪。乘员：3 + 7人。</string>
+
+    <!-- BTR-80A -->
+    <string name="recon_btr_80a_desc">BTR-80A 8x8装甲运兵车由俄罗斯设计和制造。它用于在战场上运输部队并提供近距离火力支援。它还可以执行侦察、战斗支援和巡逻任务。前五辆BTR-80A交付给总部设在莫斯科的总统安全主要局，并于1995年5月首次公开展示。BTR-80A与BTR-80几乎相同，但配备了装有30毫米2A72火炮和7.62毫米PKTM机枪的新单座炮塔。乘员：3 + 7人。</string>
+
+    <!-- JLTV Falcon -->
+    <string name="recon_jltv_falcon_desc">JLTV，联合轻型战术车辆，是美国轮式装甲车4×4。它于2010年代开发，作为HMMWV替换计划的一部分。JLTV于2018年服役。JLTV是从轻型战斗战术全地形车L-ATV开发的。它具有MRAP级别的弹道防护和防雷保护，防雷抗伏击保护。车辆可以配备不同类型的遥控炮塔武器。JLTV积极推广出口。武器：12.7毫米至20毫米。乘员：2 + 2至3人。</string>
+
+    <!-- Caiman -->
+    <string name="recon_caiman_desc">MRAP型装甲运兵车，底部为V形。国家：美国。使用期：2007年至今。乘员：最多10人。能够安装所有已知的作战模块。</string>
+
+    <!-- Casspir -->
+    <string name="recon_casspir_desc">Casspir是1970年代为南非警察和武装部队创建的运兵车。它以大轴距和加固底板抵抗地雷而著称。它配备安装在车顶的7.62毫米机枪，但使用车辆的部队经常在实地大幅增加武器装备。为保护车辆免受地雷影响，车身下部抬高、加固并呈V形。乘员：2人（+10名乘客）。</string>
+
+    <!-- PVP -->
+    <string name="recon_pvp_desc">PVP，小型防护车辆，是法国轻型轮式装甲车4×4。它于2000年代开发。PVP于2008年服役。PVP具有2级防护。PVP被法国陆军使用，并出口到智利（15辆）、多哥（6辆）和罗马尼亚（16辆）。版本：PVP – 3门/PVP – 5门/PVP HD – 5门，加长型。机枪：7.62毫米。乘员：2 + 3至5人。</string>
+
+    <!-- URAL Typhoon -->
+    <string name="recon_ural_typhoon_desc">Ural-63095 / Ural-63099 Typhoon-U是俄罗斯多用途轮式装甲车6×6。它于2010年代开发。Typhoon-U于2014年服役。Typhoon-U属于MRAP型车辆，防雷抗伏击保护。它具有V形单体车身，配备减震座椅。它们在南部军区用于部队运输、侦察、指挥所车辆、核生化车辆。车辆可以配备装有轻型武器的遥控炮塔。机枪：12.7毫米可选。乘员：3 + 16人Ural-63095 / 2 + 12人Ural-63099。</string>
+
+    <!-- BMP Terminator -->
+    <string name="recon_bmp_terminator_desc">BMPT Terminator是俄罗斯重型战斗装甲车。它于2000-2010年代开发。BMPT于2011年服役。BMPT，坦克支援战车，用于通过摧毁敌方反坦克手段为主战坦克部队提供火力支援任务。BMPT Terminator使用T-72或T-90主战坦克底盘，驾驶舱位于前部中央，发动机位于后部。BMPT拥有大量武器。上层结构双座炮塔配备两门30毫米2A42火炮、7.62毫米PKT同轴机枪和四枚Ataka-T激光制导超音速反坦克导弹。两个AG-17D自动榴弹发射器安装在车辆前部左侧和前部右侧。AG-17D由安装在驾驶员两侧的两名乘员独立于主要武器控制。乘员：5人。</string>
+
+    <!-- Boomerang -->
+    <string name="recon_boomerang_desc">Boomerang是俄罗斯轮式战斗装甲车8×8项目。它从2010年代开始开发。Boomerang的服役预计在2019-2020年。版本：K-16 Boomerang – 装甲运兵车/K-17 Boomerang – 步兵战车。K-16 Boomerang武器：机枪 - 12.7毫米。K-17 Boomerang武器：机枪 - 30毫米。导弹：2×2 Kornet。乘员：3 + 7至8人。</string>
+
+    <!-- MTLB -->
+    <string name="recon_mtlb_desc">MT-LB是俄罗斯多用途装甲运输车。它于1960年代在苏联开发。MT-LB于1964年服役。MT-LB设计为火炮牵引车和物资运输车。随后，MT-LB被采用为运兵车、医疗后送车以及安装不同系统和设备的平台。</string>
+
+    <!-- VBCI -->
+    <string name="recon_vbci_desc">VBCI，步兵战车，是法国轮式战斗装甲车8×8。它于2000年代开发。VBCI于2008年服役。VBCI是为替换履带式步兵战车AMX-10P而开发的。VBCI于2008年在法国陆军步兵部队以两个版本服役：VBCI-VCI，步兵战车，和VBCI-VPC，指挥所车辆。VBCI-VCI版本配备Tarask单座炮塔，装备双进弹25毫米M811自动炮和7.62毫米MAG 58同轴机枪。它可以由车长以遥控功能使用。VBCI-VPC版本配备两个SIR站，装备12.7毫米遥控机枪。乘员：3 + 8人。</string>
+
+    <!-- BTR-4 Bucephale -->
+    <string name="recon_btr_4_bucephale_desc">BTR-4是乌克兰轮式战斗装甲车8×8。它于2000年代开发。BTR-4于2011年在伊拉克军队服役，2014年在乌克兰军队服役。BTR-4的结构不同于苏联BTR-60/70/80系列。BTR-4配备遥控炮塔，装备30毫米火炮。乘员：3 + 8人。</string>
+
+    <!-- Scorpion -->
+    <string name="recon_scorpion_desc">FV101 Scorpion是英国装甲侦察车。它于1960年代开发。FV101 Scorpion于1973年服役。FV101 Scorpion作为侦察车开发。它装备76毫米L23A1火炮和7.62毫米L43A1同轴机枪。Scorpion于1994年退出英国军队现役。乘员：3人。</string>
+
+    <!-- MaxxPro -->
+    <string name="recon_maxxpro_desc">MaxxPro是美国制造的军用装甲运兵车或回收车。这是MRAP型车辆，带有V形船体以保护免受地雷伤害。MaxxPro仅配备车顶炮塔，可容纳7.62毫米或12.7毫米轻机枪，也可配备其他类型的步兵武器，如TOW导弹或Mk19自动榴弹发射器。乘员：2人加8人。</string>
+
+    <!-- ACV-1 -->
+    <string name="recon_acv_1_desc">SUPERAV由依维柯和BAE系统公司在美国海军陆战队ACV两栖战车计划框架内开发。火炮：最高30毫米。机枪：12.7毫米。自动榴弹发射器：Mk19 40毫米。乘员：3 + 13人。</string>
+
+    <!-- Ajax -->
+    <string name="recon_ajax_desc">Ajax是英国战斗装甲车。它于2010年代开发。Ajax于2019年服役。Ajax用于侦察和战斗任务。Ajax使用ASCOD 2装甲车的履带底盘。它配备炮塔，装备使用伸缩弹药的40毫米CT40/40 CTAS火炮和7.62毫米L94A1同轴机枪。车辆配备遥控炮塔。乘员：2 + 4人。</string>
+
+    <!-- Aravis -->
+    <string name="recon_aravis_desc">VBHP，高防护装甲车，Aravis是法国轮式装甲车4×4。它于2000年代开发。VBHP Aravis于2009年服役。火炮：20毫米。同轴机枪：7.62毫米/12.7毫米。乘员：2 + 5人。</string>
+
+    <!-- BRM-3K -->
+    <string name="recon_brm_3k_desc">BRM-3K Rys（俄语中的猞猁）是俄罗斯装甲侦察车。它于1990年代开发。BRM-3K Rys于1995年服役。BRM-3K Rys是在BMP-3步兵战车底盘上为侦察部队开发的。其任务是：观察、目标探测、确定探测到的目标位置并向上级传输情报。BRM-3K配备1RL-133-3地面多普勒雷达、激光测距仪、热像仪、导航系统、移动时传输距离100公里和静止时350公里的数据传输系统。火炮：30毫米。乘员：3 + 3人。</string>
+
+    <!-- BTR-D -->
+    <string name="recon_btr_d_desc">BTR-D是俄罗斯空降装甲运兵车。它于1970年代初在苏联开发。BTR-D于1974年服役。BTR-D是从步兵战车BMD-1底盘开发的。它提供更大的内部空间来安装不同的设备和武器系统。BTR-D没有炮塔，可以配备一挺或两挺7.62毫米机枪。两栖。BTR-D底盘用于不同的装甲车辆。机枪：7.62毫米PKT。乘员：3 + 10人。</string>
+
+    <!-- Patria -->
+    <string name="recon_patria_desc">Patria 6×6由芬兰公司开发。车辆可容纳两名乘员和十名步兵。标准武器包括12.7毫米重机枪。</string>
+
+    <!-- Cougar -->
+    <string name="recon_cougar_desc">Cougar是美国MRAP型装甲车。它于2000年代开发。Cougar于2002年服役。MRAP，防雷抗伏击保护，Cougar旨在为其乘员提供更好的保护，以应对地雷和爆炸装置。Cougar开发了4×4和6×6版本。机枪：12.7毫米/7.62毫米。乘员：2 + 4人Cougar 4×4 / 2 + 8人Cougar 6×6。</string>
+
+    <!-- Eitan -->
+    <string name="recon_eitan_desc">Eitan是以色列轮式战斗装甲车8×8项目。它正在开发中。Eitan的第一个演示车由以色列国防部于2016年9月1日公开。它正在开发以替换履带式装甲运兵车M113车队。Eitan可以开发成不同版本：装甲运兵车、轮式步兵战车、指挥、医疗后送、迫击炮载具、工程等。武器：机枪：12.7毫米/7.62毫米。乘员：3 + 9人。</string>
+
+    <!-- ERC-90 Sagaie -->
+    <string name="recon_erc_90_sagaie_desc">ERC-90是法国轮式重型武器车辆6×6。它于1970年代开发。ERC-90于1979年服役。ERC-90主要用于侦察部队。ERC-90具有两栖能力，由两个螺旋桨在水中推进。火炮：90毫米。乘员：3人。</string>
+
+    <!-- Foxhound -->
+    <string name="recon_foxhound_desc">LPPV，轻型防护巡逻车，Foxhound是英国轮式装甲车4×4。它于2000年代开发。Foxhound于2011年服役。机枪：2 x 7.62毫米。乘员：2 + 4人。</string>
+
+    <!-- Scimitar -->
+    <string name="recon_scimitar_desc">FV107 Scimitar是英国装甲侦察车。它于1960年代开发。FV107 Scimitar于1971年服役。FV107 Scimitar作为侦察车开发。它配备双座炮塔，装备30毫米L21 Rarden自动炮和7.62毫米同轴机枪。乘员：3人。</string>
+
+    <!-- GRF Vector -->
+    <string name="recon_grf_vector_desc">GRF是荷兰特种部队车辆。它于2010年代开发。GRF（地面部队）是可空运的轻型战术平台，专为特种部队设计。GRF可以接收不同的配置并集成大量武器和设备。武器：M2勃朗宁12.7毫米/HK GMG 40毫米自动榴弹发射器。乘员：3 + 1人。</string>
+
+    <!-- Higuard -->
+    <string name="recon_higuard_desc">Higuard是法国Higuard MRAP型装甲车。它于2010年代开发。Higuard于2012年服役。明显的V形车身提供高水平的地雷和简易爆炸装置防护。车辆运送两名乘员和十名步兵。Higuard可以配备遥控炮塔，装备12.7毫米重机枪、7.62毫米机枪或40毫米自动榴弹发射器。</string>
+
+    <!-- Lazar-3 -->
+    <string name="recon_lazar_3_desc">Lazar-3是塞尔维亚轮式战斗装甲车8×8。它于2010年代开发。Lazar-3于2018年服役。车辆两侧各配备五个窗户，后部有两个窗户，提供良好的观察水平。每个窗户都配有轻武器射击孔。在步兵战车版本中，Lazar-3可以配备装有20毫米或30毫米自动炮的炮塔。装甲运兵车版本配备装有12.7毫米重机枪的遥控炮塔。武器：30毫米。乘员：3 + 9人。</string>
+
+    <!-- LMV Lince -->
+    <string name="recon_lmv_lince_desc">LMV Lince是意大利多用途轮式装甲车4×4。它由依维柯在1990年代开发。LMV Lince于2001年服役。LMV，轻型多用途车辆，Lince（意大利语中的猞猁）也称为M65。它设计用于联络、护送和侦察任务。其装甲可防护小口径武器。附加装甲套件提供12.7毫米弹药防护。LMV Lince在世界范围内广泛出口。英国军队以Panther的名称使用。在俄罗斯军队中，它以Rys的名称使用，由Kamaz许可组装。乘员：1 + 4人。</string>
+
+    <!-- Luchs -->
+    <string name="recon_luchs_desc">SpPz Luchs是德国轮式装甲侦察车8×8。它于1960-1970年代开发。SpPz Luchs于1975年服役。SpPz，侦察装甲车，Luchs（猞猁）是为侦察部队开发的。为优化其机动能力，它具有独特的结构。底盘配备安装在前部和后部的两个驾驶位置。车辆可以在后部驾驶员接管后沿相反方向出发。SpPz Luchs是两栖车辆，由两个螺旋桨在水中推进。SpPz Luchs配备双座炮塔，装备20毫米MK-20 Rh-202火炮。1985年，Luchs A2型号配备热像仪。在德国军队中，Luchs被轮式侦察车4×4 Fennek取代。乘员：4人。</string>
+
+    <!-- Pars-3 -->
+    <string name="recon_pars_3_desc">Pars III是土耳其轮式战斗装甲车8×8。它于2000-2010年代开发。Pars III于2017年服役。Pars III，最大重量30吨，配备Saber单座炮塔，装备双进弹Orbital ATK M242 Bushmaster自动炮和7.62毫米同轴机枪。其乘员为三人和九名装备步兵。武器：25毫米。乘员：3 + 9人。</string>
+
+    <!-- LAV-25 -->
+    <string name="recon_lav_25_desc">LAV-25，轻型装甲车25毫米，是美国装甲侦察车。它于1970-1980年代开发。LAV-25于1983年服役。LAV-25在侦察部队中使用。LAV-25基于Piranha轮式装甲车8×8底盘。LAV-25配备源自M2 Bradley步兵战车的双座炮塔。武器包括25毫米M242 Bushmaster自动炮、7.62毫米M240同轴机枪。乘员：3 + 6人。</string>
+
+    <!-- Titus -->
+    <string name="recon_titus_desc">Titus是法国轮式装甲车6×6。它由Nexter Systems在2010年代开发。车辆除了两到三名乘员外，还可容纳多达十二名步兵。Titus具有高水平的弹道和防雷防护。它可以配备遥控炮塔，装备20毫米自动炮、12.7毫米重机枪或40毫米自动榴弹发射器。乘员：2-3 + 12人。</string>
+
+    <!-- Typhoon-K -->
+    <string name="recon_typhoon_k_desc">KamAZ-53949 Typhoon-K是俄罗斯多用途轮式装甲车4×4。它于2010年代开发。Typhoon-K于2019年服役。Typhoon-K 4×4属于MRAP型车辆，防雷抗伏击保护。它具有V形单体车身，配备减震座椅。武器：12.7毫米。乘员：2 + 8人。</string>
+
+    <!-- Griffon -->
+    <string name="recon_griffon_desc">VBMR Griffon（多用途装甲车）是法国轮式装甲运兵车6×6。它由Nexter Systems开发。VBMR Griffon于2019年服役。武器：12.7毫米/自动榴弹发射器：40毫米。乘员：2 + 8人。</string>
+
+    <!-- VCR Panhard -->
+    <string name="recon_vcr_panhard_desc">VCR，轮式战车，是法国轮式战斗装甲车6×6。它于1970年代开发。VCR于1979年服役。VCR基于轮式车辆4×4 M3。它与重型武器车辆ERC-90 Sagaie具有相同的行走装置和动力系统。VCR生产了多个版本。主要版本是VCR/TT，运兵车。它可以配备7.62毫米机枪或12.7毫米重机枪。特定版本配备HOT导弹、Milan导弹或20毫米火炮。乘员：3 + 9人。</string>
+
+    <!-- GBC 180 -->
+    <string name="recon_gbc_180_desc">GBC 180 - Gazelle Berliet Cargo（180马力）。它主要用于运输人员、货物或掩体，并确保回收（第7批）和燃料供应（CCT）的专业任务。所有GBC 180"鱼雷驾驶室平台侧板篷布"都预先配置接收12.7环形支架。GBC 180是6 x 6战术车辆，可在驾驶室内载三人。</string>
+
+    <!-- ACMAT VT4 -->
+    <string name="recon_acmat_vt4_desc">指挥和轻型联络车辆，非装甲，战术车辆4X4（VT4）是4x4军用化类型，用于在作战环境（哨兵型内部作战或稳定和正常化阶段的外部作战）和作战准备（安全活动、机动、培训和训练）中为5名士兵或4名配备FELIN的战斗人员提供联络。VT4是替代车辆P4（标致四轮驱动）的轻型多用途战术车辆。它结合了现代性、动力、跨越能力，并具有完整的行驶轮廓（公路、越野和全地形）。预配置接收玻璃防护格栅套件 预配置接收两个PR4G电台、触摸屏电脑类型指挥系统和GPS 配备光源遮蔽系统（灯火管制）。空重：2.66吨。有效载荷：770公斤。续航：800公里。乘员：5名士兵或4名配备FELIN装备的战斗人员。</string>
+
+    <!-- Peugeot P4 -->
+    <string name="recon_peugeot_p4_desc">标致P4是法国汽车制造商标致从1982年至1992年生产的轻型四轮驱动车辆。虽然由标致装备和提供动力，但P4是梅赛德斯-奔驰G级的许可生产变体。</string>
+
+    <!-- Masstech T4 -->
+    <string name="recon_masstech_t4_desc">Masstech T4是法国轻型军用车辆，基于丰田陆地巡洋舰HZJ 76，由Technamm公司改装。特别是，该车辆配备PR4G电台、SITEL终端和DAGR GPS。它可以搭载四名装备战斗人员或五名乘客。仅在法国以哨兵行动部署，其简单且与非洲和军用燃料兼容的发动机允许其派往海外行动。</string>
+
+    <!-- TRM 2000 -->
+    <string name="recon_trm_2000_desc">雷诺TRM 2000是法国军用卡车，4轮驱动（由其首字母缩写证明：全轮驱动），为困难地形支援任务而设计。它从1982年生产到1990年。</string>
+
+    <!-- VAB -->
+    <string name="recon_vab_desc">VAB，前线装甲车，是法国轮式装甲运兵车。VAB于1976年服役。VAB开发了4×4和6×6配置。VAB的动力系统安装在驾驶舱后面。在VAB底盘上开发了多种装甲车。主要版本包括VAB PC指挥所、装备20毫米火炮的VAB T20-13、装备四枚HOT反坦克导弹的VAB Mephisto、VAB工程车、VAB医疗车、VAB核生化侦察车、装备地面雷达的VAB RASIT。机枪：12.7毫米。乘员：2 + 10人。发动机：V6柴油，220马力。</string>
+
+    <!-- EE3 Jararaca -->
+    <string name="recon_ee3_jararaca_desc">这是巴西制造的四轮轻型侦察车。在1970年代和1980年代，巴西军队从Engesa购买了约1300辆装甲车，另有2000多辆出口到其他国家，特别是阿拉伯国家和非洲（利比亚、突尼斯和伊拉克是最大买家）。乘员：3人。武器：12.7毫米机枪。</string>
+
+    <!-- URAL-4320 -->
+    <string name="recon_ural_4320_desc">Ural-4320是乌拉尔汽车厂自1976年以来生产的全地形军用卡车。这辆车是为满足苏联军队在困难条件下运输部队和物资的需求而设计的，如崎岖地形或极端环境。</string>
+
+</resources>

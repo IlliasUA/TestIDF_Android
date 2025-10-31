@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Application name -->
+    <string name="app_name">坦克猎手：问答</string>
+
+    <!-- Main menu -->
+    <string name="main_menu_title">主菜单</string>
+    <string name="menu_button">菜单</string>
+    <string name="info_button">信息</string>
+    <string name="quit_button">退出</string>
+    <string name="quit_confirmation_title">确认</string>
+    <string name="quit_confirmation_message">您确定要退出应用程序吗？</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="copyright">© 2025 IliaUA. 版权所有。</string>
+    <string name="privacy_notice">使用本应用即表示您同意我们的隐私政策和使用条款，详见"信息"部分。</string>
+
+    <!-- Test menu -->
+    <string name="return_tab">返回</string>
+    <string name="categories_tab">分类</string>
+    <string name="modes_tab">模式</string>
+    <string name="search_tab">搜索</string>
+    <string name="news_tab">更新</string>
+    <string name="help_button">帮助</string>
+
+    <!-- Categories -->
+    <string name="category_tanks">主战坦克</string>
+    <string name="category_artillery">火炮</string>
+    <string name="category_recon">侦察</string>
+    <string name="category_engineer">工程</string>
+    <string name="category_air">飞机/直升机</string>
+
+    <!-- Modes -->
+    <string name="mode_advanced">进阶测试</string>
+    <string name="mode_final">终极测试</string>
+    <string name="mode_collective">团队测试</string>
+    <string name="mode_creation">创建</string>
+    <string name="hall_of_fame">🏆 名人堂</string>
+
+    <!-- Time selection -->
+    <string name="time_selection_title">选择每题时间</string>
+    <string name="time_selection_category_label">类别</string>
+    <string name="seconds">%d 秒</string>
+    <string name="back_button">返回</string>
+    <string name="continue_button">继续</string>
+
+    <!-- Player name -->
+    <string name="enter_name_title">输入您的姓名</string>
+    <string name="name_label">姓名</string>
+    <string name="player_label">玩家：</string>
+
+    <!-- Final test confirmation -->
+    <string name="confirmation_final_test_message">确认为 %s 进行终极测试</string>
+    <string name="confirm_button">确认</string>
+    <string name="cancel_button">取消</string>
+
+    <!-- Collective test -->
+    <string name="competition_title">选择您的角色</string>
+    <string name="competition_mode">竞赛模式</string>
+    <string name="competition_description">为您的团队\n组织测试</string>
+    <string name="role_chef">队长</string>
+    <string name="role_subordinate">参与者</string>
+    <string name="beta_warning_title">测试版</string>
+    <string name="beta_warning_message">团队测试模式处于测试阶段。可能会出现临时中断。如有不便，敬请谅解。</string>
+    <string name="close_button">关闭</string>
+
+    <!-- Admin registration -->
+    <string name="create_group_title">创建小组</string>
+    <string name="your_name_label">您的姓名</string>
+    <string name="your_name_placeholder">例：张三</string>
+    <string name="group_name_label">小组名称</string>
+    <string name="group_name_placeholder">例：阿尔法小队</string>
+    <string name="create_group_button">创建小组</string>
+    <string name="min_characters">至少2个字符</string>
+
+    <!-- Group code dialog -->
+    <string name="group_created_title">小组创建成功！</string>
+    <string name="share_code_message">与您的参与者分享此代码：</string>
+    <string name="copy_code_button">复制代码</string>
+    <string name="code_copied">✓ 代码已复制！</string>
+    <string name="important_note">请保存此代码，以便参与者加入！</string>
+
+    <!-- ParticipantWaitingScreen -->
+    <string name="welcome_participant">欢迎，%s！</string>
+    <string name="group_closed_title">信息</string>
+    <string name="group_closed_subtitle">队长已离开会话</string>
+    <string name="group_closed_details">比赛现已结束。您可以留在此页面或随时离开。</string>
+    <string name="leave_group_title">离开小组？</string>
+    <string name="leave_group_message">您确定要离开吗？您需要重新输入小组代码才能加入。</string>
+    <string name="leave">离开</string>
+    <string name="tests_available">可用测试</string>
+    <string name="no_tests_message">队长将很快发送测试。\n您将自动收到通知。</string>
+    <string name="group_closed_no_tests">小组已关闭。\n没有可用的测试。</string>
+
+    <!-- Participant registration -->
+    <string name="join_group_title">加入小组</string>
+    <string name="group_code_label">小组代码</string>
+    <string name="group_code_placeholder">例：ABC123</string>
+    <string name="join_button">加入</string>
+    <string name="invalid_code">无效的小组代码</string>
+    <string name="joined_group">您已加入 %s！</string>
+
+    <!-- ChefSessionsScreen -->
+    <string name="my_sessions_title">我的测试</string>
+    <string name="refresh">刷新</string>
+    <string name="stat_tests_created">已创建的测试</string>
+    <string name="stat_completed">已完成</string>
+    <string name="stat_in_progress">进行中</string>
+    <string name="no_sessions_created">未创建测试</string>
+    <string name="session_questions">%d 个问题</string>
+    <string name="session_participants">%d 位参与者</string>
+
+    <!-- TakeTestScreen -->
+    <string name="question_progress">第 %d 题，共 %d 题</string>
+    <string name="time_remaining">剩余 %d 秒</string>
+    <string name="quit_test_title">退出测试？</string>
+    <string name="quit_test_message">您确定要退出吗？您的进度将丢失。</string>
+    <string name="submitting_results">正在提交结果...</string>
+    <string name="results_submitted">结果已提交！</string>
+
+    <!-- Send test -->
+    <string name="send_test_screen_title">发送测试</string>
+    <string name="group_code_info">小组代码：%s</string>
+    <string name="participants_header">参与者</string>
+    <string name="participant_count">%d 位参与者</string>
+    <string name="no_participants_message">小组中没有参与者</string>
+    <string name="sending_test">发送</string>
+    <string name="test_sent_title">测试已发送！</string>
+    <string name="test_sent_message">测试已发送给 %d 位参与者</string>
+    <string name="results_available">结果可用</string>
+    <string name="no_results_message">等待结果中...</string>
+    <string name="no_tests_created">未创建测试</string>
+
+    <!-- Participant waiting -->
+    <string name="waiting_title">等待测试</string>
+    <string name="leave_group_button">离开小组</string>
+    <string name="no_tests_available">没有可用的测试</string>
+    <string name="test_available">测试可用</string>
+    <string name="questions_count">%d 个问题</string>
+    <string name="time_limit">%d 秒/题</string>
+    <string name="start_test_button">开始</string>
+    <string name="results_title">结果</string>
+    <string name="your_result">您的结果</string>
+    <string name="rank_display">排名：%d</string>
+    <string name="score_display">%d/%d (%d%%)</string>
+    <string name="no_results">没有可用的结果</string>
+    <string name="group_closed_message">队长已离开会话</string>
+    <string name="return_to_menu">返回菜单</string>
+
+    <!-- Test completed -->
+    <string name="test_completed_title">测试完成！</string>
+    <string name="test_completed_message">您的结果已发送给队长。\n感谢您的参与！</string>
+
+    <!-- Session results -->
+    <string name="results_screen_title">结果</string>
+    <string name="statistics_title">统计</string>
+    <string name="test_info">%d 题 • %d秒/题</string>
+    <string name="stat_participants">参与者</string>
+    <string name="stat_average">平均分</string>
+    <string name="stat_best">最高分</string>
+    <string name="waiting_results">等待结果</string>
+    <string name="test_number">测试 %d</string>
+    <string name="detailed_results">详细结果</string>
+    <string name="correct_answers">%d/%d 正确</string>
+    <string name="close">关闭</string>
+    <string name="details_unavailable">详情不可用</string>
+    <string name="question_number">问题 %d</string>
+    <string name="answer_label">答案：</string>
+
+    <!-- Creation -->
+    <string name="creation_title">创建自定义测试</string>
+    <string name="select_items">至少选择4个项目</string>
+    <string name="selected_items">已选择 %d 个项目</string>
+    <string name="time_per_question">每题时间（秒）</string>
+    <string name="create_test_button">创建测试</string>
+    <string name="test_created_success">测试创建成功！</string>
+    <string name="min_items_error">创建测试至少需要4个项目</string>
+
+    <!-- Custom Test Screen -->
+    <string name="no_questions_found">未找到问题</string>
+    <string name="your_answer">您的答案</string>
+    <string name="enter_name">输入名称…</string>
+    <string name="clear">清除</string>
+    <string name="validate">提交</string>
+    <string name="quit">退出</string>
+    <string name="image_not_found">未找到图片：%s</string>
+    <string name="enter_equipment_name">输入装备名称…</string>
+    <string name="change_language">更改语言</string>
+
+    <!-- Custom Results Screen -->
+    <string name="test_completed">测试完成！</string>
+    <string name="custom_test_completed">自定义测试完成！</string>
+    <string name="score">得分：%1$d / %2$d</string>
+    <string name="percentage">(%d%%)</string>
+    <string name="by_category">按类别：</string>
+    <string name="results_by_category">按类别的结果：</string>
+    <string name="test">测试</string>
+    <string name="menu">菜单</string>
+    <string name="question_number_short">问题 %d</string>
+    <string name="category_label">类别：%s</string>
+    <string name="correct_answer">正确：%s</string>
+    <string name="correct_answer_label">正确答案：%s</string>
+    <string name="your_answer_label">您：%s</string>
+    <string name="your_answer_result">您的答案：%s</string>
+    <string name="no_answer">无</string>
+    <string name="no_answer_given">未作答</string>
+    <string name="correct_mark">✓ 正确</string>
+    <string name="incorrect_mark">✗ 错误</string>
+    <string name="image_unavailable">图片\n不可用</string>
+    <string name="image_not_available">图片不可用</string>
+    <string name="question_with_category">问题 %1$d - %2$s</string>
+
+    <!-- Custom Time Selection Screen -->
+    <string name="custom_test">自定义测试</string>
+    <string name="elements_selected">已选择 %d 个项目</string>
+    <string name="select_time_per_question">选择每题时间</string>
+    <string name="seconds_format">%d 秒</string>
+    <string name="no_element_selected">未选择项目！</string>
+    <string name="selected_elements">已选择的项目：</string>
+    <string name="and_more">... 还有 %d 个</string>
+
+    <!-- Subscription -->
+    <string name="subscription_title">坦克猎手：问答</string>
+    <string name="subscription_subtitle">年度订阅</string>
+    <string name="features_title">包含功能：</string>
+    <string name="feature_categories">✓ 分类测试</string>
+    <string name="feature_advanced">✓ 进阶和终极测试</string>
+    <string name="feature_multiplayer">✓ 多人模式</string>
+    <string name="feature_creation">✓ 自定义测试创建</string>
+    <string name="feature_catalog">✓ 完整目录</string>
+    <string name="feature_hall_of_fame">✓ 名人堂</string>
+    <string name="feature_updates">✓ 定期更新</string>
+    <string name="subscribe_button">立即订阅</string>
+    <string name="subscription_renew_info">订阅每年自动续订。</string>
+    <string name="subscription_active">有效订阅</string>
+    <string name="subscription_active_message">您可以访问应用程序的所有功能。</string>
+    <string name="test_mode_title">测试模式</string>
+    <string name="test_mode_message">您正在使用应用程序的测试版本。</string>
+    <string name="test_access">测试访问</string>
+    <string name="checking_subscription">正在检查订阅...</string>
+    <string name="retry_button">重试</string>
+
+    <!-- Help -->
+    <string name="help_title">指南</string>
+
+    <!-- HelpScreen - Main sections -->
+    <string name="help_categories_title">📚 分类</string>
+    <string name="help_categories_description">按军事类别测试您的知识：</string>
+
+    <string name="help_categories_tanks_title">主战坦克</string>
+    <string name="help_categories_tanks_desc">识别主战坦克</string>
+
+    <string name="help_categories_artillery_title">火炮</string>
+    <string name="help_categories_artillery_desc">识别火炮系统</string>
+
+    <string name="help_categories_recon_title">侦察</string>
+    <string name="help_categories_recon_desc">侦察和侦查车辆</string>
+
+    <string name="help_categories_engineer_title">工程</string>
+    <string name="help_categories_engineer_desc">军事工程装备</string>
+
+    <string name="help_categories_air_title">飞机/直升机</string>
+    <string name="help_categories_air_desc">军用飞机</string>
+
+    <string name="help_advanced_title">🎯 进阶测试</string>
+    <string name="help_advanced_description">混合所有类别，测试您的综合知识。更难的限时问题。</string>
+
+    <string name="help_final_title">🏆 终极测试</string>
+    <string name="help_final_description">终极挑战！所有类别，复杂问题，有限时间。您的结果将记录在名人堂中。</string>
+
+    <string name="help_collective_title">👥 团队测试</string>
+    <string name="help_collective_description">实时多人模式：</string>
+
+    <string name="help_collective_chef_title">队长</string>
+    <string name="help_collective_chef_desc">创建小组并向参与者发送测试</string>
+
+    <string name="help_collective_participant_title">参与者</string>
+    <string name="help_collective_participant_desc">使用代码加入小组并参加测试</string>
+
+    <string name="help_collective_competition_title">竞赛</string>
+    <string name="help_collective_competition_desc">实时比较您的分数</string>
+
+    <string name="help_creation_title">✏️ 创建</string>
+    <string name="help_creation_description">创建您自己的自定义测试：</string>
+
+    <string name="help_creation_custom_title">自定义问题</string>
+    <string name="help_creation_custom_desc">添加您自己的问题和图片</string>
+
+    <string name="help_creation_flexible_title">灵活设置</string>
+    <string name="help_creation_flexible_desc">设置每题时间</string>
+
+    <string name="help_search_title">🔍 搜索</string>
+    <string name="help_search_description">探索完整的军用车辆和装备目录，含详细特征。</string>
+
+    <!-- News -->
+    <string name="news_title">📰 新闻</string>
+    <string name="news_screen_title">📰 新闻</string>
+    <string name="news_back_button">返回</string>
+
+    <!-- News Items -->
+    <string name="news_date_oct_28_2025">2025年10月28日</string>
+    <string name="news_version_1_2_2_title">🌍 版本 1.2.2 - 英语支持</string>
+    <string name="news_version_1_2_2_content">新语言更新！\n\n• 添加英文界面\n• 在法语和英语之间切换\n• 右上角的语言按钮\n• 您的选择将自动保存\n\n应用程序现在支持多语言界面，提供更好的用户体验！</string>
+
+    <string name="news_date_oct_25_2025">2025年10月25日</string>
+    <string name="news_version_1_2_1_title">🎉 版本 1.2.1 - 改进和修复</string>
+    <string name="news_version_1_2_1_content">重要的应用程序更新，包含多项改进：\n\n• 添加新闻部分\n• 改进用户界面\n• 修复小错误\n• 性能优化</string>
+
+    <!-- Catalog/Search Screen -->
+    <string name="catalog_title">目录</string>
+    <string name="search_placeholder">搜索...</string>
+    <string name="searching">搜索中...</string>
+    <string name="start_typing_to_search">开始输入以搜索</string>
+    <string name="no_results_for">没有找到 \"%s\" 的结果</string>
+    <string name="results_found">找到 %d 个结果</string>
+    <string name="main_image">主图片：%s</string>
+    <string name="additional_images">附加图片：</string>
+    <string name="additional_image">附加图片：%s</string>
+    <string name="description_not_available">描述不可用</string>
+    <string name="image_not_found_item">未找到图片</string>
+    <string name="clear_search">清除</string>
+    <string name="back_to_menu">返回</string>
+
+    <!-- Session Results Screen -->
+    <string name="session_results_title">结果 (%d)</string>
+    <string name="statistics_header">统计</string>
+    <string name="questions_with_time">%1$d 题 • %2$d秒/题</string>
+    <string name="test_number_label">测试 %d</string>
+    <string name="waiting_for_results">等待结果</string>
+    <string name="participants_count">参与者</string>
+    <string name="average_score">平均分</string>
+    <string name="best_score_label">最高分</string>
+    <string name="correct_answers_count">%1$d/%2$d 正确</string>
+    <string name="percentage_value">%d%%</string>
+    <string name="participant_score_details">得分：%1$d/%2$d (%3$d%%)</string>
+    <string name="close_dialog">关闭</string>
+    <string name="details_not_available">详情不可用</string>
+    <string name="question_number_label">问题 %d</string>
+    <string name="user_answer_label">答案：%s</string>
+    <string name="back_navigation">返回</string>
+    <string name="session_no_results">没有可用的结果</string>
+
+    <!-- hall_of_fame_title -->
+    <string name="hall_of_fame_title">名人堂</string>
+    <string name="no_score_available">没有可用的分数</string>
+    <string name="return_button">返回</string>
+
+    <!-- TestScreen -->
+    <string name="test_background_image">背景图片</string>
+    <string name="test_question_image">问题图片</string>
+    <string name="test_image_not_found">未找到图片：%s</string>
+    <string name="test_quit_button">退出</string>
+    <string name="test_quit_confirmation_title">确认</string>
+    <string name="test_quit_confirmation_message">您确定吗？</string>
+    <string name="test_quit_yes">是</string>
+    <string name="test_quit_no">否</string>
+    <string name="test_question_progress">问题 %1$d / %2$d</string>
+    <string name="test_time_remaining">剩余时间：%d秒</string>
+    <string name="test_player_name_default">匿名</string>
+
+    <!-- ResultsScreen -->
+    <string name="results_score">得分：%1$d / %2$d</string>
+    <string name="results_percentage_label">结果：%d%%</string>
+    <string name="results_incorrect_answers">%d 个错误答案</string>
+    <string name="results_restart_button">重新开始</string>
+    <string name="results_return_button">返回</string>
+    <string name="results_more_info_button">更多信息</string>
+    <string name="results_question_label">问题 %d</string>
+    <string name="results_correct_label">正确：%s</string>
+    <string name="results_your_answer_label">您的答案：%s</string>
+    <string name="results_no_answer">无</string>
+    <string name="results_image_not_found">未找到图片：%s</string>
+
+    <!-- MoreInfoScreen -->
+    <string name="more_info_question_not_found">未找到问题</string>
+    <string name="more_info_background_image">背景图片</string>
+    <string name="more_info_correct_answer">正确答案：%s</string>
+    <string name="more_info_image">图片</string>
+    <string name="more_info_no_description">没有可用的描述</string>
+    <string name="more_info_return_button">返回</string>
+
+    <!-- Common errors -->
+    <string name="error_generic">错误：%s</string>
+    <string name="error_network">网络错误。请检查您的连接</string>
+    <string name="error_loading">加载错误</string>
+    <string name="loading">加载中...</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
+    <string name="error_title">错误</string>
+
+    <!-- InfoScreen - General Information -->
+    <string name="info_app_title">坦克猎手：问答 (v 1.0)</string>
+    <string name="info_general_title">基本信息</string>
+
+    <!-- Section 1: Privacy Policy -->
+    <string name="info_privacy_title">1. 隐私政策</string>
+
+    <string name="info_privacy_intro_subtitle">简介</string>
+    <string name="info_privacy_intro_content">本隐私政策描述了"坦克猎手：问答"应用程序（"应用程序"）如何收集、使用和保护用户信息。该应用程序主要离线运行，不收集任何个人数据。然而，"团队测试"模式需要互联网连接以启用实时多人游戏，可能会导致某些信息的收集和存储。</string>
+
+    <string name="info_privacy_data_subtitle">收集的数据</string>
+    <string name="info_privacy_data_content">- 离线模式：不收集个人数据。所有离线功能无需连接或外部存储即可工作。\n\n- "团队测试"模式（需要互联网）：\n\n为了启用实时多人模式，我们临时收集以下信息：\n\n- 用户提供的用户名或昵称\n- 测试结果（分数、答案）\n- 小组会话数据（小组代码、会话标识符）\n\n此数据临时存储在远程服务器上，仅用于管理小组会话和实时显示结果。</string>
+
+    <string name="info_privacy_usage_subtitle">数据使用</string>
+    <string name="info_privacy_usage_content">"团队测试"模式中收集的数据仅用于：\n\n- 在小组会话中显示参与者结果\n- 实现用户之间的分数比较\n- 实时管理测试会话\n\n此信息不会出于商业目的与第三方共享，仅保留团队模式功能所需的时间。</string>
+
+    <string name="info_privacy_security_subtitle">安全</string>
+    <string name="info_privacy_security_content">我们采取合理措施保护作为"团队测试"模式一部分存储的数据。数据安全传输和存储。但是，通过互联网传输或电子存储的方法都不是完全安全的，我们不能保证绝对的安全性。</string>
+
+    <string name="info_privacy_children_subtitle">儿童隐私</string>
+    <string name="info_privacy_children_content">该应用程序不建议13岁以下的儿童使用。我们不会故意收集14岁以下儿童的个人信息。如果您是父母或监护人，并且认为您的孩子向我们提供了个人信息，请通过tanks.hunterquiz@gmail.com与我们联系，以便我们采取适当的措施。</string>
+
+    <string name="info_privacy_changes_subtitle">隐私政策变更</string>
+    <string name="info_privacy_changes_content">我们可能会不时更新此隐私政策。任何更改都将在应用程序中或此页面上发布，并附有修订的更新日期。我们鼓励您定期查看此政策。</string>
+
+    <string name="info_privacy_contact_subtitle">联系我们</string>
+    <string name="info_privacy_contact_content">如果您对本隐私政策有任何疑问，请通过以下方式联系我们：tanks.hunterquiz@gmail.com</string>
+
+    <!-- Section 2: Terms of Use -->
+    <string name="info_terms_title">2. 使用条款</string>
+
+    <string name="info_terms_acceptance_subtitle">接受条款</string>
+    <string name="info_terms_acceptance_content">通过下载、安装和使用坦克猎手：问答应用程序（"应用程序"），您同意受这些使用条款（"条款"）的约束。如果您不接受这些条款，请不要使用该应用程序。</string>
+
+    <string name="info_terms_description_subtitle">应用程序描述</string>
+    <string name="info_terms_description_content">该应用程序提供关于军事装备的教育和信息测试，分为几个类别，并有最终测试。该应用程序主要离线运行，大部分功能不需要互联网连接。然而，"团队测试"模式需要稳定的互联网连接以启用实时多人游戏、结果同步和小组会话管理。</string>
+
+    <string name="info_terms_usage_subtitle">许可使用</string>
+    <string name="info_terms_usage_content">您被授权仅出于个人和非商业目的使用该应用程序。您不得：\n\n- 修改、反向工程、反编译或试图提取应用程序的源代码。\n- 将应用程序用于非法或未授权的目的。\n- 未经事先授权复制、分发或复制应用程序内容。</string>
+
+    <string name="info_terms_intellectual_subtitle">知识产权</string>
+    <string name="info_terms_intellectual_content">应用程序中的所有内容，包括文本、图像和其他元素，均受知识产权法保护。除了应用程序的正常使用外，您不得在未经明确授权的情况下复制、分发或使用此内容。</string>
+
+    <string name="info_terms_payment_subtitle">付款</string>
+    <string name="info_terms_payment_content">该应用程序通过Google Play商店的年度订阅提供。订阅价格在应用商店中标明。订阅每年自动续订，可以随时在Google Play设置中取消。</string>
+
+    <string name="info_terms_liability_subtitle">责任限制</string>
+    <string name="info_terms_liability_content">应用程序按"原样"提供。我们不保证应用程序将无错误或不间断运行。在法律允许的范围内，我们不对因使用应用程序而产生的直接、间接、偶然或后果性损害负责。</string>
+
+    <string name="info_terms_modifications_subtitle">条款修改</string>
+    <string name="info_terms_modifications_content">我们保留随时修改这些条款的权利。更改将在应用程序中或此页面上发布，并附有修订的更新日期。</string>
+
+    <string name="info_terms_contact_subtitle">联系我们</string>
+    <string name="info_terms_contact_content">有关这些条款的任何问题，请通过以下方式联系我们：tanks.hunterquiz@gmail.com</string>
+
+    <!-- Section 3: License -->
+    <string name="info_license_title">3. 许可证</string>
+
+    <string name="info_license_usage_subtitle">使用许可</string>
+    <string name="info_license_usage_content">坦克猎手：问答应用程序（"应用程序"）根据这些条款许可给用户进行个人和非商业使用，而非出售。</string>
+
+    <string name="info_license_scope_subtitle">许可范围</string>
+    <string name="info_license_scope_content">- 您被授权在您拥有或控制的兼容设备上安装和使用该应用程序。\n- 许可证不可转让，不能与其他用户或设备共享。\n- 未经事先书面授权，您不得复制、修改、分发、出售或租赁应用程序或其任何部分。</string>
+
+    <string name="info_license_intellectual_subtitle">知识产权</string>
+    <string name="info_license_intellectual_content">应用程序，包括其代码、文本、图像和任何其他内容，是Arsenal Quiz开发团队或其许可方的财产。本许可中未明确授予的所有权利均予保留。</string>
+
+    <string name="info_license_restrictions_subtitle">限制</string>
+    <string name="info_license_restrictions_content">您不得：\n- 试图反向工程、反编译或提取应用程序的源代码。\n- 将应用程序用于违反适用法律的目的。\n- 删除或修改应用程序中的版权声明或其他专有标记。</string>
+
+    <string name="info_license_termination_subtitle">终止</string>
+    <string name="info_license_termination_content">如果您不遵守本许可的条款，许可证将自动终止。在这种情况下，您必须卸载应用程序并停止所有使用。</string>
+
+    <!-- Section 4: Contact Information -->
+    <string name="info_contact_title">4. 联系信息</string>
+    <string name="info_contact_content">有关"坦克猎手：问答"应用程序的任何问题、评论或请求，请通过以下方式联系我们：\n\n电子邮件：tanks.hunterquiz@gmail.com\n\n我们努力尽快回复所有询问。</string>
+
+    <!-- Section 5: Disclaimer -->
+    <string name="info_disclaimer_title">5. 免责声明</string>
+
+    <string name="info_disclaimer_content_subtitle">应用内容</string>
+    <string name="info_disclaimer_content_content">"坦克猎手：问答"应用程序提供关于军事装备的教育和信息测试。内容，包括文本和图像，仅供教育和信息目的提供。我们不保证应用程序中包含的信息的准确性、完整性或及时性。</string>
+
+    <string name="info_disclaimer_sources_subtitle">内容来源</string>
+    <string name="info_disclaimer_sources_content">应用程序中使用的文本和图像来自互联网上可用的公共资源。尽管我们已注意选择无权利或根据适用法律使用的内容，但我们不能保证所有内容都不受版权或其他限制。如果您认为应用程序中的内容侵犯了您的权利，请通过tanks.hunterquiz@gmail.com与我们联系以解决情况。</string>
+
+    <string name="info_disclaimer_liability_subtitle">责任</string>
+    <string name="info_disclaimer_liability_content">在法律允许的范围内，"坦克猎手：问答"开发团队不对因使用或无法使用应用程序而产生的直接、间接、偶然、特殊或后果性损害负责。应用程序按"原样"提供，不提供任何明示或暗示的保证。</string>
+
+    <string name="info_disclaimer_risk_subtitle">风险自负</string>
+    <string name="info_disclaimer_risk_content">您使用该应用程序需自行承担风险。我们不对内容中的错误或遗漏负责，也不对使用所提供信息产生的后果负责。</string>
+
+    <string name="info_disclaimer_contact_subtitle">联系</string>
+    <string name="info_disclaimer_contact_content">有关本免责声明的任何索赔或问题，请通过以下方式联系我们：tanks.hunterquiz@gmail.com\n\n如果您想了解更新信息或提出问题，请加入我们的Telegram群组：t.me/Tanks_Hunter</string>
+</resources>
