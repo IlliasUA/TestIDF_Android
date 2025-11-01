@@ -305,6 +305,12 @@
     <string name="help_search_title">🔍 Rechercher</string>
     <string name="help_search_description">Explorez le catalogue complet des véhicules et équipements militaires avec leurs caractéristiques détaillées.</string>
 
+    <string name="help_ai_assistant_title">Képi Blanc - Assistant IA</string>
+    <string name="help_ai_assistant_description">Votre expert militaire personnel propulsé par l\'intelligence artificielle :</string>
+    <string name="help_ai_assistant_questions_title">Posez vos questions</string>
+    <string name="help_ai_assistant_questions_desc">Demandez des informations sur n\'importe quel équipement militaire, caractéristiques techniques, histoire ou comparaisons</string>
+    <string name="help_ai_assistant_instant_title">Réponses instantanées</string>
+
     <!-- Actualités -->
     <string name="news_title">📰 Actualités</string>
     <string name="news_screen_title">📰 Actualités</string>
@@ -318,6 +324,14 @@
     <string name="news_date_oct_28_2025">28 Octobre 2025</string>
     <string name="news_version_1_2_2_title">🌍 Version 1.2.2 - Support de la langue anglaise</string>
     <string name="news_version_1_2_2_content">Nouvelle mise à jour linguistique !\n\n• Interface en anglais ajoutée\n• Basculer entre français et anglais\n• Bouton de langue en haut à droite\n• Votre choix est sauvegardé automatiquement\n\nL\'application supporte maintenant une interface multilingue pour une meilleure expérience utilisateur !</string>
+
+    <string name="news_date_oct_30_2025">30 Octobre 2025</string>
+    <string name="news_version_1_2_3_title">🌍 Version 1.2.3 - Support multilingue étendu</string>
+    <string name="news_version_1_2_3_content">Expansion linguistique majeure !\n\n• Espagnol ajouté\n• Portugais ajouté\n• Chinois simplifié ajouté\n• 5 langues au total disponibles\n• Interface complètement traduite\n\nL\'application est maintenant accessible à un public international beaucoup plus large !</string>
+
+    <string name="news_date_nov_01_2025">1 Novembre 2025</string>
+    <string name="news_version_1_3_0_title">Version 1.3.0 - Képi Blanc - Assistant IA</string>
+    <string name="news_version_1_3_0_content">Nouvelle fonctionnalité révolutionnaire !\n\n• Assistant IA militaire intégré\n• Propulsé par Google Gemini AI\n• Réponses instantanées sur l\'équipement militaire\n• Explications détaillées et précises\n• Accessible depuis le menu principal\n\nPosez n\'importe quelle question sur les véhicules militaires, leurs caractéristiques techniques, leur histoire et bien plus encore !</string>
 
     <!-- Catalog/Search Screen -->
     <string name="catalog_title">Catalogue</string>
@@ -403,7 +417,7 @@
     <string name="error_title">Erreur</string>
 
     <!-- InfoScreen - Informations générales -->
-    <string name="info_app_title">Tanks Hunter: Quiz (v 1.0)</string>
+    <string name="info_app_title">Tanks Hunter: Quiz (v 1.3.0)</string>
     <string name="info_general_title">Information générales</string>
 
     <!-- Section 1: Politique de confidentialité -->
@@ -422,7 +436,7 @@
     <string name="info_privacy_security_content">Nous prenons des mesures raisonnables pour protéger les données stockées dans le cadre du mode \"Test collectif\". Les données sont transmises et stockées de manière sécurisée. Cependant, aucune méthode de transmission sur Internet ou de stockage électronique n\'est totalement sécurisée, et nous ne pouvons garantir une sécurité absolue.</string>
 
     <string name="info_privacy_children_subtitle">Confidentialité des enfants</string>
-    <string name="info_privacy_children_content">L\'Application n\'est pas recommandée aux enfants de moins de 13 ans. Nous ne collectons pas sciemment de données personnelles auprès d\'enfants de moins de 14 ans. Si vous êtes parent ou tuteur et que vous pensez que votre enfant nous a fourni des informations personnelles, veuillez nous contacter à tanks.hunterquiz@gmail.com afin que nous puissions prendre les mesures appropriées.</string>
+    <string name="info_privacy_children_content">L\'Application n\'est pas recommandée aux enfants de moins de 14 ans. Nous ne collectons pas sciemment de données personnelles auprès d\'enfants de moins de 14 ans. Si vous êtes parent ou tuteur et que vous pensez que votre enfant nous a fourni des informations personnelles, veuillez nous contacter à tanks.hunterquiz@gmail.com afin que nous puissions prendre les mesures appropriées.</string>
 
     <string name="info_privacy_changes_subtitle">Modifications de la politique de confidentialité</string>
     <string name="info_privacy_changes_content">Nous pouvons mettre à jour cette Politique de confidentialité de temps à autre. Toute modification sera publiée dans l\'Application ou sur cette page avec une date de mise à jour révisée. Nous vous encourageons à consulter régulièrement cette politique.</string>

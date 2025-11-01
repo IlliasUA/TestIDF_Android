@@ -305,19 +305,33 @@
     <string name="help_search_title">🔍 Pesquisar</string>
     <string name="help_search_description">Explore o catálogo completo de veículos e equipamentos militares com características detalhadas.</string>
 
+    <string name="help_ai_assistant_title">Quepe Branco - Assistente IA</string>
+    <string name="help_ai_assistant_description">Seu especialista militar pessoal alimentado por inteligência artificial:</string>
+    <string name="help_ai_assistant_questions_title">Faça Perguntas</string>
+    <string name="help_ai_assistant_questions_desc">Pergunte sobre qualquer equipamento militar, especificações técnicas, história ou comparações</string>
+    <string name="help_ai_assistant_instant_title">Respostas Instantâneas</string>
+
     <!-- News -->
     <string name="news_title">📰 Notícias</string>
     <string name="news_screen_title">📰 Notícias</string>
     <string name="news_back_button">Voltar</string>
 
     <!-- News Items -->
-    <string name="news_date_oct_28_2025">28 de outubro de 2025</string>
-    <string name="news_version_1_2_2_title">🌍 Versão 1.2.2 - Suporte ao Idioma Inglês</string>
-    <string name="news_version_1_2_2_content">Nova atualização de idioma!\n\n• Interface em inglês adicionada\n• Alterne entre francês e inglês\n• Botão de idioma no canto superior direito\n• Sua escolha é salva automaticamente\n\nO aplicativo agora suporta interface multilíngue para melhor experiência do usuário!</string>
-
-    <string name="news_date_oct_25_2025">25 de outubro de 2025</string>
+    <string name="news_date_oct_25_2025">25 de Outubro de 2025</string>
     <string name="news_version_1_2_1_title">🎉 Versão 1.2.1 - Melhorias e Correções</string>
-    <string name="news_version_1_2_1_content">Atualização importante do aplicativo com várias melhorias:\n\n• Seção de Notícias adicionada\n• Interface do usuário melhorada\n• Pequenos bugs corrigidos\n• Otimização de desempenho</string>
+    <string name="news_version_1_2_1_content">Atualização importante do aplicativo com várias melhorias:\n\n• Seção de Notícias adicionada\n• Interface do usuário melhorada\n• Correções de bugs menores\n• Otimização de desempenho</string>
+
+    <string name="news_date_oct_28_2025">28 de Outubro de 2025</string>
+    <string name="news_version_1_2_2_title">🌍 Versão 1.2.2 - Suporte ao Idioma Inglês</string>
+    <string name="news_version_1_2_2_content">Nova atualização de idioma!\n\n• Interface em inglês adicionada\n• Alternar entre francês e inglês\n• Botão de idioma no canto superior direito\n• Sua escolha é salva automaticamente\n\nO aplicativo agora suporta interface multilíngue para uma melhor experiência do usuário!</string>
+
+    <string name="news_date_oct_30_2025">30 de Outubro de 2025</string>
+    <string name="news_version_1_2_3_title">🌍 Versão 1.2.3 - Suporte Multilíngue Estendido</string>
+    <string name="news_version_1_2_3_content">Grande expansão linguística!\n\n• Espanhol adicionado\n• Português adicionado\n• Chinês simplificado adicionado\n• 5 idiomas disponíveis no total\n• Interface completamente traduzida\n\nO aplicativo agora está acessível para um público internacional muito mais amplo!</string>
+
+    <string name="news_date_nov_01_2025">1 de Novembro de 2025</string>
+    <string name="news_version_1_3_0_title">Versão 1.3.0 - Quepe Branco - Assistente IA</string>
+    <string name="news_version_1_3_0_content">Nova funcionalidade revolucionária!\n\n• Assistente militar IA integrado\n• Alimentado pelo Google Gemini AI\n• Respostas instantâneas sobre equipamento militar\n• Explicações detalhadas e precisas\n• Acessível pelo menu principal\n\nPergunte qualquer coisa sobre veículos militares, suas especificações técnicas, história e muito mais!</string>
 
     <!-- Catalog/Search Screen -->
     <string name="catalog_title">Catálogo</string>
@@ -403,7 +417,7 @@
     <string name="error_title">Erro</string>
 
     <!-- InfoScreen - General Information -->
-    <string name="info_app_title">Tanks Hunter: Quiz (v 1.0)</string>
+    <string name="info_app_title">Tanks Hunter: Quiz (v 1.3.0)</string>
     <string name="info_general_title">Informações Gerais</string>
 
     <!-- Section 1: Privacy Policy -->
@@ -422,7 +436,7 @@
     <string name="info_privacy_security_content">Tomamos medidas razoáveis para proteger os dados armazenados como parte do modo \"Teste Coletivo\". Os dados são transmitidos e armazenados com segurança. No entanto, nenhum método de transmissão pela Internet ou armazenamento eletrônico é completamente seguro, e não podemos garantir segurança absoluta.</string>
 
     <string name="info_privacy_children_subtitle">Privacidade de Crianças</string>
-    <string name="info_privacy_children_content">O Aplicativo não é recomendado para crianças menores de 13 anos de idade. Não coletamos intencionalmente informações pessoais de crianças menores de 14 anos de idade. Se você é pai ou responsável e acredita que seu filho nos forneceu informações pessoais, entre em contato conosco em tanks.hunterquiz@gmail.com para que possamos tomar as medidas apropriadas.</string>
+    <string name="info_privacy_children_content">O Aplicativo não é recomendado para crianças menores de 14 anos de idade. Não coletamos intencionalmente informações pessoais de crianças menores de 14 anos de idade. Se você é pai ou responsável e acredita que seu filho nos forneceu informações pessoais, entre em contato conosco em tanks.hunterquiz@gmail.com para que possamos tomar as medidas apropriadas.</string>
 
     <string name="info_privacy_changes_subtitle">Alterações na Política de Privacidade</string>
     <string name="info_privacy_changes_content">Podemos atualizar esta Política de Privacidade de tempos em tempos. Quaisquer alterações serão publicadas no Aplicativo ou nesta página com uma data de atualização revisada. Encorajamos você a revisar esta política regularmente.</string>

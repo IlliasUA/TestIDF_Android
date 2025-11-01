@@ -135,6 +135,12 @@ fun HelpScreen(navController: NavController) {
                             description = context.getString(R.string.help_final_description),
                             items = emptyList()
                         )
+
+                        HelpSection(
+                            title = context.getString(R.string.help_search_title),
+                            description = context.getString(R.string.help_search_description),
+                            items = emptyList()
+                        )
                     }
 
                     Column(
@@ -168,9 +174,13 @@ fun HelpScreen(navController: NavController) {
                         )
 
                         HelpSection(
-                            title = context.getString(R.string.help_search_title),
-                            description = context.getString(R.string.help_search_description),
-                            items = emptyList()
+                            title = context.getString(R.string.help_ai_assistant_title),
+                            description = context.getString(R.string.help_ai_assistant_description),
+                            items = listOf(
+                                context.getString(R.string.help_ai_assistant_questions_title) to
+                                        context.getString(R.string.help_ai_assistant_questions_desc)
+                            ),
+                            iconPath = "images/icon_ai.webp"
                         )
                     }
                 }
@@ -242,6 +252,16 @@ fun HelpScreen(navController: NavController) {
                         items = emptyList()
                     )
 
+                    HelpSection(
+                        title = context.getString(R.string.help_ai_assistant_title),
+                        description = context.getString(R.string.help_ai_assistant_description),
+                        items = listOf(
+                            context.getString(R.string.help_ai_assistant_questions_title) to
+                                    context.getString(R.string.help_ai_assistant_questions_desc)
+                        ),
+                        iconPath = "images/icon_ai.webp"
+                    )
+
                     Spacer(Modifier.height(16.dp))
                 }
             }
@@ -253,8 +273,11 @@ fun HelpScreen(navController: NavController) {
 private fun HelpSection(
     title: String,
     description: String,
-    items: List<Pair<String, String>>
+    items: List<Pair<String, String>>,
+    iconPath: String? = null
 ) {
+    val context = LocalContext.current
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
@@ -267,15 +290,47 @@ private fun HelpSection(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleLarge.copy(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
-                ),
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
+            // Заголовок с опциональной иконкой
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Загрузка иконки если указан путь
+                if (iconPath != null) {
+                    val iconBitmap = remember(iconPath) {
+                        try {
+                            context.assets.open(iconPath).use { inputStream ->
+                                BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
+                            }
+                        } catch (e: IOException) {
+                            Log.e("HelpSection", "Error loading icon: $iconPath", e)
+                            null
+                        }
+                    }
+
+                    iconBitmap?.let { bitmap ->
+                        Image(
+                            bitmap = bitmap,
+                            contentDescription = "Section Icon",
+                            modifier = Modifier
+                                .size(42.dp)
+                                .padding(end = 8.dp),
+                            contentScale = ContentScale.Fit
+                        )
+                    }
+                }
+
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    ),
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
 
             Text(
                 text = description,

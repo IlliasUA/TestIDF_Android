@@ -107,19 +107,39 @@ fun NewsScreen(navController: NavController) {
                             .fillMaxHeight(),
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
+                        // Новость об AI ассистенте с иконкой
+                        NewsItemWithIcon(
+                            date = stringResource(R.string.news_date_nov_01_2025),
+                            title = stringResource(R.string.news_version_1_3_0_title),
+                            content = stringResource(R.string.news_version_1_3_0_content),
+                            iconPath = "images/icon_ai.webp"
+                        )
+
+                        NewsItem(
+                            date = stringResource(R.string.news_date_oct_30_2025),
+                            title = stringResource(R.string.news_version_1_2_3_title),
+                            content = stringResource(R.string.news_version_1_2_3_content)
+                        )
+
                         NewsItem(
                             date = stringResource(R.string.news_date_oct_28_2025),
                             title = stringResource(R.string.news_version_1_2_2_title),
                             content = stringResource(R.string.news_version_1_2_2_content)
                         )
+                    }
 
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight(),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
                         NewsItem(
                             date = stringResource(R.string.news_date_oct_25_2025),
                             title = stringResource(R.string.news_version_1_2_1_title),
                             content = stringResource(R.string.news_version_1_2_1_content)
                         )
                     }
-                    // Push yours updates here!!!  Column(...){NewsItem()})...
                 }
             } else {
                 // Вертикальная ориентация - одна колонка
@@ -130,6 +150,20 @@ fun NewsScreen(navController: NavController) {
                         .padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
+                    // Новость об AI ассистенте с иконкой
+                    NewsItemWithIcon(
+                        date = stringResource(R.string.news_date_nov_01_2025),
+                        title = stringResource(R.string.news_version_1_3_0_title),
+                        content = stringResource(R.string.news_version_1_3_0_content),
+                        iconPath = "images/icon_ai.webp"
+                    )
+
+                    NewsItem(
+                        date = stringResource(R.string.news_date_oct_30_2025),
+                        title = stringResource(R.string.news_version_1_2_3_title),
+                        content = stringResource(R.string.news_version_1_2_3_content)
+                    )
+
                     NewsItem(
                         date = stringResource(R.string.news_date_oct_28_2025),
                         title = stringResource(R.string.news_version_1_2_2_title),
@@ -141,8 +175,6 @@ fun NewsScreen(navController: NavController) {
                         title = stringResource(R.string.news_version_1_2_1_title),
                         content = stringResource(R.string.news_version_1_2_1_content)
                     )
-
-                    // Push yours updates here!!!
 
                     Spacer(Modifier.height(16.dp))
                 }
@@ -189,6 +221,96 @@ private fun NewsItem(
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(bottom = 12.dp)
             )
+
+            // Разделитель
+            HorizontalDivider(
+                modifier = Modifier.padding(bottom = 12.dp),
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f),
+                thickness = 1.dp
+            )
+
+            // Контент
+            Text(
+                text = content,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp
+                ),
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        }
+    }
+}
+
+@Composable
+private fun NewsItemWithIcon(
+    date: String,
+    title: String,
+    content: String,
+    iconPath: String
+) {
+    val context = LocalContext.current
+
+    val iconBitmap = remember(iconPath) {
+        try {
+            context.assets.open(iconPath).use { inputStream ->
+                BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
+            }
+        } catch (e: IOException) {
+            Log.e("NewsItemWithIcon", "Error loading icon: $iconPath", e)
+            null
+        }
+    }
+
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            // Дата
+            Text(
+                text = date,
+                style = MaterialTheme.typography.labelMedium.copy(
+                    fontSize = 12.sp
+                ),
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            // Заголовок с иконкой
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                iconBitmap?.let { bitmap ->
+                    Image(
+                        bitmap = bitmap,
+                        contentDescription = "News Icon",
+                        modifier = Modifier
+                            .size(42.dp)
+                            .padding(end = 12.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                }
+
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    ),
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
 
             // Разделитель
             HorizontalDivider(

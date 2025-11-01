@@ -305,19 +305,33 @@
     <string name="help_search_title">🔍 Search</string>
     <string name="help_search_description">Explore the complete catalog of military vehicles and equipment with detailed characteristics.</string>
 
+    <string name="help_ai_assistant_title">White Kepi - AI Assistant</string>
+    <string name="help_ai_assistant_description">Your personal military expert powered by artificial intelligence:</string>
+    <string name="help_ai_assistant_questions_title">Ask Questions</string>
+    <string name="help_ai_assistant_questions_desc">Inquire about any military equipment, technical specifications, history, or comparisons</string>
+    <string name="help_ai_assistant_instant_title">Instant Answers</string>
+
     <!-- News -->
-    <string name="news_title">📰 News</string>
-    <string name="news_screen_title">📰 News</string>
+    <string name="news_title">📰 Updates</string>
+    <string name="news_screen_title">📰 Updates</string>
     <string name="news_back_button">Back</string>
 
     <!-- News Items -->
-    <string name="news_date_oct_28_2025">October 28, 2025</string>
-    <string name="news_version_1_2_2_title">🌍 Version 1.2.2 - English Language Support</string>
-    <string name="news_version_1_2_2_content">New language update!\n\n• English interface added\n• Switch between French and English\n• Language button in top right corner\n• Your choice is saved automatically\n\nThe app now supports multilingual interface for better user experience!</string>
-
     <string name="news_date_oct_25_2025">October 25, 2025</string>
     <string name="news_version_1_2_1_title">🎉 Version 1.2.1 - Improvements and Fixes</string>
-    <string name="news_version_1_2_1_content">Important application update with several improvements:\n\n• Added News section\n• Improved user interface\n• Fixed minor bugs\n• Performance optimization</string>
+    <string name="news_version_1_2_1_content">Important app update with several improvements:\n\n• Added News section\n• Improved user interface\n• Minor bug fixes\n• Performance optimization</string>
+
+    <string name="news_date_oct_28_2025">October 28, 2025</string>
+    <string name="news_version_1_2_2_title">🌍 Version 1.2.2 - English Language Support</string>
+    <string name="news_version_1_2_2_content">New language update!\n\n• English interface added\n• Switch between French and English\n• Language button in top right\n• Your choice is saved automatically\n\nThe app now supports multilingual interface for better user experience!</string>
+
+    <string name="news_date_oct_30_2025">October 30, 2025</string>
+    <string name="news_version_1_2_3_title">🌍 Version 1.2.3 - Extended Multilingual Support</string>
+    <string name="news_version_1_2_3_content">Major language expansion!\n\n• Spanish added\n• Portuguese added\n• Simplified Chinese added\n• 5 total languages available\n• Fully translated interface\n\nThe app is now accessible to a much wider international audience!</string>
+
+    <string name="news_date_nov_01_2025">November 1, 2025</string>
+    <string name="news_version_1_3_0_title">Version 1.2.3 - White Kepi - AI Assistant</string>
+    <string name="news_version_1_3_0_content">Revolutionary new feature!\n\n• Integrated military AI assistant\n• Powered by Google Gemini AI\n• Instant answers about military equipment\n• Detailed and accurate explanations\n• Accessible from main menu\n\nAsk any question about military vehicles, their technical specifications, history, and much more!</string>
 
     <!-- Catalog/Search Screen -->
     <string name="catalog_title">Catalog</string>
@@ -403,7 +417,7 @@
     <string name="error_title">Error</string>
 
     <!-- InfoScreen - General Information -->
-    <string name="info_app_title">Tanks Hunter: Quiz (v 1.0)</string>
+    <string name="info_app_title">Tanks Hunter: Quiz (v 1.3.0)</string>
     <string name="info_general_title">General Information</string>
 
     <!-- Section 1: Privacy Policy -->
@@ -422,7 +436,7 @@
     <string name="info_privacy_security_content">We take reasonable measures to protect data stored as part of \"Collective Test\" mode. Data is transmitted and stored securely. However, no method of transmission over the Internet or electronic storage is completely secure, and we cannot guarantee absolute security.</string>
 
     <string name="info_privacy_children_subtitle">Children\'s Privacy</string>
-    <string name="info_privacy_children_content">The Application is not recommended for children under 13 years of age. We do not knowingly collect personal information from children under 14 years of age. If you are a parent or guardian and believe your child has provided us with personal information, please contact us at tanks.hunterquiz@gmail.com so we can take appropriate action.</string>
+    <string name="info_privacy_children_content">The Application is not recommended for children under 14 years of age. We do not knowingly collect personal information from children under 14 years of age. If you are a parent or guardian and believe your child has provided us with personal information, please contact us at tanks.hunterquiz@gmail.com so we can take appropriate action.</string>
 
     <string name="info_privacy_changes_subtitle">Privacy Policy Changes</string>
     <string name="info_privacy_changes_content">We may update this Privacy Policy from time to time. Any changes will be posted in the Application or on this page with a revised update date. We encourage you to review this policy regularly.</string>
