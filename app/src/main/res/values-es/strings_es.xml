@@ -5,16 +5,16 @@
 
     <!-- AI Assistant -->
     <string name="ai_assistant_button">Asistente IA</string>
-    <string name="ai_assistant_title">Asistente Militar IA</string>
-    <string name="ai_input_placeholder">Haga su pregunta sobre equipo militar...</string>
+    <string name="ai_assistant_title">Pregunta al Képi Blanco</string>
+    <string name="ai_input_placeholder">Haz tu pregunta sobre equipamiento militar...</string>
     <string name="ai_send_button">Enviar</string>
-    <string name="ai_typing">El asistente está escribiendo...</string>
+    <string name="ai_typing">El képi está escribiendo...</string>
     <string name="ai_error_no_response">Lo siento, no pude generar una respuesta.</string>
-    <string name="ai_error_generic">Ocurrió un error. Por favor, inténtelo de nuevo.</string>
-    <string name="ai_welcome_message">¡Hola! Soy su asistente especializado en equipo militar. Puedo ayudarle con:\n\n• Especificaciones técnicas de vehículos\n• Comparaciones entre diferentes sistemas\n• Historia y desarrollo\n• Especificaciones de armamento\n\n¿Qué le gustaría saber?</string>
-    <string name="ai_error_rate_limit">Límite de solicitudes excedido. Por favor, inténtelo más tarde.</string>
-    <string name="ai_error_api_key">Error de configuración. Por favor, verifique la clave API.</string>
-    <string name="ai_error_network">Error de conexión. Verifique su conexión a Internet.</string>
+    <string name="ai_error_generic">Ocurrió un error. Por favor, inténtalo de nuevo.</string>
+    <string name="ai_welcome_message">¡Hola! ¿Qué te gustaría saber?</string>
+    <string name="ai_error_rate_limit">Límite de solicitudes alcanzado. Por favor, inténtalo más tarde.</string>
+    <string name="ai_error_api_key">Error de configuración. Por favor, verifica la clave API.</string>
+    <string name="ai_error_network">Error de conexión. Verifica tu conexión a Internet.</string>
 
     <!-- Main menu -->
     <string name="main_menu_title">Menú Principal</string>

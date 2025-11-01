@@ -5,16 +5,16 @@
 
     <!-- AI Assistant -->
     <string name="ai_assistant_button">AI助手</string>
-    <string name="ai_assistant_title">军事AI助手</string>
-    <string name="ai_input_placeholder">请问关于军事装备的问题...</string>
+    <string name="ai_assistant_title">询问白色军帽</string>
+    <string name="ai_input_placeholder">询问有关军事装备的问题...</string>
     <string name="ai_send_button">发送</string>
-    <string name="ai_typing">助手正在输入...</string>
+    <string name="ai_typing">军帽正在输入...</string>
     <string name="ai_error_no_response">抱歉，无法生成回复。</string>
-    <string name="ai_error_generic">发生错误，请重试。</string>
-    <string name="ai_welcome_message">您好！我是军事装备专家助手。我可以帮助您了解：\n\n• 车辆技术规格\n• 不同系统之间的比较\n• 历史和发展\n• 武器规格\n\n您想了解什么？</string>
-    <string name="ai_error_rate_limit">API请求限制已超出。请稍后再试。</string>
+    <string name="ai_error_generic">发生错误。请重试。</string>
+    <string name="ai_welcome_message">您好！您想了解什么？</string>
+    <string name="ai_error_rate_limit">已达到请求限制。请稍后重试。</string>
     <string name="ai_error_api_key">配置错误。请检查API密钥。</string>
-    <string name="ai_error_network">连接错误。请检查您的网络连接。</string>
+    <string name="ai_error_network">连接错误。请检查您的互联网连接。</string>
 
     <!-- Main menu -->
     <string name="main_menu_title">主菜单</string>

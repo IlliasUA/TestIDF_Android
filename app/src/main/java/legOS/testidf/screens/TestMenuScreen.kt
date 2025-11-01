@@ -6,12 +6,12 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Help
-import androidx.compose.material.icons.filled.SmartToy
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
@@ -118,6 +118,18 @@ fun TestMenuScreen(navController: NavController) {
         }
     }
 
+    // ✅ НОВОЕ: Загружаем иконку AI-ассистента
+    val iconAi = remember {
+        try {
+            context.assets.open("images/icon_ai.webp").use { inputStream ->
+                BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
+            }
+        } catch (e: IOException) {
+            Log.e("TestMenuScreen", "Error loading icon_ai.webp", e)
+            null
+        }
+    }
+
     LaunchedEffect(Unit) {
         Log.d("TestMenuScreen", "Screen launched/relaunched - resetting state")
     }
@@ -157,14 +169,31 @@ fun TestMenuScreen(navController: NavController) {
                         screenHeight = screenHeightDp
                     )
 
-                    // Help and AI Assistant buttons in the top right corner
-                    Column(
+                    // Help and AI Assistant buttons in the top right corner (ГОРИЗОНТАЛЬНО)
+                    Row(
                         modifier = Modifier
                             .align(Alignment.TopEnd)
                             .padding(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        // Help button
+                        // ✅ AI Assistant button (слева)
+                        iconAi?.let { aiIcon ->
+                            FloatingActionButton(
+                                onClick = { navController.navigate("ai_assistant") },
+                                modifier = Modifier.size(56.dp),
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onPrimary
+                            ) {
+                                Image(
+                                    bitmap = aiIcon,
+                                    contentDescription = stringResource(R.string.ai_assistant_button),
+                                    modifier = Modifier.size(32.dp),
+                                    contentScale = ContentScale.Fit
+                                )
+                            }
+                        }
+
+                        // Help button (справа)
                         FloatingActionButton(
                             onClick = { navController.navigate("help_screen") },
                             modifier = Modifier.size(56.dp),
@@ -174,20 +203,6 @@ fun TestMenuScreen(navController: NavController) {
                             Icon(
                                 Icons.Default.Help,
                                 contentDescription = stringResource(R.string.help_button),
-                                modifier = Modifier.size(32.dp)
-                            )
-                        }
-
-                        // AI Assistant button
-                        FloatingActionButton(
-                            onClick = { navController.navigate("ai_assistant") },
-                            modifier = Modifier.size(56.dp),
-                            containerColor = MaterialTheme.colorScheme.secondary,
-                            contentColor = MaterialTheme.colorScheme.onSecondary
-                        ) {
-                            Icon(
-                                Icons.Default.SmartToy,
-                                contentDescription = stringResource(R.string.ai_assistant_button),
                                 modifier = Modifier.size(32.dp)
                             )
                         }
@@ -253,18 +268,21 @@ fun TestMenuScreen(navController: NavController) {
                             )
                         }
 
-                        // AI Assistant button
-                        FloatingActionButton(
-                            onClick = { navController.navigate("ai_assistant") },
-                            modifier = Modifier.size(56.dp),
-                            containerColor = MaterialTheme.colorScheme.secondary,
-                            contentColor = MaterialTheme.colorScheme.onSecondary
-                        ) {
-                            Icon(
-                                Icons.Default.SmartToy,
-                                contentDescription = stringResource(R.string.ai_assistant_button),
-                                modifier = Modifier.size(32.dp)
-                            )
+                        // ✅ ОБНОВЛЕНО: AI Assistant - изображение внутри FloatingActionButton
+                        iconAi?.let { aiIcon ->
+                            FloatingActionButton(
+                                onClick = { navController.navigate("ai_assistant") },
+                                modifier = Modifier.size(56.dp),
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onPrimary
+                            ) {
+                                Image(
+                                    bitmap = aiIcon,
+                                    contentDescription = stringResource(R.string.ai_assistant_button),
+                                    modifier = Modifier.size(32.dp),
+                                    contentScale = ContentScale.Fit
+                                )
+                            }
                         }
                     }
                 }

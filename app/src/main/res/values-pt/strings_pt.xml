@@ -5,14 +5,14 @@
 
     <!-- AI Assistant -->
     <string name="ai_assistant_button">Assistente IA</string>
-    <string name="ai_assistant_title">Assistente Militar IA</string>
+    <string name="ai_assistant_title">Pergunte ao Képi Branco</string>
     <string name="ai_input_placeholder">Faça sua pergunta sobre equipamento militar...</string>
     <string name="ai_send_button">Enviar</string>
-    <string name="ai_typing">O assistente está digitando...</string>
+    <string name="ai_typing">O képi está digitando...</string>
     <string name="ai_error_no_response">Desculpe, não consegui gerar uma resposta.</string>
     <string name="ai_error_generic">Ocorreu um erro. Por favor, tente novamente.</string>
-    <string name="ai_welcome_message">Olá! Sou seu assistente especializado em equipamento militar. Posso ajudar com:\n\n• Especificações técnicas de veículos\n• Comparações entre diferentes sistemas\n• História e desenvolvimento\n• Especificações de armamento\n\nO que gostaria de saber?</string>
-    <string name="ai_error_rate_limit">Limite de solicitações excedido. Por favor, tente mais tarde.</string>
+    <string name="ai_welcome_message">Olá! O que você gostaria de saber?</string>
+    <string name="ai_error_rate_limit">Limite de solicitações atingido. Por favor, tente novamente mais tarde.</string>
     <string name="ai_error_api_key">Erro de configuração. Por favor, verifique a chave API.</string>
     <string name="ai_error_network">Erro de conexão. Verifique sua conexão com a Internet.</string>
 

@@ -1,6 +1,8 @@
 package legOS.testidf.screens
 
+import android.graphics.BitmapFactory
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,26 +14,24 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.filled.BugReport
-import androidx.compose.material.icons.filled.SmartToy
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 import legOS.testidf.R
 import legOS.testidf.utils.ChatMessage
 import legOS.testidf.utils.GeminiApiClient
-import legOS.testidf.utils.GeminiDiagnostics
+import java.io.IOException
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,12 +40,35 @@ fun AIAssistantScreen(navController: NavController) {
     var messages by remember { mutableStateOf(listOf<ChatMessage>()) }
     var inputText by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
-    var showDiagnostics by remember { mutableStateOf(false) }
     val scrollState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
 
     // Initialize Gemini API Client
     val geminiClient = remember { GeminiApiClient() }
+
+    // ✅ НОВОЕ: Загружаем изображение AI-ассистента
+    val iconAi = remember {
+        try {
+            context.assets.open("images/icon_ai.webp").use { inputStream ->
+                BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
+            }
+        } catch (e: IOException) {
+            Log.e("AIAssistant", "Error loading icon_ai.webp", e)
+            null
+        }
+    }
+
+    // ✅ НОВОЕ: Загружаем фоновое изображение
+    val backgroundImage = remember {
+        try {
+            context.assets.open("images/background_2.jpg").use { inputStream ->
+                BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
+            }
+        } catch (e: IOException) {
+            Log.e("AIAssistant", "Error loading background_2.jpg", e)
+            null
+        }
+    }
 
     // Add initial welcome message
     LaunchedEffect(Unit) {
@@ -87,8 +110,6 @@ fun AIAssistantScreen(navController: NavController) {
                         context.getString(R.string.ai_error_api_key)
                     e.message?.contains("network", ignoreCase = true) == true ->
                         context.getString(R.string.ai_error_network)
-                    e.message?.contains("not enabled", ignoreCase = true) == true ->
-                        "❌ API Key Error\n\n${e.message}\n\nTry running diagnostics with the bug icon above."
                     else ->
                         context.getString(R.string.ai_error_generic)
                 }
@@ -102,116 +123,34 @@ fun AIAssistantScreen(navController: NavController) {
         }
     }
 
-    fun runDiagnostics() {
-        showDiagnostics = true
-        isLoading = true
-
-        coroutineScope.launch {
-            try {
-                val result = GeminiDiagnostics.diagnose()
-
-                val diagnosticMessage = buildString {
-                    appendLine("🔍 GEMINI API DIAGNOSTICS")
-                    appendLine("=" .repeat(30))
-                    appendLine()
-
-                    appendLine("API Key Configuration:")
-                    if (result.apiKeyConfigured) {
-                        appendLine("✅ API Key is configured")
-                        appendLine("   Length: ${result.apiKeyLength} chars")
-                        appendLine("   Prefix: ${result.apiKeyPrefix}...")
-                    } else {
-                        appendLine("❌ API Key NOT configured")
-                    }
-                    appendLine()
-
-                    appendLine("Available Models:")
-                    if (result.modelsFound) {
-                        appendLine("✅ Found ${result.availableModels.size} models")
-                        result.availableModels.forEach { model ->
-                            appendLine("   • ${model.name}")
-                        }
-                    } else {
-                        appendLine("❌ NO models found")
-                        appendLine("   This means your API key is NOT")
-                        appendLine("   activated for Gemini API")
-                    }
-                    appendLine()
-
-                    if (result.workingModel != null) {
-                        appendLine("Test Result:")
-                        appendLine("✅ SUCCESS with: ${result.workingModel}")
-                    } else if (result.testSuccessful) {
-                        appendLine("Test Result:")
-                        appendLine("✅ Test passed!")
-                    } else {
-                        appendLine("Test Result:")
-                        appendLine("❌ Test failed")
-                    }
-
-                    if (result.error != null) {
-                        appendLine()
-                        appendLine("Error:")
-                        appendLine(result.error)
-                    }
-
-                    appendLine()
-                    appendLine("=" .repeat(30))
-
-                    if (!result.modelsFound) {
-                        appendLine()
-                        appendLine("⚠️ ACTION REQUIRED:")
-                        appendLine("1. Go to: aistudio.google.com")
-                        appendLine("2. Create NEW API key")
-                        appendLine("3. Update local.properties")
-                        appendLine("4. Rebuild project")
-                    }
-                }
-
-                messages = messages + ChatMessage(
-                    text = diagnosticMessage,
-                    isUser = false
-                )
-            } catch (e: Exception) {
-                messages = messages + ChatMessage(
-                    text = "❌ Diagnostics failed: ${e.message}",
-                    isUser = false
-                )
-            } finally {
-                isLoading = false
-                showDiagnostics = false
-            }
-        }
-    }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
+        // ✅ НОВОЕ: Фоновое изображение
+        backgroundImage?.let { image ->
+            Image(
+                bitmap = image,
+                contentDescription = "Background Image",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .systemBarsPadding()
         ) {
-            // Top Bar
+            // ✅ ОБНОВЛЕНО: Top Bar полностью прозрачный, без диагностики
             TopAppBar(
                 title = {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Icon(
-                            Icons.Default.SmartToy,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                        Text(
-                            text = stringResource(R.string.ai_assistant_title),
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
+                    Text(
+                        text = stringResource(R.string.ai_assistant_title),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
+                    )
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -221,21 +160,8 @@ fun AIAssistantScreen(navController: NavController) {
                         )
                     }
                 },
-                actions = {
-                    // Diagnostic button
-                    IconButton(
-                        onClick = { runDiagnostics() },
-                        enabled = !isLoading
-                    ) {
-                        Icon(
-                            Icons.Default.BugReport,
-                            contentDescription = "Run Diagnostics",
-                            tint = if (isLoading) Color.Gray else MaterialTheme.colorScheme.primary
-                        )
-                    }
-                },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
+                    containerColor = Color.Transparent,
                     titleContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )
@@ -251,17 +177,34 @@ fun AIAssistantScreen(navController: NavController) {
                 contentPadding = PaddingValues(vertical = 16.dp)
             ) {
                 items(messages) { message ->
-                    MessageBubble(message = message)
+                    MessageBubble(
+                        message = message,
+                        aiIcon = iconAi
+                    )
                 }
 
+                // ✅ ОБНОВЛЕНО: Loading indicator с изображением AI слева, выровнено по Bottom
                 if (isLoading) {
                     item {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 8.dp),
-                            horizontalArrangement = Arrangement.Start
+                            horizontalArrangement = Arrangement.Start,
+                            verticalAlignment = Alignment.Bottom  // ✅ Bottom для выравнивания
                         ) {
+                            // Изображение AI слева, выровнено по нижней границе
+                            iconAi?.let { icon ->
+                                Image(
+                                    bitmap = icon,
+                                    contentDescription = "AI Assistant",
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                        .padding(end = 8.dp),
+                                    contentScale = ContentScale.Fit
+                                )
+                            }
+
                             Card(
                                 modifier = Modifier.fillMaxWidth(0.7f),
                                 shape = RoundedCornerShape(
@@ -284,8 +227,7 @@ fun AIAssistantScreen(navController: NavController) {
                                         strokeWidth = 2.dp
                                     )
                                     Text(
-                                        text = if (showDiagnostics) "Running diagnostics..."
-                                        else stringResource(R.string.ai_typing),
+                                        text = stringResource(R.string.ai_typing),
                                         style = MaterialTheme.typography.bodyMedium
                                     )
                                 }
@@ -298,8 +240,8 @@ fun AIAssistantScreen(navController: NavController) {
             // Input Field
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.surface,
-                shadowElevation = 8.dp
+                color = Color.Transparent,  // ✅ Полностью прозрачный фон Surface
+                shadowElevation = 0.dp
             ) {
                 Row(
                     modifier = Modifier
@@ -310,7 +252,12 @@ fun AIAssistantScreen(navController: NavController) {
                     OutlinedTextField(
                         value = inputText,
                         onValueChange = { inputText = it },
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier
+                            .weight(1f)
+                            .background(
+                                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.80f),  // ✅ 80% непрозрачность внутри обводки
+                                shape = RoundedCornerShape(24.dp)
+                            ),
                         placeholder = {
                             Text(stringResource(R.string.ai_input_placeholder))
                         },
@@ -344,11 +291,29 @@ fun AIAssistantScreen(navController: NavController) {
 }
 
 @Composable
-private fun MessageBubble(message: ChatMessage) {
+private fun MessageBubble(
+    message: ChatMessage,
+    aiIcon: androidx.compose.ui.graphics.ImageBitmap?
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = if (message.isUser) Arrangement.End else Arrangement.Start
+        horizontalArrangement = if (message.isUser) Arrangement.End else Arrangement.Start,
+        verticalAlignment = if (message.isUser) Alignment.Top else Alignment.Bottom  // ✅ Bottom для AI
     ) {
+        // ✅ ОБНОВЛЕНО: Изображение AI слева, выровнено по нижней границе
+        if (!message.isUser) {
+            aiIcon?.let { icon ->
+                Image(
+                    bitmap = icon,
+                    contentDescription = "AI Assistant",
+                    modifier = Modifier
+                        .size(32.dp)
+                        .padding(end = 8.dp),
+                    contentScale = ContentScale.Fit
+                )
+            }
+        }
+
         Card(
             modifier = Modifier
                 .fillMaxWidth(0.85f)
