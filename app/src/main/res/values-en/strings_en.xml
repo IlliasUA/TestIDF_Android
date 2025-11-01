@@ -3,6 +3,19 @@
     <!-- Application name -->
     <string name="app_name">Tanks Hunter: Quiz</string>
 
+    <!-- AI Assistant -->
+    <string name="ai_assistant_button">AI Assistant</string>
+    <string name="ai_assistant_title">Military AI Assistant</string>
+    <string name="ai_input_placeholder">Ask your question about military equipment...</string>
+    <string name="ai_send_button">Send</string>
+    <string name="ai_typing">Assistant is typing...</string>
+    <string name="ai_error_no_response">Sorry, I could not generate a response.</string>
+    <string name="ai_error_generic">An error occurred. Please try again.</string>
+    <string name="ai_welcome_message">Hello! I\'m your military equipment specialist assistant. I can help you with:\n\n• Vehicle technical specifications\n• Comparisons between different systems\n• History and development\n• Armament specifications\n\nWhat would you like to know?</string>
+    <string name="ai_error_rate_limit">API rate limit exceeded. Please try again later.</string>
+    <string name="ai_error_api_key">Configuration error. Please check API key.</string>
+    <string name="ai_error_network">Connection error. Check your internet connection.</string>
+
     <!-- Main menu -->
     <string name="main_menu_title">Main Menu</string>
     <string name="menu_button">MENU</string>

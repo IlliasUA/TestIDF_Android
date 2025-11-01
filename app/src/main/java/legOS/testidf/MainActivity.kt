@@ -296,6 +296,10 @@ fun AppNavigation() {
             composable("news_screen") {
                 NewsScreen(navController = navController)
             }
+            // AI Assistant Screen
+            composable("ai_assistant") {
+                AIAssistantScreen(navController)
+            }
         }
     }
 }

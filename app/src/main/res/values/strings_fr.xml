@@ -3,6 +3,19 @@
     <!-- Nom de l'application -->
     <string name="app_name">Tanks Hunter: Quiz</string>
 
+    <!-- AI Assistant -->
+    <string name="ai_assistant_button">Assistant IA</string>
+    <string name="ai_assistant_title">Assistant Militaire IA</string>
+    <string name="ai_input_placeholder">Posez votre question sur l\'équipement militaire...</string>
+    <string name="ai_send_button">Envoyer</string>
+    <string name="ai_typing">L\'assistant est en train de taper...</string>
+    <string name="ai_error_no_response">Désolé, je n\'ai pas pu générer une réponse.</string>
+    <string name="ai_error_generic">Une erreur s\'est produite. Veuillez réessayer.</string>
+    <string name="ai_welcome_message">Bonjour! Je suis votre assistant spécialisé en équipement militaire. Je peux vous aider avec:\n\n• Caractéristiques techniques des véhicules\n• Comparaisons entre différents systèmes\n• Histoire et développement\n• Spécifications d\'armement\n\nQue souhaitez-vous savoir?</string>
+    <string name="ai_error_rate_limit">Limite de requêtes atteinte. Veuillez réessayer plus tard.</string>
+    <string name="ai_error_api_key">Erreur de configuration. Veuillez vérifier la clé API.</string>
+    <string name="ai_error_network">Erreur de connexion. Vérifiez votre connexion Internet.</string>
+
     <!-- Menu principal -->
     <string name="main_menu_title">Menu Principal</string>
     <string name="menu_button">MENU</string>

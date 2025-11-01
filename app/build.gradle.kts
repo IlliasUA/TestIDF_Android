@@ -1,3 +1,14 @@
+import java.util.Properties
+
+// Load local.properties file
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.inputStream().use { stream ->
+        localProperties.load(stream)
+    }
+}
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -14,8 +25,8 @@ android {
         applicationId = "legOS.testidf"
         minSdk = 24
         targetSdk = 35
-        versionCode = 28  // Увеличена версия для обновления с китайским языком
-        versionName = "1.2.6"  // Обновлена версия
+        versionCode = 29  // Увеличена версия для AI Assistant
+        versionName = "1.3.0"  // Обновлена версия для AI Assistant
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // ========================================
@@ -23,11 +34,14 @@ android {
         // Первый язык = язык по умолчанию
         // ========================================
         resourceConfigurations += listOf("fr", "en", "es", "pt", "cn")
+
+        // Add Gemini API Key to BuildConfig
+        buildConfigField("String", "GEMINI_API_KEY", "\"${localProperties.getProperty("GEMINI_API_KEY", "")}\"")
     }
 
     buildFeatures {
         compose = true
-        buildConfig = true  // НОВОЕ: Включаем BuildConfig для доступа к константам
+        buildConfig = true  // ВАЖНО: Включаем BuildConfig для доступа к константам
     }
 
     composeOptions {
@@ -134,6 +148,9 @@ dependencies {
 
     // Google Play Billing для подписок
     implementation("com.android.billingclient:billing-ktx:7.1.1")
+
+    // ===== НОВОЕ: Google Gemini AI для военного ассистента =====
+    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
 
     // Тесты
     testImplementation("junit:junit:4.13.2")
