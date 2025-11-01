@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.filled.BugReport
 import androidx.compose.material.icons.filled.SmartToy
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -30,6 +31,7 @@ import kotlinx.coroutines.launch
 import legOS.testidf.R
 import legOS.testidf.utils.ChatMessage
 import legOS.testidf.utils.GeminiApiClient
+import legOS.testidf.utils.GeminiDiagnostics
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,13 +40,14 @@ fun AIAssistantScreen(navController: NavController) {
     var messages by remember { mutableStateOf(listOf<ChatMessage>()) }
     var inputText by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
+    var showDiagnostics by remember { mutableStateOf(false) }
     val scrollState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
 
     // Initialize Gemini API Client
     val geminiClient = remember { GeminiApiClient() }
 
-    // Add initial welcome message using string resources
+    // Add initial welcome message
     LaunchedEffect(Unit) {
         if (messages.isEmpty()) {
             messages = listOf(
@@ -84,6 +87,8 @@ fun AIAssistantScreen(navController: NavController) {
                         context.getString(R.string.ai_error_api_key)
                     e.message?.contains("network", ignoreCase = true) == true ->
                         context.getString(R.string.ai_error_network)
+                    e.message?.contains("not enabled", ignoreCase = true) == true ->
+                        "❌ API Key Error\n\n${e.message}\n\nTry running diagnostics with the bug icon above."
                     else ->
                         context.getString(R.string.ai_error_generic)
                 }
@@ -93,6 +98,88 @@ fun AIAssistantScreen(navController: NavController) {
                 )
             } finally {
                 isLoading = false
+            }
+        }
+    }
+
+    fun runDiagnostics() {
+        showDiagnostics = true
+        isLoading = true
+
+        coroutineScope.launch {
+            try {
+                val result = GeminiDiagnostics.diagnose()
+
+                val diagnosticMessage = buildString {
+                    appendLine("🔍 GEMINI API DIAGNOSTICS")
+                    appendLine("=" .repeat(30))
+                    appendLine()
+
+                    appendLine("API Key Configuration:")
+                    if (result.apiKeyConfigured) {
+                        appendLine("✅ API Key is configured")
+                        appendLine("   Length: ${result.apiKeyLength} chars")
+                        appendLine("   Prefix: ${result.apiKeyPrefix}...")
+                    } else {
+                        appendLine("❌ API Key NOT configured")
+                    }
+                    appendLine()
+
+                    appendLine("Available Models:")
+                    if (result.modelsFound) {
+                        appendLine("✅ Found ${result.availableModels.size} models")
+                        result.availableModels.forEach { model ->
+                            appendLine("   • ${model.name}")
+                        }
+                    } else {
+                        appendLine("❌ NO models found")
+                        appendLine("   This means your API key is NOT")
+                        appendLine("   activated for Gemini API")
+                    }
+                    appendLine()
+
+                    if (result.workingModel != null) {
+                        appendLine("Test Result:")
+                        appendLine("✅ SUCCESS with: ${result.workingModel}")
+                    } else if (result.testSuccessful) {
+                        appendLine("Test Result:")
+                        appendLine("✅ Test passed!")
+                    } else {
+                        appendLine("Test Result:")
+                        appendLine("❌ Test failed")
+                    }
+
+                    if (result.error != null) {
+                        appendLine()
+                        appendLine("Error:")
+                        appendLine(result.error)
+                    }
+
+                    appendLine()
+                    appendLine("=" .repeat(30))
+
+                    if (!result.modelsFound) {
+                        appendLine()
+                        appendLine("⚠️ ACTION REQUIRED:")
+                        appendLine("1. Go to: aistudio.google.com")
+                        appendLine("2. Create NEW API key")
+                        appendLine("3. Update local.properties")
+                        appendLine("4. Rebuild project")
+                    }
+                }
+
+                messages = messages + ChatMessage(
+                    text = diagnosticMessage,
+                    isUser = false
+                )
+            } catch (e: Exception) {
+                messages = messages + ChatMessage(
+                    text = "❌ Diagnostics failed: ${e.message}",
+                    isUser = false
+                )
+            } finally {
+                isLoading = false
+                showDiagnostics = false
             }
         }
     }
@@ -131,6 +218,19 @@ fun AIAssistantScreen(navController: NavController) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(R.string.back_button)
+                        )
+                    }
+                },
+                actions = {
+                    // Diagnostic button
+                    IconButton(
+                        onClick = { runDiagnostics() },
+                        enabled = !isLoading
+                    ) {
+                        Icon(
+                            Icons.Default.BugReport,
+                            contentDescription = "Run Diagnostics",
+                            tint = if (isLoading) Color.Gray else MaterialTheme.colorScheme.primary
                         )
                     }
                 },
@@ -184,7 +284,8 @@ fun AIAssistantScreen(navController: NavController) {
                                         strokeWidth = 2.dp
                                     )
                                     Text(
-                                        text = stringResource(R.string.ai_typing),
+                                        text = if (showDiagnostics) "Running diagnostics..."
+                                        else stringResource(R.string.ai_typing),
                                         style = MaterialTheme.typography.bodyMedium
                                     )
                                 }
