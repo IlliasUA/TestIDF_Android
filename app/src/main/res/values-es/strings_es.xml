@@ -5,7 +5,7 @@
 
     <!-- AI Assistant -->
     <string name="ai_assistant_button">Asistente IA</string>
-    <string name="ai_assistant_title">Pregunta al Képi Blanco</string>
+    <string name="ai_assistant_title">Pregunta al Képi Blanc</string>
     <string name="ai_input_placeholder">Haz tu pregunta sobre equipamiento militar...</string>
     <string name="ai_send_button">Enviar</string>
     <string name="ai_typing">El képi está escribiendo...</string>
@@ -305,7 +305,7 @@
     <string name="help_search_title">🔍 Buscar</string>
     <string name="help_search_description">Explore el catálogo completo de vehículos militares y equipos con características detalladas.</string>
 
-    <string name="help_ai_assistant_title">Kepí Blanco - Asistente IA</string>
+    <string name="help_ai_assistant_title">Képi Blanc - Asistente IA</string>
     <string name="help_ai_assistant_description">Tu experto militar personal impulsado por inteligencia artificial:</string>
     <string name="help_ai_assistant_questions_title">Haz Preguntas</string>
     <string name="help_ai_assistant_questions_desc">Pregunta sobre cualquier equipo militar, especificaciones técnicas, historia o comparaciones</string>
@@ -330,7 +330,7 @@
     <string name="news_version_1_2_3_content">¡Expansión lingüística importante!\n\n• Español añadido\n• Portugués añadido\n• Chino simplificado añadido\n• 5 idiomas disponibles en total\n• Interfaz completamente traducida\n\n¡La aplicación ahora es accesible para una audiencia internacional mucho más amplia!</string>
 
     <string name="news_date_nov_01_2025">1 de Noviembre de 2025</string>
-    <string name="news_version_1_3_0_title">Versión 1.3.0 - Kepí Blanco - Asistente IA</string>
+    <string name="news_version_1_3_0_title">Versión 1.3.0 - Képi Blanc - Asistente IA</string>
     <string name="news_version_1_3_0_content">¡Nueva función revolucionaria!\n\n• Asistente militar IA integrado\n• Impulsado por Google Gemini AI\n• Respuestas instantáneas sobre equipo militar\n• Explicaciones detalladas y precisas\n• Accesible desde el menú principal\n\n¡Pregunta sobre vehículos militares, sus especificaciones técnicas, historia y mucho más!</string>
 
     <!-- Catalog/Search Screen -->

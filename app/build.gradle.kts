@@ -25,7 +25,7 @@ android {
         applicationId = "legOS.testidf"
         minSdk = 24
         targetSdk = 35
-        versionCode = 29  // Увеличена версия для AI Assistant
+        versionCode = 30  // Увеличена версия для AI Assistant
         versionName = "1.3.0"  // Обновлена версия для AI Assistant
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

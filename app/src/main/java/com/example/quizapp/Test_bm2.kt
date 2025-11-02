@@ -6,7 +6,7 @@ object Test_bm2 {
     val QUESTION = listOf(
         Question(
             image = "bm2_question1.webp",
-            additionalImages = listOf("bm2_question1_extra1.jpg", "bm2_question1_extra2.jpg", "bm2_question1_extra3.jpg"),
+            additionalImages = listOf("bm2_question1_extra1.webp", "bm2_question1_extra2.webp", "bm2_question1_extra3.webp"),
             correct = "BRDM-2",
             options = listOf("BTR-D", "BMO-T", "BTR-60", "BRDM-2"),
             category = "bm2",
@@ -14,8 +14,8 @@ object Test_bm2 {
             moreInfo = null
         ),
         Question(
-            image = "bm2_question2.jpg",
-            additionalImages = listOf("bm2_question2_extra1.jpg", "bm2_question2_extra2.jpg", "bm2_question2_extra3.jpg", "bm2_question2_extra4.jpg", "bm2_question2_extra5.jpg"),
+            image = "bm2_question2.webp",
+            additionalImages = listOf("bm2_question2_extra1.webp", "bm2_question2_extra2.webp", "bm2_question2_extra3.webp", "bm2_question2_extra4.webp", "bm2_question2_extra5.jpg"),
             correct = "BRM-1K",
             options = listOf("BRM-1K", "BMP-1", "BRM-3K", "BMD-1"),
             category = "bm2",
@@ -23,8 +23,8 @@ object Test_bm2 {
             moreInfo = null
         ),
         Question(
-            image = "bm2_question3.jpg",
-            additionalImages = listOf("bm2_question3_extra1.jpg", "bm2_question3_extra2.jpg", "bm2_question3_extra3.jpg"),
+            image = "bm2_question3.webp",
+            additionalImages = listOf("bm2_question3_extra1.webp", "bm2_question3_extra2.webp", "bm2_question3_extra3.webp"),
             correct = "BRM-3K",
             options = listOf("BTR-D", "BMO-T", "BRM-1K", "BRM-3K"),
             category = "bm2",
@@ -41,8 +41,8 @@ object Test_bm2 {
             moreInfo = null
         ),
         Question(
-            image = "bm2_question5.jpg",
-            additionalImages = listOf("bm2_question5_extra1.jpg", "bm2_question5_extra2.jpg", "bm2_question5_extra3.jpg"),
+            image = "bm2_question5.webp",
+            additionalImages = listOf("bm2_question5_extra1.webp", "bm2_question5_extra2.webp", "bm2_question5_extra3.webp"),
             correct = "BMP-1",
             options = listOf("BMD-1", "BMD-2", "BMP-1", "BMP-2"),
             category = "bm2",
@@ -50,8 +50,8 @@ object Test_bm2 {
             moreInfo = null
         ),
         Question(
-            image = "bm2_question6.jpg",
-            additionalImages = listOf("bm2_question6_extra1.jpg", "bm2_question6_extra2.jpg", "bm2_question6_extra3.jpg"),
+            image = "bm2_question6.webp",
+            additionalImages = listOf("bm2_question6_extra1.webp", "bm2_question6_extra2.webp", "bm2_question6_extra3.webp"),
             correct = "BMP-2",
             options = listOf("BMP-1", "BMP-2", "BRM-1K", "BRM-3K"),
             category = "bm2",
@@ -68,8 +68,8 @@ object Test_bm2 {
             moreInfo = null
         ),
         Question(
-            image = "bm2_question8.jpg",
-            additionalImages = listOf("bm2_question8_extra1.jpg", "bm2_question8_extra2.jpg", "bm2_question8_extra3.jpg"),
+            image = "bm2_question8.webp",
+            additionalImages = listOf("bm2_question8_extra1.webp", "bm2_question8_extra2.webp", "bm2_question8_extra3.webp"),
             correct = "MTLB",
             options = listOf("BTR-60", "BTR-D", "MTLB", "BMO-T"),
             category = "bm2",

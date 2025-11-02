@@ -5,7 +5,7 @@
 
     <!-- AI Assistant -->
     <string name="ai_assistant_button">AI助手</string>
-    <string name="ai_assistant_title">询问白色军帽</string>
+    <string name="ai_assistant_title">向 Kepi Blanc 提问</string>
     <string name="ai_input_placeholder">询问有关军事装备的问题...</string>
     <string name="ai_send_button">发送</string>
     <string name="ai_typing">军帽正在输入...</string>
@@ -305,7 +305,7 @@
     <string name="help_search_title">🔍 搜索</string>
     <string name="help_search_description">探索完整的军用车辆和装备目录，含详细特征。</string>
 
-    <string name="help_ai_assistant_title">白色军帽 - AI助手</string>
+    <string name="help_ai_assistant_title">Kepi Blanc - AI助手</string>
     <string name="help_ai_assistant_description">由人工智能驱动的个人军事专家：</string>
     <string name="help_ai_assistant_questions_title">提问</string>
     <string name="help_ai_assistant_questions_desc">询问任何军事装备、技术规格、历史或比较信息</string>
@@ -330,7 +330,7 @@
     <string name="news_version_1_2_3_content">重大语言扩展！\n\n• 添加西班牙语\n• 添加葡萄牙语\n• 添加简体中文\n• 总共5种语言可用\n• 界面完全翻译\n\n应用程序现在可供更广泛的国际受众使用！</string>
 
     <string name="news_date_nov_01_2025">2025年11月1日</string>
-    <string name="news_version_1_3_0_title">版本 1.3.0 - 白色军帽 - AI助手</string>
+    <string name="news_version_1_3_0_title">版本 1.3.0 - Kepi Blanc - AI助手</string>
     <string name="news_version_1_3_0_content">革命性新功能！\n\n• 集成军事AI助手\n• 由Google Gemini AI提供支持\n• 关于军事装备的即时答案\n• 详细准确的解释\n• 可从主菜单访问\n\n询问有关军用车辆、技术规格、历史等任何问题！</string>
 
     <!-- Catalog/Search Screen -->
