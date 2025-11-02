@@ -26,26 +26,29 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import kotlinx.coroutines.launch
 import legOS.testidf.R
 import legOS.testidf.utils.ChatMessage
-import legOS.testidf.utils.GeminiApiClient
+import legOS.testidf.viewmodel.AIAssistantViewModel
 import java.io.IOException
 import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AIAssistantScreen(navController: NavController) {
+fun AIAssistantScreen(
+    navController: NavController,
+    viewModel: AIAssistantViewModel = viewModel()
+) {
     val context = LocalContext.current
-    var messages by remember { mutableStateOf(listOf<ChatMessage>()) }
     var inputText by remember { mutableStateOf("") }
-    var isLoading by remember { mutableStateOf(false) }
     val scrollState = rememberLazyListState()
-    val coroutineScope = rememberCoroutineScope()
 
-    // Initialize Gemini API Client
-    val geminiClient = remember { GeminiApiClient() }
+    // ✅ NOUVEAU: Récupération de l'état depuis le ViewModel
+    // Cela garantit que l'état survit aux changements de configuration (rotation)
+    val uiState by viewModel.uiState.collectAsState()
+    val messages = uiState.messages
+    val isLoading = uiState.isLoading
 
     // ✅ NOUVEAU: Fonction pour obtenir un message d'accueil aléatoire
     fun getRandomWelcomeMessage(): String {
@@ -97,16 +100,9 @@ fun AIAssistantScreen(navController: NavController) {
         }
     }
 
-    // ✅ MODIFIÉ: Message d'accueil aléatoire au lieu d'un message fixe
+    // ✅ MODIFIÉ: Message d'accueil aléatoire ajouté via ViewModel
     LaunchedEffect(Unit) {
-        if (messages.isEmpty()) {
-            messages = listOf(
-                ChatMessage(
-                    text = getRandomWelcomeMessage(),
-                    isUser = false
-                )
-            )
-        }
+        viewModel.addWelcomeMessage(getRandomWelcomeMessage())
     }
 
     // Auto-scroll to bottom when new message is added
@@ -116,37 +112,27 @@ fun AIAssistantScreen(navController: NavController) {
         }
     }
 
+    // ✅ MODIFIÉ: Fonction pour envoyer un message via ViewModel
     fun sendMessage() {
         if (inputText.isBlank()) return
 
         val userMessage = inputText.trim()
-        messages = messages + ChatMessage(text = userMessage, isUser = true)
         inputText = ""
-        isLoading = true
 
-        coroutineScope.launch {
-            try {
-                val aiResponse = geminiClient.sendMessage(userMessage, messages)
-                messages = messages + ChatMessage(text = aiResponse, isUser = false)
-            } catch (e: Exception) {
-                Log.e("AIAssistant", "Error getting response", e)
-                val errorMessage = when {
-                    e.message?.contains("rate limit", ignoreCase = true) == true ->
-                        context.getString(R.string.ai_error_rate_limit)
-                    e.message?.contains("API key", ignoreCase = true) == true ->
-                        context.getString(R.string.ai_error_api_key)
-                    e.message?.contains("network", ignoreCase = true) == true ->
-                        context.getString(R.string.ai_error_network)
-                    else ->
-                        context.getString(R.string.ai_error_generic)
-                }
-                messages = messages + ChatMessage(
-                    text = errorMessage,
-                    isUser = false
-                )
-            } finally {
-                isLoading = false
+        viewModel.sendMessage(userMessage) { errorMessage ->
+            // Gestion des erreurs
+            val localizedError = when {
+                errorMessage.contains("rate limit", ignoreCase = true) ->
+                    context.getString(R.string.ai_error_rate_limit)
+                errorMessage.contains("API key", ignoreCase = true) ->
+                    context.getString(R.string.ai_error_api_key)
+                errorMessage.contains("network", ignoreCase = true) ->
+                    context.getString(R.string.ai_error_network)
+                else ->
+                    context.getString(R.string.ai_error_generic)
             }
+            // L'erreur est déjà ajoutée aux messages par le ViewModel
+            Log.e("AIAssistant", "Error: $localizedError")
         }
     }
 
@@ -207,7 +193,7 @@ fun AIAssistantScreen(navController: NavController) {
                     MessageBubble(
                         message = message,
                         aiIcon = iconAi,
-                        userIcon = iconUser  // ✅ ДОБАВЛЕНО: передаем иконку пользователя
+                        userIcon = iconUser
                     )
                 }
 
@@ -219,7 +205,7 @@ fun AIAssistantScreen(navController: NavController) {
                                 .fillMaxWidth()
                                 .padding(vertical = 8.dp),
                             horizontalArrangement = Arrangement.Start,
-                            verticalAlignment = Alignment.Bottom  // ✅ Bottom для выравнивания
+                            verticalAlignment = Alignment.Bottom
                         ) {
                             // Изображение AI слева, выровнено по нижней границе
                             iconAi?.let { icon ->
@@ -268,7 +254,7 @@ fun AIAssistantScreen(navController: NavController) {
             // Input Field
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                color = Color.Transparent,  // ✅ Полностью прозрачный фон Surface
+                color = Color.Transparent,
                 shadowElevation = 0.dp
             ) {
                 Row(
@@ -283,7 +269,7 @@ fun AIAssistantScreen(navController: NavController) {
                         modifier = Modifier
                             .weight(1f)
                             .background(
-                                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.80f),  // ✅ 80% непрозрачность внутри обводки
+                                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.80f),
                                 shape = RoundedCornerShape(24.dp)
                             ),
                         placeholder = {
@@ -322,12 +308,12 @@ fun AIAssistantScreen(navController: NavController) {
 private fun MessageBubble(
     message: ChatMessage,
     aiIcon: androidx.compose.ui.graphics.ImageBitmap?,
-    userIcon: androidx.compose.ui.graphics.ImageBitmap?  // ✅ ДОБАВЛЕНО: параметр для иконки пользователя
+    userIcon: androidx.compose.ui.graphics.ImageBitmap?
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = if (message.isUser) Arrangement.End else Arrangement.Start,
-        verticalAlignment = Alignment.Bottom  // ✅ Bottom для выравнивания обеих иконок
+        verticalAlignment = Alignment.Bottom
     ) {
         // ✅ ОБНОВЛЕНО: Изображение AI слева для сообщений ассистента
         if (!message.isUser) {
