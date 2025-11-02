@@ -32,6 +32,7 @@ import legOS.testidf.R
 import legOS.testidf.utils.ChatMessage
 import legOS.testidf.utils.GeminiApiClient
 import java.io.IOException
+import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,7 +47,20 @@ fun AIAssistantScreen(navController: NavController) {
     // Initialize Gemini API Client
     val geminiClient = remember { GeminiApiClient() }
 
-    // ✅ НОВОЕ: Загружаем изображение AI-ассистента
+    // ✅ NOUVEAU: Fonction pour obtenir un message d'accueil aléatoire
+    fun getRandomWelcomeMessage(): String {
+        val welcomeMessages = listOf(
+            context.getString(R.string.ai_welcome_message_1),
+            context.getString(R.string.ai_welcome_message_2),
+            context.getString(R.string.ai_welcome_message_3),
+            context.getString(R.string.ai_welcome_message_4),
+            context.getString(R.string.ai_welcome_message_5),
+            context.getString(R.string.ai_welcome_message_6)
+        )
+        return welcomeMessages[Random.nextInt(welcomeMessages.size)]
+    }
+
+    // ✅ NOUVEAU: Загружаем изображение AI-ассистента
     val iconAi = remember {
         try {
             context.assets.open("images/icon_ai.webp").use { inputStream ->
@@ -58,7 +72,7 @@ fun AIAssistantScreen(navController: NavController) {
         }
     }
 
-    // ✅ НОВОЕ: Загружаем фоновое изображение
+    // ✅ NOUVEAU: Загружаем фоновое изображение
     val backgroundImage = remember {
         try {
             context.assets.open("images/background_2.jpg").use { inputStream ->
@@ -70,12 +84,12 @@ fun AIAssistantScreen(navController: NavController) {
         }
     }
 
-    // Add initial welcome message
+    // ✅ MODIFIÉ: Message d'accueil aléatoire au lieu d'un message fixe
     LaunchedEffect(Unit) {
         if (messages.isEmpty()) {
             messages = listOf(
                 ChatMessage(
-                    text = context.getString(R.string.ai_welcome_message),
+                    text = getRandomWelcomeMessage(),
                     isUser = false
                 )
             )
@@ -128,7 +142,7 @@ fun AIAssistantScreen(navController: NavController) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // ✅ НОВОЕ: Фоновое изображение
+        // ✅ NOUVEAU: Фоновое изображение
         backgroundImage?.let { image ->
             Image(
                 bitmap = image,

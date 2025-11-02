@@ -5,13 +5,21 @@
 
     <!-- AI Assistant -->
     <string name="ai_assistant_button">Assistant IA</string>
-    <string name="ai_assistant_title">Demander au Képi Blanc</string>
-    <string name="ai_input_placeholder">Posez votre question sur l\'équipement militaire...</string>
+    <string name="ai_assistant_title">Demander au Major</string>
+    <string name="ai_input_placeholder">Posez votre question ...</string>
     <string name="ai_send_button">Envoyer</string>
-    <string name="ai_typing">Le képi est en train de taper...</string>
+    <string name="ai_typing">Le Major est en train de taper...</string>
     <string name="ai_error_no_response">Désolé, je n\'ai pas pu générer une réponse.</string>
     <string name="ai_error_generic">Une erreur s\'est produite. Veuillez réessayer.</string>
-    <string name="ai_welcome_message">Bonjour! Que souhaitez-vous savoir?</string>
+
+    <!-- AI Assistant - Messages d'accueil aléatoires -->
+    <string name="ai_welcome_message_1">Allez, pose ta question… mais tiens-toi droit, on n\'est pas à la cantine !</string>
+    <string name="ai_welcome_message_2">Parle, et garde la tête haute – ici, même l\'air est au garde-à-vous !</string>
+    <string name="ai_welcome_message_3">Parle, mais fais vite : le temps, ici, marche au pas de charge !</string>
+    <string name="ai_welcome_message_4">Alors, qu\'est-ce que tu veux savoir ? Accroche-toi, on n\'a pas toute la journée – le prochain convoi ne s\'attend pas !</string>
+    <string name="ai_welcome_message_5">Alors, tu viens chercher du concret ou juste une claque de discipline ? Parle clair, on n\'est pas au mess des officiers !</string>
+    <string name="ai_welcome_message_6">Alors, qu\'est-ce qui t\'amène ? Une question, une mission ou juste besoin d\'un coup de pied au cul pour avancer ? Parle net, on n\'a pas de temps à perdre – la Légion, elle, ne dort jamais !</string>
+
     <string name="ai_error_rate_limit">Limite de requêtes atteinte. Veuillez réessayer plus tard.</string>
     <string name="ai_error_api_key">Erreur de configuration. Veuillez vérifier la clé API.</string>
     <string name="ai_error_network">Erreur de connexion. Vérifiez votre connexion Internet.</string>
@@ -305,7 +313,7 @@
     <string name="help_search_title">🔍 Rechercher</string>
     <string name="help_search_description">Explorez le catalogue complet des véhicules et équipements militaires avec leurs caractéristiques détaillées.</string>
 
-    <string name="help_ai_assistant_title">Képi Blanc - Assistant IA</string>
+    <string name="help_ai_assistant_title">Major - Assistant IA</string>
     <string name="help_ai_assistant_description">Votre expert militaire personnel propulsé par l\'intelligence artificielle :</string>
     <string name="help_ai_assistant_questions_title">Posez vos questions</string>
     <string name="help_ai_assistant_questions_desc">Demandez des informations sur n\'importe quel équipement militaire, caractéristiques techniques, histoire ou comparaisons</string>
@@ -330,7 +338,7 @@
     <string name="news_version_1_2_3_content">Expansion linguistique majeure !\n\n• Espagnol ajouté\n• Portugais ajouté\n• Chinois simplifié ajouté\n• 5 langues au total disponibles\n• Interface complètement traduite\n\nL\'application est maintenant accessible à un public international beaucoup plus large !</string>
 
     <string name="news_date_nov_01_2025">1 Novembre 2025</string>
-    <string name="news_version_1_3_0_title">Version 1.3.0 - Képi Blanc - Assistant IA</string>
+    <string name="news_version_1_3_0_title">Version 1.3.0 - Major - Assistant IA</string>
     <string name="news_version_1_3_0_content">Nouvelle fonctionnalité révolutionnaire !\n\n• Assistant IA militaire intégré\n• Propulsé par Google Gemini AI\n• Réponses instantanées sur l\'équipement militaire\n• Explications détaillées et précises\n• Accessible depuis le menu principal\n\nPosez n\'importe quelle question sur les véhicules militaires, leurs caractéristiques techniques, leur histoire et bien plus encore !</string>
 
     <!-- Catalog/Search Screen -->
