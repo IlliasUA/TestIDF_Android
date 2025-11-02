@@ -72,6 +72,18 @@ fun AIAssistantScreen(navController: NavController) {
         }
     }
 
+    // ✅ NOUVEAU: Загружаем изображение для пользовательских сообщений
+    val iconUser = remember {
+        try {
+            context.assets.open("images/icon_ai2.webp").use { inputStream ->
+                BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
+            }
+        } catch (e: IOException) {
+            Log.e("AIAssistant", "Error loading icon_ai2.webp", e)
+            null
+        }
+    }
+
     // ✅ NOUVEAU: Загружаем фоновое изображение
     val backgroundImage = remember {
         try {
@@ -193,7 +205,8 @@ fun AIAssistantScreen(navController: NavController) {
                 items(messages) { message ->
                     MessageBubble(
                         message = message,
-                        aiIcon = iconAi
+                        aiIcon = iconAi,
+                        userIcon = iconUser  // ✅ ДОБАВЛЕНО: передаем иконку пользователя
                     )
                 }
 
@@ -307,14 +320,15 @@ fun AIAssistantScreen(navController: NavController) {
 @Composable
 private fun MessageBubble(
     message: ChatMessage,
-    aiIcon: androidx.compose.ui.graphics.ImageBitmap?
+    aiIcon: androidx.compose.ui.graphics.ImageBitmap?,
+    userIcon: androidx.compose.ui.graphics.ImageBitmap?  // ✅ ДОБАВЛЕНО: параметр для иконки пользователя
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = if (message.isUser) Arrangement.End else Arrangement.Start,
-        verticalAlignment = if (message.isUser) Alignment.Top else Alignment.Bottom  // ✅ Bottom для AI
+        verticalAlignment = Alignment.Bottom  // ✅ Bottom для выравнивания обеих иконок
     ) {
-        // ✅ ОБНОВЛЕНО: Изображение AI слева, выровнено по нижней границе
+        // ✅ ОБНОВЛЕНО: Изображение AI слева для сообщений ассистента
         if (!message.isUser) {
             aiIcon?.let { icon ->
                 Image(
@@ -354,6 +368,20 @@ private fun MessageBubble(
                 else
                     MaterialTheme.colorScheme.onSurfaceVariant
             )
+        }
+
+        // ✅ ДОБАВЛЕНО: Изображение пользователя справа для сообщений пользователя
+        if (message.isUser) {
+            userIcon?.let { icon ->
+                Image(
+                    bitmap = icon,
+                    contentDescription = "User",
+                    modifier = Modifier
+                        .size(40.dp)
+                        .padding(start = 8.dp),
+                    contentScale = ContentScale.Fit
+                )
+            }
         }
     }
 }
