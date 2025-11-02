@@ -186,30 +186,29 @@ Réponds toujours en français, sauf si l'utilisateur pose sa question dans une 
         val request = JSONObject()
         val contents = JSONArray()
 
-        // ✅ НОВОЕ: Добавляем системный промпт в самое начало (только если история пустая)
-        if (history.isEmpty()) {
-            contents.put(JSONObject().apply {
-                put("role", "user")
-                put("parts", JSONArray().apply {
-                    put(JSONObject().apply {
-                        put("text", SYSTEM_PROMPT)
-                    })
+        // ✅ ИСПРАВЛЕНО: Всегда добавляем системный промпт в начало
+        // Это гарантирует, что AI всегда помнит свою роль Майора
+        contents.put(JSONObject().apply {
+            put("role", "user")
+            put("parts", JSONArray().apply {
+                put(JSONObject().apply {
+                    put("text", SYSTEM_PROMPT)
                 })
             })
+        })
 
-            // Ответ модели на системный промпт
-            contents.put(JSONObject().apply {
-                put("role", "model")
-                put("parts", JSONArray().apply {
-                    put(JSONObject().apply {
-                        put("text", "Compris, Major Képi Blanc aux ordres. Prêt à former ces recrues sur l'armement militaire. Legio Patria Nostra!")
-                    })
+        // Ответ модели на системный промпт
+        contents.put(JSONObject().apply {
+            put("role", "model")
+            put("parts", JSONArray().apply {
+                put(JSONObject().apply {
+                    put("text", "Compris, Major Képi Blanc aux ordres. Prêt à former ces recrues sur l'armement militaire. Legio Patria Nostra!")
                 })
             })
-        }
+        })
 
-        // Добавляем историю (последние 10 сообщений)
-        val recentHistory = history.takeLast(10)
+        // Добавляем историю (последние 8 сообщений, чтобы оставить место для системного промпта)
+        val recentHistory = history.takeLast(8)
         for (msg in recentHistory) {
             contents.put(JSONObject().apply {
                 put("role", if (msg.isUser) "user" else "model")
