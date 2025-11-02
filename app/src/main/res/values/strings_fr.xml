@@ -19,6 +19,7 @@
     <string name="ai_welcome_message_4">Alors, qu\'est-ce que tu veux savoir ? Accroche-toi, on n\'a pas toute la journée – le prochain convoi ne s\'attend pas !</string>
     <string name="ai_welcome_message_5">Alors, tu viens chercher du concret ou juste une claque de discipline ? Parle clair, on n\'est pas au mess des officiers !</string>
     <string name="ai_welcome_message_6">Alors, qu\'est-ce qui t\'amène ? Une question, une mission ou juste besoin d\'un coup de pied au cul pour avancer ? Parle net, on n\'a pas de temps à perdre – la Légion, elle, ne dort jamais !</string>
+    <string name="ai_welcome_message_7">Allez, pose ta question, on n\’est pas des schlabords pour causer toute la journée !</string>
 
     <string name="ai_error_rate_limit">Limite de requêtes atteinte. Veuillez réessayer plus tard.</string>
     <string name="ai_error_api_key">Erreur de configuration. Veuillez vérifier la clé API.</string>

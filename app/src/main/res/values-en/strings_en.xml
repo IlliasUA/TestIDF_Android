@@ -19,6 +19,7 @@
     <string name="ai_welcome_message_4">So, what do you want to know? Hold on tight, we don\'t have all day – the next convoy won\'t wait!</string>
     <string name="ai_welcome_message_5">So, are you here for concrete answers or just a slap of discipline? Speak clearly, we\'re not at the officers\' mess!</string>
     <string name="ai_welcome_message_6">So, what brings you here? A question, a mission, or do you just need a kick in the ass to move forward? Speak straight, we have no time to waste – the Legion never sleeps!</string>
+    <string name="ai_welcome_message_7">Alright, fire away with your question – we haven\'t got all day to chitchat!</string>
 
     <string name="ai_error_rate_limit">Rate limit reached. Please try again later.</string>
     <string name="ai_error_api_key">Configuration error. Please check the API key.</string>

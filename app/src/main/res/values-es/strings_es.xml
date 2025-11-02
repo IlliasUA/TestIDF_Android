@@ -19,6 +19,7 @@
     <string name="ai_welcome_message_4">Entonces, ¿qué quieres saber? Agárrate fuerte, no tenemos todo el día: ¡el próximo convoy no espera!</string>
     <string name="ai_welcome_message_5">Entonces, ¿vienes a buscar algo concreto o solo una bofetada de disciplina? ¡Habla claro, esto no es el comedor de oficiales!</string>
     <string name="ai_welcome_message_6">Entonces, ¿qué te trae por aquí? ¿Una pregunta, una misión o solo necesitas una patada en el culo para avanzar? Habla claro, no hay tiempo que perder: ¡la Legión nunca duerme!</string>
+    <string name="ai_welcome_message_7">¡Anda, haz tu pregunta – no somos holgazanes para charlar todo el día!</string>
 
     <string name="ai_error_rate_limit">Límite de solicitudes alcanzado. Por favor, inténtalo más tarde.</string>
     <string name="ai_error_api_key">Error de configuración. Por favor, verifica la clave API.</string>

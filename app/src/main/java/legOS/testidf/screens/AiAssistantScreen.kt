@@ -55,7 +55,8 @@ fun AIAssistantScreen(navController: NavController) {
             context.getString(R.string.ai_welcome_message_3),
             context.getString(R.string.ai_welcome_message_4),
             context.getString(R.string.ai_welcome_message_5),
-            context.getString(R.string.ai_welcome_message_6)
+            context.getString(R.string.ai_welcome_message_6),
+            context.getString(R.string.ai_welcome_message_7)
         )
         return welcomeMessages[Random.nextInt(welcomeMessages.size)]
     }
