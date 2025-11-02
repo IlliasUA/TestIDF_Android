@@ -452,6 +452,10 @@
     <string name="info_privacy_contact_subtitle">联系我们</string>
     <string name="info_privacy_contact_content">如果您对本隐私政策有任何疑问，请通过以下方式联系我们：tanks.hunterquiz@gmail.com</string>
 
+    <!-- 新增：隐私政策中的AI助手部分 -->
+    <string name="info_privacy_ai_subtitle">AI助手（人工智能）</string>
+    <string name="info_privacy_ai_content">本应用集成了由Google Gemini AI提供支持的AI助手，用于回答用户关于军事装备的问题。\n\n- 向AI助手提出的问题将发送到Google服务器进行处理\n- Google可能会根据其自己的隐私政策收集和处理这些数据\n- 我们不会存储您与AI助手的对话\n- 响应是自动生成的，可能包含不准确之处\n- 请勿向AI助手发送敏感的个人信息\n\n有关Google AI数据处理的更多信息，请访问：https://policies.google.com/privacy</string>
+
     <!-- Section 2: Terms of Use -->
     <string name="info_terms_title">2. 使用条款</string>
 
@@ -478,6 +482,10 @@
 
     <string name="info_terms_contact_subtitle">联系我们</string>
     <string name="info_terms_contact_content">有关这些条款的任何问题，请通过以下方式联系我们：tanks.hunterquiz@gmail.com</string>
+
+    <!-- 新增：条款中的AI助手部分 -->
+    <string name="info_terms_ai_subtitle">AI助手</string>
+    <string name="info_terms_ai_content">AI助手仅供参考。AI生成的响应：\n\n- 可能包含错误或不准确之处\n- 不构成专业建议\n- 由Google Gemini AI自动生成\n- 不应被视为官方或经过验证的信息\n\n您有责任验证AI助手提供的任何信息。我们不保证AI响应的准确性、完整性或可靠性。</string>
 
     <!-- Section 3: License -->
     <string name="info_license_title">3. 许可证</string>
@@ -518,4 +526,8 @@
 
     <string name="info_disclaimer_contact_subtitle">联系</string>
     <string name="info_disclaimer_contact_content">有关本免责声明的任何索赔或问题，请通过以下方式联系我们：tanks.hunterquiz@gmail.com\n\n如果您想了解更新信息或提出问题，请加入我们的Telegram群组：t.me/Tanks_Hunter</string>
+
+    <!-- 新增：免责声明中的AI助手部分 -->
+    <string name="info_disclaimer_ai_subtitle">AI助手</string>
+    <string name="info_disclaimer_ai_content">AI助手使用Google Gemini AI技术。我们对以下情况不承担责任：\n\n- AI响应中的错误或不准确之处\n- 您对AI提供的信息的使用\n- 基于AI响应做出的决定\n- 第三方服务（Google）的数据处理\n\nAI助手是一个学习辅助工具，不能替代官方来源或专家建议。</string>
 </resources>

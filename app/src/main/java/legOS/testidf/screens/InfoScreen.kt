@@ -324,6 +324,9 @@ private fun LegalSectionsContent() {
     val privacyChangesContent = stringResource(R.string.info_privacy_changes_content)
     val privacyContactSubtitle = stringResource(R.string.info_privacy_contact_subtitle)
     val privacyContactContent = stringResource(R.string.info_privacy_contact_content)
+    // НОВОЕ: AI Assistant в Privacy
+    val privacyAiSubtitle = stringResource(R.string.info_privacy_ai_subtitle)
+    val privacyAiContent = stringResource(R.string.info_privacy_ai_content)
 
     val termsTitle = stringResource(R.string.info_terms_title)
     val termsAcceptanceSubtitle = stringResource(R.string.info_terms_acceptance_subtitle)
@@ -342,6 +345,9 @@ private fun LegalSectionsContent() {
     val termsModificationsContent = stringResource(R.string.info_terms_modifications_content)
     val termsContactSubtitle = stringResource(R.string.info_terms_contact_subtitle)
     val termsContactContent = stringResource(R.string.info_terms_contact_content)
+    // НОВОЕ: AI Assistant в Terms
+    val termsAiSubtitle = stringResource(R.string.info_terms_ai_subtitle)
+    val termsAiContent = stringResource(R.string.info_terms_ai_content)
 
     val licenseTitle = stringResource(R.string.info_license_title)
     val licenseUsageSubtitle = stringResource(R.string.info_license_usage_subtitle)
@@ -369,6 +375,9 @@ private fun LegalSectionsContent() {
     val disclaimerRiskContent = stringResource(R.string.info_disclaimer_risk_content)
     val disclaimerContactSubtitle = stringResource(R.string.info_disclaimer_contact_subtitle)
     val disclaimerContactContent = stringResource(R.string.info_disclaimer_contact_content)
+    // НОВОЕ: AI Assistant в Disclaimer
+    val disclaimerAiSubtitle = stringResource(R.string.info_disclaimer_ai_subtitle)
+    val disclaimerAiContent = stringResource(R.string.info_disclaimer_ai_content)
 
     // Construire la liste avec remember pour optimiser
     val legalSections = remember(
@@ -384,7 +393,9 @@ private fun LegalSectionsContent() {
                     Subsection(subtitle = privacySecuritySubtitle, content = privacySecurityContent),
                     Subsection(subtitle = privacyChildrenSubtitle, content = privacyChildrenContent),
                     Subsection(subtitle = privacyChangesSubtitle, content = privacyChangesContent),
-                    Subsection(subtitle = privacyContactSubtitle, content = privacyContactContent)
+                    Subsection(subtitle = privacyContactSubtitle, content = privacyContactContent),
+                    // НОВОЕ: Добавляем AI Assistant
+                    Subsection(subtitle = privacyAiSubtitle, content = privacyAiContent)
                 )
             ),
             LegalSection(
@@ -397,7 +408,9 @@ private fun LegalSectionsContent() {
                     Subsection(subtitle = termsPaymentSubtitle, content = termsPaymentContent),
                     Subsection(subtitle = termsLiabilitySubtitle, content = termsLiabilityContent),
                     Subsection(subtitle = termsModificationsSubtitle, content = termsModificationsContent),
-                    Subsection(subtitle = termsContactSubtitle, content = termsContactContent)
+                    Subsection(subtitle = termsContactSubtitle, content = termsContactContent),
+                    // НОВОЕ: Добавляем AI Assistant
+                    Subsection(subtitle = termsAiSubtitle, content = termsAiContent)
                 )
             ),
             LegalSection(
@@ -423,7 +436,9 @@ private fun LegalSectionsContent() {
                     Subsection(subtitle = disclaimerSourcesSubtitle, content = disclaimerSourcesContent),
                     Subsection(subtitle = disclaimerLiabilitySubtitle, content = disclaimerLiabilityContent),
                     Subsection(subtitle = disclaimerRiskSubtitle, content = disclaimerRiskContent),
-                    Subsection(subtitle = disclaimerContactSubtitle, content = disclaimerContactContent)
+                    Subsection(subtitle = disclaimerContactSubtitle, content = disclaimerContactContent),
+                    // НОВОЕ: Добавляем AI Assistant
+                    Subsection(subtitle = disclaimerAiSubtitle, content = disclaimerAiContent)
                 )
             )
         )

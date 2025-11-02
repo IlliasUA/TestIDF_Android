@@ -452,6 +452,10 @@
     <string name="info_privacy_contact_subtitle">Entre em Contato</string>
     <string name="info_privacy_contact_content">Se você tiver alguma dúvida sobre esta Política de Privacidade, entre em contato conosco em: tanks.hunterquiz@gmail.com</string>
 
+    <!-- NOVO: Seção Assistente IA na Política de Privacidade -->
+    <string name="info_privacy_ai_subtitle">Assistente IA (Inteligência Artificial)</string>
+    <string name="info_privacy_ai_content">A Aplicação integra um assistente de IA alimentado pelo Google Gemini AI para responder às perguntas dos utilizadores sobre equipamento militar.\n\n- As perguntas feitas ao assistente de IA são enviadas aos servidores do Google para processamento\n- O Google pode recolher e processar estes dados de acordo com a sua própria política de privacidade\n- Não armazenamos as suas conversas com o assistente de IA\n- As respostas são geradas automaticamente e podem conter imprecisões\n- Não envie informações pessoais sensíveis ao assistente de IA\n\nPara mais informações sobre o processamento de dados pelo Google AI, consulte: https://policies.google.com/privacy</string>
+
     <!-- Section 2: Terms of Use -->
     <string name="info_terms_title">2. Termos de Uso</string>
 
@@ -478,6 +482,10 @@
 
     <string name="info_terms_contact_subtitle">Entre em Contato</string>
     <string name="info_terms_contact_content">Para quaisquer perguntas sobre estes Termos, entre em contato conosco em: tanks.hunterquiz@gmail.com</string>
+
+    <!-- NOVO: Seção Assistente IA nos Termos -->
+    <string name="info_terms_ai_subtitle">Assistente IA</string>
+    <string name="info_terms_ai_content">O assistente de IA é fornecido apenas para fins informativos. As respostas geradas pela IA:\n\n- Podem conter erros ou imprecisões\n- Não constituem aconselhamento profissional\n- São geradas automaticamente pelo Google Gemini AI\n- Não devem ser consideradas como informações oficiais ou verificadas\n\nVocê é responsável por verificar qualquer informação fornecida pelo assistente de IA. Não garantimos a exatidão, integridade ou confiabilidade das respostas da IA.</string>
 
     <!-- Section 3: License -->
     <string name="info_license_title">3. Licença</string>
@@ -518,4 +526,8 @@
 
     <string name="info_disclaimer_contact_subtitle">Contato</string>
     <string name="info_disclaimer_contact_content">Para quaisquer reclamações ou perguntas sobre este Aviso Legal, entre em contato conosco em: tanks.hunterquiz@gmail.com\n\nSe você deseja ficar informado sobre atualizações ou fazer uma pergunta, entre em nosso grupo do Telegram: t.me/Tanks_Hunter</string>
+
+    <!-- NOVO: Seção Assistente IA na Isenção de responsabilidade -->
+    <string name="info_disclaimer_ai_subtitle">Assistente IA</string>
+    <string name="info_disclaimer_ai_content">O assistente de IA utiliza a tecnologia Google Gemini AI. Não somos responsáveis por:\n\n- Erros ou imprecisões nas respostas da IA\n- O uso que você faz das informações fornecidas pela IA\n- Decisões tomadas com base nas respostas da IA\n- Processamento de dados por serviços de terceiros (Google)\n\nO assistente de IA é uma ferramenta de auxílio à aprendizagem e não substitui fontes oficiais ou aconselhamento de especialistas.</string>
 </resources>
