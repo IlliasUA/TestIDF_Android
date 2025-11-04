@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application name -->
-    <string name="app_name">Tanks Hunter: Quiz</string>
+    <string name="app_name">Tanks Hunter: Legion Quiz</string>
 
     <!-- AI Assistant -->
     <string name="ai_assistant_button">AI Assistant</string>
@@ -242,7 +242,7 @@
     <string name="and_more">... and %d more</string>
 
     <!-- Subscription -->
-    <string name="subscription_title">Tanks Hunter: Quiz</string>
+    <string name="subscription_title">Tanks Hunter: Legion Quiz</string>
     <string name="subscription_subtitle">Annual subscription</string>
     <string name="features_title">Included features:</string>
     <string name="feature_categories">✓ Tests by categories</string>
@@ -426,14 +426,14 @@
     <string name="error_title">Error</string>
 
     <!-- InfoScreen - General Information -->
-    <string name="info_app_title">Tanks Hunter: Quiz (v 1.3.0)</string>
+    <string name="info_app_title">Tanks Hunter: Legion Quiz (v 1.3.0)</string>
     <string name="info_general_title">General Information</string>
 
     <!-- Section 1: Privacy Policy -->
     <string name="info_privacy_title">1. Privacy Policy</string>
 
     <string name="info_privacy_intro_subtitle">Introduction</string>
-    <string name="info_privacy_intro_content">This Privacy Policy describes how the \"Tanks Hunter: Quiz\" application (\"the Application\") collects, uses, and protects user information. The Application operates primarily offline and does not collect any personal data. However, the \"Collective Test\" mode requires an Internet connection to enable real-time multiplayer gaming and may result in the collection and storage of certain information.</string>
+    <string name="info_privacy_intro_content">This Privacy Policy describes how the \"Tanks Hunter: Legion Quiz\" application (\"the Application\") collects, uses, and protects user information. The Application operates primarily offline and does not collect any personal data. However, the \"Collective Test\" mode requires an Internet connection to enable real-time multiplayer gaming and may result in the collection and storage of certain information.</string>
 
     <string name="info_privacy_data_subtitle">Data Collected</string>
     <string name="info_privacy_data_content">- Offline mode: No personal data is collected. All offline features work without requiring a connection or external storage.\n\n- \"Collective Test\" mode (requires Internet):\n\nTo enable real-time multiplayer mode, we temporarily collect the following information:\n\n- Username or pseudonym provided by the user\n- Test results (score, answers)\n- Group session data (group codes, session identifiers)\n\nThis data is stored temporarily on a remote server and is used only to manage group sessions and display results in real time.</string>
@@ -461,7 +461,7 @@
     <string name="info_terms_title">2. Terms of Use</string>
 
     <string name="info_terms_acceptance_subtitle">Acceptance of Terms</string>
-    <string name="info_terms_acceptance_content">By downloading, installing, and using the Tanks Hunter: Quiz application (\"the Application\"), you agree to be bound by these Terms of Use (\"Terms\"). If you do not accept these Terms, please do not use the Application.</string>
+    <string name="info_terms_acceptance_content">By downloading, installing, and using the Tanks Hunter: Legion Quiz application (\"the Application\"), you agree to be bound by these Terms of Use (\"Terms\"). If you do not accept these Terms, please do not use the Application.</string>
 
     <string name="info_terms_description_subtitle">Application Description</string>
     <string name="info_terms_description_content">The Application offers educational and informative tests on military equipment, organized into several categories, with a final test. The Application operates primarily offline and does not require an Internet connection for most of its features. However, the \"Collective Test\" mode requires a stable Internet connection to enable real-time multiplayer gaming, results synchronization, and group session management.</string>
@@ -492,7 +492,7 @@
     <string name="info_license_title">3. License</string>
 
     <string name="info_license_usage_subtitle">License of Use</string>
-    <string name="info_license_usage_content">The Tanks Hunter: Quiz application (\"the Application\") is licensed, not sold, to the user for personal and non-commercial use in accordance with these terms.</string>
+    <string name="info_license_usage_content">The Tanks Hunter: Legion Quiz application (\"the Application\") is licensed, not sold, to the user for personal and non-commercial use in accordance with these terms.</string>
 
     <string name="info_license_scope_subtitle">License Scope</string>
     <string name="info_license_scope_content">- You are authorized to install and use the Application on a compatible device that you own or control.\n- The license is non-transferable and cannot be shared with other users or devices.\n- You may not copy, modify, distribute, sell, or rent the Application or any part thereof without prior written authorization.</string>
@@ -508,19 +508,19 @@
 
     <!-- Section 4: Contact Information -->
     <string name="info_contact_title">4. Contact Information</string>
-    <string name="info_contact_content">For any questions, comments, or requests regarding the \"Tanks Hunter: Quiz\" application, please contact us at:\n\nEmail: tanks.hunterquiz@gmail.com\n\nWe strive to respond to all inquiries as quickly as possible.</string>
+    <string name="info_contact_content">For any questions, comments, or requests regarding the \"Tanks Hunter: Legion Quiz\" application, please contact us at:\n\nEmail: tanks.hunterquiz@gmail.com\n\nWe strive to respond to all inquiries as quickly as possible.</string>
 
     <!-- Section 5: Disclaimer -->
     <string name="info_disclaimer_title">5. Disclaimer</string>
 
     <string name="info_disclaimer_content_subtitle">Application Content</string>
-    <string name="info_disclaimer_content_content">The \"Tanks Hunter: Quiz\" application provides educational and informative tests on military equipment. The content, including texts and images, is provided for educational and informational purposes only. We do not guarantee the accuracy, completeness, or timeliness of the information contained in the Application.</string>
+    <string name="info_disclaimer_content_content">The \"Tanks Hunter: Legion Quiz\" application provides educational and informative tests on military equipment. The content, including texts and images, is provided for educational and informational purposes only. We do not guarantee the accuracy, completeness, or timeliness of the information contained in the Application.</string>
 
     <string name="info_disclaimer_sources_subtitle">Content Sources</string>
     <string name="info_disclaimer_sources_content">Texts and images used in the Application come from public sources available on the Internet. Although we have taken care to select content that is free of rights or used in accordance with applicable legislation, we cannot guarantee that all content is free from copyright or other restrictions. If you believe that content in the Application violates your rights, please contact us at tanks.hunterquiz@gmail.com to resolve the situation.</string>
 
     <string name="info_disclaimer_liability_subtitle">Liability</string>
-    <string name="info_disclaimer_liability_content">To the extent permitted by law, the \"Tanks Hunter: Quiz\" development team will not be liable for direct, indirect, incidental, special, or consequential damages arising from the use or inability to use the Application. The Application is provided \"as is\", without warranty of any kind, express or implied.</string>
+    <string name="info_disclaimer_liability_content">To the extent permitted by law, the \"Tanks Hunter: Legion Quiz\" development team will not be liable for direct, indirect, incidental, special, or consequential damages arising from the use or inability to use the Application. The Application is provided \"as is\", without warranty of any kind, express or implied.</string>
 
     <string name="info_disclaimer_risk_subtitle">Use at Your Own Risk</string>
     <string name="info_disclaimer_risk_content">You use the Application at your own risk. We are not responsible for errors or omissions in the content, nor for the consequences arising from the use of the information provided.</string>

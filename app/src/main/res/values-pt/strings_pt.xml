@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application name -->
-    <string name="app_name">Tanks Hunter: Quiz</string>
+    <string name="app_name">Tanks Hunter: Legion Quiz</string>
 
     <!-- AI Assistant -->
     <string name="ai_assistant_button">Assistente IA</string>
@@ -242,7 +242,7 @@
     <string name="and_more">... e mais %d</string>
 
     <!-- Subscription -->
-    <string name="subscription_title">Tanks Hunter: Quiz</string>
+    <string name="subscription_title">Tanks Hunter: Legion Quiz</string>
     <string name="subscription_subtitle">Assinatura anual</string>
     <string name="features_title">Recursos incluídos:</string>
     <string name="feature_categories">✓ Testes por categorias</string>
@@ -426,14 +426,14 @@
     <string name="error_title">Erro</string>
 
     <!-- InfoScreen - General Information -->
-    <string name="info_app_title">Tanks Hunter: Quiz (v 1.3.0)</string>
+    <string name="info_app_title">Tanks Hunter: Legion Quiz (v 1.3.0)</string>
     <string name="info_general_title">Informações Gerais</string>
 
     <!-- Section 1: Privacy Policy -->
     <string name="info_privacy_title">1. Política de Privacidade</string>
 
     <string name="info_privacy_intro_subtitle">Introdução</string>
-    <string name="info_privacy_intro_content">Esta Política de Privacidade descreve como o aplicativo \"Tanks Hunter: Quiz\" (\"o Aplicativo\") coleta, usa e protege as informações do usuário. O Aplicativo opera principalmente offline e não coleta nenhum dado pessoal. No entanto, o modo \"Teste Coletivo\" requer uma conexão com a Internet para permitir jogos multijogador em tempo real e pode resultar na coleta e armazenamento de certas informações.</string>
+    <string name="info_privacy_intro_content">Esta Política de Privacidade descreve como o aplicativo \"Tanks Hunter: Legion Quiz\" (\"o Aplicativo\") coleta, usa e protege as informações do usuário. O Aplicativo opera principalmente offline e não coleta nenhum dado pessoal. No entanto, o modo \"Teste Coletivo\" requer uma conexão com a Internet para permitir jogos multijogador em tempo real e pode resultar na coleta e armazenamento de certas informações.</string>
 
     <string name="info_privacy_data_subtitle">Dados Coletados</string>
     <string name="info_privacy_data_content">- Modo offline: Nenhum dado pessoal é coletado. Todos os recursos offline funcionam sem exigir uma conexão ou armazenamento externo.\n\n- Modo \"Teste Coletivo\" (requer Internet):\n\nPara permitir o modo multijogador em tempo real, coletamos temporariamente as seguintes informações:\n\n- Nome de usuário ou pseudônimo fornecido pelo usuário\n- Resultados do teste (pontuação, respostas)\n- Dados da sessão do grupo (códigos de grupo, identificadores de sessão)\n\nEstes dados são armazenados temporariamente em um servidor remoto e são usados apenas para gerenciar sessões de grupo e exibir resultados em tempo real.</string>
@@ -461,7 +461,7 @@
     <string name="info_terms_title">2. Termos de Uso</string>
 
     <string name="info_terms_acceptance_subtitle">Aceitação dos Termos</string>
-    <string name="info_terms_acceptance_content">Ao baixar, instalar e usar o aplicativo Tanks Hunter: Quiz (\"o Aplicativo\"), você concorda em estar vinculado a estes Termos de Uso (\"Termos\"). Se você não aceitar estes Termos, por favor, não use o Aplicativo.</string>
+    <string name="info_terms_acceptance_content">Ao baixar, instalar e usar o aplicativo Tanks Hunter: Legion Quiz (\"o Aplicativo\"), você concorda em estar vinculado a estes Termos de Uso (\"Termos\"). Se você não aceitar estes Termos, por favor, não use o Aplicativo.</string>
 
     <string name="info_terms_description_subtitle">Descrição do Aplicativo</string>
     <string name="info_terms_description_content">O Aplicativo oferece testes educacionais e informativos sobre equipamento militar, organizados em várias categorias, com um teste final. O Aplicativo opera principalmente offline e não requer uma conexão com a Internet para a maioria de seus recursos. No entanto, o modo \"Teste Coletivo\" requer uma conexão estável com a Internet para permitir jogos multijogador em tempo real, sincronização de resultados e gerenciamento de sessões de grupo.</string>
@@ -492,7 +492,7 @@
     <string name="info_license_title">3. Licença</string>
 
     <string name="info_license_usage_subtitle">Licença de Uso</string>
-    <string name="info_license_usage_content">O aplicativo Tanks Hunter: Quiz (\"o Aplicativo\") é licenciado, não vendido, ao usuário para uso pessoal e não comercial de acordo com estes termos.</string>
+    <string name="info_license_usage_content">O aplicativo Tanks Hunter: Legion Quiz (\"o Aplicativo\") é licenciado, não vendido, ao usuário para uso pessoal e não comercial de acordo com estes termos.</string>
 
     <string name="info_license_scope_subtitle">Escopo da Licença</string>
     <string name="info_license_scope_content">- Você está autorizado a instalar e usar o Aplicativo em um dispositivo compatível que você possui ou controla.\n- A licença é intransferível e não pode ser compartilhada com outros usuários ou dispositivos.\n- Você não pode copiar, modificar, distribuir, vender ou alugar o Aplicativo ou qualquer parte dele sem autorização prévia por escrito.</string>
@@ -508,19 +508,19 @@
 
     <!-- Section 4: Contact Information -->
     <string name="info_contact_title">4. Informações de Contato</string>
-    <string name="info_contact_content">Para quaisquer perguntas, comentários ou solicitações sobre o aplicativo \"Tanks Hunter: Quiz\", entre em contato conosco em:\n\nE-mail: tanks.hunterquiz@gmail.com\n\nNos esforçamos para responder a todas as consultas o mais rápido possível.</string>
+    <string name="info_contact_content">Para quaisquer perguntas, comentários ou solicitações sobre o aplicativo \"Tanks Hunter: Legion Quiz\", entre em contato conosco em:\n\nE-mail: tanks.hunterquiz@gmail.com\n\nNos esforçamos para responder a todas as consultas o mais rápido possível.</string>
 
     <!-- Section 5: Disclaimer -->
     <string name="info_disclaimer_title">5. Aviso Legal</string>
 
     <string name="info_disclaimer_content_subtitle">Conteúdo do Aplicativo</string>
-    <string name="info_disclaimer_content_content">O aplicativo \"Tanks Hunter: Quiz\" fornece testes educacionais e informativos sobre equipamento militar. O conteúdo, incluindo textos e imagens, é fornecido apenas para fins educacionais e informativos. Não garantimos a precisão, integridade ou atualidade das informações contidas no Aplicativo.</string>
+    <string name="info_disclaimer_content_content">O aplicativo \"Tanks Hunter: Legion Quiz\" fornece testes educacionais e informativos sobre equipamento militar. O conteúdo, incluindo textos e imagens, é fornecido apenas para fins educacionais e informativos. Não garantimos a precisão, integridade ou atualidade das informações contidas no Aplicativo.</string>
 
     <string name="info_disclaimer_sources_subtitle">Fontes de Conteúdo</string>
     <string name="info_disclaimer_sources_content">Os textos e imagens usados no Aplicativo provêm de fontes públicas disponíveis na Internet. Embora tenhamos tomado cuidado para selecionar conteúdo que seja livre de direitos ou usado de acordo com a legislação aplicável, não podemos garantir que todo o conteúdo esteja livre de direitos autorais ou outras restrições. Se você acredita que o conteúdo no Aplicativo viola seus direitos, entre em contato conosco em tanks.hunterquiz@gmail.com para resolver a situação.</string>
 
     <string name="info_disclaimer_liability_subtitle">Responsabilidade</string>
-    <string name="info_disclaimer_liability_content">Na extensão permitida por lei, a equipe de desenvolvimento do \"Tanks Hunter: Quiz\" não será responsável por danos diretos, indiretos, incidentais, especiais ou consequenciais decorrentes do uso ou incapacidade de usar o Aplicativo. O Aplicativo é fornecido \"como está\", sem garantia de qualquer tipo, expressa ou implícita.</string>
+    <string name="info_disclaimer_liability_content">Na extensão permitida por lei, a equipe de desenvolvimento do \"Tanks Hunter: Legion Quiz\" não será responsável por danos diretos, indiretos, incidentais, especiais ou consequenciais decorrentes do uso ou incapacidade de usar o Aplicativo. O Aplicativo é fornecido \"como está\", sem garantia de qualquer tipo, expressa ou implícita.</string>
 
     <string name="info_disclaimer_risk_subtitle">Uso por Sua Conta e Risco</string>
     <string name="info_disclaimer_risk_content">Você usa o Aplicativo por sua conta e risco. Não somos responsáveis por erros ou omissões no conteúdo, nem pelas consequências decorrentes do uso das informações fornecidas.</string>

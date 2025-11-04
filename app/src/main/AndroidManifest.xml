@@ -12,7 +12,7 @@
         android:name=".TanksHunterApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Tanks Hunter: Quiz"
+        android:label="TANKS HUNTER: LEGION QUIZ"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestIDF">
