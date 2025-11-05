@@ -347,7 +347,7 @@
 
     <string name="news_date_nov_01_2025">1 Novembre 2025</string>
     <string name="news_version_1_3_0_title">Version 1.3.0 - Major - Assistant IA</string>
-    <string name="news_version_1_3_0_content">Nouvelle fonctionnalité révolutionnaire !\n\n• Assistant IA militaire intégré\n• Propulsé par Google Gemini AI\n• Réponses instantanées sur l\'équipement militaire\n• Explications détaillées et précises\n• Accessible depuis le menu principal\n\nPosez n\'importe quelle question sur les véhicules militaires, leurs caractéristiques techniques, leur histoire et bien plus encore !</string>
+    <string name="news_version_1_3_0_content">Nouvelle fonctionnalité révolutionnaire !\n\n• Assistant IA militaire intégré\n• Réponses instantanées sur l\'équipement militaire\n• Explications détaillées et précises\n• Accessible depuis le menu principal\n\nPosez n\'importe quelle question sur les véhicules militaires, leurs caractéristiques techniques, leur histoire et bien plus encore !</string>
 
     <!-- Catalog/Search Screen -->
     <string name="catalog_title">Catalogue</string>
@@ -393,10 +393,10 @@
     <string name="test_question_image">Image de question</string>
     <string name="test_image_not_found">Image non trouvée: %s</string>
     <string name="test_quit_button">Quitter</string>
-    <string name="test_quit_confirmation_title">Confirmation</string>
-    <string name="test_quit_confirmation_message">Êtes-vous sûr?</string>
-    <string name="test_quit_yes">Oui</string>
-    <string name="test_quit_no">Non</string>
+    <string name="test_quit_confirmation_title">Le Major</string>
+    <string name="test_quit_confirmation_message">Tu veux déserter en pleine bataille, recrue ?</string>
+    <string name="test_quit_yes">Oui,\n je déserte</string>
+    <string name="test_quit_no">Non,\n je continue</string>
     <string name="test_question_progress">Question %1$d / %2$d</string>
     <string name="test_time_remaining">Temps restant: %ds</string>
     <string name="test_player_name_default">Anonyme</string>

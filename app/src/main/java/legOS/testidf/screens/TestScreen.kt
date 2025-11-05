@@ -423,7 +423,25 @@ private fun TestScreenCompactLayout(
             if (showQuitConfirmation) {
                 AlertDialog(
                     onDismissRequest = onDismissQuit,
-                    title = { Text(stringResource(R.string.test_quit_confirmation_title), style = MaterialTheme.typography.headlineSmall) },
+                    title = {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            val majorIcon = loadImageFromAssets(LocalContext.current, "images/icon_ai.webp")
+                            majorIcon?.let { icon ->
+                                Image(
+                                    bitmap = icon.asImageBitmap(),
+                                    contentDescription = "Major Icon",
+                                    modifier = Modifier.size(40.dp)
+                                )
+                            }
+                            Text(
+                                stringResource(R.string.test_quit_confirmation_title),
+                                style = MaterialTheme.typography.headlineSmall
+                            )
+                        }
+                    },
                     text = {
                         Text(
                             stringResource(R.string.test_quit_confirmation_message),
@@ -432,21 +450,35 @@ private fun TestScreenCompactLayout(
                         )
                     },
                     confirmButton = {
-                        TextButton(
-                            onClick = onConfirmQuit,
-                            modifier = Modifier.padding(8.dp)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.End,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(stringResource(R.string.test_quit_yes), style = MaterialTheme.typography.labelLarge)
+                            // Premier bouton : Non, je continue
+                            TextButton(
+                                onClick = onDismissQuit,
+                                modifier = Modifier.padding(8.dp)
+                            ) {
+                                Text(
+                                    stringResource(R.string.test_quit_no),
+                                    style = MaterialTheme.typography.labelLarge
+                                )
+                            }
+                            // Second bouton : Oui, je déserte
+                            TextButton(
+                                onClick = onConfirmQuit,
+                                modifier = Modifier.padding(8.dp)
+                            ) {
+                                Text(
+                                    stringResource(R.string.test_quit_yes),
+                                    style = MaterialTheme.typography.labelLarge
+                                )
+                            }
                         }
                     },
-                    dismissButton = {
-                        TextButton(
-                            onClick = onDismissQuit,
-                            modifier = Modifier.padding(8.dp)
-                        ) {
-                            Text(stringResource(R.string.test_quit_no), style = MaterialTheme.typography.labelLarge)
-                        }
-                    },
+                    // ✅ CORRECTION : dismissButton = null (boutons dans confirmButton)
+                    dismissButton = null,
                     modifier = Modifier.padding(16.dp)
                 )
             }
@@ -649,7 +681,25 @@ private fun TestScreenLandscapeLayout(
             if (showQuitConfirmation) {
                 AlertDialog(
                     onDismissRequest = onDismissQuit,
-                    title = { Text(stringResource(R.string.test_quit_confirmation_title), style = MaterialTheme.typography.headlineMedium) },
+                    title = {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            val majorIcon = loadImageFromAssets(LocalContext.current, "images/icon_ai.webp")
+                            majorIcon?.let { icon ->
+                                Image(
+                                    bitmap = icon.asImageBitmap(),
+                                    contentDescription = "Major Icon",
+                                    modifier = Modifier.size(40.dp)
+                                )
+                            }
+                            Text(
+                                stringResource(R.string.test_quit_confirmation_title),
+                                style = MaterialTheme.typography.headlineMedium
+                            )
+                        }
+                    },
                     text = {
                         Text(
                             stringResource(R.string.test_quit_confirmation_message),
@@ -658,21 +708,35 @@ private fun TestScreenLandscapeLayout(
                         )
                     },
                     confirmButton = {
-                        TextButton(
-                            onClick = onConfirmQuit,
-                            modifier = Modifier.padding(8.dp)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.End,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(stringResource(R.string.test_quit_yes), style = MaterialTheme.typography.labelLarge)
+                            // Premier bouton : Non, je continue
+                            TextButton(
+                                onClick = onDismissQuit,
+                                modifier = Modifier.padding(8.dp)
+                            ) {
+                                Text(
+                                    stringResource(R.string.test_quit_no),
+                                    style = MaterialTheme.typography.labelLarge
+                                )
+                            }
+                            // Second bouton : Oui, je déserte
+                            TextButton(
+                                onClick = onConfirmQuit,
+                                modifier = Modifier.padding(8.dp)
+                            ) {
+                                Text(
+                                    stringResource(R.string.test_quit_yes),
+                                    style = MaterialTheme.typography.labelLarge
+                                )
+                            }
                         }
                     },
-                    dismissButton = {
-                        TextButton(
-                            onClick = onDismissQuit,
-                            modifier = Modifier.padding(8.dp)
-                        ) {
-                            Text(stringResource(R.string.test_quit_no), style = MaterialTheme.typography.labelLarge)
-                        }
-                    },
+                    // ✅ CORRECTION : dismissButton = null (boutons dans confirmButton)
+                    dismissButton = null,
                     modifier = Modifier.padding(16.dp)
                 )
             }
