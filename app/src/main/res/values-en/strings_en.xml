@@ -25,6 +25,13 @@
     <string name="ai_error_api_key">Configuration error. Please check the API key.</string>
     <string name="ai_error_network">Connection error. Check your internet connection.</string>
 
+    <!-- AI Assistant - Random offline messages -->
+    <string name="ai_offline_message_1">Well soldier, looks like the network dropped out like a rookie on a march! No connection, no Major. Come back when the lines are restored!</string>
+    <string name="ai_offline_message_2">Recruit, without a network, I\'m like a tank without fuel - immobile! Check your connection and come see me again. We\'re not done with training!</string>
+    <string name="ai_offline_message_3">Right then, young legionnaire, no signal, no briefing! The Major can\'t help you offline. Restore the connection and we\'ll resume!</string>
+    <string name="ai_offline_message_4">Damn! No network, no answer. Even on operations in the Sahel, we had better communications! Get connected and we\'ll talk weapons.</string>
+    <string name="ai_offline_message_5">Soldier, you\'re off network like a convoy lost in the desert! I can\'t do anything for you without an Internet connection. Come on, sort yourself out and get back online!</string>
+
     <!-- Main menu -->
     <string name="main_menu_title">Main Menu</string>
     <string name="menu_button">MENU</string>
@@ -426,7 +433,7 @@
     <string name="error_title">Error</string>
 
     <!-- InfoScreen - General Information -->
-    <string name="info_app_title">Tanks Hunter: Legion Quiz (v 1.3.0)</string>
+    <string name="info_app_title">Tanks Hunter: Legion Quiz (v1.3.0)</string>
     <string name="info_general_title">General Information</string>
 
     <!-- Section 1: Privacy Policy -->

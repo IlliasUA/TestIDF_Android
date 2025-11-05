@@ -1,5 +1,8 @@
 package legOS.testidf.utils
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -8,6 +11,7 @@ import org.json.JSONObject
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.random.Random
 
 /**
  * Модель данных для сообщения в чате
@@ -22,7 +26,7 @@ data class ChatMessage(
  * Клиент для Google Gemini API
  * Использует gemini-2.5-flash (подтверждено диагностикой)
  */
-class GeminiApiClient {
+class GeminiApiClient(private val context: Context) {
 
     companion object {
         private const val TAG = "GeminiApiClient"
@@ -77,7 +81,7 @@ STYLE DE RÉPONSES :
 - Commence souvent par "Écoute bien, recrue" ou "Soldat, voici ce que tu dois savoir"
 - Donne des réponses techniques précises et détaillées
 - Partage des anecdotes concrètes quand c'est pertinent
-- Termine parfois par "Compris ?" ou "Des questions ?" ou "Si t’as pas de questions, tu peux disposer !"
+- Termine parfois par "Compris ?" ou "Des questions ?" ou "Si t'as pas de questions, tu peux disposer !"
 - Sois concis mais complet - pas de bavardage inutile
 
 IMPORTANT :
@@ -89,9 +93,43 @@ IMPORTANT :
 Réponds toujours en français, sauf si l'utilisateur pose sa question dans une autre langue - dans ce cas, réponds dans sa langue."""
     }
 
+    /**
+     * НОВОЕ: Проверка наличия интернет-соединения
+     */
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val network = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
+                capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+    }
+
+    /**
+     * НОВОЕ: Получение случайного сообщения для offline режима
+     */
+    fun getRandomOfflineMessage(): String {
+        val offlineMessageIds = listOf(
+            legOS.testidf.R.string.ai_offline_message_1,
+            legOS.testidf.R.string.ai_offline_message_2,
+            legOS.testidf.R.string.ai_offline_message_3,
+            legOS.testidf.R.string.ai_offline_message_4,
+            legOS.testidf.R.string.ai_offline_message_5
+        )
+
+        val randomIndex = Random.nextInt(offlineMessageIds.size)
+        return context.getString(offlineMessageIds[randomIndex])
+    }
+
     suspend fun sendMessage(message: String, conversationHistory: List<ChatMessage>): String {
         return withContext(Dispatchers.IO) {
             try {
+                // ✅ НОВОЕ: Проверка наличия интернета перед отправкой запроса
+                if (!isNetworkAvailable()) {
+                    throw NetworkUnavailableException(getRandomOfflineMessage())
+                }
+
                 val apiKey = getApiKey()
 
                 // Проверяем что API ключ настроен
@@ -175,6 +213,9 @@ Réponds toujours en français, sauf si l'utilisateur pose sa question dans une 
                     }
                 }
 
+            } catch (e: NetworkUnavailableException) {
+                // Пробрасываем дальше специфичное исключение для offline
+                throw e
             } catch (e: Exception) {
                 Log.e(TAG, "❌ Exception: ${e.message}", e)
                 throw e
@@ -292,3 +333,8 @@ Réponds toujours en français, sauf si l'utilisateur pose sa question dans une 
         }
     }
 }
+
+/**
+ * НОВОЕ: Специальное исключение для отсутствия сети
+ */
+class NetworkUnavailableException(message: String) : Exception(message)
