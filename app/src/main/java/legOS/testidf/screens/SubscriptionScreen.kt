@@ -34,7 +34,7 @@ import java.io.IOException
 /**
  * УПРОЩЕННАЯ ВЕРСИЯ SubscriptionScreen
  *
- * Отображает только цену 5,99 EUR без определения региона
+ * Отображает только цену 6,99$ без определения региона
  */
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -349,14 +349,7 @@ private fun InactiveSubscriptionContent(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "💶",
-                    style = MaterialTheme.typography.displayLarge
-                )
-
-                Spacer(Modifier.height(8.dp))
-
-                Text(
-                    text = "5,99 EUR / an",
+                    text = "6,99$ / year",
                     style = MaterialTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold,
                         fontSize = 32.sp
