@@ -250,22 +250,24 @@
 
     <!-- Subscription -->
     <string name="subscription_title">Tanks Hunter: Legion Quiz</string>
-    <string name="subscription_subtitle">Annual subscription</string>
+    <string name="subscription_subtitle">Annual Subscription</string>
+    <string name="subscription_price">$6.99 / year</string>
     <string name="features_title">Included features:</string>
-    <string name="feature_categories">✓ Tests by categories</string>
-    <string name="feature_advanced">✓ Advanced and final test</string>
-    <string name="feature_multiplayer">✓ Multiplayer mode</string>
-    <string name="feature_creation">✓ Custom test creation</string>
-    <string name="feature_catalog">✓ Complete catalog</string>
+    <string name="feature_categories">✓ Category Tests</string>
+    <string name="feature_advanced">✓ Advanced and Final Tests</string>
+    <string name="feature_multiplayer">✓ Multiplayer Mode</string>
+    <string name="feature_creation">✓ Custom Test Creation</string>
+    <string name="feature_catalog">✓ Complete Catalog</string>
+    <string name="feature_ai_assistant">✓ AI Assistant - The Major</string>
     <string name="feature_hall_of_fame">✓ Hall of Fame</string>
-    <string name="feature_updates">✓ Regular updates</string>
-    <string name="subscribe_button">Subscribe now</string>
+    <string name="feature_updates">✓ Regular Updates</string>
+    <string name="subscribe_button">Subscribe Now</string>
     <string name="subscription_renew_info">The subscription renews automatically every year.</string>
-    <string name="subscription_active">Active subscription</string>
-    <string name="subscription_active_message">You have access to all features of the application.</string>
+    <string name="subscription_active">Active Subscription</string>
+    <string name="subscription_active_message">You have access to all app features.</string>
     <string name="test_mode_title">Test Mode</string>
-    <string name="test_mode_message">You are using a test version of the application.</string>
-    <string name="test_access">Test access</string>
+    <string name="test_mode_message">You are using a test version of the app.</string>
+    <string name="test_access">Test Access</string>
     <string name="checking_subscription">Checking subscription...</string>
     <string name="retry_button">Retry</string>
 

@@ -248,23 +248,25 @@
     <string name="selected_elements">Elementos seleccionados:</string>
     <string name="and_more">... y %d más</string>
 
-    <!-- Subscription -->
+    <!-- Suscripción -->
     <string name="subscription_title">Tanks Hunter: Legion Quiz</string>
     <string name="subscription_subtitle">Suscripción anual</string>
+    <string name="subscription_price">6,99 $ / año</string>
     <string name="features_title">Funciones incluidas:</string>
-    <string name="feature_categories">✓ Tests por categorías</string>
-    <string name="feature_advanced">✓ Test avanzado y final</string>
+    <string name="feature_categories">✓ Pruebas por categorías</string>
+    <string name="feature_advanced">✓ Prueba avanzada y final</string>
     <string name="feature_multiplayer">✓ Modo multijugador</string>
-    <string name="feature_creation">✓ Creación de tests personalizados</string>
+    <string name="feature_creation">✓ Creación de pruebas personalizadas</string>
     <string name="feature_catalog">✓ Catálogo completo</string>
+    <string name="feature_ai_assistant">✓ Asistente IA - El Mayor</string>
     <string name="feature_hall_of_fame">✓ Salón de la Fama</string>
     <string name="feature_updates">✓ Actualizaciones regulares</string>
     <string name="subscribe_button">Suscribirse ahora</string>
     <string name="subscription_renew_info">La suscripción se renueva automáticamente cada año.</string>
     <string name="subscription_active">Suscripción activa</string>
-    <string name="subscription_active_message">Tiene acceso a todas las funciones de la aplicación.</string>
+    <string name="subscription_active_message">Tienes acceso a todas las funciones de la aplicación.</string>
     <string name="test_mode_title">Modo de Prueba</string>
-    <string name="test_mode_message">Está utilizando una versión de prueba de la aplicación.</string>
+    <string name="test_mode_message">Estás usando una versión de prueba de la aplicación.</string>
     <string name="test_access">Acceso de prueba</string>
     <string name="checking_subscription">Verificando suscripción...</string>
     <string name="retry_button">Reintentar</string>

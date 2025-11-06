@@ -251,12 +251,14 @@
     <!-- Abonnement -->
     <string name="subscription_title">Tanks Hunter: Legion Quiz</string>
     <string name="subscription_subtitle">Abonnement annuel</string>
+    <string name="subscription_price">6,99 $ / an</string>
     <string name="features_title">Fonctionnalités incluses:</string>
     <string name="feature_categories">✓ Tests par catégories</string>
     <string name="feature_advanced">✓ Test avancé et final</string>
     <string name="feature_multiplayer">✓ Mode multijoueur</string>
     <string name="feature_creation">✓ Création de tests personnalisés</string>
     <string name="feature_catalog">✓ Catalogue complet</string>
+    <string name="feature_ai_assistant">✓ Assistant IA - Le Major</string>
     <string name="feature_hall_of_fame">✓ Panthéon des meilleurs scores</string>
     <string name="feature_updates">✓ Mises à jour régulières</string>
     <string name="subscribe_button">S\'abonner maintenant</string>

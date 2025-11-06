@@ -251,20 +251,22 @@
     <!-- Subscription -->
     <string name="subscription_title">Tanks Hunter: Legion Quiz</string>
     <string name="subscription_subtitle">年度订阅</string>
+    <string name="subscription_price">6.99 $ / 年</string>
     <string name="features_title">包含功能：</string>
     <string name="feature_categories">✓ 分类测试</string>
-    <string name="feature_advanced">✓ 进阶和终极测试</string>
+    <string name="feature_advanced">✓ 高级和最终测试</string>
     <string name="feature_multiplayer">✓ 多人模式</string>
     <string name="feature_creation">✓ 自定义测试创建</string>
     <string name="feature_catalog">✓ 完整目录</string>
+    <string name="feature_ai_assistant">✓ AI助手 - 少校</string>
     <string name="feature_hall_of_fame">✓ 名人堂</string>
     <string name="feature_updates">✓ 定期更新</string>
     <string name="subscribe_button">立即订阅</string>
     <string name="subscription_renew_info">订阅每年自动续订。</string>
-    <string name="subscription_active">有效订阅</string>
-    <string name="subscription_active_message">您可以访问应用程序的所有功能。</string>
+    <string name="subscription_active">订阅已激活</string>
+    <string name="subscription_active_message">您可以访问应用的所有功能。</string>
     <string name="test_mode_title">测试模式</string>
-    <string name="test_mode_message">您正在使用应用程序的测试版本。</string>
+    <string name="test_mode_message">您正在使用应用的测试版本。</string>
     <string name="test_access">测试访问</string>
     <string name="checking_subscription">正在检查订阅...</string>
     <string name="retry_button">重试</string>

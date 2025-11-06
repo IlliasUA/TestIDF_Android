@@ -31,6 +31,12 @@ import legOS.testidf.viewmodel.SubscriptionViewModel
 import legOS.testidf.R
 import java.io.IOException
 
+/**
+ * УПРОЩЕННАЯ ВЕРСИЯ SubscriptionScreen
+ *
+ * Отображает только цену 5,99 EUR без определения региона
+ */
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SubscriptionScreen(
@@ -69,13 +75,12 @@ fun SubscriptionScreen(
             )
         }
 
-        // НОВОЕ: Кнопка назад в TopAppBar
+        // Кнопка назад в TopAppBar
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .systemBarsPadding()
         ) {
-            // TopAppBar с кнопкой назад
             TopAppBar(
                 title = { Text("") },
                 navigationIcon = {
@@ -104,7 +109,6 @@ fun SubscriptionScreen(
                         ActiveSubscriptionContent(
                             isTestMode = uiState.isTestMode,
                             onContinue = {
-                                // ИЗМЕНЕНО: Переходим в test_menu вместо main_menu
                                 navController.navigate("test_menu") {
                                     popUpTo("subscription") { inclusive = true }
                                 }
@@ -128,7 +132,6 @@ fun SubscriptionScreen(
                     LaunchedEffect(Unit) {
                         kotlinx.coroutines.delay(2000)
                         viewModel.clearPurchaseSuccess()
-                        // ИЗМЕНЕНО: Переходим в test_menu
                         navController.navigate("test_menu") {
                             popUpTo("subscription") { inclusive = true }
                         }
@@ -325,10 +328,45 @@ private fun InactiveSubscriptionContent(
         Text(
             stringResource(R.string.subscription_subtitle),
             style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
+            textAlign = TextAlign.Center
         )
 
-        Spacer(Modifier.height(32.dp))
+        Spacer(Modifier.height(24.dp))
+
+        // Крупное отображение цены
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer
+            ),
+            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "💶",
+                    style = MaterialTheme.typography.displayLarge
+                )
+
+                Spacer(Modifier.height(8.dp))
+
+                Text(
+                    text = "5,99 EUR / an",
+                    style = MaterialTheme.typography.headlineMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 32.sp
+                    ),
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+
+        Spacer(Modifier.height(24.dp))
 
         // Преимущества подписки
         Card(
@@ -356,6 +394,7 @@ private fun InactiveSubscriptionContent(
                 FeatureItem(stringResource(R.string.feature_creation))
                 FeatureItem(stringResource(R.string.feature_catalog))
                 FeatureItem(stringResource(R.string.feature_hall_of_fame))
+                FeatureItem(stringResource(R.string.feature_ai_assistant))
                 FeatureItem(stringResource(R.string.feature_updates))
             }
         }
@@ -425,11 +464,22 @@ private fun InactiveSubscriptionContent(
 
 @Composable
 private fun FeatureItem(text: String) {
-    Text(
-        text = text,
-        style = MaterialTheme.typography.bodyLarge.copy(
-            fontSize = 16.sp
-        ),
-        color = MaterialTheme.colorScheme.onSurface
-    )
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Icon(
+            Icons.Default.CheckCircle,
+            contentDescription = null,
+            tint = Color(0xFF4CAF50),
+            modifier = Modifier.size(20.dp)
+        )
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyLarge.copy(
+                fontSize = 16.sp
+            ),
+            color = MaterialTheme.colorScheme.onSurface
+        )
+    }
 }

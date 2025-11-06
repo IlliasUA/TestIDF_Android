@@ -248,15 +248,17 @@
     <string name="selected_elements">Itens selecionados:</string>
     <string name="and_more">... e mais %d</string>
 
-    <!-- Subscription -->
+    <!-- Assinatura -->
     <string name="subscription_title">Tanks Hunter: Legion Quiz</string>
     <string name="subscription_subtitle">Assinatura anual</string>
+    <string name="subscription_price">6,99 $ / ano</string>
     <string name="features_title">Recursos incluídos:</string>
     <string name="feature_categories">✓ Testes por categorias</string>
     <string name="feature_advanced">✓ Teste avançado e final</string>
     <string name="feature_multiplayer">✓ Modo multijogador</string>
-    <string name="feature_creation">✓ Criação de teste personalizado</string>
+    <string name="feature_creation">✓ Criação de testes personalizados</string>
     <string name="feature_catalog">✓ Catálogo completo</string>
+    <string name="feature_ai_assistant">✓ Assistente IA - O Major</string>
     <string name="feature_hall_of_fame">✓ Salão da Fama</string>
     <string name="feature_updates">✓ Atualizações regulares</string>
     <string name="subscribe_button">Assinar agora</string>
