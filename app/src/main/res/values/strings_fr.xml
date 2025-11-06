@@ -251,7 +251,7 @@
     <!-- Abonnement -->
     <string name="subscription_title">Tanks Hunter: Legion Quiz</string>
     <string name="subscription_subtitle">Abonnement annuel</string>
-    <string name="subscription_price">6,99 $ / an</string>
+    <string name="subscription_price">6,49 € / an</string>
     <string name="features_title">Fonctionnalités incluses:</string>
     <string name="feature_categories">✓ Tests par catégories</string>
     <string name="feature_advanced">✓ Test avancé et final</string>
@@ -262,7 +262,7 @@
     <string name="feature_hall_of_fame">✓ Panthéon des meilleurs scores</string>
     <string name="feature_updates">✓ Mises à jour régulières</string>
     <string name="subscribe_button">S\'abonner maintenant</string>
-    <string name="subscription_renew_info">L\'abonnement se renouvelle automatiquement chaque année.</string>
+    <string name="subscription_renew_info">L\'abonnement se renouvelle automatiquement chaque année/mois.</string>
     <string name="subscription_active">Abonnement actif</string>
     <string name="subscription_active_message">Vous avez accès à toutes les fonctionnalités de l\'application.</string>
     <string name="test_mode_title">Mode Test</string>
@@ -270,6 +270,17 @@
     <string name="test_access">Accès test</string>
     <string name="checking_subscription">Vérification de l\'abonnement...</string>
     <string name="retry_button">Réessayer</string>
+
+    <!-- Subscription Plans Cards -->
+    <string name="plan_yearly_title">Plan annuel</string>
+    <string name="plan_monthly_title">Plan mensuel</string>
+    <string name="plan_best_value">MEILLEURE OFFRE</string>
+    <string name="plan_yearly_price">6,49€ / an</string>
+    <string name="plan_monthly_price">1,39€ / mois</string>
+    <string name="plan_yearly_per_month">Seulement 0,54€/mois</string>
+    <string name="plan_savings">Économisez 60%</string>
+    <string name="subscription_renew_annual">L\'abonnement se renouvelle automatiquement chaque année.</string>
+    <string name="subscription_renew_monthly">L\'abonnement se renouvelle automatiquement chaque mois.</string>
 
     <!-- Aide -->
     <string name="help_title">Guide</string>

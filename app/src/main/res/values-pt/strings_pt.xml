@@ -251,7 +251,7 @@
     <!-- Assinatura -->
     <string name="subscription_title">Tanks Hunter: Legion Quiz</string>
     <string name="subscription_subtitle">Assinatura anual</string>
-    <string name="subscription_price">6,99 $ / ano</string>
+    <string name="subscription_price">6,49 € / ano</string>
     <string name="features_title">Recursos incluídos:</string>
     <string name="feature_categories">✓ Testes por categorias</string>
     <string name="feature_advanced">✓ Teste avançado e final</string>
@@ -262,7 +262,7 @@
     <string name="feature_hall_of_fame">✓ Salão da Fama</string>
     <string name="feature_updates">✓ Atualizações regulares</string>
     <string name="subscribe_button">Assinar agora</string>
-    <string name="subscription_renew_info">A assinatura renova automaticamente a cada ano.</string>
+    <string name="subscription_renew_info">A assinatura renova automaticamente a cada ano/mês.</string>
     <string name="subscription_active">Assinatura ativa</string>
     <string name="subscription_active_message">Você tem acesso a todos os recursos do aplicativo.</string>
     <string name="test_mode_title">Modo de Teste</string>
@@ -270,6 +270,17 @@
     <string name="test_access">Acesso de teste</string>
     <string name="checking_subscription">Verificando assinatura...</string>
     <string name="retry_button">Tentar novamente</string>
+
+    <!-- Subscription Plans Cards -->
+    <string name="plan_yearly_title">Plano anual</string>
+    <string name="plan_monthly_title">Plano mensal</string>
+    <string name="plan_best_value">MELHOR VALOR</string>
+    <string name="plan_yearly_price">6,49€ / ano</string>
+    <string name="plan_monthly_price">1,39€ / mês</string>
+    <string name="plan_yearly_per_month">Apenas 0,54€/mês</string>
+    <string name="plan_savings">Economize 60%</string>
+    <string name="subscription_renew_annual">A assinatura renova automaticamente a cada ano.</string>
+    <string name="subscription_renew_monthly">A assinatura renova automaticamente a cada mês.</string>
 
     <!-- Help -->
     <string name="help_title">Guia</string>

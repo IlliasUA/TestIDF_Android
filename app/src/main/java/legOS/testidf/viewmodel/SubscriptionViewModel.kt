@@ -14,6 +14,7 @@ data class SubscriptionUiState(
     val isActive: Boolean = false,
     val isLoading: Boolean = true,
     val isTestMode: Boolean = false,
+    val subscriptionType: String = "none", // "monthly", "annual", "test", "none"
     val errorMessage: String? = null,
     val isPurchasing: Boolean = false,
     val purchaseSuccess: Boolean = false
@@ -59,6 +60,7 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
                                     isActive = true,
                                     isLoading = false,
                                     isTestMode = false,
+                                    subscriptionType = state.subscriptionType,
                                     errorMessage = null
                                 )
                             }
@@ -67,6 +69,7 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
                                     isActive = false,
                                     isLoading = false,
                                     isTestMode = false,
+                                    subscriptionType = "none",
                                     errorMessage = state.reason
                                 )
                             }
@@ -75,6 +78,7 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
                                     isActive = false,
                                     isLoading = false,
                                     isTestMode = false,
+                                    subscriptionType = "none",
                                     errorMessage = state.message
                                 )
                             }
@@ -83,6 +87,7 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
                                     isActive = true,
                                     isLoading = false,
                                     isTestMode = true,
+                                    subscriptionType = "test",
                                     errorMessage = null
                                 )
                             }
@@ -152,8 +157,12 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
 
     /**
      * Запуск процесса покупки
+     * @param productId - ID подписки (месячная или годовая)
      */
-    fun purchaseSubscription(activity: Activity) {
+    fun purchaseSubscription(
+        activity: Activity,
+        productId: String = BillingManager.SUBSCRIPTION_ANNUAL_PRODUCT_ID
+    ) {
         viewModelScope.launch {
             try {
                 _uiState.value = _uiState.value.copy(
@@ -161,7 +170,8 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
                     errorMessage = null
                 )
 
-                billingManager.launchSubscriptionFlow(activity)
+                Log.d(TAG, "Launching purchase for: $productId")
+                billingManager.launchSubscriptionFlow(activity, productId)
 
             } catch (e: Exception) {
                 Log.e(TAG, "Error launching purchase", e)
