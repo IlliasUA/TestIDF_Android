@@ -493,7 +493,7 @@
     <string name="info_terms_intellectual_content">Todo o conteúdo do Aplicativo, incluindo textos, imagens e outros elementos, é protegido pelas leis de propriedade intelectual. Você não pode reproduzir, distribuir ou usar este conteúdo sem autorização expressa, exceto no contexto de uso normal do Aplicativo.</string>
 
     <string name="info_terms_payment_subtitle">Pagamento</string>
-    <string name="info_terms_payment_content">O Aplicativo está disponível através de uma assinatura anual na Google Play Store. O preço da assinatura é indicado na loja de aplicativos. A assinatura renova automaticamente a cada ano e pode ser cancelada a qualquer momento nas configurações do Google Play.</string>
+    <string name="info_terms_payment_content">O Aplicativo está disponível através de uma assinatura mensal ou anual na Google Play Store. O preço da assinatura é indicado na loja de aplicativos. A assinatura renova automaticamente a cada mês ou a cada ano e pode ser cancelada a qualquer momento nas configurações do Google Play.</string>
 
     <string name="info_terms_liability_subtitle">Limitação de Responsabilidade</string>
     <string name="info_terms_liability_content">O Aplicativo é fornecido \"como está\". Não garantimos que o Aplicativo será livre de erros ou operará sem interrupção. Na extensão permitida por lei, não seremos responsáveis por danos diretos, indiretos, incidentais ou consequenciais decorrentes do uso do Aplicativo.</string>

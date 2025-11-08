@@ -493,7 +493,7 @@
     <string name="info_terms_intellectual_content">Tout le contenu de l\'Application, y compris les textes, images et autres éléments, est protégé par les lois sur la propriété intellectuelle. Vous ne pouvez pas reproduire, distribuer ou utiliser ce contenu sans autorisation expresse, sauf dans le cadre de l\'utilisation normale de l\'Application.</string>
 
     <string name="info_terms_payment_subtitle">Paiement</string>
-    <string name="info_terms_payment_content">L\'Application est disponible via un abonnement annuel sur le Google Play Store. Le prix de l\'abonnement est indiqué dans le magasin d\'applications. L\'abonnement se renouvelle automatiquement chaque année et peut être annulé à tout moment dans les paramètres Google Play.</string>
+    <string name="info_terms_payment_content">L\'Application est disponible via un abonnement mensuel ou annuel sur le Google Play Store. Le prix de l\'abonnement est indiqué dans le magasin d\'applications. L\'abonnement se renouvelle automatiquement chaque mois ou chaque année et peut être annulé à tout moment dans les paramètres Google Play.</string>
 
     <string name="info_terms_liability_subtitle">Limitation de responsabilité</string>
     <string name="info_terms_liability_content">L\'Application est fournie \"telle quelle\". Nous ne garantissons pas que l\'Application sera exempte d\'erreurs ou fonctionnera sans interruption. Dans la mesure permise par la loi, nous ne serons pas responsables des dommages directs, indirects, accessoires ou consécutifs découlant de l\'utilisation de l\'Application.</string>
