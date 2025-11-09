@@ -19,6 +19,7 @@ import java.io.File
  * Менеджер для управления подписками через Google Play Billing
  *
  * ОБНОВЛЕНО: Поддержка двух типов подписок (месячная и годовая)
+ * ИСПРАВЛЕНО: Убран message d'erreur при отсутствии активной подписки
  */
 class BillingManager(private val context: Context) : PurchasesUpdatedListener {
 
@@ -260,9 +261,8 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
                     saveCachedSubscriptionStatus(true, "test")
                 } else {
                     Log.d(TAG, "⚠️ No active subscription found")
-                    _subscriptionState.value = SubscriptionState.Inactive(
-                        "Aucun abonnement actif trouvé"
-                    )
+                    // ИСПРАВЛЕНО: Пустая строка вместо сообщения об ошибке
+                    _subscriptionState.value = SubscriptionState.Inactive("")
                     saveCachedSubscriptionStatus(false, "none")
                 }
             }
@@ -417,12 +417,22 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
             BillingClient.BillingResponseCode.USER_CANCELED -> {
                 Log.d(TAG, "User cancelled purchase")
                 _purchaseFlow.value = PurchaseResult.Cancelled
+                // ИСПРАВЛЕНО: Сбрасываем состояние после небольшой задержки
+                coroutineScope.launch {
+                    kotlinx.coroutines.delay(500)
+                    _purchaseFlow.value = null
+                }
             }
             else -> {
                 Log.e(TAG, "Purchase failed: ${billingResult.debugMessage}")
                 _purchaseFlow.value = PurchaseResult.Error(
                     "Erreur lors de l'achat: ${billingResult.debugMessage}"
                 )
+                // ИСПРАВЛЕНО: Сбрасываем состояние после небольшой задержки
+                coroutineScope.launch {
+                    kotlinx.coroutines.delay(500)
+                    _purchaseFlow.value = null
+                }
             }
         }
     }
@@ -451,6 +461,12 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
             _subscriptionState.value = SubscriptionState.Active(subscriptionType)
             _purchaseFlow.value = PurchaseResult.Success
             saveCachedSubscriptionStatus(true, subscriptionType)
+
+            // ИСПРАВЛЕНО: Сбрасываем состояние после обработки
+            coroutineScope.launch {
+                kotlinx.coroutines.delay(500)
+                _purchaseFlow.value = null
+            }
         }
     }
 

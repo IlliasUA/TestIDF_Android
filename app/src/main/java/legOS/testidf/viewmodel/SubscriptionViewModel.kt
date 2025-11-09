@@ -20,6 +20,9 @@ data class SubscriptionUiState(
     val purchaseSuccess: Boolean = false
 )
 
+/**
+ * ИСПРАВЛЕНО: Добавлен сброс isPurchasing при отмене покупки
+ */
 class SubscriptionViewModel(application: Application) : AndroidViewModel(application) {
 
     private val billingManager = BillingManager(application)
@@ -95,7 +98,7 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
                     }
                 }
 
-                // Подписываемся на результаты покупок
+                // ИСПРАВЛЕНО: Подписываемся на результаты покупок с правильным сбросом isPurchasing
                 launch {
                     billingManager.purchaseFlow.collect { result ->
                         when (result) {
@@ -104,7 +107,8 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
                                 _uiState.value = _uiState.value.copy(
                                     isPurchasing = false,
                                     purchaseSuccess = true,
-                                    isActive = true
+                                    isActive = true,
+                                    errorMessage = null
                                 )
                             }
                             is BillingManager.PurchaseResult.Error -> {
@@ -116,12 +120,14 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
                             }
                             is BillingManager.PurchaseResult.Cancelled -> {
                                 Log.d(TAG, "Purchase cancelled by user")
+                                // ИСПРАВЛЕНО: Сбрасываем isPurchasing и очищаем ошибки
                                 _uiState.value = _uiState.value.copy(
-                                    isPurchasing = false
+                                    isPurchasing = false,
+                                    errorMessage = null
                                 )
                             }
                             null -> {
-                                // Начальное состояние
+                                // Начальное состояние - ничего не делаем
                             }
                         }
                     }
@@ -165,6 +171,7 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
     ) {
         viewModelScope.launch {
             try {
+                // ИСПРАВЛЕНО: Сбрасываем предыдущие ошибки при новой попытке покупки
                 _uiState.value = _uiState.value.copy(
                     isPurchasing = true,
                     errorMessage = null

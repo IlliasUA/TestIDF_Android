@@ -35,7 +35,8 @@ import legOS.testidf.billing.BillingManager
 import java.io.IOException
 
 /**
- * ОБНОВЛЕНО: SubscriptionScreen с выбором между месячной и годовой подписками
+ * ОБНОВЛЕНО: SubscriptionScreen avec correction du message d'erreur
+ * ИСПРАВЛЕНО: Не показываем диалог ошибки если errorMessage пустой
  */
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -157,18 +158,20 @@ fun SubscriptionScreen(
                 )
             }
 
-            // Диалог ошибки
+            // ИСПРАВЛЕНО: Диалог ошибки - показываем только если errorMessage не пустой
             uiState.errorMessage?.let { error ->
-                AlertDialog(
-                    onDismissRequest = { viewModel.clearError() },
-                    title = { Text(stringResource(R.string.error_title)) },
-                    text = { Text(error) },
-                    confirmButton = {
-                        TextButton(onClick = { viewModel.clearError() }) {
-                            Text(stringResource(R.string.ok))
+                if (error.isNotBlank()) {
+                    AlertDialog(
+                        onDismissRequest = { viewModel.clearError() },
+                        title = { Text(stringResource(R.string.error_title)) },
+                        text = { Text(error) },
+                        confirmButton = {
+                            TextButton(onClick = { viewModel.clearError() }) {
+                                Text(stringResource(R.string.ok))
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
     }
@@ -456,7 +459,8 @@ private fun InactiveSubscriptionPortrait(
             }
         }
 
-        if (errorMessage != null) {
+        // ИСПРАВЛЕНО: Afficher l'erreur seulement si non vide
+        if (errorMessage != null && errorMessage.isNotBlank()) {
             Spacer(Modifier.height(16.dp))
 
             Card(
@@ -641,8 +645,8 @@ private fun InactiveSubscriptionLandscape(
                     }
                 }
 
-                // Ошибка (если есть)
-                if (errorMessage != null) {
+                // ИСПРАВЛЕНО: Ошибка только если не пустая
+                if (errorMessage != null && errorMessage.isNotBlank()) {
                     Card(
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.errorContainer
