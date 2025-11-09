@@ -117,7 +117,7 @@
     <string name="leave_group_title">¿Salir del grupo?</string>
     <string name="leave_group_message">¿Está seguro de que desea salir? Necesitará ingresar el código del grupo nuevamente para unirse.</string>
     <string name="leave">Salir</string>
-    <string name="tests_available">Tests disponibles</string>
+    <string name="tests_available">Tests</string>
     <string name="no_tests_message">El líder enviará un test pronto.\nSerá notificado automáticamente.</string>
     <string name="group_closed_no_tests">El grupo está cerrado.\nNo hay tests disponibles.</string>
 
@@ -197,11 +197,11 @@
     <string name="answer_label">Respuesta:</string>
 
     <!-- Creation -->
-    <string name="creation_title">Crear un test personalizado</string>
+    <string name="creation_title">Crear</string>
     <string name="select_items">Seleccione al menos 4 elementos</string>
     <string name="selected_items">%d elementos seleccionados</string>
     <string name="time_per_question">Tiempo por pregunta (segundos)</string>
-    <string name="create_test_button">Crear test</string>
+    <string name="create_test_button">Crear</string>
     <string name="test_created_success">¡Test creado exitosamente!</string>
     <string name="min_items_error">Se requieren mínimo 4 elementos para crear un test</string>
 
