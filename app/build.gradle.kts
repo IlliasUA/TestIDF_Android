@@ -25,7 +25,7 @@ android {
         applicationId = "legOS.testidf"
         minSdk = 24
         targetSdk = 35
-        versionCode = 36  // Увеличена версия для AI Assistant
+        versionCode = 37  // Увеличена версия для AI Assistant
         versionName = "1.3.0"  // Обновлена версия для AI Assistant
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -50,20 +50,12 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
-
-            // ========================================
-            // КРИТИЧНО: Отключаем удаление неиспользуемых ресурсов
-            // Google Play может удалить языковые строки если считает их "неиспользуемыми"
-            // ========================================
-            isShrinkResources = false
-
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("debug")
         }
 
         debug {
-            // Для отладки также отключаем
             isShrinkResources = false
         }
     }
