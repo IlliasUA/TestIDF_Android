@@ -89,16 +89,10 @@ class MainActivity : ComponentActivity() {
             Log.e("MainActivity", "ERROR reading strings!", e)
         }
 
-        // ✅ Включаем edge-to-edge для Android 15+
+        // ✅ ИСПРАВЛЕНО для Android 15: Современный подход к edge-to-edge
+        // Удалены все устаревшие API (systemUiVisibility, setStatusBarColor, setNavigationBarColor)
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        @Suppress("DEPRECATION")
-        window.decorView.systemUiVisibility = (
-                android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                        android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                        android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                )
 
         Log.d("MainActivity", "onCreate: Setup complete")
         Log.d("MainActivity", "========================================")
@@ -128,14 +122,8 @@ class MainActivity : ComponentActivity() {
         val currentLang = LocaleManager.getCurrentLanguage(this)
         Log.d("MainActivity", "onResume: Language = ${currentLang.code}")
 
+        // ✅ ИСПРАВЛЕНО: Только современные API для Android 15
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        @Suppress("DEPRECATION")
-        window.decorView.systemUiVisibility = (
-                android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                        android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                        android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                )
 
         Log.d("MainActivity", "onResume: Language and UI reapplied")
         Log.d("MainActivity", "========================================")
@@ -253,7 +241,7 @@ fun AppNavigation() {
             composable(
                 route = "confirmation_final_test?playerName={playerName}",
                 arguments = listOf(navArgument("playerName") { defaultValue = "Anonyme" })
-            ) { backStackEntry ->
+            )  { backStackEntry ->
                 val playerName = backStackEntry.arguments?.getString("playerName") ?: "Anonyme"
                 ConfirmationFinalTestScreen(navController, playerName)
             }
