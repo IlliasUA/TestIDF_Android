@@ -19,3 +19,38 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# ============================================
+# КРИТИЧНО: BuildConfig для API ключа Gemini
+# ============================================
+-keep class legOS.testidf.BuildConfig { *; }
+-keepclassmembers class legOS.testidf.BuildConfig {
+    public static <fields>;
+}
+
+# ============================================
+# AI Assistant / Gemini API
+# ============================================
+-keep class legOS.testidf.utils.GeminiApiClient { *; }
+-keep class legOS.testidf.utils.ChatMessage { *; }
+-keep class legOS.testidf.utils.NetworkUnavailableException { *; }
+-keep class legOS.testidf.viewmodel.AIAssistantViewModel { *; }
+
+# ============================================
+# JSON parsing (org.json)
+# ============================================
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class org.json.** { *; }
+-dontwarn org.json.**
+
+# ============================================
+# Kotlin metadata
+# ============================================
+-keep class kotlin.Metadata { *; }
+
+# ============================================
+# Firebase (если используется)
+# ============================================
+-keep class com.google.firebase.** { *; }
+-keep class com.google.android.gms.** { *; }
