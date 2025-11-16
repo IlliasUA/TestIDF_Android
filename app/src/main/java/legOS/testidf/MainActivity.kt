@@ -34,27 +34,21 @@ class MainActivity : ComponentActivity() {
 
     /**
      * КРИТИЧНО: Переопределяем attachBaseContext для применения языка
-     * Этот метод вызывается ДО onCreate() и позволяет установить язык
-     * до загрузки ресурсов
      */
     override fun attachBaseContext(newBase: Context) {
         Log.d("MainActivity", "========================================")
         Log.d("MainActivity", "attachBaseContext called")
         Log.d("MainActivity", "System locale: ${java.util.Locale.getDefault()}")
 
-        // НОВОЕ: Логируем доступные локали в ресурсах
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             val locales = newBase.resources.configuration.locales
             Log.d("MainActivity", "Available locales in resources: ${locales}")
         }
 
-        // Применяем сохраненный язык
         val context = LocaleManager.applyLanguageSimple(newBase)
-
         val currentLang = LocaleManager.getCurrentLanguage(context)
         Log.d("MainActivity", "Language applied in attachBaseContext: ${currentLang.code}")
 
-        // НОВОЕ: Проверяем что ресурсы загрузились правильно
         try {
             val testString = context.getString(R.string.app_name)
             Log.d("MainActivity", "Test string loaded: $testString")
@@ -72,15 +66,12 @@ class MainActivity : ComponentActivity() {
         Log.d("MainActivity", "========================================")
         Log.d("MainActivity", "onCreate called")
 
-        // ✅ КРИТИЧНО: Принудительно переприменяем язык в onCreate
-        // Это гарантирует корректную работу на реальных устройствах
         LocaleManager.forceApplyLanguage(this)
 
         val savedLanguage = LocaleManager.getCurrentLanguage(this)
         Log.d("MainActivity", "onCreate: Current language = ${savedLanguage.code}")
         Log.d("MainActivity", "Current Locale.getDefault() = ${java.util.Locale.getDefault().language}")
 
-        // НОВОЕ: Проверяем строки после применения языка
         try {
             val menuButton = getString(R.string.menu_button)
             val quitButton = getString(R.string.quit_button)
@@ -89,8 +80,6 @@ class MainActivity : ComponentActivity() {
             Log.e("MainActivity", "ERROR reading strings!", e)
         }
 
-        // ✅ ИСПРАВЛЕНО для Android 15: Современный подход к edge-to-edge
-        // Удалены все устаревшие API (systemUiVisibility, setStatusBarColor, setNavigationBarColor)
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
@@ -115,23 +104,17 @@ class MainActivity : ComponentActivity() {
         Log.d("MainActivity", "========================================")
         Log.d("MainActivity", "onResume called")
 
-        // ✅ Переприменяем язык при возврате в приложение
-        // Это важно для случаев, когда пользователь меняет системный язык
         LocaleManager.forceApplyLanguage(this)
 
         val currentLang = LocaleManager.getCurrentLanguage(this)
         Log.d("MainActivity", "onResume: Language = ${currentLang.code}")
 
-        // ✅ ИСПРАВЛЕНО: Только современные API для Android 15
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         Log.d("MainActivity", "onResume: Language and UI reapplied")
         Log.d("MainActivity", "========================================")
     }
 
-    /**
-     * НОВОЕ: Переопределяем onRestart для дополнительной надёжности
-     */
     override fun onRestart() {
         super.onRestart()
 
@@ -166,7 +149,7 @@ fun AppNavigation() {
             )
         }
 
-        // Стартуем с главного меню БЕЗ проверки подписки
+        // Стартуем с главного меню
         val startDestination = "main_menu"
 
         NavHost(navController, startDestination = startDestination) {
@@ -175,10 +158,9 @@ fun AppNavigation() {
                 MainMenuScreen(navController = navController)
             }
 
-            // ✅ Test menu С ПРОВЕРКОЙ ПОДПИСКИ
-            // Проверка происходит при попытке войти в Test Menu
+            // ✅ ИЗМЕНЕНО: Test menu БЕЗ ПРОВЕРКИ ПОДПИСКИ
             composable("test_menu") {
-                TestMenuScreenWithSubscription(navController, viewModel())
+                TestMenuScreen(navController)
             }
 
             // Экран подписки
@@ -187,17 +169,23 @@ fun AppNavigation() {
             }
 
             // Все остальные маршруты
+            // ✅ Creation (оба режима) С ПРОВЕРКОЙ ПОДПИСКИ
             composable("creation") {
-                CreationScreen(
-                    navController = navController,
-                    mode = CreationMode.OFFLINE
-                )
+                ScreenWithSubscription(navController, viewModel()) {
+                    CreationScreen(
+                        navController = navController,
+                        mode = CreationMode.OFFLINE
+                    )
+                }
             }
+
             composable("creation_online") {
-                CreationScreen(
-                    navController = navController,
-                    mode = CreationMode.ONLINE
-                )
+                ScreenWithSubscription(navController, viewModel()) {
+                    CreationScreen(
+                        navController = navController,
+                        mode = CreationMode.ONLINE
+                    )
+                }
             }
             composable("send_test/{sessionId}") { backStackEntry ->
                 val sessionId = backStackEntry.arguments?.getString("sessionId")
@@ -227,9 +215,14 @@ fun AppNavigation() {
             composable("participant_waiting") {
                 ParticipantWaitingScreen(navController)
             }
+
+            // ✅ Competition С ПРОВЕРКОЙ ПОДПИСКИ
             composable("competition") {
-                CompetitionRoleScreen(navController)
+                ScreenWithSubscription(navController, viewModel()) {
+                    CompetitionRoleScreen(navController)
+                }
             }
+
             composable("admin_registration") {
                 AdminRegistrationScreen(navController)
             }
@@ -237,7 +230,12 @@ fun AppNavigation() {
                 val category = backStackEntry.arguments?.getString("category") ?: ""
                 TimeSelectionScreen(navController, category)
             }
-            composable("player_name") { PlayerNameScreen(navController) }
+            // ✅ Player Name (начало Final Test) С ПРОВЕРКОЙ ПОДПИСКИ
+            composable("player_name") {
+                ScreenWithSubscription(navController, viewModel()) {
+                    PlayerNameScreen(navController)
+                }
+            }
             composable(
                 route = "confirmation_final_test?playerName={playerName}",
                 arguments = listOf(navArgument("playerName") { defaultValue = "Anonyme" })
@@ -250,20 +248,37 @@ fun AppNavigation() {
                 val timeLimit = backStackEntry.arguments?.getString("timeLimit")?.toIntOrNull() ?: 60
                 ResultsScreen(navController, category, timeLimit)
             }
+
+            // ✅ MoreInfo С ПРОВЕРКОЙ ПОДПИСКИ
             composable("more_info/{category}/{index}/{timeLimit}") { backStackEntry ->
-                val category = backStackEntry.arguments?.getString("category") ?: ""
-                val index = backStackEntry.arguments?.getString("index")?.toIntOrNull() ?: 0
-                val timeLimit = backStackEntry.arguments?.getString("timeLimit")?.toIntOrNull() ?: 60
-                MoreInfoScreen(navController, category, index, timeLimit)
+                ScreenWithSubscription(navController, viewModel()) {
+                    val category = backStackEntry.arguments?.getString("category") ?: ""
+                    val index = backStackEntry.arguments?.getString("index")?.toIntOrNull() ?: 0
+                    val timeLimit = backStackEntry.arguments?.getString("timeLimit")?.toIntOrNull() ?: 60
+                    MoreInfoScreen(navController, category, index, timeLimit)
+                }
             }
-            composable("hall_of_fame") { HallOfFameScreen(navController) }
+
+            // ✅ Hall of Fame С ПРОВЕРКОЙ ПОДПИСКИ
+            composable("hall_of_fame") {
+                ScreenWithSubscription(navController, viewModel()) {
+                    HallOfFameScreen(navController)
+                }
+            }
             composable("test/{category}/{timeLimit}") { backStackEntry ->
                 val category = backStackEntry.arguments?.getString("category") ?: ""
                 val timeLimit = backStackEntry.arguments?.getString("timeLimit")?.toIntOrNull() ?: 60
                 TestScreen(navController, category, timeLimit)
             }
             composable("info_screen") { InfoScreen(navController) }
-            composable("catalog") { CatalogScreen(navController) }
+
+            // ✅ Catalog С ПРОВЕРКОЙ ПОДПИСКИ
+            composable("catalog") {
+                ScreenWithSubscription(navController, viewModel()) {
+                    CatalogScreen(navController)
+                }
+            }
+
             composable("custom_time_selection/{questionCount}") { backStackEntry ->
                 val questionCount = backStackEntry.arguments?.getString("questionCount") ?: "0"
                 CustomTimeSelectionScreen(navController = navController, questionCount = questionCount)
@@ -284,39 +299,48 @@ fun AppNavigation() {
             composable("news_screen") {
                 NewsScreen(navController = navController)
             }
-            // AI Assistant Screen
+
+            // ✅ AI Assistant С ПРОВЕРКОЙ ПОДПИСКИ
             composable("ai_assistant") {
-                AIAssistantScreen(navController)
+                ScreenWithSubscription(navController, viewModel()) {
+                    AIAssistantScreen(navController)
+                }
             }
         }
     }
 }
 
 /**
- * Обёртка для TestMenuScreen с проверкой подписки
+ * ✅ УНИВЕРСАЛЬНАЯ ОБЁРТКА для любого экрана с проверкой подписки
  *
- * ✅ АКТИВНА: Проверяет подписку перед входом в Test Menu
+ * Использование:
+ * composable("my_screen") {
+ *     ScreenWithSubscription(navController, viewModel()) {
+ *         MyScreen(navController)
+ *     }
+ * }
  */
 @Composable
-fun TestMenuScreenWithSubscription(
+fun ScreenWithSubscription(
     navController: androidx.navigation.NavController,
-    subscriptionViewModel: SubscriptionViewModel = viewModel()
+    subscriptionViewModel: SubscriptionViewModel = viewModel(),
+    content: @Composable () -> Unit
 ) {
     val subscriptionState by subscriptionViewModel.uiState.collectAsState()
 
-    Log.d("TestMenuWithSub", "State: loading=${subscriptionState.isLoading}, active=${subscriptionState.isActive}, testMode=${subscriptionState.isTestMode}")
+    Log.d("ScreenWithSub", "State: loading=${subscriptionState.isLoading}, active=${subscriptionState.isActive}, testMode=${subscriptionState.isTestMode}")
 
     when {
         subscriptionState.isLoading -> {
-            Log.d("TestMenuWithSub", "Showing subscription check screen")
+            Log.d("ScreenWithSub", "Showing subscription check screen")
             SubscriptionScreen(navController, subscriptionViewModel)
         }
         subscriptionState.isActive || subscriptionState.isTestMode -> {
-            Log.d("TestMenuWithSub", "Subscription active, showing TestMenuScreen")
-            TestMenuScreen(navController)
+            Log.d("ScreenWithSub", "Subscription active, showing content")
+            content()
         }
         else -> {
-            Log.d("TestMenuWithSub", "No subscription, showing subscription screen")
+            Log.d("ScreenWithSub", "No subscription, showing subscription screen")
             SubscriptionScreen(navController, subscriptionViewModel)
         }
     }
