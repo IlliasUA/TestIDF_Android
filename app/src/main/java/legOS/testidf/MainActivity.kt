@@ -20,7 +20,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.view.WindowCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -80,8 +79,10 @@ class MainActivity : ComponentActivity() {
             Log.e("MainActivity", "ERROR reading strings!", e)
         }
 
+        // ✅ ИСПРАВЛЕНО для Android 15:
+        // enableEdgeToEdge() автоматически использует правильные API
+        // Больше не нужно вручную вызывать WindowCompat.setDecorFitsSystemWindows
         enableEdgeToEdge()
-        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         Log.d("MainActivity", "onCreate: Setup complete")
         Log.d("MainActivity", "========================================")
@@ -109,9 +110,7 @@ class MainActivity : ComponentActivity() {
         val currentLang = LocaleManager.getCurrentLanguage(this)
         Log.d("MainActivity", "onResume: Language = ${currentLang.code}")
 
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        Log.d("MainActivity", "onResume: Language and UI reapplied")
+        Log.d("MainActivity", "onResume: Language reapplied")
         Log.d("MainActivity", "========================================")
     }
 
