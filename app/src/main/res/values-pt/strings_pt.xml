@@ -23,6 +23,7 @@
 
     <string name="ai_error_rate_limit">Limite de requisições atingido. Tente novamente mais tarde.</string>
     <string name="ai_error_api_key">Erro de configuração. Verifique a chave API.</string>
+    <string name="ai_error_service_configuration">O serviço de IA ainda não está configurado para esta aplicação.</string>
     <string name="ai_error_network">Erro de conexão. Verifique sua conexão com a internet.</string>
 
     <!-- AI Assistant - Random offline messages (Portuguese) -->
@@ -140,7 +141,7 @@
     <string name="session_participants">%d participantes</string>
 
     <!-- TakeTestScreen -->
-    <string name="question_progress">Questão %d de %d</string>
+    <string name="question_progress">Questão %1$d de %2$d</string>
     <string name="time_remaining">%ds restantes</string>
     <string name="quit_test_title">Sair do teste?</string>
     <string name="quit_test_message">Tem certeza de que deseja sair? Seu progresso será perdido.</string>
@@ -171,7 +172,7 @@
     <string name="results_title">Resultados</string>
     <string name="your_result">Seu resultado</string>
     <string name="rank_display">Classificação: %d</string>
-    <string name="score_display">%d/%d (%d%%)</string>
+    <string name="score_display">%1$d/%2$d (%3$d%%)</string>
     <string name="no_results">Nenhum resultado disponível</string>
     <string name="group_closed_message">O líder saiu da sessão</string>
     <string name="return_to_menu">Voltar ao menu</string>
@@ -183,14 +184,14 @@
     <!-- Session results -->
     <string name="results_screen_title">Resultados</string>
     <string name="statistics_title">Estatísticas</string>
-    <string name="test_info">%d questões • %ds/questão</string>
+    <string name="test_info">%1$d questões • %2$ds/questão</string>
     <string name="stat_participants">Participantes</string>
     <string name="stat_average">Média</string>
     <string name="stat_best">Melhor</string>
     <string name="waiting_results">Aguardando resultados</string>
     <string name="test_number">Teste %d</string>
     <string name="detailed_results">Resultados detalhados</string>
-    <string name="correct_answers">%d/%d corretas</string>
+    <string name="correct_answers">%1$d/%2$d corretas</string>
     <string name="close">Fechar</string>
     <string name="details_unavailable">Detalhes indisponíveis</string>
     <string name="question_number">Questão %d</string>
@@ -270,6 +271,7 @@
     <string name="test_access">Acesso de teste</string>
     <string name="checking_subscription">Verificando assinatura...</string>
     <string name="retry_button">Tentar novamente</string>
+    <string name="result_submission_failed">Não foi possível enviar os resultados. Verifique a ligação e tente novamente.</string>
 
     <!-- Subscription Plans Cards -->
     <string name="plan_yearly_title">Plano anual</string>

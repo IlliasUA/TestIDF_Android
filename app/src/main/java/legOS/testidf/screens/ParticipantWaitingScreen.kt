@@ -9,6 +9,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Assignment
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -36,6 +38,9 @@ import java.io.IOException
 import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
+
+internal fun percentageForDisplay(percentage: Double): Int = percentage.roundToInt()
 
 @Composable
 fun ParticipantWaitingScreen(
@@ -227,7 +232,7 @@ fun PortraitLayout(
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        TabRow(
+        PrimaryTabRow(
             selectedTabIndex = selectedTab,
             modifier = Modifier.fillMaxWidth(),
             containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.0f)
@@ -246,7 +251,7 @@ fun PortraitLayout(
                 },
                 icon = {
                     Icon(
-                        Icons.Default.Assignment,
+                        Icons.AutoMirrored.Filled.Assignment,
                         null,
                         tint = if (selectedTab == 0)
                             MaterialTheme.colorScheme.primary
@@ -305,7 +310,7 @@ fun PortraitLayout(
                 contentColor = MaterialTheme.colorScheme.error
             )
         ) {
-            Icon(Icons.Default.ExitToApp, null, modifier = Modifier.size(18.dp))
+            Icon(Icons.AutoMirrored.Filled.ExitToApp, null, modifier = Modifier.size(18.dp))
             Spacer(Modifier.width(8.dp))
             Text(stringResource(R.string.leave_group_button))
         }
@@ -366,7 +371,7 @@ fun LandscapeLayout(
                     )
                 }
 
-                Divider(modifier = Modifier.padding(bottom = 12.dp))
+                HorizontalDivider(modifier = Modifier.padding(bottom = 12.dp))
 
                 if (uiState.isLoadingResults) {
                     Box(
@@ -443,7 +448,7 @@ fun LandscapeLayout(
                         modifier = Modifier.padding(bottom = 12.dp)
                     ) {
                         Icon(
-                            Icons.Default.Assignment,
+                            Icons.AutoMirrored.Filled.Assignment,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.size(28.dp)
@@ -456,7 +461,7 @@ fun LandscapeLayout(
                         )
                     }
 
-                    Divider(modifier = Modifier.padding(bottom = 12.dp))
+                    HorizontalDivider(modifier = Modifier.padding(bottom = 12.dp))
 
                     Text(
                         stringResource(R.string.welcome_participant, UserSession.userName ?: ""),
@@ -519,7 +524,7 @@ fun LandscapeLayout(
                         contentColor = MaterialTheme.colorScheme.error
                     )
                 ) {
-                    Icon(Icons.Default.ExitToApp, null, modifier = Modifier.size(18.dp))
+                    Icon(Icons.AutoMirrored.Filled.ExitToApp, null, modifier = Modifier.size(18.dp))
                     Spacer(Modifier.width(8.dp))
                     Text(stringResource(R.string.leave_group_button))
                 }
@@ -652,7 +657,7 @@ fun TestCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                Icons.Default.Assignment,
+                Icons.AutoMirrored.Filled.Assignment,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(32.dp)
@@ -788,7 +793,7 @@ fun ResultCard(
                         color = scoreColor
                     )
                     Text(
-                        stringResource(R.string.percentage_value, String.format("%.1f", result.percentage).toDouble().toInt()),
+                        stringResource(R.string.percentage_value, percentageForDisplay(result.percentage)),
                         style = MaterialTheme.typography.bodyMedium,
                         color = scoreColor.copy(alpha = 0.7f)
                     )

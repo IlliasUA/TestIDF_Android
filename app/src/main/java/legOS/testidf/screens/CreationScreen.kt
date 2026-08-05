@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -328,7 +329,7 @@ fun CreationScreen(
                                 onClick = {
                                     navController.navigateUp()
                                 }) {
-                                Icon(Icons.Default.ArrowBack, stringResource(R.string.return_tab))
+                                Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.return_tab))
                             }
 
                             Button(
@@ -398,7 +399,7 @@ fun CreationScreen(
                                         modifier = Modifier.weight(1f)
                                     ) {
                                         Icon(
-                                            imageVector = Icons.Default.ArrowBack,
+                                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                             contentDescription = null,
                                             modifier = Modifier.size(14.dp)
                                         )
@@ -567,7 +568,7 @@ fun CreationScreen(
                         onClick = {
                             navController.navigateUp()
                         }) {
-                        Icon(Icons.Default.ArrowBack, stringResource(R.string.return_tab))
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.return_tab))
                     }
 
                     Button(
@@ -677,7 +678,7 @@ fun CreationScreen(
                                 modifier = Modifier.weight(1f)
                             ) {
                                 Icon(
-                                    imageVector = Icons.Default.ArrowBack,
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                     contentDescription = null,
                                     modifier = Modifier.size(16.dp)
                                 )

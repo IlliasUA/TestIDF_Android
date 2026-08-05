@@ -1,5 +1,6 @@
 package legOS.testidf.screens
 
+import android.content.ClipData
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -15,11 +16,11 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.ClipEntry
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -30,6 +31,7 @@ import legOS.testidf.loadImageFromAssets
 import legOS.testidf.viewmodel.AdminRegistrationViewModel
 import androidx.compose.foundation.text.KeyboardOptions
 import legOS.testidf.R
+import kotlinx.coroutines.launch
 
 @Composable
 fun AdminRegistrationScreen(
@@ -39,7 +41,8 @@ fun AdminRegistrationScreen(
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-    val clipboardManager = LocalClipboardManager.current
+    val clipboard = LocalClipboard.current
+    val coroutineScope = rememberCoroutineScope()
 
     var name by rememberSaveable { mutableStateOf("") }
     var groupName by rememberSaveable { mutableStateOf("") }
@@ -388,7 +391,11 @@ fun AdminRegistrationScreen(
 
                             OutlinedButton(
                                 onClick = {
-                                    clipboardManager.setText(AnnotatedString(groupCode))
+                                    coroutineScope.launch {
+                                        clipboard.setClipEntry(
+                                            ClipEntry(ClipData.newPlainText("group_code", groupCode))
+                                        )
+                                    }
                                     showCopiedMessage = true
                                 }
                             ) {

@@ -9,7 +9,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import legOS.testidf.utils.ChatMessage
 import legOS.testidf.utils.GeminiApiClient
+import legOS.testidf.utils.AIServiceException
 import legOS.testidf.utils.NetworkUnavailableException
+import legOS.testidf.R
 import android.util.Log
 
 /**
@@ -48,7 +50,7 @@ class AIAssistantViewModel(application: Application) : AndroidViewModel(applicat
     /**
      * Отправляет сообщение пользователя и получает ответ от AI
      */
-    fun sendMessage(userMessage: String, onError: (String) -> Unit) {
+    fun sendMessage(userMessage: String, onError: (String) -> Unit = {}) {
         if (userMessage.isBlank()) return
 
         // Добавляем сообщение пользователя
@@ -62,7 +64,7 @@ class AIAssistantViewModel(application: Application) : AndroidViewModel(applicat
         // Запрашиваем ответ от AI
         viewModelScope.launch {
             try {
-                val aiResponse = geminiClient.sendMessage(userMessage, _uiState.value.messages)
+                val aiResponse = geminiClient.sendMessage(userMessage, currentMessages)
                 _uiState.value = _uiState.value.copy(
                     messages = _uiState.value.messages + ChatMessage(text = aiResponse, isUser = false),
                     isLoading = false
@@ -80,9 +82,18 @@ class AIAssistantViewModel(application: Application) : AndroidViewModel(applicat
                     isLoading = false
                 )
             } catch (e: Exception) {
-                Log.e(TAG, "Error getting AI response", e)
-                val errorMessage = e.message ?: "Unknown error"
+                Log.e(TAG, "AI request failed: ${e.javaClass.simpleName}")
+                val errorResource = when ((e as? AIServiceException)?.reason) {
+                    "rate_limit" -> R.string.ai_error_rate_limit
+                    "configuration", "app_check" -> R.string.ai_error_service_configuration
+                    else -> R.string.ai_error_generic
+                }
+                val errorMessage = getApplication<Application>().getString(errorResource)
                 _uiState.value = _uiState.value.copy(
+                    messages = _uiState.value.messages + ChatMessage(
+                        text = errorMessage,
+                        isUser = false
+                    ),
                     isLoading = false,
                     error = errorMessage
                 )

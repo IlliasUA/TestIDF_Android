@@ -21,6 +21,8 @@ class TanksHunterApplication : Application() {
         super.onCreate()
         Log.d("TanksHunterApp", "onCreate called")
 
+        configureAppCheck()
+
         // Теперь можно обновить ресурсы через applicationContext
         LocaleManager.updateApplicationResources(this)
     }
@@ -31,7 +33,7 @@ class TanksHunterApplication : Application() {
 
         // Переприменяем сохраненный язык
         val language = LocaleManager.getCurrentLanguage(this)
-        val locale = java.util.Locale(language.code)
+        val locale = java.util.Locale.forLanguageTag(language.code)
         java.util.Locale.setDefault(locale)
 
         val config = Configuration(resources.configuration)

@@ -91,7 +91,7 @@ object LocaleManager {
         Log.d(TAG, "Language saved to SharedPreferences: $success")
 
         // 2. Устанавливаем системную локаль по умолчанию
-        val locale = Locale(language.code)
+        val locale = Locale.forLanguageTag(language.code)
         Locale.setDefault(locale)
         Log.d(TAG, "Locale.setDefault set to: ${locale.language}")
 
@@ -110,7 +110,7 @@ object LocaleManager {
      */
     fun applyLanguageSimple(context: Context): Context {
         val language = getCurrentLanguage(context)
-        val locale = Locale(language.code)
+        val locale = Locale.forLanguageTag(language.code)
 
         Log.d(TAG, "applyLanguageSimple: applying ${language.code}")
 
@@ -138,7 +138,7 @@ object LocaleManager {
     fun updateApplicationResources(context: Context) {
         try {
             val language = getCurrentLanguage(context)
-            val locale = Locale(language.code)
+            val locale = Locale.forLanguageTag(language.code)
 
             Log.d(TAG, "updateApplicationResources: ${language.code}")
 
@@ -162,7 +162,7 @@ object LocaleManager {
      */
     fun forceApplyLanguage(activity: Activity) {
         val language = getCurrentLanguage(activity)
-        val locale = Locale(language.code)
+        val locale = Locale.forLanguageTag(language.code)
 
         Log.d(TAG, "forceApplyLanguage: ${language.code}")
 

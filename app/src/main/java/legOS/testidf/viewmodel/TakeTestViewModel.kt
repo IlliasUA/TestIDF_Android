@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 import com.example.quizapp.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -18,9 +17,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withTimeout
 import legOS.testidf.data.UserSession
 import legOS.testidf.data.UserSession.groupId
-import java.util.UUID
 
 data class TakeTestUiState(
     val isLoading: Boolean = false,
@@ -52,8 +51,6 @@ class TakeTestViewModel(private val sessionId: String) : ViewModel() {
 
     private val _submitResultFlow = MutableSharedFlow<Boolean>()
     val submitResultFlow: SharedFlow<Boolean> = _submitResultFlow
-
-    private var resultListener: ListenerRegistration? = null
 
     fun loadTestQuestions() {
         viewModelScope.launch {
@@ -164,13 +161,12 @@ class TakeTestViewModel(private val sessionId: String) : ViewModel() {
     fun submitTestResults() {
         if (_isSubmitting.value) return
         _isSubmitting.value = true
-        val resultId = UUID.randomUUID().toString()
-        Log.d("TakeTestVM", "Starting submission for resultId: $resultId, sessionId: $sessionId")
-
         viewModelScope.launch {
             try {
                 val userId = UserSession.userId ?: throw Exception("User not logged in")
                 val userName = UserSession.userName ?: "Anonyme"
+                val resultId = "$sessionId-$userId"
+                Log.d("TakeTestVM", "Starting submission for resultId: $resultId, sessionId: $sessionId")
 
                 val questions = _uiState.value.questions
                 var score = 0
@@ -205,74 +201,42 @@ class TakeTestViewModel(private val sessionId: String) : ViewModel() {
                     "timeSpent" to 0
                 )
 
-                firestore.collection("test_results")
-                    .document(resultId)
-                    .set(resultData)
-                    .addOnSuccessListener {
-                        Log.d("TakeTestVM", "Local write success, starting server sync monitor")
-                        monitorServerSync(resultId)
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e("TakeTestVM", "Write failure", e)
-                        _isSubmitting.value = false
-                        _submitResultFlow.tryEmit(false)
-                    }
+                withTimeout(30_000L) {
+                    firestore.collection("test_results")
+                        .document(resultId)
+                        .set(resultData)
+                        .await()
+                }
+
+                Log.d("TakeTestVM", "Server write confirmed for $resultId")
+
+                try {
+                    firestore.collection("notifications")
+                        .whereEqualTo("sessionId", sessionId)
+                        .whereEqualTo("recipientId", userId)
+                        .get()
+                        .await()
+                        .documents
+                        .forEach { doc ->
+                            doc.reference.update("isRead", true).await()
+                        }
+                } catch (e: Exception) {
+                    // The result is already safely stored; notification cleanup is secondary.
+                    Log.w("TakeTestVM", "Result saved, but notification cleanup failed", e)
+                }
+
+                _submitResultFlow.emit(true)
             } catch (e: Exception) {
-                Log.e("TakeTestVM", "Error preparing submission", e)
+                Log.e("TakeTestVM", "Result submission failed or timed out", e)
+                _submitResultFlow.emit(false)
+            } finally {
                 _isSubmitting.value = false
-                _submitResultFlow.tryEmit(false)
             }
         }
     }
 
-    private fun monitorServerSync(resultId: String) {
-        resultListener = firestore.collection("test_results")
-            .document(resultId)
-            .addSnapshotListener { snapshot, error ->
-                if (error != null) {
-                    Log.e("TakeTestVM", "Sync listener error", error)
-                    viewModelScope.launch {
-                        delay(5000L)
-                        if (_isSubmitting.value) {
-                            Log.d("TakeTestVM", "Retrying sync...")
-                        }
-                    }
-                    return@addSnapshotListener
-                }
-
-                if (snapshot != null && snapshot.exists()) {
-                    Log.d("TakeTestVM", "Server sync confirmed for $resultId")
-                    resultListener?.remove()
-                    _isSubmitting.value = false
-                    viewModelScope.launch {
-                        try {
-                            val userId = UserSession.userId ?: return@launch
-                            firestore.collection("notifications")
-                                .whereEqualTo("sessionId", sessionId)
-                                .whereEqualTo("recipientId", userId)
-                                .get()
-                                .await()
-                                .documents
-                                .forEach { doc ->
-                                    doc.reference.update("isRead", true).await()
-                                }
-                            _submitResultFlow.emit(true)
-                        } catch (e: Exception) {
-                            Log.e("TakeTestVM", "Error updating notifications", e)
-                            _submitResultFlow.emit(false)
-                        }
-                    }
-                }
-            }
-    }
-
     fun showQuitDialog(show: Boolean) {
         _showQuitConfirmation.value = show
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        resultListener?.remove()
     }
 
     private fun findQuestionByNameAndCategory(name: String, category: String): Question? {

@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -96,7 +97,7 @@ fun SessionResultsScreen(
                             onClick = { navController.navigateUp() },
                             modifier = Modifier.size(40.dp)
                         ) {
-                            Icon(Icons.Default.ArrowBack, stringResource(R.string.back_navigation))
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.back_navigation))
                         }
                         Text(
                             stringResource(R.string.session_results_title, currentSessionResults?.results?.size ?: 0),
@@ -204,7 +205,7 @@ fun SessionResultsScreen(
                                 containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
                             )
                         ) {
-                            ScrollableTabRow(
+                            PrimaryScrollableTabRow(
                                 selectedTabIndex = selectedSessionIndex,
                                 modifier = Modifier.fillMaxWidth(),
                                 containerColor = Color.Transparent,
@@ -280,7 +281,7 @@ fun SessionResultsScreen(
                         onClick = { navController.navigateUp() },
                         modifier = Modifier.size(40.dp)
                     ) {
-                        Icon(Icons.Default.ArrowBack, stringResource(R.string.back_navigation))
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.back_navigation))
                     }
                     Spacer(Modifier.width(8.dp))
                     Text(
@@ -322,7 +323,7 @@ fun SessionResultsScreen(
                             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
                         )
                     ) {
-                        ScrollableTabRow(
+                        PrimaryScrollableTabRow(
                             selectedTabIndex = selectedSessionIndex,
                             modifier = Modifier.fillMaxWidth(),
                             containerColor = Color.Transparent,
