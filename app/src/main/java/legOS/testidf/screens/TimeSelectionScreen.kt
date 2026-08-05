@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -22,7 +23,8 @@ import legOS.testidf.loadImageFromAssets
 
 @Composable
 fun TimeSelectionScreen(navController: NavController, category: String) {
-    val context = LocalContext.current
+    val context = LocalResources.current
+    val androidContext = LocalContext.current
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
@@ -42,7 +44,7 @@ fun TimeSelectionScreen(navController: NavController, category: String) {
     }
 
     // Load the background image
-    val backgroundImage = loadImageFromAssets(context, "images/background_2.jpg")
+    val backgroundImage = loadImageFromAssets(androidContext, "images/background_2.jpg")
 
     if (isLandscape) {
         // ГОРИЗОНТАЛЬНАЯ ОРИЕНТАЦИЯ

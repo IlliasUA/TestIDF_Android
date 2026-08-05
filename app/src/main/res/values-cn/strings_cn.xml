@@ -140,7 +140,7 @@
     <string name="session_participants">%d 位参与者</string>
 
     <!-- TakeTestScreen -->
-    <string name="question_progress">第 %d 题，共 %d 题</string>
+    <string name="question_progress">第 %1$d 题，共 %2$d 题</string>
     <string name="time_remaining">剩余 %d 秒</string>
     <string name="quit_test_title">退出测试？</string>
     <string name="quit_test_message">您确定要退出吗？您的进度将丢失。</string>
@@ -171,7 +171,7 @@
     <string name="results_title">结果</string>
     <string name="your_result">您的结果</string>
     <string name="rank_display">排名：%d</string>
-    <string name="score_display">%d/%d (%d%%)</string>
+    <string name="score_display">%1$d/%2$d (%3$d%%)</string>
     <string name="no_results">没有可用的结果</string>
     <string name="group_closed_message">队长已离开会话</string>
     <string name="return_to_menu">返回菜单</string>
@@ -183,14 +183,14 @@
     <!-- Session results -->
     <string name="results_screen_title">结果</string>
     <string name="statistics_title">统计</string>
-    <string name="test_info">%d 题 • %d秒/题</string>
+    <string name="test_info">%1$d 题 • %2$d秒/题</string>
     <string name="stat_participants">参与者</string>
     <string name="stat_average">平均分</string>
     <string name="stat_best">最高分</string>
     <string name="waiting_results">等待结果</string>
     <string name="test_number">测试 %d</string>
     <string name="detailed_results">详细结果</string>
-    <string name="correct_answers">%d/%d 正确</string>
+    <string name="correct_answers">%1$d/%2$d 正确</string>
     <string name="close">关闭</string>
     <string name="details_unavailable">详情不可用</string>
     <string name="question_number">问题 %d</string>
@@ -270,6 +270,7 @@
     <string name="test_access">测试访问</string>
     <string name="checking_subscription">正在检查订阅...</string>
     <string name="retry_button">重试</string>
+    <string name="result_submission_failed">无法发送结果。请检查网络连接后重试。</string>
 
     <!-- Subscription Plans Cards -->
     <string name="plan_yearly_title">年度计划</string>

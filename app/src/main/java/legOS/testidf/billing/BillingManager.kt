@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
+import legOS.testidf.BuildConfig
 
 /**
  * Менеджер для управления подписками через Google Play Billing
@@ -33,7 +33,11 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
         const val SUBSCRIPTION_MONTHLY_PRODUCT_ID = "monthly_subscription_main_1.0"
 
         // Файл для сохранения статуса подписки
-        private const val SUBSCRIPTION_CACHE_FILE = "subscription_status.txt"
+        private const val SUBSCRIPTION_CACHE_NAME = "subscription_status"
+        private const val CACHE_ACTIVE = "active"
+        private const val CACHE_TYPE = "type"
+        private const val CACHE_TIMESTAMP = "timestamp"
+        private const val CACHE_VALIDITY_DAYS = 7
     }
 
     private var billingClient: BillingClient? = null
@@ -72,18 +76,17 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
         logDeviceInfo()
 
         // Проверяем эмулятор
-        if (isRunningOnEmulator()) {
+        if (BuildConfig.DEBUG && isRunningOnEmulator()) {
             Log.d(TAG, "🟢 EMULATOR DETECTED - granting free access")
             _subscriptionState.value = SubscriptionState.TestMode
-            saveCachedSubscriptionStatus(true, "test")
             return
         }
 
         // Проверяем Google Play Services
         if (!isGooglePlayServicesAvailable()) {
-            Log.d(TAG, "🟢 GOOGLE PLAY SERVICES NOT AVAILABLE - granting free access (development mode)")
-            _subscriptionState.value = SubscriptionState.TestMode
-            saveCachedSubscriptionStatus(true, "test")
+            restoreCachedSubscriptionOrReportError(
+                "Services Google Play indisponibles. Impossible de vérifier l'abonnement."
+            )
             return
         }
 
@@ -91,7 +94,11 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
         try {
             billingClient = BillingClient.newBuilder(context)
                 .setListener(this)
-                .enablePendingPurchases()
+                .enablePendingPurchases(
+                    PendingPurchasesParams.newBuilder()
+                        .enableOneTimeProducts()
+                        .build()
+                )
                 .build()
 
             billingClient?.startConnection(object : BillingClientStateListener {
@@ -110,9 +117,9 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
                         when (billingResult.responseCode) {
                             BillingClient.BillingResponseCode.BILLING_UNAVAILABLE,
                             BillingClient.BillingResponseCode.SERVICE_UNAVAILABLE -> {
-                                Log.d(TAG, "🟢 Billing unavailable - granting TEST MODE access")
-                                _subscriptionState.value = SubscriptionState.TestMode
-                                saveCachedSubscriptionStatus(true, "test")
+                                restoreCachedSubscriptionOrReportError(
+                                    "Service d'abonnement indisponible. Réessayez plus tard."
+                                )
                             }
                             else -> {
                                 val cached = getCachedSubscriptionStatus()
@@ -135,14 +142,17 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
                     if (cached != null) {
                         _subscriptionState.value = SubscriptionState.Active(cached.second)
                     } else {
-                        _subscriptionState.value = SubscriptionState.TestMode
+                        _subscriptionState.value = SubscriptionState.Error(
+                            "Connexion au service d'abonnement interrompue."
+                        )
                     }
                 }
             })
         } catch (e: Exception) {
             Log.e(TAG, "❌ Exception during billing initialization", e)
-            _subscriptionState.value = SubscriptionState.TestMode
-            saveCachedSubscriptionStatus(true, "test")
+            restoreCachedSubscriptionOrReportError(
+                "Impossible d'initialiser le service d'abonnement."
+            )
         }
     }
 
@@ -163,10 +173,9 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
     suspend fun checkSubscriptionStatus() = withContext(Dispatchers.IO) {
         Log.d(TAG, "=== Checking subscription status ===")
 
-        if (isRunningOnEmulator()) {
+        if (BuildConfig.DEBUG && isRunningOnEmulator()) {
             Log.d(TAG, "🟢 EMULATOR detected - free access granted")
             _subscriptionState.value = SubscriptionState.TestMode
-            saveCachedSubscriptionStatus(true, "test")
             return@withContext
         }
 
@@ -179,9 +188,9 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
                 Log.d(TAG, "Using cached status: ${cached.first}")
                 _subscriptionState.value = SubscriptionState.Active(cached.second)
             } else {
-                Log.d(TAG, "🟢 Development mode - granting test access")
-                _subscriptionState.value = SubscriptionState.TestMode
-                saveCachedSubscriptionStatus(true, "test")
+                _subscriptionState.value = SubscriptionState.Error(
+                    "Service d'abonnement indisponible. Vérifiez votre connexion Internet."
+                )
             }
             return@withContext
         }
@@ -235,8 +244,6 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
             if (activePurchase != null) {
                 Log.d(TAG, "✅ Active subscription found!")
                 Log.d(TAG, "   Products: ${activePurchase.products}")
-                Log.d(TAG, "   Purchase token: ${activePurchase.purchaseToken.take(20)}...")
-                Log.d(TAG, "   Order ID: ${activePurchase.orderId}")
                 Log.d(TAG, "   Acknowledged: ${activePurchase.isAcknowledged}")
 
                 // Определяем тип подписки
@@ -276,9 +283,9 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
                 Log.d(TAG, "Using cached status due to error")
                 _subscriptionState.value = SubscriptionState.Active(cached.second)
             } else {
-                Log.d(TAG, "🟢 Error fallback - granting test access")
-                _subscriptionState.value = SubscriptionState.TestMode
-                saveCachedSubscriptionStatus(true, "test")
+                _subscriptionState.value = SubscriptionState.Error(
+                    "Impossible de vérifier l'abonnement. Vérifiez votre connexion Internet."
+                )
             }
         }
     }
@@ -441,7 +448,7 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
      * Обработка успешной покупки
      */
     private fun handlePurchase(purchase: Purchase) {
-        Log.d(TAG, "Handling purchase: ${purchase.orderId}")
+        Log.d(TAG, "Handling updated purchase")
         Log.d(TAG, "Products: ${purchase.products}")
 
         if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
@@ -542,9 +549,12 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
      */
     private fun saveCachedSubscriptionStatus(isActive: Boolean, subscriptionType: String) {
         try {
-            val file = File(context.getExternalFilesDir(null), SUBSCRIPTION_CACHE_FILE)
-            val timestamp = System.currentTimeMillis()
-            file.writeText("$isActive,$subscriptionType,$timestamp")
+            context.getSharedPreferences(SUBSCRIPTION_CACHE_NAME, Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean(CACHE_ACTIVE, isActive)
+                .putString(CACHE_TYPE, subscriptionType)
+                .putLong(CACHE_TIMESTAMP, System.currentTimeMillis())
+                .apply()
             Log.d(TAG, "Subscription status cached: active=$isActive, type=$subscriptionType")
         } catch (e: Exception) {
             Log.e(TAG, "Failed to cache subscription status", e)
@@ -557,19 +567,15 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
      */
     private fun getCachedSubscriptionStatus(): Pair<Boolean, String>? {
         try {
-            val file = File(context.getExternalFilesDir(null), SUBSCRIPTION_CACHE_FILE)
-            if (!file.exists()) return null
-
-            val content = file.readText().split(",")
-            if (content.size != 3) return null
-
-            val isActive = content[0].toBoolean()
-            val subscriptionType = content[1]
-            val timestamp = content[2].toLong()
+            val preferences = context.getSharedPreferences(SUBSCRIPTION_CACHE_NAME, Context.MODE_PRIVATE)
+            val isActive = preferences.getBoolean(CACHE_ACTIVE, false)
+            val subscriptionType = preferences.getString(CACHE_TYPE, null) ?: return null
+            val timestamp = preferences.getLong(CACHE_TIMESTAMP, 0L)
             val currentTime = System.currentTimeMillis()
             val daysPassed = (currentTime - timestamp) / (1000 * 60 * 60 * 24)
+            val isVerifiedSubscription = subscriptionType == "monthly" || subscriptionType == "annual"
 
-            return if (isActive && daysPassed < 7) {
+            return if (isActive && isVerifiedSubscription && timestamp > 0 && daysPassed >= 0 && daysPassed < CACHE_VALIDITY_DAYS) {
                 Pair(isActive, subscriptionType)
             } else {
                 null
@@ -577,6 +583,15 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
         } catch (e: Exception) {
             Log.e(TAG, "Failed to read cached subscription status", e)
             return null
+        }
+    }
+
+    private fun restoreCachedSubscriptionOrReportError(message: String) {
+        val cached = getCachedSubscriptionStatus()
+        _subscriptionState.value = if (cached != null) {
+            SubscriptionState.Active(cached.second)
+        } else {
+            SubscriptionState.Error(message)
         }
     }
 

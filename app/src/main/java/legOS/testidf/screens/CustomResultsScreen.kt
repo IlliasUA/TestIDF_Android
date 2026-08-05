@@ -787,7 +787,7 @@ private fun generateTechnicalVariations(baseName: String, number: String): List<
     val baseNameVariations = listOf(
         baseName.lowercase(),           // "s" ou "pion"
         baseName.uppercase(),           // "S" ou "PION"
-        baseName.capitalize()           // "S" ou "Pion"
+        baseName.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() } // "S" ou "Pion"
     ).distinct()
 
     // Générer les variations de casse pour number (si contient des lettres)

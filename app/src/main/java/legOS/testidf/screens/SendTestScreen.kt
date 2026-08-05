@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Assignment
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -392,7 +394,7 @@ fun SendTestScreen(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
-                            Icon(Icons.Default.Assignment, null, modifier = Modifier.size(48.dp))
+                            Icon(Icons.AutoMirrored.Filled.Assignment, null, modifier = Modifier.size(48.dp))
                             Spacer(Modifier.height(8.dp))
                             Text(noTestsCreated, style = MaterialTheme.typography.titleMedium)
                             Spacer(Modifier.height(4.dp))
@@ -462,7 +464,7 @@ fun SendTestScreen(
                         if (uiState.isSending) {
                             CircularProgressIndicator(modifier = Modifier.size(16.dp))
                         } else {
-                            Icon(Icons.Default.Send, null, modifier = Modifier.size(18.dp))
+                            Icon(Icons.AutoMirrored.Filled.Send, null, modifier = Modifier.size(18.dp))
                             Spacer(Modifier.width(4.dp))
                             Text(sendButtonLabel)
                         }
@@ -529,7 +531,7 @@ fun SendTestScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            TabRow(
+            PrimaryTabRow(
                 selectedTabIndex = selectedTab,
                 containerColor = Color.Transparent,
                 contentColor = MaterialTheme.colorScheme.onSurface
@@ -562,7 +564,7 @@ fun SendTestScreen(
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                             ) {
-                                Icon(Icons.Default.Assignment, null, modifier = Modifier.size(64.dp))
+                                Icon(Icons.AutoMirrored.Filled.Assignment, null, modifier = Modifier.size(64.dp))
                                 Spacer(Modifier.height(16.dp))
                                 Text(noTestsCreated)
                             }
@@ -681,7 +683,7 @@ fun SendTestScreen(
                     if (uiState.isSending) {
                         CircularProgressIndicator(modifier = Modifier.size(16.dp))
                     } else {
-                        Icon(Icons.Default.Send, null, modifier = Modifier.size(18.dp))
+                        Icon(Icons.AutoMirrored.Filled.Send, null, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.width(4.dp))
                         Text(sendButtonLabel)
                     }

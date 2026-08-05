@@ -1,6 +1,6 @@
 package legOS.testidf.screens
 
-import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -32,7 +32,8 @@ import legOS.testidf.loadImageFromAssets
 fun ConfirmationFinalTestScreen(navController: NavController, playerName: String) {
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
-    val windowSizeClass = calculateWindowSizeClass(activity = LocalContext.current as ComponentActivity)
+    val activity = LocalActivity.current ?: return
+    val windowSizeClass = calculateWindowSizeClass(activity = activity)
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     // Load the background image (with error handling)

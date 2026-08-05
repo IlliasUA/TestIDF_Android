@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import android.content.res.Configuration
@@ -23,12 +24,13 @@ import legOS.testidf.loadImageFromAssets
 @Composable
 fun PlayerNameScreen(navController: NavController) {
     var playerName by rememberSaveable { mutableStateOf("") }
-    val context = LocalContext.current
+    val context = LocalResources.current
+    val androidContext = LocalContext.current
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     // Load the background image
-    val backgroundBitmap = loadImageFromAssets(context, "images/background_2.jpg")
+    val backgroundBitmap = loadImageFromAssets(androidContext, "images/background_2.jpg")
 
     if (isLandscape) {
         PlayerNameLandscapeLayout(
@@ -126,7 +128,7 @@ fun PlayerNameLandscapeLayout(
     navController: NavController,
     backgroundBitmap: android.graphics.Bitmap?
 ) {
-    val context = LocalContext.current
+    val context = LocalResources.current
 
     Row(
         modifier = Modifier

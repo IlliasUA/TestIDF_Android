@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,13 +34,14 @@ import java.io.IOException
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HelpScreen(navController: NavController) {
-    val context = LocalContext.current
+    val context = LocalResources.current
+    val assetContext = LocalContext.current
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     val backgroundImage: ImageBitmap? = remember {
         try {
-            context.assets.open("images/background.png").use { inputStream ->
+            assetContext.assets.open("images/background.png").use { inputStream ->
                 BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
             }
         } catch (e: IOException) {
@@ -78,7 +81,7 @@ fun HelpScreen(navController: NavController) {
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
-                            Icons.Default.ArrowBack,
+                            Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = context.getString(R.string.back_button),
                             tint = MaterialTheme.colorScheme.onSurface
                         )

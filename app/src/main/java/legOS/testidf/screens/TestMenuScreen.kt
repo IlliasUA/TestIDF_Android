@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material.icons.filled.Help
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
@@ -201,7 +202,7 @@ fun TestMenuScreen(navController: NavController) {
                             contentColor = MaterialTheme.colorScheme.onPrimary
                         ) {
                             Icon(
-                                Icons.Default.Help,
+                                Icons.AutoMirrored.Filled.Help,
                                 contentDescription = stringResource(R.string.help_button),
                                 modifier = Modifier.size(32.dp)
                             )
@@ -262,7 +263,7 @@ fun TestMenuScreen(navController: NavController) {
                             contentColor = MaterialTheme.colorScheme.onPrimary
                         ) {
                             Icon(
-                                Icons.Default.Help,
+                                Icons.AutoMirrored.Filled.Help,
                                 contentDescription = stringResource(R.string.help_button),
                                 modifier = Modifier.size(32.dp)
                             )

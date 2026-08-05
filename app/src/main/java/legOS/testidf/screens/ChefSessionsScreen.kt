@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Assignment
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -72,7 +74,7 @@ fun ChefSessionsScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(Icons.Default.ArrowBack, "Retour")
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, "Retour")
                 }
                 Text(
                     "Mes tests",
@@ -99,7 +101,7 @@ fun ChefSessionsScreen(
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     StatItem(
-                        icon = Icons.Default.Assignment,
+                        icon = Icons.AutoMirrored.Filled.Assignment,
                         label = "Tests créés",
                         value = uiState.sessions.size.toString()
                     )
@@ -133,7 +135,7 @@ fun ChefSessionsScreen(
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(
-                            Icons.Default.Assignment,
+                            Icons.AutoMirrored.Filled.Assignment,
                             null,
                             modifier = Modifier.size(64.dp),
                             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
@@ -224,7 +226,7 @@ private fun SessionCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                Icons.Default.Assignment,
+                Icons.AutoMirrored.Filled.Assignment,
                 null,
                 modifier = Modifier.size(40.dp),
                 tint = when (session.status) {

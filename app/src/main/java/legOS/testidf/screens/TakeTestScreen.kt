@@ -71,6 +71,7 @@ fun TakeTestScreen(
     val isSubmitting by viewModel.isSubmitting
 
     var testCompleted by rememberSaveable { mutableStateOf(false) }
+    var showSubmissionError by rememberSaveable { mutableStateOf(false) }
 
     // String resources
     val loadingText = stringResource(R.string.loading)
@@ -86,8 +87,9 @@ fun TakeTestScreen(
                 navController.navigate("test_completed") {
                     popUpTo("participant_waiting") { inclusive = true }
                 }
-            } else if (isSubmitting) {
+            } else {
                 Log.e("TakeTestScreen", "Failed to submit results")
+                showSubmissionError = true
             }
         }
     }
@@ -242,6 +244,29 @@ fun TakeTestScreen(
                     }
                 }
             }
+        }
+
+        if (showSubmissionError) {
+            AlertDialog(
+                onDismissRequest = { showSubmissionError = false },
+                title = { Text(stringResource(R.string.error_title)) },
+                text = { Text(stringResource(R.string.result_submission_failed)) },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            showSubmissionError = false
+                            viewModel.submitTestResults()
+                        }
+                    ) {
+                        Text(stringResource(R.string.retry_button))
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showSubmissionError = false }) {
+                        Text(stringResource(R.string.cancel_button))
+                    }
+                }
+            )
         }
     }
 }

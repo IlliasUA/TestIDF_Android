@@ -1,4 +1,5 @@
 import java.util.Properties
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 // Load local.properties file
 val localProperties = Properties()
@@ -12,19 +13,19 @@ if (localPropertiesFile.exists()) {
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose") version "2.1.20"
+    id("org.jetbrains.kotlin.plugin.compose") version "2.2.21"
     id("com.google.gms.google-services") // Google Services для Firebase
     id("kotlin-parcelize")
 }
 
 android {
     namespace = "legOS.testidf"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "legOS.testidf"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 43  // Увеличена версия для исправления Android 15 edge-to-edge
         versionName = "1.3.0"  // Обновлена версия для AI Assistant
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -33,8 +34,6 @@ android {
         // КРИТИЧНО: Указываем все поддерживаемые языки в правильном порядке
         // Первый язык = язык по умолчанию
         // ========================================
-        resourceConfigurations += listOf("fr", "en", "es", "pt", "cn")
-
         // Add Gemini API Key to BuildConfig
         buildConfigField("String", "GEMINI_API_KEY", "\"${localProperties.getProperty("GEMINI_API_KEY", "")}\"")
     }
@@ -44,8 +43,8 @@ android {
         buildConfig = true  // ВАЖНО: Включаем BuildConfig для доступа к константам
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "2.1.20"
+    androidResources {
+        localeFilters += listOf("fr", "en", "es", "pt", "cn")
     }
 
     buildTypes {
@@ -86,72 +85,75 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
     }
 }
 
 dependencies {
     // Compose BOM для согласованности версий
-    implementation(platform("androidx.compose:compose-bom:2024.12.01"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-text")
-    implementation("androidx.compose.runtime:runtime")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.material3:material3-window-size-class")
-    implementation("androidx.compose.material:material-icons-extended")
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.text)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material3.window.size.class1)
+    implementation(libs.androidx.compose.material.icons.extended)
 
     // ОБНОВЛЕНО: Activity Compose с полной поддержкой edge-to-edge для Android 15
-    implementation("androidx.activity:activity-compose:1.9.3")
+    implementation(libs.androidx.activity.compose)
 
     // ДОБАВЛЕНО: Core для поддержки WindowCompat и системных отступов
-    implementation("androidx.core:core-ktx:1.15.0")
+    implementation(libs.androidx.core.ktx)
 
     // ===== ИСПРАВЛЕНИЕ GOOGLE PLAY WARNINGS =====
 
     // ИСПРАВЛЕНИЕ 1: Явное указание актуальной версии androidx.fragment
     // Устраняет предупреждение: "В вашем приложении используется устаревшая версия SDK androidx.fragment:fragment"
     // Обновлено с 1.0.0 до 1.8.5 (стабильная версия на декабрь 2024)
-    implementation("androidx.fragment:fragment-ktx:1.8.5")
+    implementation(libs.androidx.fragment.ktx)
 
     // ИСПРАВЛЕНИЕ 2: Явное указание актуальной версии reCAPTCHA Enterprise
     // Устраняет КРИТИЧЕСКУЮ уязвимость безопасности
     // Google требует версию 18.4.0+, используем последнюю стабильную 18.6.1
-    implementation("com.google.android.recaptcha:recaptcha:18.6.1")
+    implementation(libs.recaptcha)
 
     // ============================================
 
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.8.5")
+    implementation(libs.androidx.navigation.compose)
 
     // Coil для загрузки изображений
-    implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation(libs.coil.compose)
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.play.services)
 
     // Firebase BOM (Bill of Materials) - управляет версиями
-    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-firestore-ktx")
-    implementation("com.google.firebase:firebase-messaging-ktx")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.messaging)
 
     // Google Play Billing для подписок
-    implementation("com.android.billingclient:billing-ktx:7.1.1")
+    implementation(libs.billing.ktx)
 
     // ===== НОВОЕ: Google Gemini AI для военного ассистента =====
-    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
+    implementation(libs.generativeai)
 
     // Тесты
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.12.01"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 
     // Debug tools
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }

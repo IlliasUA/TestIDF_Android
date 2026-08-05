@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -40,7 +41,8 @@ fun AIAssistantScreen(
     navController: NavController,
     viewModel: AIAssistantViewModel = viewModel()
 ) {
-    val context = LocalContext.current
+    val context = LocalResources.current
+    val assetContext = LocalContext.current
     var inputText by remember { mutableStateOf("") }
     val scrollState = rememberLazyListState()
 
@@ -67,7 +69,7 @@ fun AIAssistantScreen(
     // ✅ NOUVEAU: Загружаем изображение AI-ассистента
     val iconAi = remember {
         try {
-            context.assets.open("images/icon_ai.webp").use { inputStream ->
+            assetContext.assets.open("images/icon_ai.webp").use { inputStream ->
                 BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
             }
         } catch (e: IOException) {
@@ -79,7 +81,7 @@ fun AIAssistantScreen(
     // ✅ NOUVEAU: Загружаем изображение для пользовательских сообщений
     val iconUser = remember {
         try {
-            context.assets.open("images/icon_ai2.webp").use { inputStream ->
+            assetContext.assets.open("images/icon_ai2.webp").use { inputStream ->
                 BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
             }
         } catch (e: IOException) {
@@ -91,7 +93,7 @@ fun AIAssistantScreen(
     // ✅ NOUVEAU: Загружаем фоновое изображение
     val backgroundImage = remember {
         try {
-            context.assets.open("images/background_2.jpg").use { inputStream ->
+            assetContext.assets.open("images/background_2.jpg").use { inputStream ->
                 BitmapFactory.decodeStream(inputStream)?.asImageBitmap()
             }
         } catch (e: IOException) {
