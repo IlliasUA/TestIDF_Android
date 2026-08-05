@@ -21,6 +21,8 @@ class TanksHunterApplication : Application() {
         super.onCreate()
         Log.d("TanksHunterApp", "onCreate called")
 
+        configureAppCheck()
+
         // Теперь можно обновить ресурсы через applicationContext
         LocaleManager.updateApplicationResources(this)
     }

@@ -23,6 +23,7 @@
 
     <string name="ai_error_rate_limit">已达到请求限制。请稍后重试。</string>
     <string name="ai_error_api_key">配置错误。请检查API密钥。</string>
+    <string name="ai_error_service_configuration">此应用尚未配置 AI 服务。</string>
     <string name="ai_error_network">连接错误。请检查您的互联网连接。</string>
 
     <!-- AI Assistant - Random offline messages (Simplified Chinese) -->

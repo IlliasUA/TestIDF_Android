@@ -23,6 +23,7 @@
 
     <string name="ai_error_rate_limit">Rate limit reached. Please try again later.</string>
     <string name="ai_error_api_key">Configuration error. Please check the API key.</string>
+    <string name="ai_error_service_configuration">The AI service is not configured for this application yet.</string>
     <string name="ai_error_network">Connection error. Check your internet connection.</string>
 
     <!-- AI Assistant - Random offline messages -->

@@ -23,6 +23,7 @@
 
     <string name="ai_error_rate_limit">Límite de solicitudes alcanzado. Por favor, inténtalo más tarde.</string>
     <string name="ai_error_api_key">Error de configuración. Por favor, verifica la clave API.</string>
+    <string name="ai_error_service_configuration">El servicio de IA aún no está configurado para esta aplicación.</string>
     <string name="ai_error_network">Error de conexión. Verifica tu conexión a Internet.</string>
 
     <!-- AI Assistant - Mensajes sin conexión aleatorios -->

@@ -1,14 +1,4 @@
-import java.util.Properties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
-// Load local.properties file
-val localProperties = Properties()
-val localPropertiesFile = rootProject.file("local.properties")
-if (localPropertiesFile.exists()) {
-    localPropertiesFile.inputStream().use { stream ->
-        localProperties.load(stream)
-    }
-}
 
 plugins {
     id("com.android.application")
@@ -26,7 +16,7 @@ android {
         applicationId = "legOS.testidf"
         minSdk = 24
         targetSdk = 36
-        versionCode = 43  // Увеличена версия для исправления Android 15 edge-to-edge
+        versionCode = 51
         versionName = "1.3.0"  // Обновлена версия для AI Assistant
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -34,8 +24,6 @@ android {
         // КРИТИЧНО: Указываем все поддерживаемые языки в правильном порядке
         // Первый язык = язык по умолчанию
         // ========================================
-        // Add Gemini API Key to BuildConfig
-        buildConfigField("String", "GEMINI_API_KEY", "\"${localProperties.getProperty("GEMINI_API_KEY", "")}\"")
     }
 
     buildFeatures {
@@ -137,14 +125,13 @@ dependencies {
     // Firebase BOM (Bill of Materials) - управляет версиями
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.ai)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.messaging)
+    releaseImplementation(libs.firebase.appcheck.playintegrity)
 
     // Google Play Billing для подписок
     implementation(libs.billing.ktx)
-
-    // ===== НОВОЕ: Google Gemini AI для военного ассистента =====
-    implementation(libs.generativeai)
 
     // Тесты
     testImplementation(libs.junit)
@@ -156,4 +143,5 @@ dependencies {
     // Debug tools
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    debugImplementation(libs.firebase.appcheck.debug)
 }
