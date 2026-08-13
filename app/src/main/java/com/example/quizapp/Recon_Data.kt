@@ -249,7 +249,7 @@ object Recon_Data {
         ),
         Question(
             image = "reco28.webp",
-            additionalImages = listOf("reco10_extra1.jpg", "reco10_extra2.jpg", "reco10_extra3.jpg", "reco10_extra4.webp"),
+            additionalImages = listOf("reco10_extra1.webp", "reco10_extra2.jpg", "reco10_extra3.jpg", "reco10_extra4.webp"),
             correct = "Grizzly",
             options = listOf("Grizzly", "Jackal", "GRF Vector", "K-1"),
             descriptionResId = R.string.recon_grizzly_desc,

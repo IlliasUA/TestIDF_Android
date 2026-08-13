@@ -78,7 +78,7 @@ object Art_Data {
         ),
         Question(
             image = "art9.jpg",
-            additionalImages = listOf("art9_extra1.webp", "art9_extra2.jpg", "art9_extra3.webp", "art9_extra4.jpg"),
+            additionalImages = listOf("art9_extra1.webp", "art9_extra2.jpg", "art9_extra3.webp"),
             correct = "122 D-30",
             options = listOf("122 D-74", "122 D-30", "122 M-30", "STZ-5"),
             descriptionResId = R.string.art_122_d30_desc,

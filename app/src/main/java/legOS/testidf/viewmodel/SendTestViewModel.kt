@@ -24,7 +24,7 @@ data class SendTestUiState(
     val groupCode: String = "",
     val isSending: Boolean = false,
     val testSent: Boolean = false,
-    val hasCompletedTests: Boolean = false,
+    val completedTestIds: Set<String> = emptySet(),
     val lastSentTestId: String? = null // ДОБАВЛЕНО
 )
 
@@ -33,15 +33,13 @@ class SendTestViewModel : ViewModel() {
     private val firestore = FirebaseFirestore.getInstance()
     private var groupListener: ListenerRegistration? = null
     private var resultsListener: ListenerRegistration? = null
-    private var currentSessionId: String? = null
 
     private val _uiState = MutableStateFlow(SendTestUiState())
     val uiState: StateFlow<SendTestUiState> = _uiState
 
-    fun loadSession(sessionId: String) {
+    fun loadSession() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
-            currentSessionId = sessionId
 
             try {
                 val groupId = UserSession.groupId
@@ -63,12 +61,9 @@ class SendTestViewModel : ViewModel() {
                         lastSentTestId = lastSentTestId
                     )
 
-                    startListeningToGroup(groupId, sessionId)
+                    startListeningToGroup(groupId)
 
-                    // ИЗМЕНЕНО: Слушаем результаты только для последнего отправленного теста
-                    if (lastSentTestId != null) {
-                        startListeningToResults(lastSentTestId)
-                    }
+                    startListeningToResults(groupId)
 
                     Log.d("SendTestVM", "Last sent test: $lastSentTestId")
                 } else {
@@ -88,7 +83,7 @@ class SendTestViewModel : ViewModel() {
         }
     }
 
-    private fun startListeningToGroup(groupId: String, sessionId: String) {
+    private fun startListeningToGroup(groupId: String) {
         groupListener?.remove()
 
         groupListener = firestore.collection("groups")
@@ -110,12 +105,6 @@ class SendTestViewModel : ViewModel() {
                         Log.d("SendTestVM", "🔄 Last sent test changed: $currentLastSent -> $lastSentTestId")
                         _uiState.value = _uiState.value.copy(lastSentTestId = lastSentTestId)
 
-                        // Переключаем слушатель результатов на новый тест
-                        if (lastSentTestId != null) {
-                            startListeningToResults(lastSentTestId)
-                        } else {
-                            _uiState.value = _uiState.value.copy(hasCompletedTests = false)
-                        }
                     }
 
                     Log.d("SendTestVM", "🔄 Group updated, participants: ${participantIds.size}")
@@ -124,24 +113,27 @@ class SendTestViewModel : ViewModel() {
             }
     }
 
-    private fun startListeningToResults(sessionId: String) {
+    private fun startListeningToResults(groupId: String) {
         resultsListener?.remove()
 
-        Log.d("SendTestVM", "📊 Listening to results for test: $sessionId")
+        Log.d("SendTestVM", "📊 Listening to completed tests for group: $groupId")
 
         resultsListener = firestore.collection("test_results")
-            .whereEqualTo("sessionId", sessionId)
+            .whereEqualTo("groupId", groupId)
             .addSnapshotListener { snapshot, error ->
                 if (error != null) {
                     Log.e("SendTestVM", "Error listening to results", error)
                     return@addSnapshotListener
                 }
 
-                val hasCompleted = snapshot != null && !snapshot.isEmpty
-                Log.d("SendTestVM", "📊 Results updated for $sessionId: hasCompleted = $hasCompleted (${snapshot?.size()} results)")
+                val completedTestIds = snapshot?.documents
+                    ?.mapNotNull { it.getString("sessionId") }
+                    ?.toSet()
+                    .orEmpty()
+                Log.d("SendTestVM", "📊 Tests with results: ${completedTestIds.size}")
 
                 _uiState.value = _uiState.value.copy(
-                    hasCompletedTests = hasCompleted
+                    completedTestIds = completedTestIds
                 )
             }
     }
@@ -294,11 +286,8 @@ class SendTestViewModel : ViewModel() {
                     isSending = false,
                     testSent = true,
                     successMessage = "Test envoyé à ${participants.size} participants",
-                    lastSentTestId = sessionId,
-                    hasCompletedTests = false
+                    lastSentTestId = sessionId
                 )
-
-                startListeningToResults(sessionId)
 
             } catch (e: Exception) {
                 Log.e("SendTestVM", "❌ ERROR sending test", e)

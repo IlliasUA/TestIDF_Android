@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -133,33 +134,43 @@ class ParticipantRegistrationViewModel : ViewModel() {
                 val groupDoc = groupQuery.documents[0]
                 val groupId = groupDoc.id
                 val groupName = groupDoc.getString("name") ?: "Groupe"
-                val participantIds = groupDoc.get("participantIds") as? MutableList<String>
-                    ?: mutableListOf()
+
+                if (groupDoc.getBoolean("isActive") == false) {
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        error = "Ce groupe n'est plus actif"
+                    )
+                    onComplete(false, null)
+                    return@launch
+                }
 
                 Log.d("ParticipantRegistrationVM", "✅ Found group: $groupId")
                 Log.d("ParticipantRegistrationVM", "Group name: $groupName")
-                Log.d("ParticipantRegistrationVM", "Current participants: ${participantIds.size}")
 
-                // Проверяем, не является ли участник уже членом группы
-                if (!participantIds.contains(currentUserId)) {
-                    participantIds.add(currentUserId)
+                // The transaction retries if the admin closes the group at the
+                // same moment. arrayUnion also prevents concurrent joins from
+                // overwriting each other's participant IDs.
+                val groupReference = firestore.collection("groups").document(groupId)
+                firestore.runTransaction { transaction ->
+                    val currentGroup = transaction.get(groupReference)
+                    check(currentGroup.exists() && currentGroup.getBoolean("isActive") != false) {
+                        "Ce groupe n'est plus actif"
+                    }
+                    transaction.update(
+                        groupReference,
+                        "participantIds",
+                        FieldValue.arrayUnion(currentUserId)
+                    )
+                }.await()
 
-                    // Обновляем список участников в группе
-                    firestore.collection("groups")
-                        .document(groupId)
-                        .update("participantIds", participantIds)
-                        .await()
+                Log.d("ParticipantRegistrationVM", "✅ Participant membership confirmed")
 
-                    Log.d("ParticipantRegistrationVM", "✅ Added user to group participants")
-                } else {
-                    Log.d("ParticipantRegistrationVM", "ℹ️ User already in group")
-                }
-
-                // КРИТИЧЕСКИ ВАЖНО: Сохраняем данные в UserSession
-                UserSession.userId = currentUserId
-                UserSession.userName = participantName
-                UserSession.userRole = "participant"
-                UserSession.groupId = groupId
+                UserSession.setParticipantSession(
+                    userId = currentUserId,
+                    name = participantName,
+                    email = "",
+                    groupId = groupId
+                )
 
                 Log.d("ParticipantRegistrationVM", "==============================================")
                 Log.d("ParticipantRegistrationVM", "✅ UserSession updated:")
@@ -207,35 +218,13 @@ class ParticipantRegistrationViewModel : ViewModel() {
                 Log.d("ParticipantRegistrationVM", "  groupId = $groupId")
 
                 if (groupId != null && userId != null) {
-                    // Проверяем существование группы
-                    val groupDoc = firestore.collection("groups")
+                    // arrayRemove is atomic and safe even when the ID is absent.
+                    firestore.collection("groups")
                         .document(groupId)
-                        .get()
+                        .update("participantIds", FieldValue.arrayRemove(userId))
                         .await()
 
-                    if (groupDoc.exists()) {
-                        Log.d("ParticipantRegistrationVM", "Group exists - removing participant")
-
-                        // Группа существует - удаляем себя из неё
-                        val participantIds = groupDoc.get("participantIds") as? MutableList<String>
-                            ?: mutableListOf()
-
-                        if (participantIds.contains(userId)) {
-                            participantIds.remove(userId)
-
-                            firestore.collection("groups")
-                                .document(groupId)
-                                .update("participantIds", participantIds)
-                                .await()
-
-                            Log.d("ParticipantRegistrationVM", "✅ Successfully removed from group")
-                        } else {
-                            Log.d("ParticipantRegistrationVM", "User not in participant list")
-                        }
-                    } else {
-                        // Группа уже не существует - это нормально
-                        Log.d("ParticipantRegistrationVM", "Group already deleted - this is normal")
-                    }
+                    Log.d("ParticipantRegistrationVM", "✅ Successfully removed from group")
 
                     // Очищаем локальные данные в любом случае
                     UserSession.clearGroupData()

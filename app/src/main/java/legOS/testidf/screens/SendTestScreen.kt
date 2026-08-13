@@ -96,6 +96,8 @@ fun SendTestScreen(
     var showExitConfirmDialog by remember { mutableStateOf(false) }
     var showSuccessMessage by remember { mutableStateOf(false) }
     var isLoadingTests by remember { mutableStateOf(false) }
+    var isClosingGroup by remember { mutableStateOf(false) }
+    var groupCloseError by remember { mutableStateOf<String?>(null) }
 
     val backgroundImage = remember {
         try {
@@ -181,97 +183,56 @@ fun SendTestScreen(
         }
     }
 
-    suspend fun deleteGroupSession() {
-        try {
-            val groupId = UserSession.groupId
-            Log.d("SendTestScreen", "==============================================")
-            Log.d("SendTestScreen", "🔴 STARTING GROUP DELETION")
-            Log.d("SendTestScreen", "Group ID: $groupId")
+    suspend fun closeGroupSession(): Result<Unit> = runCatching {
+        val groupId = requireNotNull(UserSession.groupId) { "Group ID is missing" }
+        val groupRef = firestore.collection("groups").document(groupId)
+        val groupDoc = groupRef.get().await()
 
-            if (groupId == null) {
-                Log.e("SendTestScreen", "❌ Group ID is null!")
-                return
-            }
+        if (groupDoc.exists()) {
+            // The inactive group is kept as a tombstone so sessions and results
+            // remain linked. Awaiting this write makes closing verifiable.
+            groupRef.update(
+                mapOf(
+                    "isActive" to false,
+                    "closedAt" to Timestamp.now()
+                )
+            ).await()
 
-            try {
-                firestore.collection("groups")
-                    .document(groupId)
-                    .update("isActive", false)
+            // Invitations are secondary cleanup. Group status is the source of
+            // truth, so a cleanup failure must never make the group active again.
+            runCatching {
+                val notificationSnapshot = firestore.collection("notifications")
+                    .whereEqualTo("groupId", groupId)
+                    .get()
                     .await()
-
-                Log.d("SendTestScreen", "✅ Group marked as inactive")
-            } catch (e: Exception) {
-                Log.e("SendTestScreen", "❌ Error marking group as inactive", e)
-            }
-
-            kotlinx.coroutines.delay(500)
-
-            val groupDoc = firestore.collection("groups")
-                .document(groupId)
-                .get()
-                .await()
-
-            if (!groupDoc.exists()) {
-                Log.w("SendTestScreen", "⚠️ Group document doesn't exist!")
-                return
-            }
-
-            val participantIds = groupDoc.get("participantIds") as? List<String> ?: emptyList()
-
-            Log.d("SendTestScreen", "📋 Found ${participantIds.size} participants")
-
-            if (participantIds.isNotEmpty()) {
-                Log.d("SendTestScreen", "📤 Sending ${participantIds.size} notifications...")
-
-                participantIds.forEachIndexed { index, participantId ->
-                    try {
-                        val notificationData = hashMapOf(
-                            "type" to "GROUP_CLOSED",
-                            "groupId" to groupId,
-                            "message" to "Le chef a quitté la session",
-                            "timestamp" to com.google.firebase.Timestamp.now(),
-                            "recipientId" to participantId,
-                            "isRead" to false
-                        )
-
-                        firestore.collection("notifications")
-                            .add(notificationData)
-                            .await()
-
-                        Log.d("SendTestScreen", "✅ Notification ${index + 1}/${participantIds.size} created")
-
-                    } catch (e: Exception) {
-                        Log.e("SendTestScreen", "❌ Failed to send notification to $participantId", e)
-                    }
+                val activeInvitations = notificationSnapshot.documents.filter {
+                    it.getString("type") == "test_invitation" &&
+                        (it.getBoolean("isActive") ?: false)
                 }
-
-                kotlinx.coroutines.delay(2000)
+                activeInvitations.chunked(450).forEach { chunk ->
+                    val batch = firestore.batch()
+                    chunk.forEach { document ->
+                        batch.update(
+                            document.reference,
+                            mapOf(
+                                "isActive" to false,
+                                "deactivatedAt" to Timestamp.now()
+                            )
+                        )
+                    }
+                    batch.commit().await()
+                }
+            }.onFailure { cleanupError ->
+                Log.w("SendTestScreen", "Group closed, invitation cleanup failed", cleanupError)
             }
-
-            Log.d("SendTestScreen", "🗑️ Deleting test sessions...")
-            val sessions = firestore.collection("test_sessions")
-                .whereEqualTo("groupId", groupId)
-                .get()
-                .await()
-
-            sessions.documents.forEach { session ->
-                firestore.collection("test_sessions").document(session.id).delete().await()
-            }
-
-            Log.d("SendTestScreen", "🗑️ Deleting group...")
-            firestore.collection("groups").document(groupId).delete().await()
-
-            Log.d("SendTestScreen", "✅ GROUP DELETION COMPLETED")
-            Log.d("SendTestScreen", "==============================================")
-
-        } catch (e: Exception) {
-            Log.e("SendTestScreen", "❌ ERROR in deleteGroupSession", e)
-            e.printStackTrace()
         }
+
+        UserSession.clearGroupData()
+        Log.d("SendTestScreen", "Group session closed successfully: $groupId")
     }
 
     LaunchedEffect(Unit) {
-        viewModel.loadSession(sessionId)
+        viewModel.loadSession()
         delay(500)
         loadTests()
     }
@@ -443,7 +404,7 @@ fun SendTestScreen(
                                 navController.navigate("session_results/$testId")
                             }
                         },
-                        enabled = selectedTestId != null && uiState.hasCompletedTests,
+                        enabled = selectedTestId?.let(uiState.completedTestIds::contains) == true,
                         modifier = Modifier.weight(1f)
                     ) {
                         Icon(Icons.Default.Assessment, null, modifier = Modifier.size(18.dp))
@@ -662,7 +623,7 @@ fun SendTestScreen(
                             navController.navigate("session_results/$testId")
                         }
                     },
-                    enabled = selectedTestId != null && uiState.hasCompletedTests,
+                    enabled = selectedTestId?.let(uiState.completedTestIds::contains) == true,
                     modifier = Modifier.weight(1f)
                 ) {
                     Icon(Icons.Default.Assessment, null, modifier = Modifier.size(18.dp))
@@ -734,7 +695,9 @@ fun SendTestScreen(
     // Dialog for confirming exit to main menu
     if (showExitConfirmDialog) {
         AlertDialog(
-            onDismissRequest = { showExitConfirmDialog = false },
+            onDismissRequest = {
+                if (!isClosingGroup) showExitConfirmDialog = false
+            },
             title = {
                 Text(
                     exitConfirmTitle,
@@ -742,29 +705,55 @@ fun SendTestScreen(
                 )
             },
             text = {
-                Text(
-                    exitConfirmMessage,
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                Column {
+                    Text(
+                        exitConfirmMessage,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    groupCloseError?.let { error ->
+                        Spacer(Modifier.height(12.dp))
+                        Text(error, color = MaterialTheme.colorScheme.error)
+                    }
+                }
             },
             confirmButton = {
                 Button(
                     onClick = {
                         scope.launch {
-                            deleteGroupSession()
-                            showExitConfirmDialog = false
-                            navController.navigate("test_menu") {
-                                popUpTo("test_menu") { inclusive = true }
-                            }
+                            isClosingGroup = true
+                            groupCloseError = null
+                            closeGroupSession()
+                                .onSuccess {
+                                    showExitConfirmDialog = false
+                                    navController.navigate("test_menu") {
+                                        popUpTo("test_menu") { inclusive = true }
+                                    }
+                                }
+                                .onFailure { error ->
+                                    Log.e("SendTestScreen", "Unable to close group", error)
+                                    groupCloseError = error.message ?: "Impossible de fermer le groupe"
+                                }
+                            isClosingGroup = false
                         }
                     },
+                    enabled = !isClosingGroup,
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
-                    Text(exitButtonLabel)
+                    if (isClosingGroup) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(18.dp),
+                            strokeWidth = 2.dp
+                        )
+                    } else {
+                        Text(exitButtonLabel)
+                    }
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showExitConfirmDialog = false }) {
+                TextButton(
+                    onClick = { showExitConfirmDialog = false },
+                    enabled = !isClosingGroup
+                ) {
                     Text(cancelButtonLabel)
                 }
             }

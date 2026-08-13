@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import android.util.Log
+import legOS.testidf.data.UserSession
 
 /**
  * Application класс для глобального управления локализацией
@@ -21,6 +22,7 @@ class TanksHunterApplication : Application() {
         super.onCreate()
         Log.d("TanksHunterApp", "onCreate called")
 
+        UserSession.initialize(this)
         configureAppCheck()
 
         // Теперь можно обновить ресурсы через applicationContext

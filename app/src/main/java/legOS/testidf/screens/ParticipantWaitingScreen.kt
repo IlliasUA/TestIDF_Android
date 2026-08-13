@@ -97,7 +97,7 @@ fun ParticipantWaitingScreen(
     // Group closure dialog
     if (showGroupClosedDialog) {
         AlertDialog(
-            onDismissRequest = { showGroupClosedDialog = false },
+            onDismissRequest = {},
             icon = {
                 Icon(
                     Icons.Default.Info,
@@ -134,7 +134,13 @@ fun ParticipantWaitingScreen(
             },
             confirmButton = {
                 Button(
-                    onClick = { showGroupClosedDialog = false },
+                    onClick = {
+                        UserSession.clearGroupData()
+                        showGroupClosedDialog = false
+                        navController.navigate("test_menu") {
+                            popUpTo("test_menu") { inclusive = true }
+                        }
+                    },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(stringResource(R.string.ok))
