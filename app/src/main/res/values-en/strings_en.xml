@@ -494,8 +494,8 @@
     <string name="info_terms_intellectual_subtitle">Intellectual Property</string>
     <string name="info_terms_intellectual_content">All content in the Application, including texts, images, and other elements, is protected by intellectual property laws. You may not reproduce, distribute, or use this content without express authorization, except in the context of normal use of the Application.</string>
 
-    <string name="info_terms_payment_subtitle">Payment</string>
-    <string name="info_terms_payment_content">The Application is available for free, but certain features and modes are only accessible through a monthly or annual subscription on the Google Play Store. The subscription price is indicated in the app store. The subscription renews automatically each month or year and can be cancelled at any time in Google Play settings.</string>
+    <string name="info_terms_payment_subtitle">Access</string>
+    <string name="info_terms_payment_content">The Application and all its features are available free of charge, without a paid subscription.</string>
 
     <string name="info_terms_liability_subtitle">Limitation of Liability</string>
     <string name="info_terms_liability_content">The Application is provided \"as is\". We do not guarantee that the Application will be error-free or operate without interruption. To the extent permitted by law, we will not be liable for direct, indirect, incidental, or consequential damages arising from the use of the Application.</string>

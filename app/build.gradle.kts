@@ -130,8 +130,8 @@ dependencies {
     implementation(libs.firebase.messaging)
     releaseImplementation(libs.firebase.appcheck.playintegrity)
 
-    // Google Play Billing для подписок
-    implementation(libs.billing.ktx)
+    // Платная подписка отключена.
+    // implementation(libs.billing.ktx)
 
     // Тесты
     testImplementation(libs.junit)

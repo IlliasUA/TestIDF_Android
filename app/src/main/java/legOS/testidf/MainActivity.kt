@@ -13,20 +13,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import legOS.testidf.screens.*
-import legOS.testidf.viewmodel.SubscriptionViewModel
 import java.io.IOException
 
 class MainActivity : ComponentActivity() {
@@ -162,29 +158,22 @@ fun AppNavigation() {
                 TestMenuScreen(navController)
             }
 
-            // Экран подписки
-            composable("subscription") {
-                SubscriptionScreen(navController, viewModel())
-            }
+            // Платная подписка отключена. Маршрут оплаты намеренно не регистрируется.
+            // composable("subscription") { SubscriptionScreen(navController, viewModel()) }
 
-            // Все остальные маршруты
-            // ✅ Creation (оба режима) С ПРОВЕРКОЙ ПОДПИСКИ
+            // Все функции доступны бесплатно, без проверки подписки.
             composable("creation") {
-                ScreenWithSubscription(navController, viewModel()) {
-                    CreationScreen(
-                        navController = navController,
-                        mode = CreationMode.OFFLINE
-                    )
-                }
+                CreationScreen(
+                    navController = navController,
+                    mode = CreationMode.OFFLINE
+                )
             }
 
             composable("creation_online") {
-                ScreenWithSubscription(navController, viewModel()) {
-                    CreationScreen(
-                        navController = navController,
-                        mode = CreationMode.ONLINE
-                    )
-                }
+                CreationScreen(
+                    navController = navController,
+                    mode = CreationMode.ONLINE
+                )
             }
             composable("send_test/{sessionId}") { backStackEntry ->
                 val sessionId = backStackEntry.arguments?.getString("sessionId")
@@ -215,11 +204,8 @@ fun AppNavigation() {
                 ParticipantWaitingScreen(navController)
             }
 
-            // ✅ Competition С ПРОВЕРКОЙ ПОДПИСКИ
             composable("competition") {
-                ScreenWithSubscription(navController, viewModel()) {
-                    CompetitionRoleScreen(navController)
-                }
+                CompetitionRoleScreen(navController)
             }
 
             composable("admin_registration") {
@@ -229,11 +215,8 @@ fun AppNavigation() {
                 val category = backStackEntry.arguments?.getString("category") ?: ""
                 TimeSelectionScreen(navController, category)
             }
-            // ✅ Player Name (начало Final Test) С ПРОВЕРКОЙ ПОДПИСКИ
             composable("player_name") {
-                ScreenWithSubscription(navController, viewModel()) {
-                    PlayerNameScreen(navController)
-                }
+                PlayerNameScreen(navController)
             }
             composable(
                 route = "confirmation_final_test?playerName={playerName}",
@@ -248,21 +231,15 @@ fun AppNavigation() {
                 ResultsScreen(navController, category, timeLimit)
             }
 
-            // ✅ MoreInfo С ПРОВЕРКОЙ ПОДПИСКИ
             composable("more_info/{category}/{index}/{timeLimit}") { backStackEntry ->
-                ScreenWithSubscription(navController, viewModel()) {
-                    val category = backStackEntry.arguments?.getString("category") ?: ""
-                    val index = backStackEntry.arguments?.getString("index")?.toIntOrNull() ?: 0
-                    val timeLimit = backStackEntry.arguments?.getString("timeLimit")?.toIntOrNull() ?: 60
-                    MoreInfoScreen(navController, category, index, timeLimit)
-                }
+                val category = backStackEntry.arguments?.getString("category") ?: ""
+                val index = backStackEntry.arguments?.getString("index")?.toIntOrNull() ?: 0
+                val timeLimit = backStackEntry.arguments?.getString("timeLimit")?.toIntOrNull() ?: 60
+                MoreInfoScreen(navController, category, index, timeLimit)
             }
 
-            // ✅ Hall of Fame С ПРОВЕРКОЙ ПОДПИСКИ
             composable("hall_of_fame") {
-                ScreenWithSubscription(navController, viewModel()) {
-                    HallOfFameScreen(navController)
-                }
+                HallOfFameScreen(navController)
             }
             composable("test/{category}/{timeLimit}") { backStackEntry ->
                 val category = backStackEntry.arguments?.getString("category") ?: ""
@@ -271,11 +248,8 @@ fun AppNavigation() {
             }
             composable("info_screen") { InfoScreen(navController) }
 
-            // ✅ Catalog С ПРОВЕРКОЙ ПОДПИСКИ
             composable("catalog") {
-                ScreenWithSubscription(navController, viewModel()) {
-                    CatalogScreen(navController)
-                }
+                CatalogScreen(navController)
             }
 
             composable("custom_time_selection/{questionCount}") { backStackEntry ->
@@ -299,48 +273,12 @@ fun AppNavigation() {
                 NewsScreen(navController = navController)
             }
 
-            // ✅ AI Assistant С ПРОВЕРКОЙ ПОДПИСКИ
             composable("ai_assistant") {
-                ScreenWithSubscription(navController, viewModel()) {
-                    AIAssistantScreen(navController)
-                }
+                AIAssistantScreen(navController)
             }
         }
     }
 }
 
-/**
- * ✅ УНИВЕРСАЛЬНАЯ ОБЁРТКА для любого экрана с проверкой подписки
- *
- * Использование:
- * composable("my_screen") {
- *     ScreenWithSubscription(navController, viewModel()) {
- *         MyScreen(navController)
- *     }
- * }
- */
-@Composable
-fun ScreenWithSubscription(
-    navController: androidx.navigation.NavController,
-    subscriptionViewModel: SubscriptionViewModel = viewModel(),
-    content: @Composable () -> Unit
-) {
-    val subscriptionState by subscriptionViewModel.uiState.collectAsState()
-
-    Log.d("ScreenWithSub", "State: loading=${subscriptionState.isLoading}, active=${subscriptionState.isActive}, testMode=${subscriptionState.isTestMode}")
-
-    when {
-        subscriptionState.isLoading -> {
-            Log.d("ScreenWithSub", "Showing subscription check screen")
-            SubscriptionScreen(navController, subscriptionViewModel)
-        }
-        subscriptionState.isActive || subscriptionState.isTestMode -> {
-            Log.d("ScreenWithSub", "Subscription active, showing content")
-            content()
-        }
-        else -> {
-            Log.d("ScreenWithSub", "No subscription, showing subscription screen")
-            SubscriptionScreen(navController, subscriptionViewModel)
-        }
-    }
-}
+// Платная подписка отключена: прежняя ScreenWithSubscription удалена из активного
+// кода, и маршруты выше напрямую открывают соответствующие экраны.

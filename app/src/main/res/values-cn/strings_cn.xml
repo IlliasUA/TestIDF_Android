@@ -494,8 +494,8 @@
     <string name="info_terms_intellectual_subtitle">知识产权</string>
     <string name="info_terms_intellectual_content">应用程序中的所有内容，包括文本、图像和其他元素，均受知识产权法保护。除了应用程序的正常使用外，您不得在未经明确授权的情况下复制、分发或使用此内容。</string>
 
-    <string name="info_terms_payment_subtitle">付款</string>
-    <string name="info_terms_payment_content">本应用程序可免费使用，但某些功能和模式仅通过Google Play商店的月度或年度订阅才能访问。订阅价格在应用商店中标明。订阅每月或每年自动续订，可随时在Google Play设置中取消。</string>
+    <string name="info_terms_payment_subtitle">访问</string>
+    <string name="info_terms_payment_content">本应用及其所有功能均可免费使用，无需付费订阅。</string>
 
     <string name="info_terms_liability_subtitle">责任限制</string>
     <string name="info_terms_liability_content">应用程序按"原样"提供。我们不保证应用程序将无错误或不间断运行。在法律允许的范围内，我们不对因使用应用程序而产生的直接、间接、偶然或后果性损害负责。</string>

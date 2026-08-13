@@ -1,3 +1,6 @@
+/*
+ * ПЛАТНАЯ ПОДПИСКА ОТКЛЮЧЕНА.
+ * Экран оплаты сохранён в комментарии на случай будущего восстановления функции.
 package legOS.testidf.screens
 
 import android.graphics.BitmapFactory
@@ -176,6 +179,7 @@ fun SubscriptionScreen(
         }
     }
 }
+
 @Composable
 private fun LoadingContent() {
     Box(
@@ -800,3 +804,4 @@ private fun FeatureItem(text: String) {
         )
     }
 }
+*/

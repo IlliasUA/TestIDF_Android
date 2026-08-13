@@ -1,3 +1,6 @@
+/*
+ * ПЛАТНАЯ ПОДПИСКА ОТКЛЮЧЕНА.
+ * ViewModel сохранена в комментарии на случай будущего восстановления функции.
 package legOS.testidf.viewmodel
 
 import android.app.Activity
@@ -210,3 +213,4 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
         Log.d(TAG, "ViewModel cleared")
     }
 }
+*/

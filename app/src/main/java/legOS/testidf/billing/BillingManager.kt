@@ -1,3 +1,6 @@
+/*
+ * ПЛАТНАЯ ПОДПИСКА ОТКЛЮЧЕНА.
+ * Код сохранён в комментарии на случай будущего восстановления функции.
 package legOS.testidf.billing
 
 import android.app.Activity
@@ -604,3 +607,4 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
         Log.d(TAG, "BillingManager destroyed")
     }
 }
+*/

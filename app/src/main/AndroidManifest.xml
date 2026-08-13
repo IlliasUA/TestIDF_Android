@@ -4,8 +4,8 @@
     <!-- Разрешение для интернета (для проверки подписки) -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- Разрешение для Google Play Billing -->
-    <uses-permission android:name="com.android.vending.BILLING" />
+    <!-- Платная подписка отключена. -->
+    <!-- <uses-permission android:name="com.android.vending.BILLING" /> -->
 
     <application
         android:name=".TanksHunterApplication"
