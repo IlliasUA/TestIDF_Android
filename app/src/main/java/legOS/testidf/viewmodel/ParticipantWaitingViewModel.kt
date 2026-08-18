@@ -56,11 +56,15 @@ class ParticipantWaitingViewModel : ViewModel() {
 
         notificationListener?.remove()
 
+        val groupId = UserSession.groupId
+        if (groupId == null) {
+            _uiState.value = _uiState.value.copy(availableTests = emptyList())
+            return
+        }
+
         notificationListener = firestore.collection("notifications")
             .whereEqualTo("recipientId", userId)
-            .whereEqualTo("isRead", false)
-            .whereEqualTo("isActive", true)
-            .whereEqualTo("type", "test_invitation")
+            .whereEqualTo("groupId", groupId)
             .addSnapshotListener { snapshot, error ->
                 if (error != null) {
                     Log.e("ParticipantWaitingVM", "❌ Listen failed", error)
@@ -81,7 +85,13 @@ class ParticipantWaitingViewModel : ViewModel() {
                     viewModelScope.launch {
                         val tests = mutableListOf<AvailableTest>()
 
-                        snapshot.documents.forEach { doc ->
+                        snapshot.documents
+                            .filter { doc ->
+                                doc.getString("type") == "test_invitation" &&
+                                    doc.getBoolean("isRead") != true &&
+                                    doc.getBoolean("isActive") == true
+                            }
+                            .forEach { doc ->
                             val sessionId = doc.getString("sessionId")
                             val isActive = doc.getBoolean("isActive") ?: false
 
@@ -96,7 +106,9 @@ class ParticipantWaitingViewModel : ViewModel() {
                                         .get()
                                         .await()
 
-                                    if (sessionDoc.exists()) {
+                                    val belongsToCurrentGroup = sessionDoc.getString("groupId") == groupId
+                                    val wasPublished = sessionDoc.getString("status") == "published"
+                                    if (sessionDoc.exists() && belongsToCurrentGroup && wasPublished) {
                                         val title = sessionDoc.getString("title") ?: "Test"
                                         val questionRefs = sessionDoc.get("questionRefs") as? List<*> ?: emptyList<Any>()
                                         val timeLimit = (sessionDoc.getLong("timeLimit") ?: 15).toInt()

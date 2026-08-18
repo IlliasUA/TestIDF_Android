@@ -13,7 +13,6 @@ import legOS.testidf.R
 import legOS.testidf.screens.Answer
 import legOS.testidf.screens.ParticipantResult
 import legOS.testidf.screens.SessionResultGroup
-import java.text.SimpleDateFormat
 import java.util.*
 
 data class SessionResultsUiState(
@@ -102,55 +101,27 @@ class SessionResultsViewModel : ViewModel() {
 
                 Log.d("SessionResultsVM", "Successfully parsed: ${resultsWithTimestamps.size} results")
 
-                // Группируем по временным интервалам (30 секунд)
-                val groupedByTimeWindow = mutableMapOf<Long, MutableList<ParticipantResult>>()
+                // Every completion belongs to this test, regardless of when a participant
+                // finished. Build one leaderboard and use completion time as a tie-breaker.
+                val sortedResults = resultsWithTimestamps
+                    .sortedWith(
+                        compareByDescending<Triple<Long, ParticipantResult, String>> { it.second.percentage }
+                            .thenBy { it.first }
+                            .thenBy { it.second.participantName }
+                    )
+                    .mapIndexed { index, (_, result, _) -> result.copy(rank = index + 1) }
 
-                resultsWithTimestamps.forEach { (timestamp, result, docId) ->
-                    // Округляем до 30-секундного окна
-                    val timeWindow = (timestamp / 30000) * 30000
-
-                    Log.d("SessionResultsVM", "Mapping $docId to window: ${Date(timeWindow)}")
-
-                    if (!groupedByTimeWindow.containsKey(timeWindow)) {
-                        groupedByTimeWindow[timeWindow] = mutableListOf()
-                    }
-                    groupedByTimeWindow[timeWindow]!!.add(result)
-                }
-
-                Log.d("SessionResultsVM", "Created ${groupedByTimeWindow.size} time windows")
-
-                // Создаем группы сессий
-                val sessionGroups = groupedByTimeWindow.entries
-                    .sortedBy { it.key }
-                    .map { (timeWindow, participants) ->
-                        Log.d("SessionResultsVM", "Processing window ${Date(timeWindow)} with ${participants.size} participants")
-
-                        // Сортируем по баллам и присваиваем ранги
-                        val sortedResults = participants
-                            .sortedByDescending { it.percentage }
-                            .mapIndexed { index, result ->
-                                result.copy(rank = index + 1)
-                            }
-
-                        val averageScore = if (sortedResults.isNotEmpty()) {
-                            sortedResults.map { it.percentage }.average().toInt()
-                        } else 0
-
-                        val bestScore = sortedResults.firstOrNull()?.percentage ?: 0
-
-                        val adjustedTime = timeWindow + (2 * 60 * 60 * 1000) // +2 часа
-                        val timeString = SimpleDateFormat("dd/MM HH:mm", Locale.getDefault())
-                            .format(Date(adjustedTime))
-
-                        Log.d("SessionResultsVM", "Created group: $timeString, ${sortedResults.size} participants, avg: $averageScore%, best: $bestScore%")
-
+                val sessionGroups = if (sortedResults.isEmpty()) {
+                    emptyList()
+                } else {
+                    listOf(
                         SessionResultGroup(
-                            timestamp = timeString,
                             results = sortedResults,
-                            averageScore = averageScore,
-                            bestScore = bestScore
+                            averageScore = sortedResults.map { it.percentage }.average().toInt(),
+                            bestScore = sortedResults.first().percentage
                         )
-                    }
+                    )
+                }
 
                 Log.d("SessionResultsVM", "=== Final result: ${sessionGroups.size} groups ===")
                 sessionGroups.forEachIndexed { index, group ->

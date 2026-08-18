@@ -209,6 +209,9 @@ class SendTestViewModel : ViewModel() {
                     .await()
 
                 val testTitle = sessionDoc.getString("title") ?: "Test"
+                check(sessionDoc.getString("groupId") == groupId) {
+                    "Ce test n'appartient pas au groupe actif"
+                }
                 Log.d("SendTestVM", "Test title: $testTitle")
 
                 // Деактивируем старые уведомления
@@ -221,7 +224,7 @@ class SendTestViewModel : ViewModel() {
 
                     val oldNotifications = firestore.collection("notifications")
                         .whereEqualTo("sessionId", previousTestId)
-                        .whereEqualTo("type", "test_invitation")
+                        .whereEqualTo("groupId", groupId)
                         .get()
                         .await()
 
@@ -241,6 +244,19 @@ class SendTestViewModel : ViewModel() {
                 } else {
                     Log.d("SendTestVM", "No previous test to deactivate")
                 }
+
+                // A created test remains private to the chef until this explicit send action.
+                // Publish first so an invitation snapshot can never point to a still-private test.
+                firestore.collection("test_sessions")
+                    .document(sessionId)
+                    .update(
+                        mapOf(
+                            "status" to "published",
+                            "publishedAt" to com.google.firebase.Timestamp.now(),
+                            "participantIds" to participants.map { it.id }
+                        )
+                    )
+                    .await()
 
                 // Отправляем новые уведомления
                 Log.d("SendTestVM", "📨 Creating new notifications...")

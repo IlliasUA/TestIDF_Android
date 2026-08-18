@@ -1,6 +1,5 @@
 package legOS.testidf.screens
 
-import com.google.firebase.Timestamp
 import kotlinx.coroutines.delay
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
@@ -30,12 +29,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.activity.compose.BackHandler
 import androidx.navigation.NavController
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import legOS.testidf.data.UserSession
 import legOS.testidf.viewmodel.Participant
+import legOS.testidf.repository.GroupSessionRepository
 import legOS.testidf.viewmodel.SendTestViewModel
 import legOS.testidf.R
 import java.io.IOException
@@ -185,50 +186,13 @@ fun SendTestScreen(
 
     suspend fun closeGroupSession(): Result<Unit> = runCatching {
         val groupId = requireNotNull(UserSession.groupId) { "Group ID is missing" }
-        val groupRef = firestore.collection("groups").document(groupId)
-        val groupDoc = groupRef.get().await()
-
-        if (groupDoc.exists()) {
-            // The inactive group is kept as a tombstone so sessions and results
-            // remain linked. Awaiting this write makes closing verifiable.
-            groupRef.update(
-                mapOf(
-                    "isActive" to false,
-                    "closedAt" to Timestamp.now()
-                )
-            ).await()
-
-            // Invitations are secondary cleanup. Group status is the source of
-            // truth, so a cleanup failure must never make the group active again.
-            runCatching {
-                val notificationSnapshot = firestore.collection("notifications")
-                    .whereEqualTo("groupId", groupId)
-                    .get()
-                    .await()
-                val activeInvitations = notificationSnapshot.documents.filter {
-                    it.getString("type") == "test_invitation" &&
-                        (it.getBoolean("isActive") ?: false)
-                }
-                activeInvitations.chunked(450).forEach { chunk ->
-                    val batch = firestore.batch()
-                    chunk.forEach { document ->
-                        batch.update(
-                            document.reference,
-                            mapOf(
-                                "isActive" to false,
-                                "deactivatedAt" to Timestamp.now()
-                            )
-                        )
-                    }
-                    batch.commit().await()
-                }
-            }.onFailure { cleanupError ->
-                Log.w("SendTestScreen", "Group closed, invitation cleanup failed", cleanupError)
-            }
-        }
-
+        GroupSessionRepository(firestore).closeAndDeleteGroup(groupId)
         UserSession.clearGroupData()
-        Log.d("SendTestScreen", "Group session closed successfully: $groupId")
+        Log.d("SendTestScreen", "Group and all group data deleted: $groupId")
+    }
+
+    BackHandler(enabled = !showExitConfirmDialog) {
+        showExitConfirmDialog = true
     }
 
     LaunchedEffect(Unit) {
@@ -257,7 +221,7 @@ fun SendTestScreen(
 
     if (isLandscape) {
         // LANDSCAPE MODE
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .then(
@@ -266,9 +230,37 @@ fun SendTestScreen(
                     } ?: Modifier.background(MaterialTheme.colorScheme.background)
                 )
                 .systemBarsPadding()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(16.dp)
         ) {
+            PrimaryTabRow(
+                selectedTabIndex = if (selectedTab == 2) 1 else 0,
+                containerColor = Color.Transparent
+            ) {
+                Tab(
+                    selected = selectedTab != 2,
+                    onClick = { selectedTab = 0 },
+                    text = { Text("$testsLabel / $participantsLabel") },
+                    icon = { Icon(Icons.Default.Groups, null) }
+                )
+                Tab(
+                    selected = selectedTab == 2,
+                    onClick = { selectedTab = 2 },
+                    text = { Text("$resultsButtonLabel (${uiState.completedTestIds.size})") },
+                    icon = { Icon(Icons.Default.Leaderboard, null) }
+                )
+            }
+            Spacer(Modifier.height(12.dp))
+
+            if (selectedTab == 2) {
+                ChefResultsTab(
+                    tests = availableTests.filter { it.id in uiState.completedTestIds },
+                    onOpenResults = { navController.navigate("session_results/$it") },
+                    modifier = Modifier.fillMaxWidth().weight(1f)
+                )
+            } else Row(
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
             Column(modifier = Modifier.weight(0.5f).fillMaxHeight()) {
                 Text("$participantsLabel (${uiState.participants.size})", style = MaterialTheme.typography.titleLarge)
                 Spacer(Modifier.height(12.dp))
@@ -432,6 +424,7 @@ fun SendTestScreen(
                     }
                 }
             }
+            }
         }
     } else {
         // PORTRAIT MODE
@@ -506,6 +499,11 @@ fun SendTestScreen(
                     selected = selectedTab == 1,
                     onClick = { selectedTab = 1 },
                     text = { Text("$participantsLabel (${uiState.participants.size})") }
+                )
+                Tab(
+                    selected = selectedTab == 2,
+                    onClick = { selectedTab = 2 },
+                    text = { Text("$resultsButtonLabel (${uiState.completedTestIds.size})") }
                 )
             }
 
@@ -595,6 +593,11 @@ fun SendTestScreen(
                         }
                     }
                 }
+                2 -> ChefResultsTab(
+                    tests = availableTests.filter { it.id in uiState.completedTestIds },
+                    onOpenResults = { navController.navigate("session_results/$it") },
+                    modifier = Modifier.fillMaxWidth().weight(1f)
+                )
             }
 
             Spacer(Modifier.height(16.dp))
@@ -758,6 +761,85 @@ fun SendTestScreen(
                 }
             }
         )
+    }
+}
+
+@Composable
+private fun ChefResultsTab(
+    tests: List<TestSession>,
+    onOpenResults: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.75f)
+        )
+    ) {
+        if (tests.isEmpty()) {
+            Column(
+                modifier = Modifier.fillMaxSize().padding(32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Icon(
+                    Icons.Default.Leaderboard,
+                    contentDescription = null,
+                    modifier = Modifier.size(64.dp),
+                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f)
+                )
+                Spacer(Modifier.height(16.dp))
+                Text(
+                    stringResource(R.string.no_results),
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                )
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize().padding(12.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                item {
+                    Text(
+                        stringResource(R.string.results_title),
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(4.dp)
+                    )
+                }
+                items(tests, key = { it.id }) { test ->
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { onOpenResults(test.id) },
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer
+                        )
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(Icons.Default.Assessment, null, modifier = Modifier.size(32.dp))
+                            Spacer(Modifier.width(12.dp))
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(test.title, style = MaterialTheme.typography.titleMedium)
+                                Text(
+                                    stringResource(
+                                        R.string.questions_with_time,
+                                        test.questionCount,
+                                        test.timeLimit
+                                    ),
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                            }
+                            Icon(Icons.Default.ChevronRight, null)
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

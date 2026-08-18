@@ -59,8 +59,8 @@ class AdminRegistrationViewModel : ViewModel() {
 
                 Log.d("AdminRegVM", "Admin user document created in Firestore")
 
-                // 3. Генерируем код группы
-                val groupCode = generateGroupCode()
+                // 3. Генерируем уникальный код группы
+                val groupCode = generateUniqueGroupCode()
 
                 // 4. Создаем группу
                 val groupId = UUID.randomUUID().toString()
@@ -114,12 +114,20 @@ class AdminRegistrationViewModel : ViewModel() {
     }
 
     /**
-     * Генерирует 6-значный код группы
+     * Генерирует 6-значный код группы, уникальный среди активных групп
+     * (та же логика повторных попыток, что и в iOS-версии).
      */
-    private fun generateGroupCode(): String {
+    private suspend fun generateUniqueGroupCode(): String {
         val chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
-        return (1..6)
-            .map { chars.random() }
-            .joinToString("")
+        repeat(10) {
+            val candidate = (1..6).map { chars.random() }.joinToString("")
+            val existing = firestore.collection("groups")
+                .whereEqualTo("groupCode", candidate)
+                .limit(1)
+                .get()
+                .await()
+            if (existing.isEmpty) return candidate
+        }
+        throw Exception("Impossible de générer un code de groupe unique")
     }
 }
