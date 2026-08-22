@@ -35,7 +35,9 @@ Donne des réponses techniquement exactes, structurées et concises. Admets fran
     }
 
     private val model by lazy {
-        Firebase.ai(backend = GenerativeBackend.googleAI())
+        // Use Agent Platform (formerly Vertex AI) so requests are billed through the
+        // Firebase project's regular Cloud Billing account instead of AI Studio Prepay.
+        Firebase.ai(backend = GenerativeBackend.vertexAI(location = "global"))
             .generativeModel(MODEL_NAME)
     }
 
